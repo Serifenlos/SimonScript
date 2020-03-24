@@ -61,13 +61,46 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"/source/_functions/_zoom.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_functions/_zoom.js",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"/source/A__psScripts/functions/basic.jsx": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
-		"mi": 0,
+		"mi": 1,
 		"oA": 0,
 		"oAP": "/build/A__psScripts/functions/basic.jsx",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/A__psScripts/functions/zoom.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/A__psScripts/functions/zoom.jsx",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/A__psScripts/test.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/A__psScripts/test.jsx",
 		"oF": 0,
 		"sC": 0,
 		"tS": 0
@@ -2224,7 +2257,7 @@
 			"flagValue": -1
 			},
 		"comments": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"comparisons": {
