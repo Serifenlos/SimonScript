@@ -9,6 +9,8 @@
 */
 
 //@include "functions/basic.jsx";
+//@include "functions/LUT-dodge.jsx";
+//@include "functions/LUT-burn.jsx";
 
 smartObject();
 nameLayer("Original");
@@ -20,8 +22,8 @@ deleteMask()
 createLayer("curves", "normal", "Gradation neutral", "gray")
 deleteMask()
 createGroup("Dodge & Burn")
-createLayer("colorLookup", "normal", "Burn", "gray")
-createLayer("colorLookup", "normal", "Dodge", "gray")
+LUT_burn()
+LUT_dodge()
 selectLayerUp()
 selectLayerUp()
 createLayer("selectiveColor", "normal", "Selektive Farbe", "violet")

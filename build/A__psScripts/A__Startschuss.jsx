@@ -8,7 +8,9 @@
 // END__HARVEST_EXCEPTION_ZSTRING
 */
 //@include "functions/basic.jsx";
-smartObject(),nameLayer("Original"),createGroup("Einstellungen"),createLayer("levels","normal","AutoTonwert","gray",!0),deleteMask(),createLayer("curves","normal","Gradation neutral","gray"),deleteMask(),createGroup("Dodge & Burn"),createLayer("colorLookup","normal","Burn","gray"),createLayer("colorLookup","normal","Dodge","gray"),selectLayerUp(),selectLayerUp(),createLayer("selectiveColor","normal","Selektive Farbe","violet"),createLayer("hueSaturation","normal","Sättigung Farbe","blue"),createLayer("hueSaturation","luminosity","Sättigung Luminanz","green"),createLayer("colorBalance","normal","Farbe in Balance","yellowColor"),createLayer("curves","normal","Gradation Kontrast","orange"),createLayer("brightnessEvent","normal","Hell + Kontrast","red"),createLayer("vibrance","normal","Dynamik","orange");
+//@include "functions/LUT-dodge.jsx";
+//@include "functions/LUT-burn.jsx";
+smartObject(),nameLayer("Original"),createGroup("Einstellungen"),createLayer("levels","normal","AutoTonwert","gray",!0),deleteMask(),createLayer("curves","normal","Gradation neutral","gray"),deleteMask(),createGroup("Dodge & Burn"),LUT_burn(),LUT_dodge(),selectLayerUp(),selectLayerUp(),createLayer("selectiveColor","normal","Selektive Farbe","violet"),createLayer("hueSaturation","normal","Sättigung Farbe","blue"),createLayer("hueSaturation","luminosity","Sättigung Luminanz","green"),createLayer("colorBalance","normal","Farbe in Balance","yellowColor"),createLayer("curves","normal","Gradation Kontrast","orange"),createLayer("brightnessEvent","normal","Hell + Kontrast","red"),createLayer("vibrance","normal","Dynamik","orange");
 // createLayer("colorLookup", "normal", "Burn", "gray")
 // createColorLayer("normal", "WEISS", "none", 25levels5, 255, 0);
 // deleteMask();
