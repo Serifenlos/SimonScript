@@ -25,6 +25,14 @@
 		"oAP": "/build/.gitignore",
 		"oF": 0
 		},
+	"/.vscode/launch.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/build/.vscode/launch-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"/build": {
 		"ft": 65536,
 		"oA": 1,
@@ -50,6 +58,66 @@
 		"rFN": 0,
 		"uCM": 0
 		},
+	"/source/_assets/burn.kit": {
+		"cB": 0,
+		"ft": 2048,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/source/_functions/_LUT-burn.js",
+		"oF": 2
+		},
+	"/source/_assets/burn_fileData.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_assets/burn_fileData.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/_assets/burn_idprofile.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_assets/burn_idprofile.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/_assets/dodge.kit": {
+		"cB": 0,
+		"ft": 2048,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/source/_functions/_LUT-dodge.js",
+		"oF": 2
+		},
+	"/source/_assets/dodge_fileData.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_assets/dodge_fileData.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/_assets/dodge_idprofile.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_assets/dodge_idprofile.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
 	"/source/_functions/_basic.js": {
 		"bF": 0,
 		"ft": 64,
@@ -58,6 +126,28 @@
 		"oA": 1,
 		"oAP": "/build/_functions/_basic.js",
 		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/_functions/_LUT-burn.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_functions/_LUT-burn.js",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/_functions/_LUT-dodge.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/build/_functions/_LUT-dodge.js",
+		"oF": 0,
 		"sC": 0,
 		"tS": 0
 		},
@@ -105,6 +195,28 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"/source/A__psScripts/functions/LUT-burn.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/A__psScripts/functions/LUT-burn.jsx",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"/source/A__psScripts/functions/LUT-dodge.jsx": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/A__psScripts/functions/LUT-dodge.jsx",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"/source/A__psScripts/functions/zoom.jsx": {
 		"bF": 0,
 		"ft": 64,
@@ -116,13 +228,13 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"/source/A__psScripts/test.jsx": {
+	"/source/A__psScripts/test__dev.jsx": {
 		"bF": 0,
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/build/A__psScripts/test.jsx",
+		"oAP": "/build/A__psScripts/test__dev.jsx",
 		"oF": 0,
 		"sC": 0,
 		"tS": 0
@@ -2391,7 +2503,7 @@
 			"flagValue": -1
 			},
 		"max_line_len": {
-			"active": 1,
+			"active": 0,
 			"flagValue": 32000
 			},
 		"module": {

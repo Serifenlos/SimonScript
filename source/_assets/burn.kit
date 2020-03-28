@@ -1,0 +1,19 @@
+function LUT_burn() {
+    createLayer("colorLookup", "normal", "Burn", "gray");
+    // Invert Mask
+    executeAction(sTID('invert'), undefined, DialogModes.NO);
+  
+    var desc6 = new ActionDescriptor();
+    var ref2 = new ActionReference();
+    ref2.putEnumerated( sTID('adjustmentLayer'), sTID('ordinal'), sTID('targetEnum') );
+    desc6.putReference( sTID('null'), ref2 );
+    var desc7 = new ActionDescriptor();
+    desc7.putEnumerated( sTID('lookupType'), sTID('colorLookupType'), sTID('3DLUT') );
+    desc7.putString( sTID('name'), "Burn" );
+    desc7.putData( sTID('profile'), String.fromCharCode(<!-- @import "burn_idprofile.js" -->));
+    desc7.putData( sTID('LUT3DFileData'), String.fromCharCode(<!-- @import "burn_fileData.js" -->));
+    desc6.putObject( sTID('to'), sTID('colorLookup'), desc7 );
+    executeAction( sTID('set'), desc6,DialogModes.NO );
+  }
+
+//   function createLayer(_type, _mode, _name, _color, _autoLevel) {
