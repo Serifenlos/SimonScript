@@ -1,6 +1,6 @@
 function LUT_dodge() {
-    createLayer("colorLookup", "normal", "Dodge", "gray");
-    // Invert Mask
+    createLayer("Dodge", "colorLookup", "normal", "gray", 100, false, false);
+
     executeAction(sTID('invert'), undefined, DialogModes.NO);
 
     var desc6 = new ActionDescriptor();
@@ -11,7 +11,9 @@ function LUT_dodge() {
     desc7.putEnumerated( sTID('lookupType'), sTID('colorLookupType'), sTID('3DLUT') );
     desc7.putString( sTID('name'), "Dodge" );
     desc7.putData( sTID('profile'), String.fromCharCode(<!-- @import "dodge_idprofile.js" -->));
-    desc7.putData( sTID('LUT3DFileData'), String.fromCharCode(<!-- @import "dodge_fileData.js" -->));
+    desc7.putEnumerated(sTID('LUTFormat'), sTID('LUTFormatType'), sTID('LUTFormatCUBE'));
+//    desc7.putData( sTID('LUT3DFileData'), String.fromCharCode(<!-- @import "dodge_fileData.js" -->));
+    desc7.putString(sTID('LUT3DFileName'), "../assets/[A] Dodge.cube");
     desc6.putObject( sTID('to'), sTID('colorLookup'), desc7 );
     executeAction( sTID('set'), desc6,DialogModes.NO );
 }
