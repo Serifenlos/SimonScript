@@ -3,7 +3,7 @@ if (app.documents.length > 0) {
     docs = app.documents;
     f = false;
     t = true;
-    debug = false;       /* Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt. */
+    debug = true;       /* Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt. */
 }
 
 function cTID(s) {return app.charIDToTypeID(s)};
@@ -39,13 +39,11 @@ function prefReset() {
     app.displayDialogs = startDisplayDialogs;
 };
 
-
-/* TODO würde gerne einen anderen Namen haben */
 function resetImage() {
-    /* zurück zur letzten Version */
     executeAction( sTID('revert'), undefined, DialogModes.NO );
     emptyProtocoll();
 };
+
 
 function emptyProtocoll() {
     var desc17393 = new ActionDescriptor();
@@ -132,6 +130,7 @@ function logger(_log_function) {
 /* LAYER *********************************/
 
 /* createLayer("AutoTonwert", "levels", "normal", "gray", 80, "black", f,f) */
+/* function createLayer(_name, _type, _mode, _color, _opacity, _clip, _autoLevel) { */
 function createLayer(_name, _type, _mode, _color, _opacity, _mask, _clip, _autoLevel) {
     try {
         var d = new ActionDescriptor();
@@ -201,19 +200,18 @@ function createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _
         d2.putObject(sTID("type"), sTID("solidColorLayer"), d3);
         d.putObject(sTID("using"), sTID("contentLayer"), d2);
         executeAction(sTID("make"), d, DialogModes.NO);
+
         gotoMask();
+/*      var _mask = "none";*/
 
         if(_mask == "invert") {
             executeAction(sTID('invert'), undefined, DialogModes.NO);
-            return;
         }
         else if (_mask == "none") {
             deleteMask();
-            return;
         }
         else if (_mask == "black" || _mask == "white" || _mask == "gray") {
             fill(_mask, "normal", 100);
-            return;
         }
 
     } catch (err) {
@@ -246,7 +244,6 @@ function gotoFill() {
 /* ElementPlacement.PLACEATBEGINNING */
 /* ElementPlacement.PLACEATEND */
 
-/* moveLayer("Weiss", "Original", "down");*/
 function moveLayer(_objectLayer, _aimLayer, _direction) {
     gotoLayer(_objectLayer);
     var ref_1 = app.activeDocument.activeLayer;
@@ -255,25 +252,6 @@ function moveLayer(_objectLayer, _aimLayer, _direction) {
     if(_direction == "up") {var direction = ElementPlacement.PLACEBEFORE}
     else if (_direction == "down") {var direction = ElementPlacement.PLACEAFTER};
     ref_1.move(ref_2, direction);
-}
-
-/* up   down     top   bottom */
-/* next previous front back */
-function moveLayer3(_direction,_steps) {
-    if(_direction == "up"){_direction = "next"}
-    if(_direction == "down"){_direction = "previous"}
-    if(_direction == "top"){_direction = "front"}
-    if(_direction == "bottom"){_direction = "back"}
-    for (var i = 0; i < _steps; i++) {
-        var d = new ActionDescriptor();
-        var r = new ActionReference();
-        var r2 = new ActionReference();
-        r.putEnumerated( sTID('layer'), sTID('ordinal'), sTID('targetEnum') );
-        d.putReference( sTID('null'), r );
-        r2.putEnumerated( sTID('layer'), sTID('ordinal'), sTID(_direction) );
-        d.putReference( sTID('to'), r2 );
-        executeAction( sTID('move'), d, DialogModes.NO );
-    };
 }
 
 
@@ -381,7 +359,6 @@ function dublicate(_name) {
     executeAction(sTID('duplicate'), d, DialogModes.NO);
 }
 
-/* TODO ist das noch in Verwendung, oder kann das weg */
 function selectLayerUp() {
     var desc150 = new ActionDescriptor();
         var ref118 = new ActionReference();
@@ -411,22 +388,13 @@ function selectLayer(_direction, _times) {
          executeAction(sTID('select'), d, DialogModes.NO);
     }
 }
-/* TODO mit unterer Funktion ersetzt */
+
 function selectAll() {
     var d = new ActionDescriptor();
     var r = new ActionReference();
     r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'));
     d.putReference(sTID('null'), r);
     executeAction(sTID('selectAllLayers'), d, DialogModes.NO);
-}
-
-/* selectNoLayers OR selectAllLayers */
-function selectLayers(_all_or_nothing) {
-    var d = new ActionDescriptor();
-    var r = new ActionReference();
-    r.putEnumerated( sTID('layer'), sTID('ordinal'), sTID('targetEnum') );
-    d.putReference( sTID('null'), r );
-    executeAction( sTID(_all_or_nothing), d, DialogModes.NO );
 }
 
 function hasBackground() { 
@@ -474,36 +442,10 @@ function SmartOject_placeItem(_item) {
 };
 
 
-function getBitDepth() {
-    var bitDepth = doc.bitsPerChannel;
-
-    if (bitDepth === BitsPerChannelType.EIGHT) {
-        return 8;
-    } 
-    else if (bitDepth === BitsPerChannelType.SIXTEEN) {
-        return 16;
-    } 
-    else if (bitDepth === BitsPerChannelType.THIRTYTWO) {
-        return 32;
-    }
-    else {
-        return false;
-    }
-}
-
-/* setBitDepth(8); */
-function setBitDepth(_bitdepth) {
-    var id1 = charIDToTypeID( "CnvM" );
-	var desc1 = new ActionDescriptor();
-	var id2 = charIDToTypeID( "Dpth" );
-	desc1.putInteger( id2, _bitdepth );
-	executeAction( id1, desc1, DialogModes.NO );
-}
-
-
-/* TODO irritierender Name // Vorschläge? */
-/* img_resize(10, 300) */
-/* img_resize(10, null) */
+/*
+img_resize(10, 300)
+img_resize(10, null)
+*/
 function img_resize(_ziel_longSite, _max_resolution) {
     prefSave();
     prefSet(DialogModes.NO, Units.MM);
@@ -527,7 +469,9 @@ function img_resize(_ziel_longSite, _max_resolution) {
 }
 
 
-/* setMegaPixel(8) */
+/*
+setMegaPixel(8)
+*/
 function setMegaPixel(_setMegaPixel) {
     prefSave();
     prefSet(DialogModes.NO, Units.PIXELS);
@@ -556,9 +500,6 @@ function setMegaPixel(_setMegaPixel) {
 function cm2pt(cm) {
     return cm * 28.3464566929;
 }
-function mm2pt(mm) {
-    return mm * 0.283464566929;
-}
 
 
 function setDpi(_dpi) {
@@ -567,18 +508,11 @@ function setDpi(_dpi) {
     executeAction( sTID('imageSize'), d, DialogModes.NO );
 }
 
-/* setSize("width", 100) */
-function setSize(_side, _size) {
-    var d = new ActionDescriptor();
-    d.putUnitDouble( sTID(_side), sTID('distanceUnit'), mm2pt(_size));
-    executeAction( sTID('imageSize'), d, DialogModes.NO );
-}
 
 /* COLOR ****************************/
 function noProfile() {
     if (doc.colorProfileType == ColorProfile.NONE)  {
         try{
-            app.bringToFront();
             var desc3 = new ActionDescriptor();
             var ref1 = new ActionReference();
             ref1.putEnumerated( sTID("document"), sTID("ordinal"), sTID("targetEnum") );
@@ -587,25 +521,6 @@ function noProfile() {
             executeAction( sTID("assignProfile"), desc3, DialogModes.ALL );
         }
         catch(e) {}  
-    }
-}
-
-/* TODO !! Geht Besser ! ****************************/
-function gray2rgb() {
-    if (doc.mode == DocumentMode.GRAYSCALE)  {
-        doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
-    }
-};
-function cmyk2rgb() {
-    if (doc.mode == DocumentMode.CMYK)  {
-        doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
-    }
-};
-function sRGB2eciRGB() {
-    var getProfile = doc.colorProfileName;
-    var find = new RegExp("^sRGB");
-    if (getProfile.match(find)) {
-        doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
     }
 }
 

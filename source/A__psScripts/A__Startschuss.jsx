@@ -8,69 +8,55 @@
 // END__HARVEST_EXCEPTION_ZSTRING
 */
 
-//@include "functions/basic.jsx";
-//@include "functions/mb_Utils.jsx";
-//@include "functions/LUT-dodge.jsx";
-//@include "functions/LUT-burn.jsx";
+if (app.documents.length <= 0) {
+    alert("Fehler\nÖffne zunächst ein Bild!");
+} else {
+    //@include "functions/basic.jsx";
+    //@include "functions/mb_Utils.jsx";
+    //@include "functions/LUT-dodge.jsx";
+    //@include "functions/LUT-burn.jsx";
+    //@include "functions/dialog.jsx";
+    //@include "functions/ready.jsx";
 
 
-// Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt.
-// const debug = true;
+    // Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt.
+    // const debug = true;
 
-// debug = false;
-
-run()
+    // debug = false;
 
 
+    run();
 
-function startschuss() {
-    smartObject();
-    nameLayer("Original");
+    function run() {
+        try {
+            
+            function check() {
+                if((getLayersNb() == 1) && (hasBackground())) {return true} else {return false}
+            }
 
-    createGroup("Einstellungen","passThrough","none",100)
-    createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none",f,t)
-    toogleVisibility()
-    createLayer("Gradation neutral", "curves", "normal", "gray", 100, "",f,f)
-    deleteMask()
-    createGroup("Dodge & Burn","passThrough","gray",100)
-    LUT_burn()
-    LUT_dodge()
-    selectLayerUp()
-    toogleOpenCloseSet()
-    selectLayerUp()
-    createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "",f,f)
-    createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "",f,f)
-    createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "",f,f)
-    createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "",f,f)
-    createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "",f,f)
-    createLayer("Hell + Kontrast", "brightnessEvent", "normal", "red", 100, "",f,f)
-    createLayer("Dynamik", "vibrance", "normal", "orange", 100, "",f,f)
-
-    // createColorLayer("normal", "WEISS", "none", 25levels5, 255, 0);
-    // deleteMask();
-
-    // noProfile();
-}
-
-
-
-function run() {
-
-    if (docs.length <= 0) {
-        alert("Fehler\nÖffne zunächst ein Bild!")
-        return;
-    }
-    // if (app.activeDocument.activeLayer.kind == (LayerKind.LEVELS || LayerKind.CURVES || LayerKind.TEXT || LayerKind.SOLIDFILL || LayerKind.GRADIENTFILL || LayerKind.PATTERNFILL || LayerKind.COLORBALANCE || LayerKind.BRIGHTNESSCONTRAST || LayerKind.HUESATURATION || LayerKind.SELECTIVECOLOR || LayerKind.CHANNELMIXER || LayerKind.GRADIENTMAP || LayerKind.INVERSION || LayerKind.THRESHOLD || LayerKind.POSTERIZE || LayerKind.SMARTOBJECT || LayerKind.PHOTOFILTER || LayerKind.EXPOSURE || LayerKind.LAYER3D || LayerKind.VIDEO || LayerKind.BLACKANDWHITE || LayerKind.VIBRANCE)) {
-    else if (doc.activeLayer.kind != LayerKind.NORMAL) {
-        alert("Fehler\nWähle eine Pixel-Ebene aus!");
-        return;
-    } 
-    else if (debug == true) {
-        var x = "0";
-        startschuss();
-        return;
-    } 
-    else {
-        doc.suspendHistory('Startschuss', 'startschuss();')
+            if ((doc.activeLayer.kind != LayerKind.NORMAL) || (getLayersNb() >= 2) || (check())) {
+            // if ((doc.activeLayer.kind != LayerKind.NORMAL) || (getLayersNb() >= 2) || ((getLayersNb() == 1) && (hasBackground()))) {
+                // alert("hier");
+                var cancel = 0;
+                dialog_chooseLayer();
+                // alert(getActiveLayerIndex());
+                if (cancel === 1) {
+                    return false;
+                }
+                else {
+                    doc.suspendHistory('Startschuss', 'startschuss();')
+                }
+            } else if (debug == true) {
+                // var x = "0"; // Was ist das?
+                startschuss();
+                return;
+            } else {
+                // alert("dort");
+                doc.suspendHistory('Startschuss', 'startschuss();')
+            }
+        } catch (e) {
+            logger(arguments.callee.name);
+            alert("Error: " + arguments.callee.name);
+        }
     }
 }

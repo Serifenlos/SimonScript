@@ -31,41 +31,41 @@
 // makeVisByIndex(7,true)
 
 function startschuss_old() {
-    // alert(debug)
-    if(debug){time_start()}
+    /* alert(debug) */
+    if(debug){time_start();}
     
 
-    nameLayer("vorher Ebene")
-    createGroup("vorher", "passThrough", "none", 100, t)
-    // toogleOpenCloseSet()
-    dublicate("nachher")
-    gotoLayer("vorher")
-    toogleOpenCloseSet()
-    gotoLayer("nachher")
-    selectLayer("down",1)
-    // // selectLayer("down",1)
-    // // myselectNext()
-    nameLayer("Orginal")
+    nameLayer("vorher Ebene");
+    createGroup("vorher", "passThrough", "none", 100, t);
+    /* toogleOpenCloseSet(); */
+    dublicate("nachher");
+    gotoLayer("vorher");
+    toogleOpenCloseSet();
+    gotoLayer("nachher");
+    selectLayer("down",1);
+    /* // selectLayer("down",1); */
+    /* // myselectNext(); */
+    nameLayer("Orginal");
     smartObject();
 
 
-    createGroup("Einstellungen", "passThrough", "none", 100)
-    createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t)
+    createGroup("Einstellungen", "passThrough", "none", 100);
+    createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
     toogleVisibility();
-    createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f)
+    createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);
 
-    DodgeBurn_highlow(t)
-    selectLayer("up",1)
-    createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f)
-    createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f)
-    createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f)
-    createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "", f, f)
-    createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "", f, f)
-    // createLayer("Hell + Kontrast", "brightnessEvent", "normal", "red", 100, "", f,f)
-    // createLayer("Dynamik", "vibrance", "normal", "orange", 100, "", f,f)
-    createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f)
-    gotoLayer("Gradation neutral")
-    if(debug){time_stop(start)}
+    DodgeBurn_highlow(t);
+    selectLayer("up",1);
+    createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f);
+    createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f);
+    createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f);
+    createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "", f, f);
+    createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "", f, f);
+    /* createLayer("Hell + Kontrast", "brightnessEvent", "normal", "red", 100, "", f,f); */
+    /* createLayer("Dynamik", "vibrance", "normal", "orange", 100, "", f,f); */
+    createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f);
+    gotoLayer("Gradation neutral");
+    if(debug){time_stop(start);}
 }
 
 function analyse() {
@@ -106,11 +106,12 @@ if (doc.activeLayer.kind != LayerKind.NORMAL) {
     dialog_chooseLayer();
 }
 else {
-    doc.suspendHistory('Startschuss', 'startschuss()');
+    // doc.suspendHistory('Startschuss', 'startschuss()');
+    alert("geht");
 }
 
 function startschuss() {
-    time_start()
+    time_start();
 
     if (hasBackground()) {
         gotoLayer(0);
@@ -130,24 +131,24 @@ function startschuss() {
     createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
     moveLayer("Weiss", "Original", "down");
 
-    createGroup("Einstellungen", "passThrough", "none", 100)
-    createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t)
+    createGroup("Einstellungen", "passThrough", "none", 100);
+    createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
     toogleVisibility();
-    createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f)
+    createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);
 
-    DodgeBurn_highlow(t)
-    selectLayer("up", 1)
-    createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f)
-    createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f)
-    createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f)
-    createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "", f, f)
-    createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "", f, f)
-    // createLayer("Hell + Kontrast", "brightnessEvent", "normal", "red", 100, "", f,f)
-    // createLayer("Dynamik", "vibrance", "normal", "orange", 100, "", f,f)
-    createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f)
-    gotoLayer("Gradation neutral")
+    DodgeBurn_highlow(t);
+    selectLayer("up", 1);
+    createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f);
+    createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f);
+    createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f);
+    createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "", f, f);
+    createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "", f, f);
+    // createLayer("Hell + Kontrast", "brightnessEvent", "normal", "red", 100, "", f,f);
+    // createLayer("Dynamik", "vibrance", "normal", "orange", 100, "", f,f);
+    createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f);
+    gotoLayer("Gradation neutral");
 
-    time_stop(start)
+    time_stop(start);
 
 }
 
@@ -173,3 +174,43 @@ function moveLayer2(_objectLayer, _aimLayer, _direction) {
 
 // funktioniert nicht
 // moveLayer2("Ebene 1", "Ebene 3", "top")
+
+bt2();
+
+function bt2() {
+    var bt = new BridgeTalk();
+    var ph = BridgeTalk.getSpecifier('photoshop');
+    var buildWindow = function () {
+        var z = Window.find('palette', 'Toggle visiblity');
+        if (z) {
+            z.show();
+            return;
+        }
+
+        var dialog = new Window("palette");
+        dialog.text = "Toggle visiblity";
+
+        dialog.orientation = "column";
+        dialog.alignChildren = ["center", "center"];
+        dialog.spacing = 10;
+        dialog.margins = 16;
+        var panel = dialog.add('panel', undefined, 'Panel');
+        var toggleButton = panel.add('button', undefined, 'Toggle', {name: 'Toggle'});
+
+        toggleButton.onClick = function () {
+            app.activeDocument.activeLayer.visible = !app.activeDocument.activeLayer.visible;
+        };
+
+        var exitButton = panel.add('button', undefined, 'Exit', {name: 'Exit'});
+
+        exitButton.onClick = function () {
+            dialog.close();
+        }
+
+        dialog.show();
+    }
+bt.target = ph;
+bt.body = "var f=" + buildWindow.toSource() + ";f();";
+bt.send();
+}
+
