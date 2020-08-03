@@ -6,7 +6,7 @@
 </javascriptresource>
 */
 
-// http://ps-scripts.com/bb/viewtopic.php?f=9&t=3235
+/* http://ps-scripts.com/bb/viewtopic.php?f=9&t=3235 */
 
 function getActiveLayerIndex() {
     var ref = new ActionReference();
@@ -16,14 +16,14 @@ function getActiveLayerIndex() {
 };
 
 
-function cTID(s){return charIDToTypeID(s)}
-function sTID(s){return stringIDToTypeID(s)}
+function cTID(s){return charIDToTypeID(s)};
+function sTID(s){return stringIDToTypeID(s)};
 
 
-// =============================
+/* ============================= */
 
 
-// The main function
+/* The main function */
 function closeGroup(layerSet) {
     var mb_Locked = isLocked();
     var mb_visible = isVisible();
@@ -36,10 +36,10 @@ function closeGroup(layerSet) {
   var currINDEX1 = getActiveLayerIndex();
   if(!hasBackground()){currINDEX1 = currINDEX1 -1};
    var mb_color = getColor();
-   try{//is try for ccs3
+   try{/* is try for ccs3 */
    var m_bHasMask = hasLayerMask();
     }catch(err){}
-   try{//is try for ccs3
+   try{/* is try for ccs3 */
     var mb_HasVMask = hasVectorMask();
    }catch(err){}
     
@@ -55,10 +55,10 @@ function closeGroup(layerSet) {
     { 
       try{deselectPath()}catch(err){};
 
-      // throw("err");
+      /* throw("err"); */
       var mb_MaskEnabled = isLayerMaskEnabled();
       duplicateLayerMaskAsAlpha();
-      try{//for cs3
+      try{/* for cs3 */
       var mb_MaskDens = getMaskDensity();
        var mb_MaskFeather = getMaskFeather();
       }catch(err){}
@@ -88,8 +88,9 @@ function closeGroup(layerSet) {
    m_Closed.blendMode = m_BlendMode;
    
    for(x in m_LinkedLayers) {
-      if(m_LinkedLayers[x].typename == "LayerSet")
+      if(m_LinkedLayers[x].typename == "LayerSet") {
          activeDocument.activeLayer.link(m_LinkedLayers[x]);
+        }
    }
 
    if(mb_hasFx) pasteLayerStyle();
@@ -117,10 +118,10 @@ function closeGroup(layerSet) {
 }
 
 
-// =============================
+/* ============================= */
 
 
-// Below are all necessary subroutines for the main function to work
+/* Below are all necessary subroutines for the main function to work */
 function ungroup() {
    var m_Dsc01 = new ActionDescriptor();
    var m_Ref01 = new ActionReference();
@@ -147,13 +148,13 @@ function isVisible(){
 }
 function isVisibleIDX(idx){
   var m_Ref01 = new ActionReference();
-   // m_Ref01.putEnumerated( sTID( "layer" ), cTID( "Ordn" ), cTID( "Trgt" ));
+   /* m_Ref01.putEnumerated( sTID( "layer" ), cTID( "Ordn" ), cTID( "Trgt" )); */
    m_Ref01.putIndex( sTID( "layer" ), idx);
    var m_Dsc01= executeActionGet( m_Ref01 );
    return m_Dsc01.getBoolean(sTID('visible'));
 }
 function makeVisible(){
-  // =======================================================
+  /* ======================================================= */
     var idShw = charIDToTypeID( "Shw " );
         var desc808 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -198,7 +199,7 @@ executeAction( cTID( "Dslc" ), desc, DialogModes.NO );
 function duplicateLayerMaskAsAlpha(){
 
   selectLayerMask();
-  //======================================= mask visible
+  /* ======================================= mask visible */
     var desc = new ActionDescriptor();
     var ref = new ActionReference();
     ref.putEnumerated( cTID( "Chnl" ), cTID( "Chnl" ), cTID( "Msk " ) );
@@ -206,7 +207,7 @@ function duplicateLayerMaskAsAlpha(){
     desc.putBoolean( cTID( "MkVs" ), true );
     executeAction( cTID( "slct" ), desc, DialogModes.NO );
 
-    // =======================================================select All
+    /* =======================================================select All */
     var idsetd = charIDToTypeID( "setd" );
         var desc565 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -221,10 +222,10 @@ function duplicateLayerMaskAsAlpha(){
         desc565.putEnumerated( idT, idOrdn, idAl );
     executeAction( idsetd, desc565, DialogModes.NO );
 
-    // ======================================================= copy
+    /* ======================================================= copy */
     var idcopy = charIDToTypeID( "copy" );
     executeAction( idcopy, undefined, DialogModes.NO );
-    // =======================================================make alpha
+    /* ======================================================= make alpha */
     var idMk = charIDToTypeID( "Mk  " );
         var desc567 = new ActionDescriptor();
         var idNw = charIDToTypeID( "Nw  " );
@@ -249,7 +250,7 @@ function duplicateLayerMaskAsAlpha(){
         desc567.putObject( idNw, idChnl, desc568 );
     executeAction( idMk, desc567, DialogModes.NO );
 
-    // =======================================================select All
+    /* =======================================================select All */
     var idsetd = charIDToTypeID( "setd" );
         var desc570 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -264,7 +265,7 @@ function duplicateLayerMaskAsAlpha(){
         desc570.putEnumerated( idT, idOrdn, idAl );
     executeAction( idsetd, desc570, DialogModes.NO );
 
-    // =======================================================paste
+    /* =======================================================paste */
     var idpast = charIDToTypeID( "past" );
         var desc571 = new ActionDescriptor();
         var idAntA = charIDToTypeID( "AntA" );
@@ -273,7 +274,7 @@ function duplicateLayerMaskAsAlpha(){
         desc571.putEnumerated( idAntA, idAnnt, idAnno );
     executeAction( idpast, desc571, DialogModes.NO );
 
-    // =======================================================deselect
+    /* =======================================================deselect */
     var idsetd = charIDToTypeID( "setd" );
         var desc572 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -288,7 +289,7 @@ function duplicateLayerMaskAsAlpha(){
         desc572.putEnumerated( idT, idOrdn, idNone );
     executeAction( idsetd, desc572, DialogModes.NO );
 
-    // =======================================================rename
+    /* =======================================================rename */
       var desc = new ActionDescriptor();
           var ref = new ActionReference();
           ref.putEnumerated( cTID( "Chnl" ), cTID( "Ordn" ), cTID( "Trgt" ) );
@@ -297,7 +298,7 @@ function duplicateLayerMaskAsAlpha(){
           desc2.putString( cTID( "Nm  " ), "mbTemp_alpha" );
       desc.putObject( cTID( "T   " ), cTID( "Chnl" ), desc2 );
   executeAction( cTID( "setd" ), desc, DialogModes.NO );
-  // =======================================================select RGB
+  /* =======================================================select RGB */
       var desc291 = new ActionDescriptor();
           var ref255 = new ActionReference();
           ref255.putEnumerated( cTID( "Chnl" ), cTID( "Chnl" ), cTID( "RGB " ) );
@@ -309,7 +310,7 @@ function duplicateLayerMaskAsAlpha(){
 
 function setBackTheLayerMask(){
   
-    // =======================================================make mask
+    /* =======================================================make mask */
     var idMk = charIDToTypeID( "Mk  " );
         var desc320 = new ActionDescriptor();
         var idNw = charIDToTypeID( "Nw  " );
@@ -328,7 +329,7 @@ function setBackTheLayerMask(){
         desc320.putEnumerated( idUsng, idUsrM, idRvlA );
     executeAction( idMk, desc320, DialogModes.NO );
 
-    // =======================================================
+    /* ======================================================= */
   var idslct = cTID( "slct" );
       var desc304 = new ActionDescriptor();
       var idnull = cTID( "null" );
@@ -338,7 +339,7 @@ function setBackTheLayerMask(){
       desc304.putReference( idnull, ref268 );
   executeAction( idslct, desc304, DialogModes.NO );
 
-  // =======================================================
+  /* ======================================================= */
   var idsetd = cTID( "setd" );
       var desc305 = new ActionDescriptor();
       var idnull = cTID( "null" );
@@ -353,10 +354,10 @@ function setBackTheLayerMask(){
       desc305.putEnumerated( idT, idOrdn, idAl );
   executeAction( idsetd, desc305, DialogModes.NO );
 
-  // =======================================================
+  /* ======================================================= */
   var idcopy = cTID( "copy" );
   executeAction( idcopy, undefined, DialogModes.NO );
-  // =======================================================
+  /* ======================================================= */
   selectLayerMask();
     var desc = new ActionDescriptor();
     var ref = new ActionReference();
@@ -365,7 +366,7 @@ function setBackTheLayerMask(){
     desc.putBoolean( cTID( "MkVs" ), true );
     executeAction( cTID( "slct" ), desc, DialogModes.NO );
 
-    // =======================================================
+    /* ======================================================= */
   var idPstI = charIDToTypeID( "PstI" );
       var desc326 = new ActionDescriptor();
       var idAntA = charIDToTypeID( "AntA" );
@@ -373,7 +374,7 @@ function setBackTheLayerMask(){
       var idAnno = charIDToTypeID( "Anno" );
       desc326.putEnumerated( idAntA, idAnnt, idAnno );
   executeAction( idPstI, desc326, DialogModes.NO );
-    // =======================================================select RGB
+    /* =======================================================select RGB */
       var desc291 = new ActionDescriptor();
           var ref255 = new ActionReference();
           ref255.putEnumerated( cTID( "Chnl" ), cTID( "Chnl" ), cTID( "RGB " ) );
@@ -381,7 +382,7 @@ function setBackTheLayerMask(){
       desc291.putBoolean( cTID( "MkVs" ), false );
   executeAction( cTID( "slct" ), desc291, DialogModes.NO );
 
-  // =======================================================
+  /* ======================================================= */
   var idsetd = charIDToTypeID( "setd" );
       var desc387 = new ActionDescriptor();
       var idnull = charIDToTypeID( "null" );
@@ -395,7 +396,7 @@ function setBackTheLayerMask(){
       var idNone = charIDToTypeID( "None" );
       desc387.putEnumerated( idT, idOrdn, idNone );
   executeAction( idsetd, desc387, DialogModes.NO );
-      // =======================================================
+      /* ======================================================= */
         var desc = new ActionDescriptor();
             var ref = new ActionReference();
             ref.putName( charIDToTypeID( "Chnl" ), "mbTemp_alpha" );
@@ -468,7 +469,7 @@ function setMaskFeatherTo(feath){
   executeAction( idsetd, desc21, DialogModes.NO );
 }
 function setMaskEnabled(foo){
-  // =======================================================
+  /* ======================================================= */
 
   var idsetd = charIDToTypeID( "setd" );
       var desc27 = new ActionDescriptor();
@@ -486,7 +487,7 @@ function setMaskEnabled(foo){
       var idLyr = charIDToTypeID( "Lyr " );
       desc27.putObject( idT, idLyr, desc28 );
   executeAction( idsetd, desc27, DialogModes.NO );
-    // throw("myerror");
+    /* throw("myerror"); */
 }
 
 function setMaskLinked(foo){
@@ -515,13 +516,13 @@ function isLayerFXVisible() {
    return m_Dsc01.getBoolean(cTID('lfxv'));
 }
 function copyLayerStyle(){
-  // =======================================================
+  /* ======================================================= */
   var idCpFX = charIDToTypeID( "CpFX" );
   executeAction( idCpFX, undefined, DialogModes.NO );
 }
 
 function pasteLayerStyle(){
-  // =======================================================
+  /* ======================================================= */
   var idPaFX = charIDToTypeID( "PaFX" );
       var desc240 = new ActionDescriptor();
       var idallowPasteFXOnLayerSet = stringIDToTypeID( "allowPasteFXOnLayerSet" );
@@ -606,7 +607,7 @@ function setVectorMaskFeatherTo(feath){
   executeAction( idsetd, desc21, DialogModes.NO );
 }
 /*function setVectorMaskEnabled(foo){
-  // =======================================================
+  
   var idsetd = charIDToTypeID( "setd" );
       var desc27 = new ActionDescriptor();
       var idnull = charIDToTypeID( "null" );
@@ -809,7 +810,7 @@ function maskFromSelection() {
 }
 function duplicateVectorMask(){
 
-    // =======================================================
+    /* ======================================================= */
     var idslct = charIDToTypeID( "slct" );
         var desc43 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -825,7 +826,7 @@ function duplicateVectorMask(){
         desc43.putReference( idnull, ref48 );
     executeAction( idslct, desc43, DialogModes.NO );
 
-  // =======================================================
+  /* ======================================================= */
   var idMk = charIDToTypeID( "Mk  " );
       var desc18 = new ActionDescriptor();
       var idnull = charIDToTypeID( "null" );
@@ -845,7 +846,7 @@ function duplicateVectorMask(){
           ref18.putEnumerated( idLyr, idOrdn, idTrgt );
       desc18.putReference( idFrom, ref18 );
   executeAction( idMk, desc18, DialogModes.NO );
-    // =======================================================
+    /* ======================================================= */
     var idRnm = charIDToTypeID( "Rnm " );
         var desc49 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -858,7 +859,7 @@ function duplicateVectorMask(){
         var idT = charIDToTypeID( "T   " );
         desc49.putString( idT, "mbTemp_path" );
     executeAction( idRnm, desc49, DialogModes.NO );
-    // =======================================================
+    /* ======================================================= */
 var idDslc = charIDToTypeID( "Dslc" );
     var desc474 = new ActionDescriptor();
     var idnull = charIDToTypeID( "null" );
@@ -869,7 +870,7 @@ var idDslc = charIDToTypeID( "Dslc" );
 executeAction( idDslc, desc474, DialogModes.NO );
 }
 function recreateVectorMask(){
-  // =======================================================
+  /* ======================================================= */
     var idslct = charIDToTypeID( "slct" );
         var desc110 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -879,7 +880,7 @@ function recreateVectorMask(){
         desc110.putReference( idnull, ref119 );
     executeAction( idslct, desc110, DialogModes.NO );
 
-    // =======================================================
+    /* ======================================================= */
     var idMk = charIDToTypeID( "Mk  " );
         var desc111 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -902,7 +903,7 @@ function recreateVectorMask(){
             ref122.putEnumerated( idPath, idOrdn, idTrgt );
         desc111.putReference( idUsng, ref122 );
     executeAction( idMk, desc111, DialogModes.NO );
-    // =======================================================
+    /* ======================================================= */
         var desc = new ActionDescriptor();
             var ref = new ActionReference();
             ref.putName( charIDToTypeID( "Path" ), "mbTemp_path" );
@@ -954,7 +955,7 @@ function makeActiveByIndex( idx, visible ){
      for( var i = 0; i < idx.length; i++ ){
           var desc = new ActionDescriptor();
           var ref = new ActionReference();
-          ref.putIndex(charIDToTypeID( 'Lyr ' ), idx[i])
+          ref.putIndex(charIDToTypeID( 'Lyr ' ), idx[i]);
           desc.putReference( charIDToTypeID( 'null' ), ref );
           if( i > 0 ) {
                var idselectionModifier = stringIDToTypeID( 'selectionModifier' );
@@ -967,7 +968,7 @@ function makeActiveByIndex( idx, visible ){
      }     
 }
 function deleteActiveLayer(){
-   // =======================================================
+   /* ======================================================= */
    var idDlt = charIDToTypeID( "Dlt " );
        var desc752 = new ActionDescriptor();
        var idnull = charIDToTypeID( "null" );
@@ -1001,7 +1002,7 @@ function openGroup1(theGroup) {
 }
 function openGroup1byIDX(idx) {
    
-   // currSetIDX= getActiveLayerIndex();
+   /* currSetIDX= getActiveLayerIndex(); */
    if(isLayerSet( idx ))
    {
     getNamesPlusIDsOfLayerSet();
@@ -1027,10 +1028,11 @@ function getNamesPlusIDsOfLayerSet(){
         var Id = desc.getInteger(stringIDToTypeID( 'layerID' ));
         var ls = desc.getEnumerationValue(stringIDToTypeID("layerSection"));
         ls = typeIDToStringID(ls);
-        // alert(layerName+": _ :"+ls);
+        /* alert(layerName+": _ :"+ls); */
         if(ls == "layerSectionStart"){x++};
-        if(layerName.match(/^<\/Layer group/) ) 
-        { 
+/*        if (layerName.match(/^<\/Layer group/)) { */
+        var find = new RegExp("^<\/Layer group");
+        if (layerName.match(find)) { 
           y ++;
           r = x - y;
           if(r == 0 && ls == "layerSectionEnd"){break};
@@ -1043,7 +1045,7 @@ Names.push([[Id],[layerName],[isLayerSet]]);
    };
 return Names;
 };
-function getLayersNb()//function to find out if the number of layers in the document
+function getLayersNb()/* function to find out if the number of layers in the document */
 {
     var ref = new ActionReference();
     ref.putProperty( charIDToTypeID( 'Prpr' ), stringIDToTypeID('numberOfLayers') );
@@ -1103,7 +1105,7 @@ function getFristLayerSetChildVisible(){
         var ls = desc.getEnumerationValue(stringIDToTypeID("layerSection"));
         ls = typeIDToStringID(ls);
         var vis = desc.getInteger(stringIDToTypeID( 'visible' ));
-        // alert(layerName+": _ :"+vis);
+        /* alert(layerName+": _ :"+vis); */
 /*        if(desc.hasKey(stringIDToTypeID("visible")))
         {
           alert(desc.getType(stringIDToTypeID("visible")));
@@ -1115,8 +1117,9 @@ function getFristLayerSetChildVisible(){
           Names.push(theOBj); 
           break;
         }
-        if(layerName.match(/^<\/Layer group/) ) 
-        { 
+/*      if(layerName.match(/^<\/Layer group/) ) */
+        var find = new RegExp("^<\/Layer group");
+        if (layerName.match(find)) { 
           y ++;
           r = x - y;
           if(r == 0 && ls == "layerSectionEnd"){break};
@@ -1147,8 +1150,9 @@ function getLastChildIdx(){
         ls = typeIDToStringID(ls);
         var vis = desc.getInteger(stringIDToTypeID( 'visible' ));
         if(ls == "layerSectionStart"){x++};
-        if(layerName.match(/^<\/Layer group/) ) 
-        { 
+/*      if(layerName.match(/^<\/Layer group/)) {*/
+        var find = new RegExp("^<\/Layer group");
+        if (layerName.match(find)) { 
           y ++;
           r = x - y;
           if(r == 0 && ls == "layerSectionEnd")
@@ -1157,7 +1161,7 @@ function getLastChildIdx(){
             break;
           };
         }
-        // alert(x+" _ "+y+" _ "+r+" _ "+layerName);
+        /* alert(x+" _ "+y+" _ "+r+" _ "+layerName); */
       }
     return lastChIdx;
 }
@@ -1183,8 +1187,9 @@ function getNbOfChilds(){
         ls = typeIDToStringID(ls);
         var vis = desc.getInteger(stringIDToTypeID( 'visible' ));
         if(ls == "layerSectionStart"){x++};
-        if(layerName.match(/^<\/Layer group/) ) 
-        { 
+/*      if(layerName.match(/^<\/Layer group/)) {*/
+        var find = new RegExp("^<\/Layer group");
+        if (layerName.match(find)) { 
           y ++;
           r = x - y;
           if(r == 0 && ls == "layerSectionEnd")
@@ -1244,7 +1249,7 @@ function isSetOpened2( grIDX ){
   return xx;
 }
 function addTempLayerSetIn(idxx){
-    // =======================================================
+    /* ======================================================= */
     var idMk = charIDToTypeID( "Mk  " );
         var desc58 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -1253,7 +1258,7 @@ function addTempLayerSetIn(idxx){
             ref63.putClass( idlayerSection );
         desc58.putReference( idnull, ref63 );
     executeAction( idMk, desc58, DialogModes.NO );
-    // =======================================================rename
+    /* =======================================================rename */
     var idsetd = charIDToTypeID( "setd" );
         var desc202 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -1270,7 +1275,7 @@ function addTempLayerSetIn(idxx){
         var idLyr = charIDToTypeID( "Lyr " );
         desc202.putObject( idT, idLyr, desc203 );
     executeAction( idsetd, desc202, DialogModes.NO );
-    // =======================================================move
+    /* =======================================================move */
     var idmove = charIDToTypeID( "move" );
         var desc59 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -1292,12 +1297,12 @@ function addTempLayerSetIn(idxx){
     executeAction( idmove, desc59, DialogModes.NO );
 }
 function deleteTempLayerSetbyIdx(idxx){
-  // =======================================================
+  /* ======================================================= */
   var idDlt = charIDToTypeID( "Dlt " );
       var desc = new ActionDescriptor();
           var ref = new ActionReference();
           ref.putIndex(charIDToTypeID( 'Lyr ' ), idxx);
-          // ref.putIdentifier(charIDToTypeID( 'Lyr ' ), idxx);
+          /* ref.putIdentifier(charIDToTypeID( 'Lyr ' ), idxx); */
           desc.putReference( charIDToTypeID( 'null' ), ref );
   executeAction( idDlt, desc, DialogModes.NO );
 }
@@ -1321,11 +1326,14 @@ function myselectNext()
     }
   nextIndex = currINDEX - 1;
   if(nextIndex <= lastLayer){nextIndex = getLayersNb()};
-  if(getLayerName(nextIndex).match(/^<\/Layer group/)){
-    bb=nextIndex-1
-    for(bb; bb>0; bb--)
-    {
-      if(getLayerName(bb).match(/^<\/Layer group/)){
+/*  if(getLayerName(nextIndex).match(/^<\/Layer group/)){ */
+  var find = new RegExp("^<\/Layer group");
+  if(getLayerName(nextIndex).match(find)) {
+    bb=nextIndex-1;
+    for(bb; bb>0; bb--) {
+/*      if(getLayerName(bb).match(/^<\/Layer group/)){ */
+      var find = new RegExp("^<\/Layer group");
+      if(getLayerName(bb).match(find)){
         nextIndex --;
       }else{break}
     }
@@ -1356,8 +1364,9 @@ function isEndOfSet(idx){
   var ls = desc.getEnumerationValue(stringIDToTypeID("layerSection"));
   ls = typeIDToStringID(ls);
   var vis = desc.getInteger(stringIDToTypeID( 'visible' ));
-  if(layerName.match(/^<\/Layer group/) ) 
-  { 
+/*if(layerName.match(/^<\/Layer group/)) {*/
+  var find = new RegExp("^<\/Layer group");
+  if (layerName.match(find)) {      
     if(ls == "layerSectionEnd")
     {
       xx = true;
@@ -1375,7 +1384,7 @@ function getStartIDXfor( idx ){
     var x = 0;
     var y = 0;
     var r = 0;
-    // alert(i + " count: "+count);
+    /* alert(i + " count: "+count); */
    for(i; i <= count ; i++){
         ref = new ActionReference();
         ref.putIndex( charIDToTypeID( 'Lyr ' ), i );
@@ -1385,7 +1394,7 @@ function getStartIDXfor( idx ){
         var ls = desc.getEnumerationValue(stringIDToTypeID("layerSection"));
         ls = typeIDToStringID(ls);
         var vis = desc.getInteger(stringIDToTypeID( 'visible' ));
-        // alert(ls +" _ "+ r + " i_ "+ i + " name_ "+layerName);
+        /* alert(ls +" _ "+ r + " i_ "+ i + " name_ "+layerName); */
         if(ls == "layerSectionEnd"){x++};
         if(ls == "layerSectionStart")
           {
@@ -1492,10 +1501,10 @@ function showOnlyThis(){
           desc2.putString(0, theObj.toSource());
         app.putCustomOptions('ac4cd600-d8f5-11e2-a28f-0800200c9a66', desc2, true );
     }*/
-  // if(selectionIDX.length > 1)
-  // {
+  /* if(selectionIDX.length > 1) */
+  /* { */
     var toDeselect = 0;
-    for(i=0;i<selectionIDX.length;i++)//adding the hidden parents
+    for(i=0;i<selectionIDX.length;i++)/*adding the hidden parents */
       {
         theParents = loopParentsIDXfor(selectionIDX[i]);
         for(par in theParents){
@@ -1505,10 +1514,10 @@ function showOnlyThis(){
           }
         }
       }
-      // makeActiveByIndex(selectionIDX,false);
+      /* makeActiveByIndex(selectionIDX,false); */
   if(selectionIDX.length > 1)
   {
-      // =======================================================
+      /* ======================================================= */
     var idShw = charIDToTypeID( "Shw " );
         var desc95 = new ActionDescriptor();
         var idnull = charIDToTypeID( "null" );
@@ -1540,7 +1549,7 @@ function showOnlyThis(){
     }
       
   }else{
-    // =======================================================
+    /* ======================================================= */
       var idShw = charIDToTypeID( "Shw " );
           var desc95 = new ActionDescriptor();
           var idnull = charIDToTypeID( "null" );
@@ -1590,7 +1599,7 @@ function getSelectedLayersIdx(){
      if(hasBackground()){add = 0}
      if( desc.hasKey( stringIDToTypeID( 'targetLayers' ) ) ){
           desc = desc.getList( stringIDToTypeID( 'targetLayers' ));
-          var c = desc.count 
+          var c = desc.count;
           var selectedLayers = new Array();
           for(var i=0;i<c;i++){
                selectedLayers.push(  (desc.getReference( i ).getIndex())+add);
@@ -1633,7 +1642,7 @@ function getParentIDXfor(idx){
             y++;
           }
         r = x - y;
-        // alert(ls +" _ "+x+"-"+y+"="+r+ " idx_ "+ i + " name_ "+layerName);
+        /* alert(ls +" _ "+x+"-"+y+"="+r+ " idx_ "+ i + " name_ "+layerName); */
         if(r == 0 && ls == "layerSectionStart")
         {
           nb = i;
@@ -1648,13 +1657,13 @@ function loopParentsIDXfor(idx){
   var count  = getLayersNb();
   var pidx = getParentIDXfor(idx);
   for(k=0;k<count;k++){
-    // alert(pidx+" - "+getParentIDXfor(pidx)+" - "+k);
+    /* alert(pidx+" - "+getParentIDXfor(pidx)+" - "+k); */
     if(pidx != 0){
       parents.push(pidx);
     }else{break}
     pidx = getParentIDXfor(pidx);
   }
-  // alert(parents);
+  /* alert(parents); */
   return parents;
 }
       
@@ -1701,13 +1710,13 @@ function getSibilings(){
         var ls = desc.getEnumerationValue(stringIDToTypeID("layerSection"));
         ls = typeIDToStringID(ls);
         sibilings.push(i);
-        // alert(layerName +" _ "+ r+ " - " + i);
+        /* alert(layerName +" _ "+ r+ " - " + i); */
         if(i == theSlIDX[l]){
-          // alert("remove: " + i);
+          /* alert("remove: " + i); */
           sibilings.pop(1);
         }
         if(r != 0 && i != theSlIDX[l]){
-          // alert("remove: " + i);
+          /* alert("remove: " + i); */
           sibilings.pop(1);
         }
         if(ls == "layerSectionStart"){
@@ -1747,7 +1756,7 @@ function getSibilings1(){
         ref = new ActionReference();
         ref.putIndex( charIDToTypeID( 'Lyr ' ), i );
         var desc = executeActionGet(ref);
-        // var layerName = desc.getString(charIDToTypeID( 'Nm  ' ));
+        /* var layerName = desc.getString(charIDToTypeID( 'Nm  ' )); */
         var ls = desc.getEnumerationValue(stringIDToTypeID("layerSection"));
         ls = typeIDToStringID(ls);
         
@@ -1769,17 +1778,17 @@ function getSibilings1(){
           parent.pop(1);
         }
         
-        if(i == theSlIDX[theSlIDX.length-1]){//if is the selected one
+        if(i == theSlIDX[theSlIDX.length-1]){/*if is the selected one */
           theSlIDX.pop(1);
           whatSibilingsMatterO[cparent] = cparent;    
           tss1 = tempSibilings[cparent];
-          tss1.pop(1);//remove current
+          tss1.pop(1);/*remove current */
           tempSibilings[cparent] = tss1;
         }
 
     }
     for(c in whatSibilingsMatterO){
-      // alert(c+" : "+tempSibilings[whatSibilingsMatterO[c]]);
+      /* alert(c+" : "+tempSibilings[whatSibilingsMatterO[c]]); */
       sibilings = sibilings.concat(tempSibilings[whatSibilingsMatterO[c]]);
     }
   return sibilings;
@@ -1791,7 +1800,7 @@ function addSibilings(){
   makeActiveByIndex(MBAll, false);
 }
 function selectOnlySibilings(){
-  //first aproach
+  /*first aproach */
   theSibilings  = getSibilings1();
   try{makeActiveByIndex(theSibilings, false)}catch(err){};
 }
@@ -1826,14 +1835,14 @@ function eliminateTheSame(arr1, arr2) {
   for (i=0;i<len1;i++) {
     out.push(arr1[i]);
     for(j=0;j<len2;j++){
-      // alert(arr1[i] +" - "+arr2[j]);
+      /* alert(arr1[i] +" - "+arr2[j]); */
       if(arr1[i] == arr2[j]){
-        // alert("brek");
+        /* alert("brek"); */
         out.pop(1);
         break;
       }
     }
-    // alert(out);
+    /* alert(out); */
   }
   return out;
 }
@@ -1847,20 +1856,20 @@ function testSelectMultiple(arr){
       alert("targetLayers");
     }
   alert("startSelMult");
-  // =======================================================
+  /* ======================================================= */
 
     var desc = new ActionDescriptor();
         var ref = new ActionReference();
           ref.putEnumerated( charIDToTypeID('Dcmn'), charIDToTypeID('Ordn'), charIDToTypeID('Trgt') );
         var list = new ActionList();
-    //     for(i=0;i<arr.length;i++){
-    //         eval("var ref"+i+" = new ActionReference()");
-    //         eval("ref"+i+".putIndex(charIDToTypeID( 'Lyr ' ), "+arr[i]+")");
-    //         eval("list.putReference(ref"+i+")");
-    //       }
-    // desc.putList(stringIDToTypeID( 'targetLayers' ), list);
+    /*     for(i=0;i<arr.length;i++){
+               eval("var ref"+i+" = new ActionReference()");
+               eval("ref"+i+".putIndex(charIDToTypeID( 'Lyr ' ), "+arr[i]+")");
+               eval("list.putReference(ref"+i+")");
+             }
+       desc.putList(stringIDToTypeID( 'targetLayers' ), list); */
 executeAction( charIDToTypeID( "setd" ), desc, DialogModes.NO );
 
   alert("endSelMult");
 }
-// testSelectMultiple([1,3,5,7]);
+/* testSelectMultiple([1,3,5,7]); */

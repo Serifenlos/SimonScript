@@ -7,11 +7,23 @@
 </javascriptresource>
 // END__HARVEST_EXCEPTION_ZSTRING
 */
+if(app.documents.length<=0)alert("Fehler\nÖffne zunächst ein Bild!");else{function run(){try{function e(){return!(1!=getLayersNb()||!hasBackground())}if(doc.activeLayer.kind!=LayerKind.NORMAL||getLayersNb()>=2||e()){
+// if ((doc.activeLayer.kind != LayerKind.NORMAL) || (getLayersNb() >= 2) || ((getLayersNb() == 1) && (hasBackground()))) {
+// alert("hier");
+var s=0;
+// alert(getActiveLayerIndex());
+if(dialog_chooseLayer(),1===s)return!1;doc.suspendHistory("Startschuss","startschuss();")}else{if(1==debug)
+// var x = "0"; // Was ist das?
+return void startschuss();
+// alert("dort");
+doc.suspendHistory("Startschuss","startschuss();")}}catch(e){logger(arguments.callee.name),alert("Error: "+arguments.callee.name)}}
 //@include "functions/basic.jsx";
 //@include "functions/mb_Utils.jsx";
 //@include "functions/LUT-dodge.jsx";
 //@include "functions/LUT-burn.jsx";
+//@include "functions/dialog.jsx";
+//@include "functions/ready.jsx";
 // Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt.
 // const debug = true;
 // debug = false;
-function startschuss(){smartObject(),nameLayer("Original"),createGroup("Einstellungen","passThrough","none",100),createLayer("AutoTonwert","levels","normal","gray",100,"none",f,t),toogleVisibility(),createLayer("Gradation neutral","curves","normal","gray",100,"",f,f),deleteMask(),createGroup("Dodge & Burn","passThrough","gray",100),LUT_burn(),LUT_dodge(),selectLayerUp(),toogleOpenCloseSet(),selectLayerUp(),createLayer("Selektive Farbe","selectiveColor","normal","violet",100,"",f,f),createLayer("Sättigung Farbe","hueSaturation","normal","blue",100,"",f,f),createLayer("Sättigung Luminanz","hueSaturation","luminosity","green",100,"",f,f),createLayer("Farbe in Balance","colorBalance","normal","yellowColor",100,"",f,f),createLayer("Gradation Kontrast","curves","normal","orange",100,"",f,f),createLayer("Hell + Kontrast","brightnessEvent","normal","red",100,"",f,f),createLayer("Dynamik","vibrance","normal","orange",100,"",f,f)}function run(){if(docs.length<=0)alert("Fehler\nÖffne zunächst ein Bild!");else if(doc.activeLayer.kind==LayerKind.NORMAL)if(1!=debug)doc.suspendHistory("Startschuss","startschuss();");else{startschuss()}else alert("Fehler\nWähle eine Pixel-Ebene aus!")}run();
+run()}

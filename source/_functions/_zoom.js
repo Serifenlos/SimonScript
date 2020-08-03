@@ -1,14 +1,14 @@
+
+/* TODO wird überflüssig wenn das Panel auch die basic bekommt */
 cTID = function(s) {return app.charIDToTypeID(s);};
 sTID = function(s) {return app.stringIDToTypeID(s);};
 
-//// ZOOM ////
 
-
-function fitScreen() {runMenuItem(cTID("FtOn"))};   // FIT TO SCREEN
-function zoomOut() {runMenuItem(cTID("ZmOt"))};     // ZOOM -
-function zoomIn() {runMenuItem(cTID("ZmIn"))};      // ZOOM +
-function apfel0() {runMenuItem(cTID("ActP"))};      // ACTUAL PIXEL
-function zoom100() {runMenuItem(cTID("ActP"))};      // ACTUAL PIXEL
+function fitScreen() {runMenuItem(cTID("FtOn"))};   /* FIT TO SCREEN */
+function zoomOut() {runMenuItem(cTID("ZmOt"))};     /* ZOOM - */
+function zoomIn() {runMenuItem(cTID("ZmIn"))};      /* ZOOM + */
+function apfel0() {runMenuItem(cTID("ActP"))};      /* ACTUAL PIXEL */
+function zoom100() {runMenuItem(cTID("ActP"))};      /* ACTUAL PIXEL */
 
 function zoomOutSteps(steps) {
     for (var i = 0; i < steps; i++) {
@@ -43,6 +43,8 @@ setZoomLevel(100);
 */
 
 var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200, 300, 400, 800, 1600, 3200];
+
+/*
 // function zoomIn(){
 //     var zoomLevel = getZoomLevel();
 //     for(var z in zoomLevels){
@@ -72,6 +74,7 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
 //         }
 //     }
 // };
+*/
 
 function getZoomLevel(){
     var ref = new ActionReference();
@@ -104,7 +107,7 @@ function setZoomLevel(zoom) {
     executeAction( charIDToTypeID('undo'), undefined, DialogModes.NO );
 };
 
-
+/*
 // function apfel_0() {
 //   function step1(enabled, withDialog) {
 //     if (enabled != undefined && !enabled)
@@ -166,3 +169,4 @@ function setZoomLevel(zoom) {
 //   };
 //   step1();
 // };
+*/
