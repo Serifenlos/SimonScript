@@ -81,7 +81,7 @@ function saveFile(_saveOptions) {
 
 
 
-/*// SAVE FOR WEB ///*/
+/* SAVE FOR WEB */
 
 /* SaveForWeb("JPEG", "/Users/simon/Arbeit/__temp", "Grau+Farbverlauf_HG+++", f, f, f, t, t, 255, 255, 255,"Meta_ck", 66, t,t, 0) */
 

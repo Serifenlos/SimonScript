@@ -552,6 +552,31 @@ function setMegaPixel(_setMegaPixel) {
     return "";
 }
 
+/* getScale(8) */
+function getScale(_setMegaPixel) {
+/*     prefSave();
+    prefSet(DialogModes.NO, Units.PIXELS); */
+
+    var w = doc.width;
+    var h = doc.height;
+    var getPixel = w*h;
+    var setPixel = _setMegaPixel*1000000;
+    var faktor = setPixel / getPixel;
+
+/*     if (setPixel < getPixel) {
+        if (w >= h) {
+            var w_neu = w * Math.sqrt(faktor);
+            doc.resizeImage(w_neu, undefined, undefined, ResampleMethod.PRESERVEDETAILS, 0);
+        } else {
+            var h_neu = Math.round(h * Math.sqrt(faktor));
+            doc.resizeImage(undefined, h_neu, undefined, ResampleMethod.PRESERVEDETAILS, 0);
+        }
+    } */
+
+    /* prefReset(); */
+    return Math.sqrt(faktor);
+}
+
 /* Convert cm to Point, imageSize need Points */
 function cm2pt(cm) {
     return cm * 28.3464566929;
@@ -623,23 +648,24 @@ function GetFileNameOnly(myFileName) {
     return myString;
   }
   
-  function replace_RGB_to_RZ() {
+
+  function replace__RGB_RZ(_replace) {
     var RGBname = GetFileNameOnly(doc.name);
-    var RZname = RGBname.replace(/(__RGB.*)$/g, Suffix_RZ).replace(/(__RZ.*)$/g, Suffix_RZ);
-  
-    if (!RZname.match(/__WEB/g)) {
-      var RZname = RZname + Suffix_RZ;
-    }
-  
+    var RZname = RGBname.replace(/(__RGB.*)$/g, _replace).replace(/(__RZ.*)$/g, _replace);
+
+    var checkName = new RegExp(_replace, 'g');
+    if (!RZname.match(checkName)) {
+        var RZname = RZname + _replace;
+      }
     return RZname;
   }
   
-  function saveRZ(saveFolder, _prefix, _saveFormat) {
+  function saveRZ(_saveFolder, _prefix, _saveFormat, _replace) {
     /* Location + Name */
-    var saveFolder = new Folder(saveFolder);
+    var saveFolder = new Folder(_saveFolder);
     if (!saveFolder.exists) saveFolder.create();
   
-    var saveName = replace_RGB_to_RZ();
+    var saveName = replace__RGB_RZ(_replace);
     var savePath = saveFolder + "/" + _prefix + saveName + "." + _saveFormat;
     var saveFile = File(savePath);
   

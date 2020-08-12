@@ -36,7 +36,7 @@ function saveFile_TIF(){saveOptions=new TiffSaveOptions,saveOptions.embedColorPr
 saveOptions.formatOptions=FormatOptions.OPTIMIZEDBASELINE,saveOptions.formatOptions==FormatOptions.PROGRESSIVE&&(saveOptions.scans=3),
 /* saveOptions.matte = MatteType.NONE; */
 saveOptions.matte=MatteType.WHITE,saveFile(saveOptions)}function saveFile(t){doc.saveAs(newFilePath,t,!0,Extension.LOWERCASE)}
-/*// SAVE FOR WEB ///*/
+/* SAVE FOR WEB */
 /* SaveForWeb("JPEG", "/Users/simon/Arbeit/__temp", "Grau+Farbverlauf_HG+++", f, f, f, t, t, 255, 255, 255,"Meta_ck", 66, t,t, 0) */function SaveForWeb(t,e,n,o,p,a,u,r,c,i,s,l,S,C,T,O){var m=function(t){return app.charIDToTypeID(t)},E=function(t){return app.stringIDToTypeID(t)},d=new ActionDescriptor,v=new ActionDescriptor,D=new ActionDescriptor,I=new ActionDescriptor,h=new ActionDescriptor,A=new ActionDescriptor,B=new ActionDescriptor,b=new ActionDescriptor,g=new ActionDescriptor,N=new ActionDescriptor,f=new ActionDescriptor,w=new ActionDescriptor,M=new ActionDescriptor,P=new ActionDescriptor,F=new ActionDescriptor,j=new ActionDescriptor,R=new ActionDescriptor,W=new ActionList,y=new ActionList;v.putEnumerated(m("Op  "),m("SWOp"),m("OpSa")),v.putBoolean(m("DIDr"),!0),v.putPath(E("in"),new File(e)),function(t,e){if("JPEG"==t||"JPG"==t)var n="jpg";else if("PNG8"==t||"PN24"==t)n="png";
 /* TODO gif + webm */var o=e+"."+n;v.putString(m("ovFN"),o)}(t,n),v.putEnumerated(E("format"),m("IRFm"),E(t)),/* "JPEG" // "PNG8" // "PN24" */
 v.putBoolean(E("interfaceIconFrameDimmed"),p),/* true interlace (gefunden bei PNG24, obwohl das Feld auch bei anderen Format existiert // auch bei PNG8) */
