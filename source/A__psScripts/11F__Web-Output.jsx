@@ -88,7 +88,7 @@ function run() {
                     var savePath = saveFolder + "/" + _prefix + saveName + "." + _saveFormat;
                     var saveFile = File(savePath);
                 }
-                return _prefix + saveName;
+                return decodeURIComponent(_prefix) + saveName;
             }
 
             function helperScale(_setMegaPixel) {
