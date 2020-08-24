@@ -126,7 +126,12 @@ function logger(_log_function) {
     if(debug){time_stop(start)}
 }
 
-
+/* undoSteps(2) */
+function undoSteps(_steps) {
+    for (var i = 0; i < _steps; i++) {
+        executeAction(charIDToTypeID('undo'), undefined, DialogModes.NO);
+    };
+};
 
 
 /* LAYER *********************************/
@@ -604,15 +609,24 @@ function noProfile() {
     if (doc.colorProfileType == ColorProfile.NONE)  {
         try{
             app.bringToFront();
-            var desc3 = new ActionDescriptor();
-            var ref1 = new ActionReference();
-            ref1.putEnumerated( sTID("document"), sTID("ordinal"), sTID("targetEnum") );
-            desc3.putReference( sTID("null"), ref1 );
-            desc3.putBoolean( sTID("manage"), true );
-            executeAction( sTID("assignProfile"), desc3, DialogModes.ALL );
+            var d = new ActionDescriptor();
+            var r = new ActionReference();
+            r.putEnumerated( sTID("document"), sTID("ordinal"), sTID("targetEnum") );
+            d.putReference( sTID("null"), r );
+            d.putBoolean( sTID("manage"), true );
+            executeAction( sTID("assignProfile"), d, DialogModes.ALL );
         }
         catch(e) {}  
     }
+}
+
+function assignProfile(_profile) {
+    var d = new ActionDescriptor();
+    var r = new ActionReference();
+    r.putEnumerated(sTID('document'), sTID('ordinal'), sTID('targetEnum'));
+    d.putReference(sTID('null'), r);
+    d.putString(sTID('profile'), _profile);
+    executeAction(sTID('assignProfile'), d, DialogModes.NO);
 }
 
 /* TODO !! Geht Besser ! ****************************/
