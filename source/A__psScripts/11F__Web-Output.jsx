@@ -111,7 +111,7 @@ function run() {
 
             /* TODO bin nicht ganz mit saveRZ() einverstanden, ist für die globale Anwednung einwenig beschränkt. Versuche in save.jsx alles zu vereinen, irgendwann */
             var docName = GetFileNameOnly(doc.name);
-            if (docName.match(/_frei/g) || docName.match(/-frei/g)) {
+            if (docName.match(/_frei/g) || docName.match(/-frei/g) || checkTransparency()) {
                 try{selectAllLayers()}catch(e){};
                 try{mergeLayers()}catch(e){};
                 try{nameLayer("Freisteller")}catch(e){};

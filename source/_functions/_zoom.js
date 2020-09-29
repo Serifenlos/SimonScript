@@ -10,8 +10,8 @@ function zoomIn() {runMenuItem(cTID("ZmIn"))};      /* ZOOM + */
 function apfel0() {runMenuItem(cTID("ActP"))};      /* ACTUAL PIXEL */
 function zoom100() {runMenuItem(cTID("ActP"))};      /* ACTUAL PIXEL */
 
-function zoomOutSteps(steps) {
-    for (var i = 0; i < steps; i++) {
+function zoomOutSteps(_steps) {
+    for (var i = 0; i < _steps; i++) {
         app.runMenuItem(charIDToTypeID('ZmOt'));
     };
 };

@@ -22,8 +22,8 @@ var option_convert_8bit = true;
 // var mainFolder = "/Users/simon/Arbeit/11Freunde/_Cloud/Buch/";
 // var subFolder = "RGB";
 
-// var mainFolder = "/Users/simon/Arbeit/11Freunde/223/";
-var mainFolder = "/Users/simon/Arbeit/11Freunde/Spezial Duelle/";
+var mainFolder = "/Users/simon/Arbeit/11Freunde/Legenden2_BVB/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/227/";
 var subFolder = "RGB";
 
 
@@ -280,6 +280,7 @@ function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloe
             myPsDoc.resizeImage(undefined, undefined, hPPI, ResampleMethod.NONE);
         }
 
+        /* smartObjectTransparencyIssue(); */
         fitScreen();
         zoomOut();
         saveFile_PSD(new File(myNewPath), f, t, f, t, t, f);

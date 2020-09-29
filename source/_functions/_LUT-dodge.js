@@ -1,4 +1,8 @@
 function LUT_dodge() {
+    createLayer("Dodge", "colorLookup", "normal", "gray", 100, false, false);
+
+    executeAction(sTID('invert'), undefined, DialogModes.NO);
+
     var desc6 = new ActionDescriptor();
     var ref2 = new ActionReference();
     ref2.putEnumerated( sTID('adjustmentLayer'), sTID('ordinal'), sTID('targetEnum') );

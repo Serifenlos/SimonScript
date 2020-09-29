@@ -1,0 +1,86 @@
+site_name: SimonScript Docs
+site_dir: '../SimonScript_Docs'
+repo_url: https://github.com/Serifenlos/SimonScript
+edit_uri: docs/
+
+
+# theme: readthedocs
+theme: 
+    name: material
+#    features:
+#        - navigation.tabs
+
+
+
+extra_css: 
+    - extra.css
+
+
+
+
+
+nav:
+    - Home: index.md
+    - 'Functions':
+        - 'basic.jsx': 'functions/basic.md'
+        - 'basic+.jsx': 'functions/basic+.md'
+        - 'basic++.jsx': 'functions/basic++.md'
+        - 'dialog.jsx': 'functions/dialog.md'
+        - 'loopFiles.jsx': 'functions/loopFiles.md'
+        - 'LUT-burn.jsx': 'functions/LUT-burn.md'
+        - 'LUT-dodge.jsx': 'functions/LUT-dodge.md'
+        - 'mb_Utils.jsx': 'functions/mb_Utils.md'
+        - 'meta.jsx': 'functions/meta.md'
+        - 'ready.jsx': 'functions/ready.md'
+        - 'save.jsx': 'functions/save.md'
+        - 'zoom.jsx': 'functions/zoom.md'
+      
+  # - 'Assets':
+  #   - 'assets': 'functions/zoom.md'
+
+
+
+# markdown_extensions:
+#   # - smarty
+#     - admonition
+#     - meta
+#     - toc:
+#         permalink: true
+#     # - tables
+#   # - fenced_code
+#     # - codehilite
+#     - pymdownx.highlight:
+#         use_pygments: true
+#         linenums: false
+#     - pymdownx.inlinehilite
+#     - pymdownx.superfences
+
+markdown_extensions:
+    - smarty
+    - admonition
+    - meta
+    - toc:
+        permalink: true
+    - pymdownx.highlight:
+        use_pygments: true
+        # linenums: true
+        css_class: 'highlight'
+        guess_lang: true
+        noclasses: false
+    - pymdownx.inlinehilite:
+        css_class: 'highlight'
+    - pymdownx.mark
+    - pymdownx.superfences
+    # - pymdownx.tabbed
+    - pymdownx.details
+
+
+
+plugins:
+    - search:
+        min_search_length: 5
+        lang: 'de'
+    # - mkdocs-nav-enhancements
+  # - awesome-pages
+
+
