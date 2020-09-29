@@ -1,0 +1,4 @@
+### GetFileNameOnly
+```function
+GetFileNameOnly(myFileName)
+```

@@ -1,19 +1,23 @@
 function startschuss() {
-    if (debug) {time_start()};
+    if (debug) {
+        time_start()
+    };
 
     noProfile();
     gray2rgb();
     cmyk2rgb();
     sRGB2eciRGB();
-    if(getBitDepth(!8)){setBitDepth(8)}
+    if (getBitDepth(!8)) {
+        setBitDepth(8)
+    }
 
     if (typeof myPsDoc !== 'undefined') {
         setSize("width", myPsDoc.width.value * hScale / 10);
     }
-    
-/* Wozu braucht ich das nochmal? */
-/* Layer Weiss + Group vorher mit moveLayer3("bottom", 1);  ?? */
-/* moveLayer("Weiss", "HG", "down"); moveLayer("vorher", "Weiss", "down"); */
+
+    /* Wozu braucht ich das nochmal? */
+    /* Layer Weiss + Group vorher mit moveLayer3("bottom", 1);  ?? */
+    /* moveLayer("Weiss", "HG", "down"); moveLayer("vorher", "Weiss", "down"); */
     if (hasBackground() && getActiveLayerIndex() != 0) {
         var temp = doc.activeLayer.name;
         gotoLayer(0);
@@ -32,6 +36,7 @@ function startschuss() {
     rasterSmartObject();
     toogleOpenCloseSet();
     selectLayer("up", 1);
+    
     createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
     moveLayer("Weiss", "Original", "down");
 
@@ -49,7 +54,9 @@ function startschuss() {
     createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f);
     gotoLayer("Gradation neutral");
 
-    if (debug) {time_stop(start)};
+    if (debug) {
+        time_stop(start)
+    };
 }
 
 
@@ -62,28 +69,28 @@ function DodgeBurn_highlow(_collapseAll) {
     /* createLayer("Burn █▅▂", "colorLookup", "normal", "gray", 100, "black", f, f); */
     createLayer("Burn ▽", "colorLookup", "normal", "gray", 100, "black", f, f);
     LUT_burn();
-    blendif(0,0,0,255);
+    blendif(0, 0, 0, 255);
     /* createLayer("Dodge ▼", "colorLookup", "normal", "gray", 100, "black", f, f); */
     /* createLayer("Dodge █▅▂", "colorLookup", "normal", "gray", 100, "black", f, f); */
     createLayer("Dodge ▽", "colorLookup", "normal", "gray", 100, "black", f, f);
     LUT_dodge();
-    blendif(0,0,0,255);
+    blendif(0, 0, 0, 255);
     selectParent();
     createGroup("Dodge & Burn △▽", "passThrough", "gray", 100, t);
     /* createLayer("Burn ▲", "colorLookup", "normal", "gray", 100, "black", f, f); */
     /* createLayer("Burn ▂▅█", "colorLookup", "normal", "gray", 100, "black", f, f); */
     createLayer("Burn △", "colorLookup", "normal", "gray", 100, "black", f, f);
     LUT_burn();
-    blendif(0,255,255,255);
+    blendif(0, 255, 255, 255);
     createGroup("Lichter", "passThrough", "gray", 100, t);
     /* createLayer("Dodge ▲", "colorLookup", "normal", "gray", 100, "black", f, f); */
     /* createLayer("Dodge ▂▅█", "colorLookup", "normal", "gray", 100, "black", f, f); */
     createLayer("Dodge △", "colorLookup", "normal", "gray", 100, "black", f, f);
     LUT_dodge();
-    blendif(0,255,255,255);
+    blendif(0, 255, 255, 255);
     selectParent();
     selectParent();
-    if(_collapseAll) {
+    if (_collapseAll) {
         toogleOpenCloseSet();
     }
 }
@@ -105,3 +112,5 @@ function dodgeburn() {
     createLayer("Dodge", "colorLookup", "normal", "gray", 100, "black", f, f);
     LUT_dodge();
 }
+
+

@@ -1,0 +1,1 @@
+function dialog_chooseLayer(){alert("bla")}

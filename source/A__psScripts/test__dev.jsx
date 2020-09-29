@@ -256,119 +256,90 @@ function checkTrans() {
 
 // checkTrans();
 
-function checkTrans2() {
-    prefSave();
-    // prefSet(DialogModes.NO, Units.PIXELS);
-    var transp = true;
+// function checkTrans2() {
+//     prefSave();
+//     var transp = true;
 
-    // Kanalberechnung
-    var s2t = function(s) {
-        return app.stringIDToTypeID(s);
-    };
+//     /* Kanalberechnung */
+//     var s2t = function(s) {return app.stringIDToTypeID(s);};
 
-    var d = new ActionDescriptor();
-    var d2 = new ActionDescriptor();
-    var r = new ActionReference();
-    var r2 = new ActionReference();
-    var r3 = new ActionReference();
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var r = new ActionReference();
+//     var r2 = new ActionReference();
+//     var r3 = new ActionReference();
 
-    r.putProperty(s2t("channel"), s2t("selection"));
-    d.putReference(s2t("null"), r);
-    r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("transparencyEnum"));
-    r2.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("merged"));
-    d2.putReference(s2t("to"), r2);
-    r3.putEnumerated(s2t("channel"), s2t("channel"), s2t("transparencyEnum"));
-    r3.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("merged"));
-    d2.putReference(s2t("source2"), r3);
-    d.putObject(s2t("to"), s2t("calculation"), d2);
+//     r.putProperty(s2t("channel"), s2t("selection"));
+//     d.putReference(s2t("null"), r);
+//     r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("transparencyEnum"));
+//     r2.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("merged"));
+//     d2.putReference(s2t("to"), r2);
+//     r3.putEnumerated(s2t("channel"), s2t("channel"), s2t("transparencyEnum"));
+//     r3.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("merged"));
+//     d2.putReference(s2t("source2"), r3);
+//     d.putObject(s2t("to"), s2t("calculation"), d2);
 
-    try {
-        executeAction(s2t("set"), d, DialogModes.NO);
-        activeDocument.selection.invert();
-        try {
-            activeDocument.selection.bounds;
-        } catch (e) {
-            transp = false;
-        }
+//     try {
+//         executeAction(s2t("set"), d, DialogModes.NO);
+//         activeDocument.selection.invert();
+//         try {
+//             activeDocument.selection.bounds;
+//         } catch (e) {
+//             transp = false;
+//         }
 
-    } catch (e) {
-        transp = false;
-    }
-    prefReset();
-    activeDocument.selection.deselect();
-    if (transp) alert("Has transparency");
-    else alert("No transparency");
+//     } catch (e) {
+//         transp = false;
+//     }
+//     prefReset();
+//     activeDocument.selection.deselect();
+// /*     if (transp) alert("Has transparency");
+//     else alert("No transparency"); */
 
+//     if(transp) {return true}
+//     else {return false}
+// }
 
+// doc.suspendHistory("Transparent Check", "checkTrans2()");
 
-}
+// if(checkTransparency()) {
+//     alert("Has transparency")
+// } else {
+//     alert("no transparency")
+// }
 
-doc.suspendHistory("Transparent Check", "checkTrans2()");
-undoSteps(1)
-
-
-
-var temp = doc.activeLayer.name;
-gotoLayer("Original");
-// alert(doc.width + " " + doc.height)
-if (doc.activeLayer.kind == "LayerKind.SMARTOBJECT") {
-    if (doc.width < doc.height) {
-        var transformLayerScale = (doc.width + 2) * 100 / doc.width;
-    } else {
-        var transformLayerScale = (doc.height + 2) * 100 / doc.height;
-    }
-    transformLayer("center", transformLayerScale);
-}
-
-gotoLayer("vorher Ebene");
-// alert(doc.width + " " + doc.height)
-if (doc.width < doc.height) {
-    var transformLayerScale = (doc.width + 2) * 100 / doc.width;
-} else {
-    var transformLayerScale = (doc.height + 2) * 100 / doc.height;
-}
-transformLayer("center", transformLayerScale);
-
-
-gotoLayer(temp);
-var temp = "";
-
-doc.suspendHistory("Transparent Check", "checkTrans2()");
-undoSteps(1)
+// undoSteps(1)
 
 
 
-function transformLayer(_position, _scale) {
-    var d = new ActionDescriptor();
-    if (_position == "center") {
-        _position = 'QCSAverage';
-    } else if (_position == "topleft" || _position == "tl" || _position == "↖") {
-        _position = 'QCSCorner0';
-    } else if (_position == "top" || _position == "t" || _position == "↑") {
-        _position = 'QCSSide0';
-    } else if (_position == "topright" || _position == "tr" || _position == "↗") {
-        _position = 'QCSCorner1';
-    } else if (_position == "right" || _position == "r" || _position == "→") {
-        _position = 'QCSSide1';
-    } else if (_position == "bottomright" || _position == "br" || _position == "↘") {
-        _position = 'QCSCorner2';
-    } else if (_position == "bottom" || _position == "b" || _position == "↓") {
-        _position = 'QCSSide2';
-    } else if (_position == _position == "bottomleft" || _position == "bl" || _position == "↙") {
-        _position = 'QCSCorner3';
-    } else if (_position == "left" || _position == "l" || _position == "←") {
-        _position = 'QCSSide3';
-    }
 
-    d.putEnumerated(sTID('freeTransformCenterState'), sTID('quadCenterState'), sTID(_position));
-    var d2 = new ActionDescriptor();
-    d2.putUnitDouble(sTID('horizontal'), sTID('pixelsUnit'), 0.000000);
-    d2.putUnitDouble(sTID('vertical'), sTID('pixelsUnit'), 0.000000);
-    d.putObject(sTID('offset'), sTID('offset'), d2);
-    d.putUnitDouble(sTID('width'), sTID('percentUnit'), _scale);
-    d.putUnitDouble(sTID('height'), sTID('percentUnit'), _scale);
-    executeAction(sTID('transform'), d, DialogModes.NO);
-}
+
+// doc.suspendHistory("Transparent Check", "checkTrans2()");
+
+// if(checkTransparency()) {
+//     alert("Has transparency")
+// } else {
+//     alert("no transparency")
+// }
+// undoSteps(1)
+
+
+// transformLayer("r", 50);
+
+// var s2t = function (s) {
+// 	return app.stringIDToTypeID(s);
+// };
+
+// var descriptor = new ActionDescriptor();
+// var descriptor2 = new ActionDescriptor();
+
+// descriptor.putEnumerated( s2t( "freeTransformCenterState" ), s2t( "quadCenterState" ), s2t( "QCSCorner3" ));
+// descriptor2.putUnitDouble( s2t( "horizontal" ), s2t( "pixelsUnit" ), 0.000000 );
+// descriptor2.putUnitDouble( s2t( "vertical" ), s2t( "pixelsUnit" ), 0.000000 );
+// descriptor.putObject( s2t( "offset" ), s2t( "offset" ), descriptor2 );
+// descriptor.putUnitDouble( s2t( "width" ), s2t( "percentUnit" ), 49.922561 );
+// descriptor.putUnitDouble( s2t( "height" ), s2t( "percentUnit" ), 49.922561 );
+// executeAction( s2t( "transform" ), descriptor, DialogModes.NO );
 
 
 // function undoSteps(_steps) {
@@ -376,3 +347,7 @@ function transformLayer(_position, _scale) {
 //         executeAction(charIDToTypeID('undo'), undefined, DialogModes.NO);
 //     };
 // };
+
+
+ 
+createLayer("ding", "patternLayer", "normal", "gray", 80, "none", f,f);
