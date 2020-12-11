@@ -22,10 +22,9 @@ var option_convert_8bit = true;
 // var mainFolder = "/Users/simon/Arbeit/11Freunde/_Cloud/Buch/";
 // var subFolder = "RGB";
 
-var mainFolder = "/Users/simon/Arbeit/11Freunde/Legenden2_BVB/";
-// var mainFolder = "/Users/simon/Arbeit/11Freunde/227/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/Legenden2_BVB/";
+var mainFolder = "/Users/simon/Arbeit/11Freunde/230/";
 var subFolder = "RGB";
-
 
 
 if (!app.selection.length > 0) {
@@ -175,7 +174,9 @@ function CreateBridgeTalkMessage() {
 function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloesung, hPPI, option_convert_8bit) {
     <!-- @import "../../build/A__psScripts/functions/basic.jsx" -->
     <!-- @import "../../build/A__psScripts/functions/mb_Utils.jsx" -->
-    <!-- @import "../../build/A__psScripts/functions/zoom.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/view.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/LUT-burn.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/LUT-dodge.jsx" -->
     <!-- @import "../../build/A__psScripts/functions/ready.jsx" -->
     <!-- @import "../../build/A__psScripts/functions/dialog.jsx" -->
     <!-- @import "../../build/A__psScripts/functions/save.jsx" -->
@@ -200,6 +201,7 @@ function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloe
         }
         else{
             doc.suspendHistory("Startschuss", "startschuss()");
+            /* alert("ding"); */
         }
         
         startschuss_Rest();
@@ -282,7 +284,8 @@ function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloe
 
         /* smartObjectTransparencyIssue(); */
         fitScreen();
-        zoomOut();
+        if(getZoomLevel() >= 100) {zoom100()}
+        else {zoomOut()}
         saveFile_PSD(new File(myNewPath), f, t, f, t, t, f);
         prefReset();
     }

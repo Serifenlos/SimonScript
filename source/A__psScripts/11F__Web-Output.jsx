@@ -9,6 +9,13 @@
 */
 
 
+//@include "functions/basic.jsx";
+//@include "functions/mb_Utils.jsx";
+//@include "functions/meta.jsx";
+//@include "functions/save.jsx";
+//@include "functions/loopFiles.jsx";
+
+
 /* OPTIONS ******************************************/
 saveFolder = "~/Desktop/Bilder FERTIG";
 saveFolder_WEB = "~/Desktop/Bilder WEB";
@@ -55,17 +62,15 @@ function run() {
             var doc_file = new File(thisFile);
             app.open(doc_file);
 
-            /* INCLUDE ******************************************/
-                //@include "functions/basic.jsx";
-                //@include "functions/mb_Utils.jsx";
-                //@include "functions/meta.jsx";
-                //@include "functions/save.jsx";
-                //@include "functions/loopFiles.jsx";
-            /****************************************************/
+            //@include "functions/basic.jsx";
+            //@include "functions/mb_Utils.jsx";
+            //@include "functions/meta.jsx";
+            //@include "functions/save.jsx";
+            //@include "functions/loopFiles.jsx";
+
 
             prefSave();
             prefSet(DialogModes.NO, Units.PIXELS);
-
 
             try {
                 gotoLayer("Original");
@@ -98,7 +103,6 @@ function run() {
                 return 100;
               }
             }
-
             try{clearAllGuides()}catch(e){}
             try{delMeta()}catch(e){}
             try{if(getBitDepth(!8)){setBitDepth(8)}}catch(e){}
@@ -106,9 +110,7 @@ function run() {
 
             /* TODO png und gif fehlt noch in SaveForWeb() */
             SaveForWeb("JPEG", saveFolder_WEB, setSaveName(saveFolder_WEB, prefix, "jpg"),helperScale(maximalMegaPixel), f, t, t, t, 255, 255, 255, "Meta_ck", 66, t, f, 0);
-
             prefReset();
-
             /* TODO bin nicht ganz mit saveRZ() einverstanden, ist für die globale Anwednung einwenig beschränkt. Versuche in save.jsx alles zu vereinen, irgendwann */
             var docName = GetFileNameOnly(doc.name);
             if (docName.match(/_frei/g) || docName.match(/-frei/g) || checkTransparency()) {

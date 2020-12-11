@@ -1,0 +1,35 @@
+// @codekit-prepend "./view/fitScreen.js";
+// @codekit-prepend "./view/zoomOut.js";
+// @codekit-prepend "./view/zoomIn.js";
+// @codekit-prepend "./view/apfel0.js";
+// @codekit-prepend "./view/zoom100.js";
+
+// @codekit-prepend "./view/zoomOutSteps.js";
+// @codekit-prepend "./view/standardmodus.js";
+// @codekit-prepend "./view/vollbildmodus_menu.js";
+// @codekit-prepend "./view/vollbildmodus.js";
+
+// @codekit-prepend "./view/anordung_kachel.js";
+// @codekit-prepend "./view/anordung_1.js";
+// @codekit-prepend "./view/anordung_2vertical.js";
+// @codekit-prepend "./view/anordung_2horizontal.js";
+// @codekit-prepend "./view/anordung_3.js";
+// @codekit-prepend "./view/anordung_3vertical.js";
+// @codekit-prepend "./view/anordung_3horizontal.js";
+// @codekit-prepend "./view/anordung_4.js";
+// @codekit-prepend "./view/anordung_6.js";
+
+
+
+// @codekit-prepend "./view/getZoomLevel.js";
+// @codekit-prepend "./view/setDocResolution.js";
+// @codekit-prepend "./view/setZoomLevel.js";
+
+// @codekit-prepend "./view/setZoom.js";
+// @codekit-prepend "./view/set_doc_position.js";
+
+// @codekit-prepend "./view/zoomSteps.js";
+// @codekit-prepend "./view/rulersVisibility.js";
+// @codekit-prepend "./view/scrollPage.js";
+
+

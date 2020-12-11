@@ -16,7 +16,7 @@
 
 if (app.documents.length == 0) {
     inputFolder = Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet\nDie ausgespielten Dateien werden im Unterorder 'output' abgelegt");
-    var fileList = inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i);
+    var fileList = inputFolder.getFiles(/.+\.(jpg|tif|psd|psb|bmp|gif|png|)$/i);
 
     var outputFolder = new Folder(inputFolder + "/output");
     if (!outputFolder.exists) {
@@ -27,6 +27,7 @@ if (app.documents.length == 0) {
     for (var j = 0; j < fileList.length; j++) {
         var thisFile = fileList[j];
         var thisFileName = GetFileNameOnly(thisFile.name);
+        var thisFileName = thisFileName.replace(/(__RGB.*)$/g,'');
 
         var doc_file = new File(thisFile);
         app.open(doc_file);
@@ -68,6 +69,9 @@ function process_BW(_file) {
         var longSite = get_longSite();
 
         for (var i = 0; i < sizes.length; i++) {
+            flattenImage();
+            try{if(getBitDepth(!8)){setBitDepth(8)}}catch(e){};
+            clearAllGuides();
             var soll = parseFloat(sizes[i]);
             var ist = parseFloat(longSite);
 
@@ -81,7 +85,7 @@ function process_BW(_file) {
                 else if (soll ==  60){var maße =   "60x40"}
                 else if (soll ==  45){var maße =   "45x30"}
                 newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
-                saveFile_JPG(12, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
+                saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
             }
             resetImage();
         }
@@ -93,6 +97,9 @@ function process_BW(_file) {
         var longSite = get_longSite();
 
         for (var i = 0; i < sizes.length; i++) {
+            flattenImage();
+            try{if(getBitDepth(!8)){setBitDepth(8)}}catch(e){};
+            clearAllGuides();
             var soll = parseFloat(sizes[i]);
             var ist = parseFloat(longSite);
 
@@ -106,7 +113,7 @@ function process_BW(_file) {
                 else if (soll ==  60){var maße =   "60x45"}
                 else if (soll ==  40){var maße =   "40x30"}
                 newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
-                saveFile_JPG(12, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
+                saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
             } 
             resetImage();
         }
@@ -117,6 +124,9 @@ function process_BW(_file) {
         var longSite = get_longSite();
 
         for (var i = 0; i < sizes.length; i++) {
+            flattenImage();
+            try{if(getBitDepth(!8)){setBitDepth(8)}}catch(e){};
+            clearAllGuides();
             var soll = parseFloat(sizes[i]);
             var ist = parseFloat(longSite);
 
@@ -130,17 +140,20 @@ function process_BW(_file) {
                 else if (soll ==  50){var maße =   "50x50"}
                 else if (soll ==  40){var maße =   "40x40"}
                 newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
-                saveFile_JPG(12, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
+                saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
             } 
             resetImage();
         }
     }
 
     else if (ratio >= 2.48 && ratio <= 2.52) {
-        var sizes = [250, 225, 200, 175, 150, 125, 100];
+        var sizes = [250, 225, 200, 175, 150, 125, 100, 62.5];
         var longSite = get_longSite();
 
         for (var i = 0; i < sizes.length; i++) {
+            flattenImage();
+            try{if(getBitDepth(!8)){setBitDepth(8)}}catch(e){};
+            clearAllGuides();
             var soll = parseFloat(sizes[i]);
             var ist = parseFloat(longSite);
 
@@ -153,8 +166,9 @@ function process_BW(_file) {
                 else if (soll == 150){var maße =  "150x60"}
                 else if (soll == 125){var maße =  "125x50"}
                 else if (soll == 100){var maße =  "100x40"}
+                else if (soll == 62.5){var maße =  "62x25"}
                 newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
-                saveFile_JPG(12, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
+                saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
             } 
             resetImage();
         }

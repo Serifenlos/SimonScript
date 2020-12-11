@@ -40,17 +40,19 @@ getZoomLevel()
 ```
 
 ### setDocResolution
-*Ist doch auch iregndwo anders?*
+==Ist doch auch iregndwo anders?==
 ```function
 setDocResolution(dpi)
 ```
+
 * dpi `number`
 
 ### setZoomLevel
-```function
+```js
 setZoomLevel(zoom)
 ```
-* zomm `number` *glaube ich*
+
+* zomm `number` ==glaube ich==
 
 
 ## Ansichten

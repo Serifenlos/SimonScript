@@ -1,9 +1,9 @@
 /*
 // BEGIN__HARVEST_EXCEPTION_ZSTRING
 <javascriptresource>
-<name>[GitDev] Startschuss_v3</name>
+<name>[A] Startschuss</name>
 <about>Photoshop-Script to start every retouch | By Simon Adrian | http://www.SimonAdrian.de</about>
-<category>GitHub dev</category>
+<category>A fängt an.</category>
 </javascriptresource>
 // END__HARVEST_EXCEPTION_ZSTRING
 */

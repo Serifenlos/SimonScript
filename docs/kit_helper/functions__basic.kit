@@ -1,0 +1,972 @@
+# BASIC.jsx
+
+
+## application
+
+### emptyProtocoll
+***action***
+das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. Kann nicht rückgängig gemacht werden.
+
+<button class="btn" data-clipboard-text="emptyProtocoll();"></button>
+{: .btn_p }
+
+??? "emptyProtocoll();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/emptyProtocoll.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/emptyProtocoll.js)
+
+
+### deleteHistory
+***action***
+
+<button class="btn" data-clipboard-text="deleteHistory();"></button>
+{: .btn_p }
+
+??? "deleteHistory();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/deleteHistory.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteHistory.js)
+
+
+### prefSave
+***action***
+store the dialog- and unit-settings in variables ==warum nicht alle Prefs speichern und später zurückstellen?==
+
+<button class="btn" data-clipboard-text="prefSave();"></button>
+{: .btn_p }
+
+??? "prefSave();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/prefSave.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSave.js)
+
+
+### prefSet
+***action***
+set the dialog- and unit-settings ==TODO hätte ja gerne eine einfachere Syntax mit translate-function==
+
+
+<button class="btn" data-clipboard-text="prefSet(_dialog, _units);"></button>
+{: .btn_p }
+
+??? "prefSet(_dialog, _units);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/prefSet.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSet.js)
+
+???+ a
+    ```js
+    prefSet(DialogModes.NO, Units.MM);
+    ```
+    
+    ??? b
+        * _dialog `DialogModes.NO` `DialogModes.ALL`
+        * _units `Units.CM` `Units.INCHES` `Units.MM` `Units.PERCENT` `Units.PICAS` `Units.PIXELS` `Units.POINTS`
+
+
+
+### prefReset
+***action***
+reset the dialog- and unit-settings to the previous state
+
+<button class="btn" data-clipboard-text="prefReset();"></button>
+{: .btn_p }
+
+??? "prefReset();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/prefReset.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefReset.js)
+
+
+## document
+
+### undoSteps
+***action***
+schrittweise 
+
+<button class="btn" data-clipboard-text="undoSteps(_steps);"></button>
+{: .btn_p }
+
+??? "undoSteps(_steps);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/undoSteps.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/undoSteps.js)
+
+???+ a
+    ```js
+    undoSteps(2);
+    ```
+
+
+
+### resetImage
+***action***
+zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
+
+<button class="btn" data-clipboard-text="resetImage();"></button>
+{: .btn_p }
+
+??? "resetImage();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/resetImage.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/resetImage.js)
+
+
+## debugging
+### time_start
+***action***
+
+<button class="btn" data-clipboard-text="time_start();"></button>
+{: .btn_p }
+
+??? "time_start();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/time_start.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/time_start.js)
+
+
+### time_stop
+***action***
+
+<button class="btn" data-clipboard-text="time_stop(_time_start);"></button>
+{: .btn_p }
+
+??? "time_stop(_time_start);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/time_stop.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/time_stop.js)
+
+
+### logger
+***action***
+
+<button class="btn" data-clipboard-text="logger(_log_fn);"></button>
+{: .btn_p }
+
+??? "logger(_log_fn);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/logger.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/logger.js)
+
+
+
+
+## Layer
+### createLayer
+***action***
+==TODO umbenennen createAdjustmentLayer oder createLayer_adjustment== erstelle eine Einstellebene
+
+<button class="btn" data-clipboard-text="createLayer(_name, _type, _mode, _color, _opacity, _mask, _clip, _autoLevel);"></button>
+{: .btn_p }
+
+??? "createLayer(_name, _type, _mode, _color, _opacity, _mask, _clip, _autoLevel);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/createLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createLayer.js)
+
+
+???+ a
+    ```js
+    createLayer("AutoTonwert", "levels", "normal", "gray", 80, "black", f,f);
+    ```
+
+    ??? b
+        * _name `string`
+        * _type `solidColorLayer` `gradientLayer` `patternLayer` // `brightnessEvent` `levels` `curves` `exposure` `vibrance` `hueSaturation` `colorBalance` `blackAndWhite` `photoFilter` `channelMixer` `colorLookup` // `invert` `posterization` `thresholdClassEvent` `gradientMapClass` `selectiveColor`
+        * _mode 
+        * _color
+        * _opacity `0-100`
+        * _mask `none` `invert` `black` `white` `gray`
+        * _clip `boolean`
+        * _autoLevels `boolean` *only with _type=levels*
+    
+
+### createColorLayer
+***action***
+erstelle eine Farbfläche
+
+<button class="btn" data-clipboard-text="createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"></button>
+{: .btn_p }
+
+??? "createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/createColorLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
+
+???+ a
+    ```js
+    createColorLayer("Weiss", "normal", "gray", 100, "none", 255, 255, 255);
+    ```
+
+    ??? b
+        * _name `string`
+        * _mode
+        * _color
+        * _opacity `0-100`
+        * _mask `none` `invert` `black` `white` `gray`
+        * _red `0-255`
+        * _green `0-255`
+        * _blue `0-255`
+    
+
+
+
+### gotoMask
+***action***
+==TODO toogle Mask/RGB-Layer //  bisher nur im CreateColorLayer verwendet==
+
+<button class="btn" data-clipboard-text="gotoMask();"></button>
+{: .btn_p }
+
+??? "gotoMask();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/gotoMask.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoMask.js)
+
+
+### gotoFill
+***action***
+
+<button class="btn" data-clipboard-text="gotoFill();"></button>
+{: .btn_p }
+
+??? "gotoFill();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/gotoFill.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoFill.js)
+
+
+### moveLayer
+***action***
+==TODO _direction für ElementPlacement.INSIDE, ElementPlacement.PLACEATBEGINNING, ElementPlacement.PLACEATEND==
+
+<button class="btn" data-clipboard-text="moveLayer(_objectLayer, _aimLayer, _direction);"></button>
+{: .btn_p }
+
+??? "moveLayer(_objectLayer, _aimLayer, _direction);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/moveLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/moveLayer.js)
+
+???+ a
+    ```js
+    moveLayer("Weiss", "Original", "down");
+    ```
+    
+    ??? b
+        * _objectLayer `string`
+        * _aimLayer `string`
+        * _direction `up` `down`
+
+
+### moveLayer3
+***action***
+
+<button class="btn" data-clipboard-text="moveLayer3(_direction, _steps);"></button>
+{: .btn_p }
+
+??? "moveLayer3(_direction, _steps);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/moveLayer3.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/moveLayer3.js)
+
+???+ a
+    ```js
+    moveLayer3("up", 3);
+    ```
+    
+    ??? b
+        * _direction `up` = `next` `down` = `previous` `top` = `front` `bottom` = `back`
+        * _steps `number`
+
+
+### deleteMask
+***action***
+
+<button class="btn" data-clipboard-text="deleteMask();"></button>
+{: .btn_p }
+
+??? "deleteMask();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/deleteMask.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteMask.js)
+
+
+### createGroup
+***action***
+
+<button class="btn" data-clipboard-text="createGroup(_name, _mode, _color, _opacity, _groupSelection);"></button>
+{: .btn_p }
+
+??? "createGroup(_name, _mode, _color, _opacity, _groupSelection);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/createGroup.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createGroup.js)
+
+???+ a
+    ```js
+    createGroup("Einstellungen", "passThrough", "none", 100);
+    ```
+    
+    ??? b
+        * _name `string`
+        * _mode `passThrough`
+        * _color `none`
+        * _opacity `number` `0-100`
+        * _groupSelection `boolean`
+
+
+### fill
+
+<button class="btn" data-clipboard-text="fill(_content, _mode, _opacity, _h, _s, _b);"></button>
+{: .btn_p }
+
+??? "fill(_content, _mode, _opacity, _h, _s, _b);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/fill.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/fill.js)
+
+???+ a
+    ```js
+    fill("black", "normal", 100);
+    fill("color", "multiply", 50, 240,50,50);
+    ```
+    
+    ??? b
+        * _content
+        * _mode
+        * _opacity
+        * _h
+        * _s
+        * _b
+
+
+### smartObject
+
+<button class="btn" data-clipboard-text="smartObject();"></button>
+{: .btn_p }
+
+??? "smartObject();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/smartObject.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObject.js)
+
+
+### rasterSmartObject
+
+<button class="btn" data-clipboard-text="rasterSmartObject();"></button>
+{: .btn_p }
+
+??? "rasterSmartObject();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/rasterSmartObject.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/rasterSmartObject.js)
+
+
+### nameLayer
+
+<button class="btn" data-clipboard-text="nameLayer(_name);"></button>
+{: .btn_p }
+
+??? "nameLayer(_name);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/nameLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/nameLayer.js)
+
+* _name
+
+### dublicate
+
+<button class="btn" data-clipboard-text="dublicate(_name);"></button>
+{: .btn_p }
+
+??? "dublicate(_name);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/dublicate.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/dublicate.js)
+
+* _name
+
+### selectLayerUp
+TODO ist das noch in Verwendung, oder kann das weg
+
+<button class="btn" data-clipboard-text="selectLayerUp();"></button>
+{: .btn_p }
+
+??? "selectLayerUp();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/selectLayerUp.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayerUp.js)
+
+
+### selectLayer
+
+<button class="btn" data-clipboard-text="selectLayer(_direction, _times);"></button>
+{: .btn_p }
+
+??? "selectLayer(_direction, _times);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/selectLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayer.js)
+
+* _direction
+* _times
+
+### selectAll
+TODO mit unterer Funktion ersetzt
+
+<button class="btn" data-clipboard-text="selectAll();"></button>
+{: .btn_p }
+
+??? "selectAll();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/selectAll.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAll.js)
+
+
+### selectLayers 
+
+<button class="btn" data-clipboard-text="selectLayers(_all_or_nothing);"></button>
+{: .btn_p }
+
+??? "selectLayers(_all_or_nothing);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/selectLayers.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayers.js)
+
+???+ a
+    ```js
+    selectLayers(selectAllLayers);
+    ```
+    
+    ??? b
+        * _all_or_nothing `selectNoLayers` `selectAllLayers`
+
+
+### hasBackground
+
+<button class="btn" data-clipboard-text="hasBackground();"></button>
+{: .btn_p }
+
+??? "hasBackground();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/hasBackground.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/hasBackground.js)
+
+
+### clearAllGuides
+
+<button class="btn" data-clipboard-text="clearAllGuides();"></button>
+{: .btn_p }
+
+??? "clearAllGuides();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/clearAllGuides.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/clearAllGuides.js)
+
+
+### gotoLayer
+
+<button class="btn" data-clipboard-text="gotoLayer(_input);"></button>
+{: .btn_p }
+
+??? "gotoLayer(_input);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/gotoLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoLayer.js)
+
+???+ a
+    ```js
+    gotoLayer("Original");
+    ```
+    
+    ??? b
+        * _input `number` `string` *idx oder LayerName*
+
+
+## Image 
+### SmartObject_edit
+
+<button class="btn" data-clipboard-text="createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"></button>
+{: .btn_p }
+
+??? "createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/createColorLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
+
+
+### SmartOject_placeItem
+
+<button class="btn" data-clipboard-text="createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"></button>
+{: .btn_p }
+
+??? "createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/createColorLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
+
+
+### getBitDepth
+***returns 8, 6 or 32***
+
+<button class="btn" data-clipboard-text="getBitDepth();"></button>
+{: .btn_p }
+
+??? "getBitDepth();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/getBitDepth.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/getBitDepth.js)
+
+
+
+### setBitDepth
+
+<button class="btn" data-clipboard-text="setBitDepth(_bitdepth);"></button>
+{: .btn_p }
+
+??? "setBitDepth(_bitdepth);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/setBitDepth.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setBitDepth.js)
+
+* _bitdepth
+
+### img_resize
+==TODO irritierender Name // Vorschläge?==
+
+<button class="btn" data-clipboard-text="img_resize(_ziel_longSite, _max_resolution);"></button>
+{: .btn_p }
+
+??? "img_resize(_ziel_longSite, _max_resolution);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/img_resize.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/img_resize.js)
+
+???+ a
+    ```js
+    img_resize(10, 300);
+    img_resize(10, null);
+    ```
+    
+    ??? b
+        * _ziel_longSite
+        * _max_resolution
+
+
+### setMegaPixel
+
+<button class="btn" data-clipboard-text="setMegaPixel(_setMegaPixel);"></button>
+{: .btn_p }
+
+??? "setMegaPixel(_setMegaPixel);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/setMegaPixel.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setMegaPixel.js)
+
+???+ a
+    ```js
+    setMegaPixel(8)
+    ```
+    
+    ??? b
+        * _setMegaPixel `number`
+
+
+### getScale
+
+<button class="btn" data-clipboard-text="getScale(_setMegaPixel);"></button>
+{: .btn_p }
+
+??? "getScale(_setMegaPixel);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/getScale.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/getScale.js)
+
+???+ a
+    ```js
+    getScale(8);
+    ```
+    
+    ??? b
+        * _setMegaPixel `number`
+
+
+### cm2pt
+Convert cm to Point, imageSize needs Points
+
+<button class="btn" data-clipboard-text="cm2pt(cm);"></button>
+{: .btn_p }
+
+??? "cm2pt(cm);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/cm2pt.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/cm2pt.js)
+
+
+### mm2pt
+
+<button class="btn" data-clipboard-text="mm2pt(mm);"></button>
+{: .btn_p }
+
+??? "mm2pt(mm);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/mm2pt.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/mm2pt.js)
+
+
+
+### setDpi
+
+<button class="btn" data-clipboard-text="setDpi(_dpi);"></button>
+{: .btn_p }
+
+??? "setDpi(_dpi);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/setDpi.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setDpi.js)
+
+???+ a
+    ```js
+    setDpi(355.6)
+    ```
+    
+    ??? b
+        * _dpi `number`
+
+
+
+### setSize
+
+<button class="btn" data-clipboard-text="setSize(_side, _size);"></button>
+{: .btn_p }
+
+??? "setSize(_side, _size);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/setSize.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setSize.js)
+
+???+ a
+    ```js
+    setSize("width", 100);
+    ```
+    
+    ??? b
+        * _side `width` `height`
+        * _size `number`
+
+
+
+
+## Color
+### noProfile
+
+<button class="btn" data-clipboard-text="noProfile();"></button>
+{: .btn_p }
+
+??? "noProfile();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/noProfile.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/noProfile.js)
+
+
+### assignProfile
+
+<button class="btn" data-clipboard-text="assignProfile(_profile);"></button>
+{: .btn_p }
+
+??? "assignProfile(_profile);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/assignProfile.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/assignProfile.js)
+
+
+* _profile `string`
+
+
+### gray2rgb
+
+<button class="btn" data-clipboard-text="gray2rgb();"></button>
+{: .btn_p }
+
+??? "gray2rgb();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/gray2rgb.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gray2rgb.js)
+
+
+### cmyk2rgb
+
+<button class="btn" data-clipboard-text="cmyk2rgb();"></button>
+{: .btn_p }
+
+??? "cmyk2rgb();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/cmyk2rgb.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/cmyk2rgb.js)
+
+
+### sRGB2eciRGB
+
+<button class="btn" data-clipboard-text="sRGB2eciRGB();"></button>
+{: .btn_p }
+
+??? "sRGB2eciRGB();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/sRGB2eciRGB.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/sRGB2eciRGB.js)
+
+
+### indexcolor2rgb
+
+<button class="btn" data-clipboard-text="indexcolor2rgb();"></button>
+{: .btn_p }
+
+??? "indexcolor2rgb();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/indexcolor2rgb.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/indexcolor2rgb.js)
+
+
+## WEB-Output
+### GetFileNameOnly
+
+<button class="btn" data-clipboard-text="GetFileNameOnly(myFileName);"></button>
+{: .btn_p }
+
+??? "GetFileNameOnly(myFileName);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/GetFileNameOnly.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/GetFileNameOnly.js)
+
+
+### replace__RGB_RZ
+
+<button class="btn" data-clipboard-text="replace__RGB_RZ(_replace);"></button>
+{: .btn_p }
+
+??? "replace__RGB_RZ(_replace);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/replace__RGB_RZ.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/replace__RGB_RZ.js)
+
+
+### saveRZ
+
+<button class="btn" data-clipboard-text="saveRZ(_saveFolder, _prefix, _saveFormat, _replace);"></button>
+{: .btn_p }
+
+??? "saveRZ(_saveFolder, _prefix, _saveFormat, _replace);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/saveRZ.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/saveRZ.js)
+
+
+### selectAllLayers
+
+<button class="btn" data-clipboard-text="selectAllLayers();"></button>
+{: .btn_p }
+
+??? "selectAllLayers();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/selectAllLayers.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAllLayers.js)
+
+
+### mergeLayers
+
+<button class="btn" data-clipboard-text="mergeLayers();"></button>
+{: .btn_p }
+
+??? "mergeLayers();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/mergeLayers.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/mergeLayers.js)
+
+
+### flattenImage
+
+<button class="btn" data-clipboard-text="flattenImage();"></button>
+{: .btn_p }
+
+??? "flattenImage();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/flattenImage.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/flattenImage.js)
+
+
+### blendif
+
+<button class="btn" data-clipboard-text="blendif(_blackMin, _blackMax, _whiteMin, _whiteMax);"></button>
+{: .btn_p }
+
+??? "blendif(_blackMin, _blackMax, _whiteMin, _whiteMax);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/blendif.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/blendif.js)
+
+
+* _blackMin
+* _blackMax
+* _whiteMin
+* _whiteMax
+
+### checkTransparency
+
+<button class="btn" data-clipboard-text="checkTransparency();"></button>
+{: .btn_p }
+
+??? "checkTransparency();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/checkTransparency.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency.js)
+
+
+### checkTransparency_inner
+
+<button class="btn" data-clipboard-text="checkTransparency_inner();"></button>
+{: .btn_p }
+
+??? "checkTransparency_inner();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/checkTransparency_inner.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency_inner.js)
+
+
+### transformLayer
+
+<button class="btn" data-clipboard-text="transformLayer(_position, _scale);"></button>
+{: .btn_p }
+
+??? "transformLayer(_position, _scale);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/transformLayer.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/transformLayer.js)
+
+
+### smartObjectTransparencyIssue
+
+<button class="btn" data-clipboard-text="smartObjectTransparencyIssue();"></button>
+{: .btn_p }
+
+??? "smartObjectTransparencyIssue();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/smartObjectTransparencyIssue.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObjectTransparencyIssue.js)
+
