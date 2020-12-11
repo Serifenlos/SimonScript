@@ -1,8 +1,11 @@
 //@include "functions/basic.jsx";
+//@include "functions/pref.jsx";
 //@include "functions/mb_Utils.jsx";
 //@include "functions/LUT-dodge.jsx";
 //@include "functions/LUT-burn.jsx";
+//@include "functions/dialog.jsx";
 //@include "functions/ready.jsx";
+//@include "functions/view.jsx";
 
 
 
@@ -349,5 +352,175 @@ function checkTrans() {
 // };
 
 
- 
-createLayer("ding", "patternLayer", "normal", "gray", 80, "none", f,f);
+// setZoom(100);
+// zoom100();
+// set_doc_position(50, 50);
+
+
+// alert(doc.bitsPerChannel);
+// alert("get " + getBitDepth());
+
+
+
+
+
+// setZoom(50);
+// zoom100();
+// set_doc_position(50, 50);
+
+
+// alert(doc.bitsPerChannel);
+// alert("get " + getBitDepth());
+
+
+
+
+
+// setZoom(100)
+// set_doc_position(50, 50)
+// 1,0,0,1,-59.5,-59.5
+
+// set_doc_position(100, 0)
+// 1,0,0,1,0,0
+
+// set_doc_position(350, 50)
+
+var ruler_viewInfo = 19;
+var ruler_viewTransform = 0;
+if(!rulersVisibility()) {
+    var ruler_viewInfo = 0;
+    var ruler_viewTransform = 9.5;
+}
+var scrollbar = 16;
+var overlap = 100;
+
+
+var ref = new ActionReference();
+ref.putProperty(stringIDToTypeID("property"),stringIDToTypeID("viewInfo"));
+ref.putEnumerated(stringIDToTypeID("document"),stringIDToTypeID("ordinal"),stringIDToTypeID("targetEnum"));
+var desc = executeActionGet(ref);
+
+var bounds = desc.getObjectValue(stringIDToTypeID('viewInfo')).getObjectValue(stringIDToTypeID('activeView')).getObjectValue(stringIDToTypeID('globalBounds'));
+
+var left = bounds.getDouble(stringIDToTypeID('left'));
+var right = bounds.getDouble(stringIDToTypeID('right'))
+var top = bounds.getDouble(stringIDToTypeID('top'))
+var bottom = bounds.getDouble(stringIDToTypeID('bottom'))
+
+// alert("l " + left + "\nr " + right  + "\nt " + top  + "\nb " + bottom );
+var view_w = right - left - ruler_viewInfo - scrollbar;
+var view_h = bottom - top - ruler_viewInfo - scrollbar;
+
+// alert("\nbreite " + view_w + "\nhöhe " + view_h)
+
+// l 41
+// r 1236
+// t 100
+// b 1199
+
+// breite 1195   //mit Ruler und Scrollbar
+// höhe 1099     //mit Ruler und Scrollbar
+// breite 1160
+// höhe 1064
+
+var ref = new ActionReference();
+ref.putProperty(stringIDToTypeID("property"), stringIDToTypeID("viewTransform"));
+ref.putEnumerated(stringIDToTypeID("document"), stringIDToTypeID("ordinal"), stringIDToTypeID("targetEnum"));
+var list = executeActionGet(ref).getList(stringIDToTypeID('viewTransform'));
+var matrix = [list.getDouble(0), list.getDouble(1), list.getDouble(2), list.getDouble(3), list.getDouble(4), list.getDouble(5)];
+
+var x_zoom = list.getDouble(0);
+var weissNicht1 = list.getDouble(1)
+var weissNicht2 = list.getDouble(2)
+var y_zoom = list.getDouble(3);
+var x_position = list.getDouble(4);
+var y_position = list.getDouble(5);
+
+
+
+var x_pos = (list.getDouble(4) / list.getDouble(0)) - ruler_viewTransform;
+var y_pos = (list.getDouble(5) / list.getDouble(3)) - ruler_viewTransform;
+
+// alert(matrix)
+
+// alert("\nx_zoom " + x_zoom + "\ny_zoom " + y_zoom + "\nx_position " + x_position + "\ny_position " + y_position)
+// alert("\nx_pos " + x_pos + "\ny_pos " + y_pos)
+
+
+
+
+function scroll_right() {
+    set_doc_position(-(x_pos + view_w - overlap), -y_pos)
+}
+
+function scroll_down() {
+    set_doc_position(-x_pos, -(y_pos + view_h - overlap))
+}
+
+function scroll_left() {
+    set_doc_position(-(x_pos - view_w + overlap), -y_pos)
+}
+
+function scroll_up() {
+    set_doc_position(-x_pos, -(y_pos - view_h + overlap))
+}
+
+// scroll_right()
+// scroll_left()
+// scroll_up()
+// scroll_down()
+
+// scrollPage("right");
+// alert(rulersVisibility())
+
+
+
+
+// alert(app.displayDialogs)
+// alert(app.preferences.rulerUnits)
+// alert(app.preferences.beepWhenDone)
+
+// rulerUnits_prefSave();
+// alert("start " + startRulerUnits);
+// rulerUnits_prefSet(Units.CM);
+// alert("jetzt " + app.preferences.rulerUnits);
+// rulerUnits_prefSet(startRulerUnits);
+// alert("jetzt " + app.preferences.rulerUnits);
+
+// if (doc.mode == DocumentMode.INDEXEDCOLOR) {
+//         // doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
+//         alert("index")
+//     }
+//     else{alert("noIndex")}
+
+
+var idtransform = stringIDToTypeID( "transform" );
+    var desc2 = new ActionDescriptor();
+    var idnull = stringIDToTypeID( "null" );
+        var ref1 = new ActionReference();
+        var idlayer = stringIDToTypeID( "layer" );
+        var idordinal = stringIDToTypeID( "ordinal" );
+        var idtargetEnum = stringIDToTypeID( "targetEnum" );
+        ref1.putEnumerated( idlayer, idordinal, idtargetEnum );
+    desc2.putReference( idnull, ref1 );
+    var idfreeTransformCenterState = stringIDToTypeID( "freeTransformCenterState" );
+    var idquadCenterState = stringIDToTypeID( "quadCenterState" );
+    var idQCSCornerzero = stringIDToTypeID( "QCSCorner0" );
+    desc2.putEnumerated( idfreeTransformCenterState, idquadCenterState, idQCSCornerzero );
+    var idoffset = stringIDToTypeID( "offset" );
+        var desc3 = new ActionDescriptor();
+        var idhorizontal = stringIDToTypeID( "horizontal" );
+        var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+        desc3.putUnitDouble( idhorizontal, idpixelsUnit, -408.000000 );
+        var idvertical = stringIDToTypeID( "vertical" );
+        var idpixelsUnit = stringIDToTypeID( "pixelsUnit" );
+        desc3.putUnitDouble( idvertical, idpixelsUnit, 244.000000 );
+    var idoffset = stringIDToTypeID( "offset" );
+    desc2.putObject( idoffset, idoffset, desc3 );
+    var idlinked = stringIDToTypeID( "linked" );
+    desc2.putBoolean( idlinked, true );
+    var idinterfaceIconFrameDimmed = stringIDToTypeID( "interfaceIconFrameDimmed" );
+    var idinterpolationType = stringIDToTypeID( "interpolationType" );
+    var idbicubicSharper = stringIDToTypeID( "bicubicSharper" );
+    desc2.putEnumerated( idinterfaceIconFrameDimmed, idinterpolationType, idbicubicSharper );
+executeAction( idtransform, desc2, DialogModes.NO );

@@ -1,7 +1,10 @@
-site_name: SimonScript Docs
+site_name: SimonScript.jsx
 site_dir: '../SimonScript_Docs'
 repo_url: https://github.com/Serifenlos/SimonScript
-edit_uri: docs/
+# edit_uri: edit/master/docs
+edit_uri: ''
+use_directory_urls: false
+dev_addr: 'localhost:8000'
 
 
 # theme: readthedocs
@@ -9,11 +12,21 @@ theme:
     name: material
 #    features:
 #        - navigation.tabs
+    palette:
+        scheme: default
+        primary: white
+        accent: blue
+    logo: assets/images/SS_logo.svg
+    favicon: assets/images/favicon.png
+    icon:
+        repo: fontawesome/brands/github
 
 
 
 extra_css: 
-    - extra.css
+    - assets/stylesheets/extra.css
+extra_javascript:
+    - assets/javascripts/extra.js
 
 
 
@@ -21,46 +34,38 @@ extra_css:
 
 nav:
     - Home: index.md
-    - 'Functions':
-        - 'basic.jsx': 'functions/basic.md'
-        - 'basic+.jsx': 'functions/basic+.md'
-        - 'basic++.jsx': 'functions/basic++.md'
-        - 'dialog.jsx': 'functions/dialog.md'
-        - 'loopFiles.jsx': 'functions/loopFiles.md'
-        - 'LUT-burn.jsx': 'functions/LUT-burn.md'
-        - 'LUT-dodge.jsx': 'functions/LUT-dodge.md'
-        - 'mb_Utils.jsx': 'functions/mb_Utils.md'
-        - 'meta.jsx': 'functions/meta.md'
-        - 'ready.jsx': 'functions/ready.md'
-        - 'save.jsx': 'functions/save.md'
-        - 'zoom.jsx': 'functions/zoom.md'
+    - 'PhotoshopScripts':
+        - 'Startschuss': 'PS_Scripts/startschuss.md'
+        - 'Schlußschuss': 'PS_Scripts/schlussschuss.md'
+    - 'functions':
+        - 'basic': 'functions/basic.md'
+        - 'dialog': 'functions/dialog.md'
+        - 'loopFiles': 'functions/loopFiles.md'
+        - 'LUT-burn': 'functions/LUT-burn.md'
+        - 'LUT-dodge': 'functions/LUT-dodge.md'
+        - 'mb_Utils': 'functions/mb_Utils.md'
+        - 'utils': 'functions/utils.md'
+        - 'meta': 'functions/meta.md'
+        - 'ready': 'functions/ready.md'
+        - 'save': 'functions/save.md'
+        - 'view': 'functions/view.md'
+    - 'helpful':
+        - 'charID': 'helpful/charID.md'
       
   # - 'Assets':
   #   - 'assets': 'functions/zoom.md'
 
 
-
-# markdown_extensions:
-#   # - smarty
-#     - admonition
-#     - meta
-#     - toc:
-#         permalink: true
-#     # - tables
-#   # - fenced_code
-#     # - codehilite
-#     - pymdownx.highlight:
-#         use_pygments: true
-#         linenums: false
-#     - pymdownx.inlinehilite
-#     - pymdownx.superfences
-
 markdown_extensions:
     - smarty
     - admonition
     - meta
+    - attr_list
+    - pymdownx.betterem
+    - pymdownx.superfences
     - toc:
         permalink: true
+        toc_depth: 3
     - pymdownx.highlight:
         use_pygments: true
         # linenums: true
@@ -70,16 +75,23 @@ markdown_extensions:
     - pymdownx.inlinehilite:
         css_class: 'highlight'
     - pymdownx.mark
-    - pymdownx.superfences
     # - pymdownx.tabbed
     - pymdownx.details
-
+    - markdown.extensions.md_in_html
+    - pymdownx.magiclink
+    - pymdownx.keys:
+        key_map: {"commandxx": " ", "shiftxx": " "}
 
 
 plugins:
     - search:
         min_search_length: 5
         lang: 'de'
+    - exclude:
+        glob:
+            - functions_helper/*
+            - PS_Scripts_helper/*
+            - "*.kit"
     # - mkdocs-nav-enhancements
   # - awesome-pages
 

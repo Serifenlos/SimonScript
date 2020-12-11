@@ -1,4 +1,4 @@
-function dialog_chooseLayer() {
+function  dialog_chooseLayer() {
     var saveLayer = doc.activeLayer.name;
     var w = new Window("dialog");
     var visibility_button = w.add("button", undefined, "Sichtbarkeit", {name: "ein/aus"});

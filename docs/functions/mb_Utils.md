@@ -1,9 +1,10 @@
 ### getActiveLayerIndex
-```js
+***number*** ==Layer/Group?==
+<!-- ```js
 getActiveLayerIndex()
-```
+``` -->
 
-??? function
+??? "getActiveLayerIndex()"
     ``` js linenums="1"
     function getActiveLayerIndex() {
         var ref = new ActionReference();
@@ -15,13 +16,14 @@ getActiveLayerIndex()
 
 
 ### closeGroup
-```function
+***action*** 
+<!-- ```js
 closeGroup(layerSet)
-```
+``` -->
 
-??? function
+??? "closeGroup(layerSet)"
     ``` js linenums="1"
-    function closeGroup(layerSet) {
+        function closeGroup(layerSet) {
         var mb_Locked = isLocked();
         var mb_visible = isVisible();   
 
@@ -133,121 +135,144 @@ closeGroup(layerSet)
     ```
 
 ### ungroup
+***action*** ungroup selected group
 ```function
 ungroup()
 ```
 
 ### addLayer
+***action*** add new LayerSet/empty group
 ```function
 addLayer()
 ```
 
 ### isVisible
+***boolean*** return state of Visibility of Layer/Group
 ```function
 isVisible()
 ```
 
-### isVisibleIDX
+### isVisibleIDX 
 ```function
 isVisibleIDX(idx)
 ```
 
 ### makeVisible
+***action*** show Layer/Group
 ```function
 makeVisible()
 ```
 
 ### hide
+***action*** hide Layer/Group
 ```function
 hide()
 ```
 
 ### hasLayerMask
+***boolean*** return if Layer/Group has a mask
 ```function
 hasLayerMask()
 ```
 
 ### deselectPath
+***action*** deselect all Paths
 ```function
 deselectPath()
 ```
 
 ### duplicateLayerMaskAsAlpha
+***action*** create a Alpha-Channel based on LayerMask and name it **mbTemp_alpha** ==uniquify the name? on multiple use all the channels have the same name==
 ```function
 duplicateLayerMaskAsAlpha()
 ```
 
 ### setBackTheLayerMask
+***action*** create a LayerMask based on the Alpha-Channel named **mbTemp_alpha**
 ```function
 setBackTheLayerMask()
 ```
 
 ### getMaskDensity
+***number 0-255*** returns Density of Layer/Group-Mask in 0-255 ==warum 0-255 ?== ==TODO nimm das für deinen Helper==
 ```function
 getMaskDensity()
 ```
 
 ### getMaskFeather
+***number px*** return Feather of Layer/Group-Mask in px ==TODO nimm das für deinen Helper==
 ```function
 getMaskFeather()
 ```
 
 ### isLayerMaskEnabled
+***boolean*** is Layer/Group-Mask active? ==ToDo wirft einen Fehler wenn es keine Maske gibt==
 ```function
 isLayerMaskEnabled()
 ```
 
 ### isLayerMaskLinked
+***boolean*** is Layer/Group-Mask linked?  ==ToDo wirft einen Fehler wenn es keine Maske gibt==
 ```function
 isLayerMaskLinked()
 ```
 
 ### setMaskDensityTo
+***action*** set density in percent
 ```function
 setMaskDensityTo(dens)
 ```
 
 ### setMaskFeatherTo
+***action*** set feather in pixel
 ```function
 setMaskFeatherTo(feath)
 ```
 
 ### setMaskEnabled
+==Was macht die Funktion, ausser Errors zu produzieren==
 ```function
 setMaskEnabled(foo)
 ```
 
 ### setMaskLinked
+==Was macht die Funktion, ausser Errors zu produzieren==
 ```function
 setMaskLinked(foo)
 ```
 
 ### isLayerFXVisible
+***boolean*** 
 ```function
 isLayerFXVisible()
 ```
 
 ### copyLayerStyle
+***action*** 
 ```function
 copyLayerStyle()
 ```
 
 ### pasteLayerStyle
+***action*** 
 ```function
 pasteLayerStyle()
 ```
 
 ### hasVectorMask
+***boolean*** 
 ```function
 hasVectorMask()
 ```
 
 ### getVectorMaskDensity
+***number (0-255)*** 
 ```function
 getVectorMaskDensity()
 ```
 
 ### getVectorMaskFeather
+***number (Pixel)*** 
 ```function
 getVectorMaskFeather)
 ```
@@ -265,17 +290,13 @@ isVectorMaskLinked()
 ```
 
 ### setVectorMaskDensityTo
-```function
-setVectorMaskDensityTo(dens)
-```
-
-
-### setVectorMaskDensityTo
+***action*** set density in percent
 ```function
 setVectorMaskDensityTo(dens)
 ```
 
 ### setVectorMaskFeatherTo
+***action*** set feather in pixel
 ```function
 setVectorMaskFeatherTo(feath)
 ```
@@ -293,76 +314,94 @@ setVectorMaskLinked(foo)
 ```
 
 ### isLocked
+***boolean*** check if the Layer/Group is totally locked
 ```function
 isLocked()
 ```
 
 ### unlock
+***action*** unlock even specific locking methods
 ```function
 unlock()
 ```
 
 ### lock
+***action*** totally lock Layer/Group
 ```function
 lock
 ```
 
 ### getColor
+***string*** get Color of the Layer/Group 
 ```function
 getColor()
 ```
 
 ### setColorTo
+***action*** color the Layer/Group in the panel 
 ```function
 setColorTo(col)
 ```
 
+* col `None` <code>Rd  </code> <code>Orng</code> <code>Ylw </code> <code>Grn </code> <code>Bl  </code> <code>Vlt </code> <code>Gry </code>
+
+
 ### activateLayerMask
+***action*** 
 ```function
 activateLayerMask()
 ```
 
 ### deleteMask
+***action*** works only when the LayerMask is selected
 ```function
 deleteMask(makeSelection)
 ```
 
 ### selectLayerMask
+***action*** 
 ```function
 selectLayerMask()
 ```
 
 ### loadSelectionOfMask
+***action*** 
 ```function
 loadSelectionOfMask()
 ```
 
 ### maskFromSelection
+***action*** 
 ```function
 maskFromSelection()
 ```
 
 ### duplicateVectorMask
+***action*** duplicate VektorMask and name it "mbTemp_path"
 ```function
 duplicateVectorMask()
 ```
 
 ### recreateVectorMask
+***action*** get path called "mbTemp_path", create VektorMask on Layer/Group and delete "mbTemp_path"
 ```function
 recreateVectorMask()
 ```
 
 ### groupSelected
+***action*** group active Layer/Group and name it
 ```function
 groupSelected(name)
 ```
 
 ### addToSelection
+***action*** add Layer/Group to active Selection
 ```function
 addToSelection(layerName)
 ```
 
 ### TemporaryAlpha
+***action*** create selection into Alpha-Channel and activate it
 ```function
 TemporaryAlpha()
 ```

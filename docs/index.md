@@ -1,4 +1,4 @@
-# SimonScript Doc
+# Documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Hier stelle ich mein modulares Framework für Adobe Scripte vor. 
 
