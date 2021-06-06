@@ -1,5 +1,3 @@
-
-
 # VIEW
 
 ## Zoom
@@ -18,7 +16,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/fitScreen.js)
 
-
 ### zoomOut
 
 <button class="btn" data-clipboard-text="zoomOut();"></button>
@@ -33,7 +30,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOut.js)
 
-
 ### zoomIn
 
 <button class="btn" data-clipboard-text="zoomIn();"></button>
@@ -47,7 +43,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomIn.js)
-
 
 ### apfel0
 hier stimmt was nicht, gleiche Funktion wie zoom100()
@@ -64,7 +59,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/apfel0.js)
 
-
 ### zoom100
 
 <button class="btn" data-clipboard-text="zoom100();"></button>
@@ -78,7 +72,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoom100.js)
-
 
 ### zoomOutSteps
 
@@ -115,7 +108,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/getZoomLevel.js)
-
 
 ### setDocResolution
 ==Ist doch auch iregndwo anders?==
@@ -165,7 +157,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 * zomm `number` ==glaube ich==
 
-
 ## Ansichten
 
 ### standardmodus
@@ -182,7 +173,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/standardmodus.js)
 
-
 ### vollbildmodus_menu
 
 <button class="btn" data-clipboard-text="vollbildmodus_menu();"></button>
@@ -196,7 +186,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/vollbildmodus_menu.js)
-
 
 ### vollbildmodus
 
@@ -212,7 +201,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/vollbildmodus.js)
 
-
 ### anordung_kachel
 
 <button class="btn" data-clipboard-text="anordung_kachel();"></button>
@@ -226,7 +214,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_kachel.js)
-
 
 ### anordung_1
 
@@ -242,7 +229,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_1.js)
 
-
 ### anordung_2vertical
 
 <button class="btn" data-clipboard-text="anordung_2vertical();"></button>
@@ -256,7 +242,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_2vertical.js)
-
 
 ### anordung_2horizontal
 
@@ -272,7 +257,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_2horizontal.js)
 
-
 ### anordung_3
 
 <button class="btn" data-clipboard-text="anordung_3();"></button>
@@ -286,7 +270,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3.js)
-
 
 ### anordung_3vertical
 
@@ -302,7 +285,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3vertical.js)
 
-
 ### anordung_3horizontal
 
 <button class="btn" data-clipboard-text="anordung_3horizontal();"></button>
@@ -316,7 +298,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3horizontal.js)
-
 
 ### anordung_4
 
@@ -332,7 +313,6 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_4.js)
 
-
 ### anordung_6
 
 <button class="btn" data-clipboard-text="anordung_6();"></button>
@@ -347,17 +327,13 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_6.js)
 
-
-
-
 ### zoomIn + zoomOut + zoomOutSteps
-==this is is old way. Needs to prozess the "print size" – so it’s not acceptable. But the zoomLevel-Steps are a great idea==
+==this is the old way. Needs to prozess the "print size" – so it’s not acceptable. But the zoomLevel-Steps are a great idea==
 thanks http://www.ps-scripts.com/viewtopic.php?f=77&t=40407&sid=7fa52b610449dfd7e44702dc0baa5215#p168999
 
 ```
 var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200, 300, 400, 800, 1600, 3200];
 ```
-
 
 <button class="btn" data-clipboard-text="zoomIn_zoomLevels();"></button>
 {: .btn_p }
@@ -377,7 +353,6 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomIn_zoomLevels.js)
 
-
 <button class="btn" data-clipboard-text="zoomOut_zoomLevels();"></button>
 {: .btn_p }
 
@@ -396,7 +371,6 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOut_zoomLevels.js)
 
-
 <button class="btn" data-clipboard-text="zoomOutSteps_zoomLevels(steps);"></button>
 {: .btn_p }
 
@@ -414,7 +388,6 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOutSteps_zoomLevels.js)
-
 
 ### setZoom 
 Thanks: https://community.adobe.com/t5/photoshop/scripting-for-zoom-and-scroll-in-cc2018/m-p/10048762#M191468
@@ -517,7 +490,6 @@ set_doc_position(50, 50)
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomSteps.js)
-
 
 ???+ a
     ```js
@@ -628,3 +600,7 @@ set_doc_position(50, 50)
         * down ++alt+y++
         * left ++alt+a++
         * right ++alt+s++
+
+!!! warning show "not documented functions"
+    - anordung_zoom
+     - rulersVisibility

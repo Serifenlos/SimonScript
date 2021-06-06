@@ -1,0 +1,87 @@
+### SaveForWeb
+
+<button class="btn" data-clipboard-text="SaveForWeb(_format, _path, _filename, _scale, _interlace, _convert2sRGB, _embedICC, _matte, _matteR, _matteG, _matteB, _embedMeta, _jpgQquality, _jpgOptimized, _jpgProgressive, _jpgBlur);"></button>
+{: .btn_p }
+
+??? "SaveForWeb(_format, _path, _filename, _scale, _interlace, _convert2sRGB, _embedICC, _matte, _matteR, _matteG, _matteB, _embedMeta, _jpgQquality, _jpgOptimized, _jpgProgressive, _jpgBlur);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/save/SaveForWeb.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/SaveForWeb.js)
+
+???+ a
+    ```js
+    SaveForWeb("JPEG", "/Users/simon/Arbeit/__temp", "Grau+Farbverlauf_HG+++", f, f, f, t, t, 255, 255, 255,"Meta_ck", 66, t,t, 0);
+    ```
+
+### saveAllDocs
+thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
+
+<button class="btn" data-clipboard-text="saveAllDocs();"></button>
+{: .btn_p }
+
+??? "saveAllDocs();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/save/saveAllDocs.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/saveAllDocs.js)
+
+### saveFile
+
+<button class="btn" data-clipboard-text="saveFile(_saveOptions);"></button>
+{: .btn_p }
+
+??? "saveFile(_saveOptions);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/save/saveFile.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile.js)
+
+### saveFile_JPG
+
+<button class="btn" data-clipboard-text="saveFile_JPG(_quality, _embedColorProfile, _formatOptions, _matte);"></button>
+{: .btn_p }
+
+??? "saveFile_JPG(_quality, _embedColorProfile, _formatOptions, _matte);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/save/saveFile_JPG.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile_JPG.js)
+
+???+ a
+    ```js
+    saveFile_JPG(12, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
+    ```
+### saveFile_PSD
+
+<button class="btn" data-clipboard-text="saveFile_PSD(_FilePath, _asCopy, _alphaChannels, _annotations, _embedColorProfile, _layers, _spotColors);"></button>
+{: .btn_p }
+
+??? "saveFile_PSD(_FilePath, _asCopy, _alphaChannels, _annotations, _embedColorProfile, _layers, _spotColors);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/save/saveFile_PSD.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile_PSD.js)
+
+???+ a
+    ```js
+    saveFile_PSD(new File(myNewPath),f,t,f,t,t,f,"WasIstTypename");
+    ```
+### saveFile_TIF
+
+<button class="btn" data-clipboard-text="saveFile_TIF();"></button>
+{: .btn_p }
+
+??? "saveFile_TIF();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/save/saveFile_TIF.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile_TIF.js)
+
+!!! warning hide "not documented functions"

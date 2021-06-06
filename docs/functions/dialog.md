@@ -50,7 +50,6 @@ part of Startschuss
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_chooseLayer.js)
 
-
 ### dialog_bitDepth
 
 <button class="btn" data-clipboard-text="dialog_bitdepth();"></button>
@@ -80,3 +79,5 @@ part of Startschuss
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_bitDepth.js)
+
+!!! warning hide "not documented functions"

@@ -1,0 +1,10 @@
+// @codekit-prepend './layer/check.js';
+// @codekit-prepend './layer/fixMask.js';
+// @codekit-prepend './layer/fixMaskDens.js';
+// @codekit-prepend './layer/fixMaskFeather.js';
+// @codekit-prepend './layer/fixMask_loop.js';
+// @codekit-prepend './layer/getMaskVisibility.js';
+// @codekit-prepend './layer/layer_transform.js';
+// @codekit-prepend './layer/selectLayerBySelector.js';
+// @codekit-prepend './layer/setLayerOpacity.js';
+// @codekit-prepend './layer/setMaskVisibility.js';

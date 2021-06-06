@@ -1,0 +1,337 @@
+/*
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+<javascriptresource>
+<name>[ss] Startschuss ID</name>
+<about>um die Bildbearbeitung vorzubereiten | By Simon Adrian | http://www.SimonAdrian.de</about>
+<category>SimonScript</category>
+</javascriptresource>
+// END__HARVEST_EXCEPTION_ZSTRING
+*/
+
+
+
+<!-- @import "../../build/A__psScripts/functions/loopFiles.jsx" -->
+
+
+/** Optionen  **************************************************************/
+var Rasterweite = 70;
+var minAufloesung = 300;
+var Suffix_RGB = "__RGB";
+
+// no / here, escape \
+getRubrik_array = [
+    ["(\\w{1,3}[-,_]\\w{1,3}_11F_\\d{3}_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}-\\w{1,3}_11F_BUCH_J11_)(.*)(\.indd)", "$2"]
+    // ["(\\w{1,3}_\\w{1,3}_11F_\\d{3}_)(.*)(\.indd)", "$2"]       // 30_31_11F_235_Planer_Gruppe_F_FRA_GER.indd
+];
+
+
+var mainFolder = "/Users/simon/Arbeit/11Freunde/236/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/Buch_Jahrhundertelf/";
+// var mainFolder = "/Users/simon/Arbeit/Judith/WBM_GB2020/";
+// var mainFolder = "/Users/simon/Arbeit/Judith/WÜ_Picknick_Heft21/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/Wandkalender2022/";
+var subFolder = "RGB";
+
+
+if (!app.selection.length > 0) {
+    alert("Wähle das zubearbeitende Bild aus");
+    exit();
+}
+
+// Loop für mehrere Bilder
+for (var i = 0; i < app.selection.length; i++) {
+
+    /** Variablen  **************************************************************/
+    var myDoc, myDocPath, myLivePath, myFolder, myFile, myImage, ZielAufloesung, hScale, vScale, hPPI, vPPI, myImage, myImagePath, myImageFile, myNewImageFile, myNewPath, unter300
+
+    var myDoc = app.activeDocument;
+    //var myDocPath = myDoc.filePath;  // TODO wenn noch nie gespeichert dann Abbruch // wirklich nötig? 
+    var myLivePath = myDoc.filePath;
+    var myFolder = new Folder(myLivePath);
+
+    var myFile = app.selection[i];
+    var myImage = myFile.images[0];
+    myLink = myFile.graphics[0].itemLink;
+
+    var ZielAufloesung = Rasterweite * 2.54 * 2;
+    var hScale = myImage.horizontalScale;
+    var vScale = myImage.verticalScale;
+    var hPPI = myImage.effectivePpi[0];
+    var vPPI = myImage.effectivePpi[1];
+    var interpolieren = 0;
+
+    var myImage = myLink.parent;
+    var myImagePath = myLink.filePath;
+    var myImageFile = new File(myImagePath);
+    var myNewImageFile = GetFileNameOnly(myImageFile.name);
+
+    if (typeof getRubrik(getRubrik_array) !== 'undefined') {
+        var indd_rubrik = getRubrik(getRubrik_array);
+    }
+    else {var indd_rubrik = ""}
+
+    var myFolder = new Folder(mainFolder + subFolder + indd_rubrik);
+    if (!myFolder.exists) myFolder.create();
+
+    /*TODO ob tif oder psd // hier muss variabl */
+    var myNewPath = myFolder + "/" + myNewImageFile + Suffix_RGB + ".psd";
+
+    /** run Main-function **************************************************************/
+    run_ID();
+}
+
+
+//// FUNCTIONS ////
+/*=================================================================================*/
+function getRubrik(_array) {
+    try {
+        var indd_docname = app.activeDocument.fullName.name;
+        for (j = 0; j < _array.length; j++) {
+            var regex = new RegExp(_array[j][0], 'g');
+
+            if (indd_docname.match(regex)) {
+                indd_rubrik = indd_docname.replace(regex, _array[j][1]);
+                return "/" + indd_rubrik;
+            }
+        }
+    } catch(e){}
+}
+
+function run_ID() {
+    alreadyRGB_stopp = 0;
+    if (new RegExp("__RGB").test(myNewImageFile)) {
+        var alreadyRGB_dialog = new Window("dialog", "schon vorbereitet?");
+        var stxt = alreadyRGB_dialog.add("group");
+        stxt.add("statictext", undefined, "ist das bild schon vorbereitet?");
+
+        var alreadyRGB_button = alreadyRGB_dialog.add("group");
+        var alreadyRGB_button_ok = alreadyRGB_button.add("button", undefined, "weiter");
+        var alreadyRGB_button_cancel = alreadyRGB_button.add("button", undefined, "stopp");
+
+        alreadyRGB_button_ok.onClick = function() {
+            alreadyRGB_dialog.close();
+        }
+        alreadyRGB_button_cancel.onClick = function() {
+            alreadyRGB_stopp = 1;
+            alreadyRGB_dialog.close();
+        }
+        alreadyRGB_dialog.show();
+    }
+    if (alreadyRGB_stopp == 1) {
+        exit();
+    }
+
+
+    if (myFile.isValid == false) {
+        alert("Wähle das zubearbeitende Bild aus");
+        exit();
+    }
+
+
+
+    if (hPPI < minAufloesung) {
+        // if (hPPI == minAufloesung) {
+        var myDialog = new Window("dialog", "unter " + minAufloesung + "dpi");
+        var stxt = myDialog.add("group");
+        stxt.add("statictext", undefined, "Das Bild hat nur " + hPPI + " dpi");
+
+        var myButtonGroup = myDialog.add("group");
+        var ok = myButtonGroup.add("button", undefined, "weiter");
+        var cancel = myButtonGroup.add("button", undefined, "stopp");
+
+        ok.onClick = function() {
+            interpolieren = 1;
+            myDialog.close();
+        }
+        cancel.onClick = function() {
+            interpolieren = 0;
+            myDialog.close();
+            return;
+        }
+
+        myDialog.show();
+
+    } else {
+        OpenImage();
+        Relink(myLink, myNewPath);
+        // UpdateAllOutdatedLinks();
+    }
+
+    if (interpolieren == 1) {
+        OpenImage();
+        Relink(myLink, myNewPath);
+        // UpdateAllOutdatedLinks();
+    }
+}
+
+
+
+/*=================================================================================*/
+function Relink(myLink, myNewPath) {
+    var newFile = new File(myNewPath);
+    if (newFile.exists) {
+        var originalLinkFile = new File(myLink.filePath);
+        myLink.relink(newFile);
+        try {
+            if (myLink.status == LinkStatus.linkOutOfDate) {
+                myLink.update();
+            }
+        } catch (err) {}
+    }
+}
+/*=================================================================================*/
+function UpdateAllOutdatedLinks() {
+    for (var myCounter = myDoc.links.length - 1; myCounter >= 0; myCounter--) {
+        var myLink = myDoc.links[myCounter];
+        if (myLink.status == LinkStatus.linkOutOfDate) {
+            myLink.update();
+        }
+    }
+}
+
+/*=================================================================================*/
+function OpenImage() {
+    try {
+        if (myFile.isValid == true && myFile.constructor.name == "Rectangle") {
+            //           myLink = myFile.graphics[0].itemLink;
+        }
+    } catch (e) {
+        alert("Wähle das zubearbeitende Bild aus");
+        exit();
+    }
+
+    CreateBridgeTalkMessage();
+}
+
+/*=================================================================================*/
+function CreateBridgeTalkMessage() {
+    var bt = new BridgeTalk();
+    bt.target = "photoshop"; //call for cc2020 -> "photoshop-140" //cc2021 -> "photoshop-150"
+    // bt.body = ResaveInPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + "," + papier + ");";
+    bt.body = runPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + ");";
+    bt.onResult = function(resObj) {}
+    bt.send(100);
+}
+
+
+
+function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloesung, hPPI) {
+    <!-- @import "../../build/A__psScripts/functions/basic.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/utils.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/view.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/LUT-burn.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/LUT-dodge.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/ready.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/dialog.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/save.jsx" -->
+
+    try {
+        prefSave();
+        prefSet(DialogModes.NO, Units.MM);
+
+        var myPsDoc = app.open(new File(myImagePath));
+        var doc = app.activeDocument;
+        var cancel = 0;
+
+        /* if (doc.activeLayer.kind != LayerKind.NORMAL) { */
+        if ((doc.activeLayer.kind != LayerKind.NORMAL) || (getLayersNb() >= 2) || (getLayersNb() == 1) && (hasBackground())) {
+            dialog_chooseLayer();
+            if (cancel === 1) {
+                return false;
+            }
+        }
+        if(debug) {
+            startschuss();
+        }
+        else{
+            doc.suspendHistory("Startschuss", "startschuss()");
+            /* alert("ding"); */
+        }
+        
+        startschuss_Rest();
+
+    } catch (e) {
+        logger(arguments.callee.name);
+        alert("Error 1");
+    }
+
+
+    /*     function startschuss() {
+            if (debug) {time_start()};
+
+            noProfile();
+            gray2rgb();
+            cmyk2rgb();
+            sRGB2eciRGB();
+            if(getBitDepth(!8)){setBitDepth(8)}
+
+            setSize("width", myPsDoc.width.value * hScale / 10);
+
+
+            if (hasBackground() && getActiveLayerIndex() != 0) {
+                var temp = doc.activeLayer.name;
+                gotoLayer(0);
+                nameLayer("HG");
+                gotoLayer(temp);
+                var temp = "";
+            }
+
+            nameLayer("Original");
+            smartObject();
+            createGroup("vorher", "passThrough", "none", 100, t);
+            dublicate("nachher");
+            gotoLayer("vorher");
+            selectLayer("down", 1);
+            nameLayer("vorher Ebene");
+            rasterSmartObject();
+            toogleOpenCloseSet();
+            selectLayer("up", 1);
+            createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
+            moveLayer("Weiss", "Original", "down");
+
+            createGroup("Einstellungen", "passThrough", "none", 100);
+            createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
+            toogleVisibility();
+            createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);
+
+            selectLayer("up", 1);
+            createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f);
+            createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f);
+            createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f);
+            createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "", f, f);
+            createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "", f, f);
+            createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f);
+            gotoLayer("Gradation neutral");
+
+            if (debug) {time_stop(start)};
+        } */
+
+
+
+
+
+
+
+
+
+    function startschuss_Rest() {
+
+        /*//// BILDGRÖSSE ////*/
+        if (hPPI < minAufloesung) {
+            myPsDoc.resizeImage(undefined, undefined, minAufloesung, ResampleMethod.PRESERVEDETAILS);
+        } else if (hPPI > ZielAufloesung) {
+            myPsDoc.resizeImage(undefined, undefined, ZielAufloesung, ResampleMethod.PRESERVEDETAILS);
+        } else {
+            /* TODO better use setDpi(_dpi) ? oder muss hier uberhaupt etwas geschehen ? */
+            myPsDoc.resizeImage(undefined, undefined, hPPI, ResampleMethod.NONE);
+        }
+
+        /* smartObjectTransparencyIssue(); */
+        fitScreen();
+        if(getZoomLevel() >= 100) {zoom100()}
+        else {zoomOut()}
+        saveFile_PSD(new File(myNewPath), f, t, f, t, t, f);
+        prefReset();
+    }
+}

@@ -1,8 +1,5 @@
 # READY.jsx
 
-
-
-
 ### Startschuss
 
 <button class="btn" data-clipboard-text="startschuss();"></button>
@@ -75,7 +72,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/startschuss.js)
 
-
 ### Dodge & Burn with Blendif
 
 <button class="btn" data-clipboard-text="DodgeBurn_highlow(_collapseAll);"></button>
@@ -118,7 +114,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/DodgeBurn_highlow.js)
 
-
 ### Dodge
 
 <button class="btn" data-clipboard-text="dodge();"></button>
@@ -134,7 +129,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodge.js)
 
-
 ### Burn
 
 <button class="btn" data-clipboard-text="burn();"></button>
@@ -149,7 +143,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/burn.js)
-
 
 ### Dodge & Burn
 
@@ -169,3 +162,7 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn.js)
 
+!!! warning show "not documented functions"
+    - freisteller_button
+     - freisteller_createGroup
+     - freisteller_saveRGB

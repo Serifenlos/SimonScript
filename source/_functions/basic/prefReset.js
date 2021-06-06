@@ -1,5 +1,5 @@
 function prefReset() {
-    app.preferences.rulerunits = startRulerUnits;
+    app.preferences.rulerUnits = startRulerUnits;
     if (startDisplayDialogs == DialogModes.ERROR) {
         startDisplayDialogs = DialogModes.NO;
     }

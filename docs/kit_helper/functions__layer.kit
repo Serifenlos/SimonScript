@@ -1,0 +1,98 @@
+# LAYER.jsx
+
+### fixMask
+
+<button class="btn" data-clipboard-text="fixMask(_idx, _width_faktor);"></button>
+{: .btn_p }
+
+??? "fixMask(_idx, _width_faktor);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/layer/fixMask.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/fixMask.js)
+
+### fixMaskDens
+
+<button class="btn" data-clipboard-text="fixMaskDens(_dens);"></button>
+{: .btn_p }
+
+??? "fixMaskDens(_dens);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/layer/fixMaskDens.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/fixMaskDens.js)
+
+### fixMaskFeather
+
+<button class="btn" data-clipboard-text="fixMaskFeather(_feather);"></button>
+{: .btn_p }
+
+??? "fixMaskFeather(_feather);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/layer/fixMaskFeather.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/fixMaskFeather.js)
+
+### fixMask_loop
+
+<button class="btn" data-clipboard-text="fixMaskLoop(__width_faktor);"></button>
+{: .btn_p }
+
+??? "fixMaskLoop(__width_faktor);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/layer/fixMask_loop.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/fixMask_loop.js)
+
+### layer_transform
+==TODO lieber "_relation" statt "_unit"==
+
+<button class="btn" data-clipboard-text="layer_transform(_point, _moveX, _moveY, _transformX, _transformY, _unit, _linked);"></button>
+{: .btn_p }
+
+??? "layer_transform(_point, _moveX, _moveY, _transformX, _transformY, _unit, _linked);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/layer/layer_transform.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_transform.js)
+
+???+ a
+    ```js
+    var r = app.preferences.rulerUnits;
+    app.preferences.rulerUnits = Units.PIXELS;
+    layer_transform("topleft", (doc.activeLayer.bounds[0] * -1), (doc.activeLayer.bounds[1] * -1), 100, 100, "%_canvas", t);
+    app.preferences.rulerUnits = r;  
+    ```
+    
+    ??? b
+        * _point `topleft` `topcenter` `topright` `midleft` `midcenter` `midright` `bottomleft` `bottomcenter` `bottomright`
+        * _moveX 
+        * _moveY
+        * _transformX `number` 
+        * _transformY `number` 
+        * _unit `%_canvas` `%_layer` `px`
+        * _linked `hab keinen Effekt beobachtet`
+
+### selectLayerBySelector
+select Layer by Name ==TODO by IDX==
+
+<button class="btn" data-clipboard-text="selectLayerBySelector(_selector, _add);"></button>
+{: .btn_p }
+
+??? "selectLayerBySelector(_selector, _add);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/layer/selectLayerBySelector.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/selectLayerBySelector.js)
+
+!!! warning show "not documented functions"
+    - check
+     - getMaskVisibility
+     - setLayerOpacity
+     - setMaskVisibility

@@ -1,6 +1,5 @@
 # BASIC.jsx
 
-
 ## application
 
 ### emptyProtocoll
@@ -29,7 +28,6 @@ das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. 
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/emptyProtocoll.js)
 
-
 ### deleteHistory
 ***action***
 
@@ -49,7 +47,6 @@ das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. 
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteHistory.js)
 
-
 ### prefSave
 ***action***
 store the dialog- and unit-settings in variables ==warum nicht alle Prefs speichern und später zurückstellen?==
@@ -67,11 +64,9 @@ store the dialog- and unit-settings in variables ==warum nicht alle Prefs speich
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSave.js)
 
-
 ### prefSet
 ***action***
 set the dialog- and unit-settings ==TODO hätte ja gerne eine einfachere Syntax mit translate-function==
-
 
 <button class="btn" data-clipboard-text="prefSet(_dialog, _units);"></button>
 {: .btn_p }
@@ -103,8 +98,6 @@ set the dialog- and unit-settings ==TODO hätte ja gerne eine einfachere Syntax 
         * _dialog `DialogModes.NO` `DialogModes.ALL`
         * _units `Units.CM` `Units.INCHES` `Units.MM` `Units.PERCENT` `Units.PICAS` `Units.PIXELS` `Units.POINTS`
 
-
-
 ### prefReset
 ***action***
 reset the dialog- and unit-settings to the previous state
@@ -115,7 +108,7 @@ reset the dialog- and unit-settings to the previous state
 ??? "prefReset();"
     ``` js linenums="1"
     function prefReset() {
-        app.preferences.rulerunits = startRulerUnits;
+        app.preferences.rulerUnits = startRulerUnits;
         if (startDisplayDialogs == DialogModes.ERROR) {
             startDisplayDialogs = DialogModes.NO;
         }
@@ -124,7 +117,6 @@ reset the dialog- and unit-settings to the previous state
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefReset.js)
-
 
 ## document
 
@@ -151,8 +143,6 @@ schrittweise
     undoSteps(2);
     ```
 
-
-
 ### resetImage
 ***action***
 zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
@@ -170,7 +160,6 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/resetImage.js)
 
-
 ## debugging
 ### time_start
 ***action***
@@ -186,7 +175,6 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/time_start.js)
-
 
 ### time_stop
 ***action***
@@ -205,7 +193,6 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/time_stop.js)
-
 
 ### logger
 ***action***
@@ -266,9 +253,6 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/logger.js)
 
-
-
-
 ## Layer
 ### createLayer
 ***action***
@@ -327,7 +311,6 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createLayer.js)
-
 
 ???+ a
     ```js
@@ -411,8 +394,6 @@ erstelle eine Farbfläche
         * _blue `0-255`
     
 
-
-
 ### gotoMask
 ***action***
 ==TODO toogle Mask/RGB-Layer //  bisher nur im CreateColorLayer verwendet==
@@ -434,7 +415,6 @@ erstelle eine Farbfläche
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoMask.js)
 
-
 ### gotoFill
 ***action***
 
@@ -454,7 +434,6 @@ erstelle eine Farbfläche
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoFill.js)
-
 
 ### moveLayer
 ***action***
@@ -490,7 +469,6 @@ erstelle eine Farbfläche
         * _objectLayer `string`
         * _aimLayer `string`
         * _direction `up` `down`
-
 
 ### moveLayer3
 ***action***
@@ -537,7 +515,6 @@ erstelle eine Farbfläche
         * _direction `up` = `next` `down` = `previous` `top` = `front` `bottom` = `back`
         * _steps `number`
 
-
 ### deleteMask
 ***action***
 
@@ -560,7 +537,6 @@ erstelle eine Farbfläche
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteMask.js)
-
 
 ### createGroup
 ***action***
@@ -601,7 +577,7 @@ erstelle eine Farbfläche
 
 ???+ a
     ```js
-    createGroup("Einstellungen", "passThrough", "none", 100);
+    createGroup("Einstellungen", "passThrough", "none", 100, t);
     ```
     
     ??? b
@@ -610,7 +586,6 @@ erstelle eine Farbfläche
         * _color `none`
         * _opacity `number` `0-100`
         * _groupSelection `boolean`
-
 
 ### fill
 
@@ -657,7 +632,6 @@ erstelle eine Farbfläche
         * _s
         * _b
 
-
 ### smartObject
 
 <button class="btn" data-clipboard-text="smartObject();"></button>
@@ -675,7 +649,6 @@ erstelle eine Farbfläche
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObject.js)
-
 
 ### rasterSmartObject
 
@@ -698,7 +671,6 @@ erstelle eine Farbfläche
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/rasterSmartObject.js)
-
 
 ### nameLayer
 
@@ -765,7 +737,6 @@ TODO ist das noch in Verwendung, oder kann das weg
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayerUp.js)
 
-
 ### selectLayer
 
 <button class="btn" data-clipboard-text="selectLayer(_direction, _times);"></button>
@@ -816,7 +787,6 @@ TODO mit unterer Funktion ersetzt
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAll.js)
 
-
 ### selectLayers 
 
 <button class="btn" data-clipboard-text="selectLayers(_all_or_nothing);"></button>
@@ -837,12 +807,11 @@ TODO mit unterer Funktion ersetzt
 
 ???+ a
     ```js
-    selectLayers(selectAllLayers);
+    selectLayers("selectAllLayers");
     ```
     
     ??? b
         * _all_or_nothing `selectNoLayers` `selectAllLayers`
-
 
 ### hasBackground
 
@@ -863,7 +832,6 @@ TODO mit unterer Funktion ersetzt
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/hasBackground.js)
 
-
 ### clearAllGuides
 
 <button class="btn" data-clipboard-text="clearAllGuides();"></button>
@@ -877,7 +845,6 @@ TODO mit unterer Funktion ersetzt
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/clearAllGuides.js)
-
 
 ### gotoLayer
 
@@ -912,105 +879,37 @@ TODO mit unterer Funktion ersetzt
     ??? b
         * _input `number` `string` *idx oder LayerName*
 
-
 ## Image 
 ### SmartObject_edit
 
-<button class="btn" data-clipboard-text="createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"></button>
+<button class="btn" data-clipboard-text="SmartObject_edit();"></button>
 {: .btn_p }
 
-??? "createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"
+??? "SmartObject_edit();"
     ``` js linenums="1"
-    function createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue) {
-        try {
-            var d = new ActionDescriptor();
-            var r = new ActionReference();
-            r.putClass(sTID("contentLayer"));
-            d.putReference(sTID("null"), r);
-            var d2 = new ActionDescriptor();
-            d2.putString(sTID("name"), _name);
-            d2.putUnitDouble(sTID('opacity'), sTID('percentUnit'), _opacity);
-            d2.putEnumerated(sTID("mode"), sTID("blendMode"), sTID(_mode));
-            d2.putEnumerated(sTID("color"), sTID("color"), sTID(_color));
-            var d3 = new ActionDescriptor();
-            var d4 = new ActionDescriptor();
-            d4.putDouble(sTID("red"), _red);
-            d4.putDouble(sTID("green"), _green);
-            d4.putDouble(sTID("blue"), _blue);
-            d3.putObject(sTID("color"), sTID("RGBColor"), d4);
-            d2.putObject(sTID("type"), sTID("solidColorLayer"), d3);
-            d.putObject(sTID("using"), sTID("contentLayer"), d2);
-            executeAction(sTID("make"), d, DialogModes.NO);
-            gotoMask();
-    
-            if (_mask == "invert") {
-                executeAction(sTID('invert'), undefined, DialogModes.NO);
-                return;
-            } else if (_mask == "none") {
-                deleteMask();
-                return;
-            } else if (_mask == "black" || _mask == "white" || _mask == "gray") {
-                fill(_mask, "normal", 100);
-                return;
-            }
-    
-        } catch (err) {
-            logger(arguments.callee.name);
-        }
+    function SmartObject_edit() {
+        var d = new ActionDescriptor();
+        executeAction(sTID('placedLayerEditContents'), d, DialogModes.NO);
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
-
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/SmartObject_edit.js)
 
 ### SmartOject_placeItem
 
-<button class="btn" data-clipboard-text="createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"></button>
+<button class="btn" data-clipboard-text="SmartOject_placeItem(_item);"></button>
 {: .btn_p }
 
-??? "createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue);"
+??? "SmartOject_placeItem(_item);"
     ``` js linenums="1"
-    function createColorLayer(_name, _mode, _color, _opacity, _mask, _red, _green, _blue) {
-        try {
-            var d = new ActionDescriptor();
-            var r = new ActionReference();
-            r.putClass(sTID("contentLayer"));
-            d.putReference(sTID("null"), r);
-            var d2 = new ActionDescriptor();
-            d2.putString(sTID("name"), _name);
-            d2.putUnitDouble(sTID('opacity'), sTID('percentUnit'), _opacity);
-            d2.putEnumerated(sTID("mode"), sTID("blendMode"), sTID(_mode));
-            d2.putEnumerated(sTID("color"), sTID("color"), sTID(_color));
-            var d3 = new ActionDescriptor();
-            var d4 = new ActionDescriptor();
-            d4.putDouble(sTID("red"), _red);
-            d4.putDouble(sTID("green"), _green);
-            d4.putDouble(sTID("blue"), _blue);
-            d3.putObject(sTID("color"), sTID("RGBColor"), d4);
-            d2.putObject(sTID("type"), sTID("solidColorLayer"), d3);
-            d.putObject(sTID("using"), sTID("contentLayer"), d2);
-            executeAction(sTID("make"), d, DialogModes.NO);
-            gotoMask();
-    
-            if (_mask == "invert") {
-                executeAction(sTID('invert'), undefined, DialogModes.NO);
-                return;
-            } else if (_mask == "none") {
-                deleteMask();
-                return;
-            } else if (_mask == "black" || _mask == "white" || _mask == "gray") {
-                fill(_mask, "normal", 100);
-                return;
-            }
-    
-        } catch (err) {
-            logger(arguments.callee.name);
-        }
-    }
+    function SmartOject_placeItem(_item) {
+        var d = new ActionDescriptor();
+        d.putPath(cTID('null'), new File(_item));
+        executeAction(sTID('placedLayerReplaceContents'), d, DialogModes.NO);
+    };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
-
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/SmartOject_placeItem.js)
 
 ### getBitDepth
 ***returns 8, 6 or 32***
@@ -1035,8 +934,6 @@ TODO mit unterer Funktion ersetzt
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/getBitDepth.js)
-
-
 
 ### setBitDepth
 
@@ -1100,7 +997,6 @@ TODO mit unterer Funktion ersetzt
         * _ziel_longSite
         * _max_resolution
 
-
 ### setMegaPixel
 
 <button class="btn" data-clipboard-text="setMegaPixel(_setMegaPixel);"></button>
@@ -1143,7 +1039,6 @@ TODO mit unterer Funktion ersetzt
     ??? b
         * _setMegaPixel `number`
 
-
 ### getScale
 
 <button class="btn" data-clipboard-text="getScale(_setMegaPixel);"></button>
@@ -1172,7 +1067,6 @@ TODO mit unterer Funktion ersetzt
     ??? b
         * _setMegaPixel `number`
 
-
 ### cm2pt
 Convert cm to Point, imageSize needs Points
 
@@ -1188,7 +1082,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/cm2pt.js)
 
-
 ### mm2pt
 
 <button class="btn" data-clipboard-text="mm2pt(mm);"></button>
@@ -1202,8 +1095,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/mm2pt.js)
-
-
 
 ### setDpi
 
@@ -1228,8 +1119,6 @@ Convert cm to Point, imageSize needs Points
     
     ??? b
         * _dpi `number`
-
-
 
 ### setSize
 
@@ -1256,9 +1145,6 @@ Convert cm to Point, imageSize needs Points
         * _side `width` `height`
         * _size `number`
 
-
-
-
 ## Color
 ### noProfile
 
@@ -1284,7 +1170,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/noProfile.js)
 
-
 ### assignProfile
 
 <button class="btn" data-clipboard-text="assignProfile(_profile);"></button>
@@ -1304,9 +1189,7 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/assignProfile.js)
 
-
 * _profile `string`
-
 
 ### gray2rgb
 
@@ -1324,7 +1207,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gray2rgb.js)
 
-
 ### cmyk2rgb
 
 <button class="btn" data-clipboard-text="cmyk2rgb();"></button>
@@ -1341,7 +1223,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/cmyk2rgb.js)
 
-
 ### sRGB2eciRGB
 
 <button class="btn" data-clipboard-text="sRGB2eciRGB();"></button>
@@ -1351,7 +1232,7 @@ Convert cm to Point, imageSize needs Points
     ``` js linenums="1"
     function sRGB2eciRGB() {
         var getProfile = doc.colorProfileName;
-        var find = new RegExp("^sRGB");
+        var find = new RegExp("^sRGB|Apple RGB|ColorMatch RGB");
         if (getProfile.match(find)) {
             doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
         }
@@ -1359,7 +1240,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/sRGB2eciRGB.js)
-
 
 ### indexcolor2rgb
 
@@ -1376,7 +1256,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/indexcolor2rgb.js)
-
 
 ## WEB-Output
 ### GetFileNameOnly
@@ -1400,7 +1279,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/GetFileNameOnly.js)
 
-
 ### replace__RGB_RZ
 
 <button class="btn" data-clipboard-text="replace__RGB_RZ(_replace);"></button>
@@ -1421,7 +1299,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/replace__RGB_RZ.js)
-
 
 ### saveRZ
 
@@ -1480,7 +1357,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/saveRZ.js)
 
-
 ### selectAllLayers
 
 <button class="btn" data-clipboard-text="selectAllLayers();"></button>
@@ -1499,7 +1375,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAllLayers.js)
 
-
 ### mergeLayers
 
 <button class="btn" data-clipboard-text="mergeLayers();"></button>
@@ -1515,7 +1390,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/mergeLayers.js)
 
-
 ### flattenImage
 
 <button class="btn" data-clipboard-text="flattenImage();"></button>
@@ -1529,7 +1403,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/flattenImage.js)
-
 
 ### blendif
 
@@ -1569,7 +1442,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/blendif.js)
 
-
 * _blackMin
 * _blackMax
 * _whiteMin
@@ -1592,7 +1464,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency.js)
-
 
 ### checkTransparency_inner
 
@@ -1645,7 +1516,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency_inner.js)
 
-
 ### transformLayer
 
 <button class="btn" data-clipboard-text="transformLayer(_position, _scale);"></button>
@@ -1687,7 +1557,6 @@ Convert cm to Point, imageSize needs Points
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/transformLayer.js)
-
 
 ### smartObjectTransparencyIssue
 
@@ -1732,3 +1601,12 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObjectTransparencyIssue.js)
 
+!!! warning show "not documented functions"
+    - _a
+     - _c2t
+     - _cTID
+     - _s2t
+     - _sTID
+     - _t2s
+     - isSelectionActive
+     - startScriptFile

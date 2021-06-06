@@ -1,0 +1,376 @@
+@import "../../_assets/node_modules/@csstools/normalize.css/normalize";
+
+@media (prefers-color-scheme: dark),
+(prefers-color-scheme: darkest) {
+  label {
+    color: #E0E0E0;
+  }
+}
+
+/* tweaks for better appearance */
+sp-textarea {
+  display: block;
+  width: 240px;
+}
+
+/* tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip sp-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 133%;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.tooltip:hover sp-tooltip {
+  display: block;
+}
+
+/* dialog styles */
+:not(.xd) dialog {
+  width: 480px;
+  height: 240px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+:not(.xd) dialog form {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+}
+
+:not(.xd) dialog form>* {
+  flex: 0 0 auto;
+  margin: 8px;
+}
+
+.xd dialog form sp-divider {
+  width: calc(100% - 16px);
+}
+
+dialog form sp-body {
+  flex: 1 1 auto;
+}
+
+
+.wrapper {
+  // position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  // width: 100vw;
+  // height: 100vh;
+  flex-direction: column;
+  display: flex;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.xd .wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* tabs */
+.sp-tabs {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid #3E3E3E;
+}
+
+.sp-tab {
+  margin-right: 12px;
+}
+
+.sp-tab sp-label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.sp-tab:hover sp-label {
+  color: white;
+}
+
+.sp-tab.selected {
+  border-bottom: 2px solid #ccc;
+  margin-bottom: -2px;
+}
+
+.sp-tab.selected sp-label {
+  color: white;
+}
+
+@media (prefers-color-scheme: light),
+(prefers-color-scheme: lightest) {
+  .sp-tabs {
+    border-bottom: 2px solid #B8B8B8;
+  }
+
+  .sp-tab sp-label {
+    color: rgba(0, 0, 0, 0.66);
+  }
+
+  .sp-tab:hover sp-label {
+    color: black;
+  }
+
+  .sp-tab.selected {
+    border-bottom: 2px solid black;
+  }
+
+  .sp-tab.selected sp-label {
+    color: black;
+  }
+}
+
+.sp-tab-page {
+  display: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 0;
+  flex-direction: column;
+}
+
+.sp-tab-page.visible {
+  display: flex;
+}
+
+.sp-tab-page>* {
+  flex: 0 0 auto;
+}
+
+/* groups */
+.group {
+  flex: 0 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 24px 12px 12px 12px;
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 12px;
+}
+
+#sp-native-tab-page .group {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.group>sp-label:not(.safe) {
+  position: absolute;
+  top: -1em;
+  left: 0px;
+  background-color: #3E3E3E;
+  display: block;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: light),
+(prefers-color-scheme: lightest) {
+  .group {
+    background-color: rgba(0, 0, 0, 0.0625);
+  }
+
+  .group>sp-label:not(.safe) {
+    background-color: #E8E8E8;
+  }
+}
+
+.group> :not(sp-label) {
+  margin: 6px;
+}
+
+/* icons */
+.icon {
+  fill: currentColor;
+  height: 18px;
+  width: 18px;
+}
+
+.icon svg {
+  height: 18px;
+  width: 18px;
+}
+
+/* logs */
+.console {
+  flex: 0 0 auto;
+  overflow: scroll;
+  height: 140px;
+  display: none;
+}
+
+.console.visible {
+  display: block;
+}
+
+.console #logs {
+  white-space: pre;
+  font-family: menlo;
+  font-size: 8px;
+  color: black;
+  background-color: white;
+}
+
+.sp-action-button-row {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+/* SS */
+
+sp-action-button {
+  font-size: 10px;
+  height: 18px;
+  margin: 0;
+  border-radius: 0;
+  min-width: 14px;
+  background: #555;
+  margin-right: 2px;
+  padding: 2px;
+  text-shadow: 1px 1px black;
+
+  &:active {
+    background: #333;
+  }
+}
+
+// sp-label {
+//   border: 1px white solid;
+//   // padding: 0 4px;
+//   border-radius: 16px;
+//   // width: 1rem;
+//   // height: 1rem;
+// }
+
+sp-detail {
+  display: block !important;
+}
+
+// .group {padding: 0;}
+
+sp-radio-group {
+  position: relative;
+
+  input[type=radio] {
+    margin-right: 0;
+    width: 20px;
+
+  }
+
+  label {
+    margin-right: 18px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  sp-heading {
+    padding: 0;
+    margin: 0 0 6px 0;
+  }
+
+  sp-heading,
+  sp-label,
+  sp-detail,
+  div {
+    display: block;
+    width: 100vw;
+  }
+
+  sp-divider {
+    margin: 5px 0;
+    // width: 50%;
+    // left: 12px;
+    // position: absolute;
+  }
+}
+
+.wrapper {
+  padding: 0px 12px 0px 12px;
+}
+
+.sp-tab-page {
+  padding: 6px 0 0 0;
+}
+
+.sp-tab {
+  padding: 0 5px;
+  // background: red;
+  margin-right: 0;
+
+  // line-height: 0;
+  // height: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.sp-tab span {
+  display: none;
+  position: absolute;
+  right: 12px;
+  font-size: 0.8em;
+}
+
+.sp-tab.selected span {
+  display: inline-block;
+}
+
+sp-radio-group {
+  label {
+    // outline: 1px red solid;
+    // z-index: 2;
+    // display: block;
+    // position: relative; 
+    // display: inline;
+  }
+
+  input[type=radio] {
+    // outline: 1px blue solid;
+    // background: green;
+    // z-index: 1;
+    // width: 100%;
+    // display: inline-block;
+
+    // &::after {
+    //   content: "value";
+    // }
+  }
+}
+
+sp-radio:checked {
+  outline: 1px blue solid;
+}
+
+sp-radio:checked {
+  background: red;
+}
+
+
+sp-radio-group {
+  &>* {
+    margin: 0;
+  }
+}
+
+.sp-tab {
+
+  padding: 0 6px;
+
+  &.active {
+    background-color: #444;
+  }
+}

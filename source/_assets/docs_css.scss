@@ -240,6 +240,7 @@ strong em:before {
     padding-left: 0;
 }
 
+.md-header__title,
 .md-header-nav__topic,
 .md-typeset h1 {
     font-size: 28px;
@@ -321,9 +322,10 @@ html .md-typeset details> :last-child,
 a[href^="file"] {
     /* text-align: right;
     display: block; */
+    outline: none;
 }
 
-a[href^="file"]::before {
+a[href^="file"]:not(.md-search-result__link)::before {
     content: "edit";
     font-size: 10px;
     /* content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z'%3E%3C/path%3E%3C/svg%3E "); */
@@ -475,5 +477,13 @@ html details.a > .highlight {
 
 details.a, details.b, details.a .highlight code {
     background: white;
+    white-space: initial;
 }
 
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

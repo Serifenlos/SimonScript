@@ -1,6 +1,3 @@
-Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche. zb toggleProofColors etc
-
-
 ### set
 
 <button class="btn" data-clipboard-text="set();"></button>
@@ -22,7 +19,6 @@ Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche.
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/set.js)
-
 
 ### getSoftProof
 
@@ -59,7 +55,6 @@ Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche.
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getSoftProof.js)
 
-
 ### editXMP
 
 <button class="btn" data-clipboard-text="editXMP();"></button>
@@ -77,7 +72,6 @@ Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche.
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP.js)
-
 
 ### setMeta
 
@@ -104,7 +98,6 @@ Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche.
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta.js)
 
-
 ### delMeta
 
 <button class="btn" data-clipboard-text="delMeta();"></button>
@@ -128,7 +121,6 @@ Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche.
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta.js)
-
 
 ### getMeta
 
@@ -156,5 +148,4 @@ Die js-Datei ist nicht ganz sauber. Da sind noch stehengebliebene Code-Versuche.
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta.js)
 
-
-
+!!! warning hide "not documented functions"
