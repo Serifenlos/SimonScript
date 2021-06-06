@@ -1,0 +1,289 @@
+
+/*
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+<javascriptresource>
+<name>[ss] Startschuss ID</name>
+<about>um die Bildbearbeitung vorzubereiten | By Simon Adrian | http://www.SimonAdrian.de</about>
+<category>SimonScript</category>
+</javascriptresource>
+// END__HARVEST_EXCEPTION_ZSTRING
+*/
+
+
+
+<!-- @import "../_functions/loopFiles.js" -->
+
+/*//// OPTIONS ////*/
+/*=================================================================================*/
+var Rasterweite = 70;
+var minAufloesung = 300;
+var Suffix_RGB = "";
+var option_convert_8bit = true;
+
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/_Cloud/Buch/";
+// var subFolder = "RGB";
+
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/Legenden2_BVB/";
+var mainFolder = "/Users/simon/Arbeit/11Freunde/233/";
+var subFolder = "RZ/Ausklapper";
+
+
+if (!app.selection.length > 0) {
+    alert("Wähle das zubearbeitende Bild aus");
+    exit();
+}
+
+
+for (var i = 0; i < app.selection.length; i++) {
+    
+    /*=================================================================================*/
+    var myDoc, myDocPath, myLivePath, myFolder, myFile, myImage, ZielAufloesung, hScale, vScale, hPPI, vPPI, myImage, myImagePath, myImageFile, myNewImageFile, myNewPath, unter300
+
+    var myDoc = app.activeDocument;
+    //var myDocPath = myDoc.filePath;  // TODO wenn noch nie gespeichert dann Abbruch // wirklich nötig? 
+    var myLivePath = myDoc.filePath;
+    var myFolder = new Folder(myLivePath);
+
+    var myFile = app.selection[i];
+    var myImage = myFile.images[0];
+    myLink = myFile.graphics[0].itemLink;
+
+    var ZielAufloesung = Rasterweite * 2.54 * 2;
+    var hScale = myImage.horizontalScale;
+    var vScale = myImage.verticalScale;
+    var hPPI = myImage.effectivePpi[0];
+    var vPPI = myImage.effectivePpi[1];
+    var interpolieren = 0;
+
+    var myImage = myLink.parent;
+    var myImagePath = myLink.filePath;
+    var myImageFile = new File(myImagePath);
+    var myNewImageFile = GetFileNameOnly(myImageFile.name);
+
+    var myFolder = new Folder(mainFolder + subFolder);
+    if (!myFolder.exists) myFolder.create();
+
+    /*TODO ob tif oder psd // hier muss variabl */
+    var myNewPath = myFolder + "/" + myNewImageFile + Suffix_RGB + ".jpg";
+    /*=================================================================================*/
+
+    /***********************************************************************************/
+    run_ID();
+    /***********************************************************************************/
+    //// FUNCTIONS ////
+/*=================================================================================*/
+function run_ID() {
+    alreadyRGB_stopp = 0;
+    if (new RegExp("__RGB").test(myNewImageFile)) {
+        var alreadyRGB_dialog = new Window("dialog", "schon vorbereitet?");
+        var stxt = alreadyRGB_dialog.add("group");
+        stxt.add("statictext", undefined, "ist das bild schon vorbereitet?");
+
+        var alreadyRGB_button = alreadyRGB_dialog.add("group");
+        var alreadyRGB_button_ok = alreadyRGB_button.add("button", undefined, "weiter");
+        var alreadyRGB_button_cancel = alreadyRGB_button.add("button", undefined, "stopp");
+
+        alreadyRGB_button_ok.onClick = function() {
+            alreadyRGB_dialog.close();
+        }
+        alreadyRGB_button_cancel.onClick = function() {
+            alreadyRGB_stopp = 1;
+            alreadyRGB_dialog.close();
+        }
+        alreadyRGB_dialog.show();
+    }
+    if (alreadyRGB_stopp == 1) {
+        exit();
+    }
+
+
+    if (myFile.isValid == false) {
+        alert("Wähle das zubearbeitende Bild aus");
+        exit();
+    }
+
+
+
+        OpenImage();
+        Relink(myLink, myNewPath);
+    }
+}
+
+
+
+
+
+
+
+
+
+/*=================================================================================*/
+function Relink(myLink, myNewPath) {
+    var newFile = new File(myNewPath);
+    if (newFile.exists) {
+        var originalLinkFile = new File(myLink.filePath);
+        myLink.relink(newFile);
+        try {
+            if (myLink.status == LinkStatus.linkOutOfDate) {
+                myLink.update();
+            }
+        } catch (err) {}
+    }
+}
+/*=================================================================================*/
+function UpdateAllOutdatedLinks() {
+    for (var myCounter = myDoc.links.length - 1; myCounter >= 0; myCounter--) {
+        var myLink = myDoc.links[myCounter];
+        if (myLink.status == LinkStatus.linkOutOfDate) {
+            myLink.update();
+        }
+    }
+}
+
+/*=================================================================================*/
+function OpenImage() {
+    try {
+        if (myFile.isValid == true && myFile.constructor.name == "Rectangle") {
+            //           myLink = myFile.graphics[0].itemLink;
+        }
+    } catch (e) {
+        alert("Wähle das zubearbeitende Bild aus");
+        exit();
+    }
+
+    CreateBridgeTalkMessage();
+}
+
+/*=================================================================================*/
+function CreateBridgeTalkMessage() {
+    var bt = new BridgeTalk();
+    bt.target = "photoshop"; //call for cc2020 -> "photoshop-140" //cc2021 -> "photoshop-150"
+    // bt.body = ResaveInPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + "," + papier + ");";
+    bt.body = runPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + ");";
+    bt.onResult = function(resObj) {}
+    bt.send(100);
+}
+
+
+
+function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloesung, hPPI, option_convert_8bit) {
+    <!-- @import "../../build/A__psScripts/functions/basic.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/utils.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/view.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/LUT-burn.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/LUT-dodge.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/ready.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/dialog.jsx" -->
+    <!-- @import "../../build/A__psScripts/functions/save.jsx" -->
+
+    try {
+        prefSave();
+        prefSet(DialogModes.NO, Units.MM);
+
+        var myPsDoc = app.open(new File(myImagePath));
+        var doc = app.activeDocument;
+        var cancel = 0;
+
+        /* if (doc.activeLayer.kind != LayerKind.NORMAL) { */
+/*         if ((doc.activeLayer.kind != LayerKind.NORMAL) || (getLayersNb() >= 2) || (getLayersNb() == 1) && (hasBackground())) {
+            dialog_chooseLayer();
+            if (cancel === 1) {
+                return false;
+            }
+        } */
+        if(debug) {
+            startschuss();
+        }
+        else {
+
+            doc.flatten();
+            doc.convertProfile("ISO Coated v2 300% (ECI)", Intent.RELATIVECOLORIMETRIC, true, false);
+            unsharpMask(80, 0.9, 2);
+           
+            
+        }
+        
+        startschuss_Rest();
+
+    } catch (e) {
+        logger(arguments.callee.name);
+        alert("Error 1");
+    }
+
+    function unsharpMask(amount, radius, threshold) {
+        var descriptor = new ActionDescriptor();
+        descriptor.putUnitDouble( s2t( "amount" ), s2t( "percentUnit" ), amount );
+        descriptor.putUnitDouble( s2t( "radius" ), s2t( "pixelsUnit" ), radius );
+        descriptor.putInteger( s2t( "threshold" ), threshold );
+        executeAction( s2t( "unsharpMask" ), descriptor, DialogModes.NO );
+    }
+
+
+
+    function startschuss_Rest() {
+
+
+
+/*         saveFile_PSD(_FilePath, _asCopy, _alphaChannels, _annotations, _embedColorProfile, _layers, _spotColors)
+        saveFile_PSD(new File(myNewPath), f, t, f, t, t, f); */
+        
+        saveFile_JPG_2(new File(myNewPath),11,t);
+        app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+        prefReset();
+    }
+
+    /* saveFile_JPG(12, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE") */
+    function saveFile_JPG_2(_FilePath,_quality, _embedColorProfile) {
+	    saveOptions = new JPEGSaveOptions();
+	    saveOptions.quality = _quality;
+	    saveOptions.embedColorProfile = _embedColorProfile;
+	    saveOptions.formatOptions = FormatOptions.OPTIMIZEDBASELINE;
+	    saveOptions.matte = MatteType.WHITE;    
+
+	    /* saveFile(saveOptions); */
+        doc.saveAs(_FilePath, saveOptions, true, Extension.LOWERCASE);
+    }   
+
+}
+
+
+
+
+
+
+
+function adjustmentLayer_SW(red, yellow, grain, cyan, blue, magenta, useTint, red2, grain2, blue2) {
+	var s2t = function (s) {
+		return app.stringIDToTypeID(s);
+	};
+
+	var d = new ActionDescriptor();
+	var d2 = new ActionDescriptor();
+	var d3 = new ActionDescriptor();
+	var d4 = new ActionDescriptor();
+	var r = new ActionReference();
+
+	r.putClass( s2t( "adjustmentLayer" ));
+	d.putReference( s2t( "null" ), r );
+	d3.putEnumerated( s2t( "presetKind" ), s2t( "presetKindType" ), s2t( "presetKindDefault" ));
+	d3.putInteger( s2t( "red" ), red );
+	d3.putInteger( s2t( "yellow" ), yellow );
+	d3.putInteger( s2t( "grain" ), grain );
+	d3.putInteger( s2t( "cyan" ), cyan );
+	d3.putInteger( s2t( "blue" ), blue );
+	d3.putInteger( s2t( "magenta" ), magenta );
+	d3.putBoolean( s2t( "useTint" ), useTint );
+	d4.putDouble( s2t( "red" ), red2 );
+	d4.putDouble( s2t( "grain" ), grain2 );
+	d4.putDouble( s2t( "blue" ), blue2 );
+	d3.putObject( s2t( "tintColor" ), s2t( "RGBColor" ), d4 );
+	d2.putObject( s2t( "type" ), s2t( "blackAndWhite" ), d3 );
+	d.putObject( s2t( "using" ), s2t( "adjustmentLayer" ), d2 );
+	executeAction( s2t( "make" ), d, DialogModes.NO );
+}
+
+// doc.flatten();
+// doc.convertProfile("ISO Coated v2 300% (ECI)", Intent.RELATIVECOLORIMETRIC, true, false);
+// unsharpMask(80, 0.9, 2);
+
+

@@ -1,0 +1,5 @@
+function editXMP(){null==ExternalObject.AdobeXMPScript&&(ExternalObject.AdobeXMPScript=new ExternalObject("lib:AdobeXMPScript")),xmpMeta=new XMPMeta(app.activeDocument.xmpMetadata.rawData),customNamespace="http://ns.simonadrian.de/proofsetup/1.0",customPrefix="proofsetup:",XMPMeta.registerNamespace(customNamespace,customPrefix)}function setMeta_nativeSoftProof(){var e=new ActionReference,t=new ActionDescriptor;e.putEnumerated(stringIDToTypeID("application"),stringIDToTypeID("ordinal"),stringIDToTypeID("targetEnum")),t.putReference(stringIDToTypeID("target"),e);var a=executeAction(stringIDToTypeID("proofSetup"),t,DialogModes.NO),o=a.getString(stringIDToTypeID("profile")),r=typeIDToStringID(a.getEnumerationValue(stringIDToTypeID("intent"))),p=a.getBoolean(stringIDToTypeID("mapBlack"));editXMP(),
+// setProperty
+xmpMeta.setProperty(customNamespace,"proof_profil",o),xmpMeta.setProperty(customNamespace,"proof_intent",r),xmpMeta.setProperty(customNamespace,"proof_tk",p),
+// Fix the xmpMeta
+app.activeDocument.xmpMetadata.rawData=xmpMeta.serialize()}setMeta_nativeSoftProof();

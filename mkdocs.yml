@@ -10,8 +10,10 @@ dev_addr: 'localhost:8000'
 # theme: readthedocs
 theme: 
     name: material
+    custom_dir: custom_theme
 #    features:
 #        - navigation.tabs
+    language: de
     palette:
         scheme: default
         primary: white
@@ -40,16 +42,18 @@ nav:
     - 'functions':
         - 'basic': 'functions/basic.md'
         - 'dialog': 'functions/dialog.md'
+        - 'layer': 'functions/layer.md'
         - 'loopFiles': 'functions/loopFiles.md'
         - 'LUT-burn': 'functions/LUT-burn.md'
         - 'LUT-dodge': 'functions/LUT-dodge.md'
-        - 'mb_Utils': 'functions/mb_Utils.md'
+        # - 'mb_Utils': 'functions/mb_Utils.md'
         - 'utils': 'functions/utils.md'
         - 'meta': 'functions/meta.md'
         - 'ready': 'functions/ready.md'
         - 'save': 'functions/save.md'
         - 'view': 'functions/view.md'
     - 'helpful':
+        - 'snippets': 'helpful/snippets.md'
         - 'charID': 'helpful/charID.md'
       
   # - 'Assets':
@@ -72,6 +76,7 @@ markdown_extensions:
         css_class: 'highlight'
         guess_lang: true
         noclasses: false
+        linenums_style: pymdownx-inline
     - pymdownx.inlinehilite:
         css_class: 'highlight'
     - pymdownx.mark
@@ -85,14 +90,24 @@ markdown_extensions:
 
 plugins:
     - search:
-        min_search_length: 5
-        lang: 'de'
+        separator: '[\s\-\.]+'
+        lang:
+            - en
+            - de
+        prebuild_index: true
+    - localsearch
     - exclude:
         glob:
             - functions_helper/*
             - PS_Scripts_helper/*
-            - "*.kit"
+            - '*.kit'
     # - mkdocs-nav-enhancements
   # - awesome-pages
 
-
+# plugins:
+#   - search:
+#       separator: '[\s\-\.]+'
+#       lang:
+#         - en
+#         - de
+#         - ru

@@ -1,1 +1,2 @@
-function GetFileNameOnly(e){var n=e.lastIndexOf(".");return(-1==n?e:e.substr(0,n)).replace(/^(\d{3}(-|_{2}))(.+)/g,"$3")}
+function GetFileNameOnly(e){var n=e.lastIndexOf(".");//scheidet die erste Seitenzahl ab. Es ist ein Spezialfall, gehört woanders hin
+return(-1==n?e:e.substr(0,n)).replace(/^(\d{3}(-|_{2}))(.+)/g,"$3")}

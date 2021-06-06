@@ -16,8 +16,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getActiveLayerIndex.js)
 
-
-
 ### closeGroup
 ***action*** 
 
@@ -135,7 +133,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/closeGroup.js)
 
-
 ### ungroup
 ***action*** ungroup selected group
 
@@ -158,7 +155,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/ungroup.js)
 
-
 ### addLayer
 ***action*** add new LayerSet/empty group
 
@@ -178,7 +174,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addLayer.js)
 
-
 ### isVisible
 ***boolean*** return state of Visibility of Layer/Group
 
@@ -197,7 +192,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVisible.js)
 
-
 ### isVisibleIDX 
 
 <button class="btn" data-clipboard-text="isVisibleIDX(idx);"></button>
@@ -215,7 +209,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVisibleIDX.js)
-
 
 ### makeVisible
 ***action*** show Layer/Group
@@ -243,7 +236,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/makeVisible.js)
 
-
 ### hide
 ***action*** hide Layer/Group
 
@@ -270,7 +262,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hide.js)
 
-
 ### hasLayerMask
 ***boolean*** return if Layer/Group has a mask
 
@@ -288,7 +279,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hasLayerMask.js)
-
 
 ### deselectPath
 ***action*** deselect all Paths
@@ -308,7 +298,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deselectPath.js)
-
 
 ### duplicateLayerMaskAsAlpha
 ***action*** create a Alpha-Channel based on LayerMask and name it **mbTemp_alpha** ==uniquify the name? on multiple use all the channels have the same name==
@@ -432,7 +421,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/duplicateLayerMaskAsAlpha.js)
 
-
 ### setBackTheLayerMask
 ***action*** create a LayerMask based on the Alpha-Channel named **mbTemp_alpha**
 
@@ -539,9 +527,8 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setBackTheLayerMask.js)
 
-
 ### getMaskDensity
-***number 0-255*** returns Density of Layer/Group-Mask in 0-255 ==warum 0-255 ?== ==TODO nimm das für deinen Helper==
+***number 0-255*** returns Density of Layer/Group-Mask in 0-255 ==warum 0-255 ?== ==TODO                                                  isSetOpened1                                       
 
 <button class="btn" data-clipboard-text="getMaskDensity();"></button>
 {: .btn_p }
@@ -558,9 +545,8 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getMaskDensity.js)
 
-
 ### getMaskFeather
-***number px*** return Feather of Layer/Group-Mask in px ==TODO nimm das für deinen Helper==
+***number px*** return Feather of Layer/Group-Mask in px ==TODO                                                  isSetOpened1                                       
 
 <button class="btn" data-clipboard-text="getMaskFeather();"></button>
 {: .btn_p }
@@ -576,7 +562,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getMaskFeather.js)
-
 
 ### isLayerMaskEnabled
 ***boolean*** is Layer/Group-Mask active? ==ToDo wirft einen Fehler wenn es keine Maske gibt==
@@ -596,7 +581,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerMaskEnabled.js)
 
-
 ### isLayerMaskLinked
 ***boolean*** is Layer/Group-Mask linked?  ==ToDo wirft einen Fehler wenn es keine Maske gibt==
 
@@ -615,7 +599,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerMaskLinked.js)
 
-
 ### setMaskDensityTo
 ***action*** set density in percent
 
@@ -624,29 +607,38 @@
 
 ??? "setMaskDensityTo(dens);"
     ``` js linenums="1"
-    function setMaskDensityTo(dens){
-        var idsetd = charIDToTypeID( "setd" );
-          var desc21 = new ActionDescriptor();
-          var idnull = charIDToTypeID( "null" );
-              var ref11 = new ActionReference();
-              var idLyr = charIDToTypeID( "Lyr " );
-              var idOrdn = charIDToTypeID( "Ordn" );
-              var idTrgt = charIDToTypeID( "Trgt" );
-              ref11.putEnumerated( idLyr, idOrdn, idTrgt );
-          desc21.putReference( idnull, ref11 );
-          var idT = charIDToTypeID( "T   " );
-              var desc22 = new ActionDescriptor();
-              var iduserMaskDensity = stringIDToTypeID( "userMaskDensity" );
-              var idPrc = charIDToTypeID( "#Prc" );
-              desc22.putUnitDouble( iduserMaskDensity, idPrc, dens );
-          var idLyr = charIDToTypeID( "Lyr " );
-          desc21.putObject( idT, idLyr, desc22 );
-      executeAction( idsetd, desc21, DialogModes.NO );
+    function setMaskDensityTo(_dens){
+    //     var idsetd = charIDToTypeID( "setd" );
+    //       var desc21 = new ActionDescriptor();
+    //       var idnull = charIDToTypeID( "null" );
+    //           var ref11 = new ActionReference();
+    //           var idLyr = charIDToTypeID( "Lyr " );
+    //           var idOrdn = charIDToTypeID( "Ordn" );
+    //           var idTrgt = charIDToTypeID( "Trgt" );
+    //           ref11.putEnumerated( idLyr, idOrdn, idTrgt );
+    //       desc21.putReference( idnull, ref11 );
+    //       var idT = charIDToTypeID( "T   " );
+    //           var desc22 = new ActionDescriptor();
+    //           var iduserMaskDensity = stringIDToTypeID( "userMaskDensity" );
+    //           var idPrc = charIDToTypeID( "#Prc" );
+    //           desc22.putUnitDouble( iduserMaskDensity, idPrc, dens );
+    //       var idLyr = charIDToTypeID( "Lyr " );
+    //       desc21.putObject( idT, idLyr, desc22 );
+    //   executeAction( idsetd, desc21, DialogModes.NO );
+    
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(c2t("null"), r);
+        d2.putUnitDouble(s2t("userMaskDensity"), s2t("percentUnit"), _dens);
+        d.putObject(s2t("to"), s2t("layer"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
     }
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskDensityTo.js)
-
 
 ### setMaskFeatherTo
 ***action*** set feather in pixel
@@ -679,7 +671,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskFeatherTo.js)
 
-
 ### setMaskEnabled
 ==Was macht die Funktion, ausser Errors zu produzieren==
 
@@ -709,7 +700,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskEnabled.js)
-
 
 ### setMaskLinked
 ==Was macht die Funktion, ausser Errors zu produzieren==
@@ -741,7 +731,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskLinked.js)
 
-
 ### isLayerFXVisible
 ***boolean*** 
 
@@ -760,7 +749,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerFXVisible.js)
 
-
 ### copyLayerStyle
 ***action*** 
 
@@ -776,7 +764,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/copyLayerStyle.js)
-
 
 ### pasteLayerStyle
 ***action*** 
@@ -797,7 +784,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/pasteLayerStyle.js)
 
-
 ### hasVectorMask
 ***boolean*** 
 
@@ -815,7 +801,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hasVectorMask.js)
-
 
 ### getVectorMaskDensity
 ***number (0-255)*** 
@@ -835,7 +820,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVectorMaskDensity.js)
 
-
 ### getVectorMaskFeather
 ***number (Pixel)*** 
 
@@ -853,7 +837,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVectorMaskFeather.js)
-
 
 ### isVectorMaskEnabled
 ==auskommentiert==
@@ -877,7 +860,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVectorMaskEnabled.js)
 
-
 ### isVectorMaskLinked
 ==auskommentiert==
 
@@ -898,7 +880,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVectorMaskLinked.js)
-
 
 ### setVectorMaskDensityTo
 ***action*** set density in percent
@@ -931,7 +912,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskDensityTo.js)
 
-
 ### setVectorMaskFeatherTo
 ***action*** set feather in pixel
 
@@ -963,7 +943,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskFeatherTo.js)
 
-
 ### setVectorMaskEnabled
 ==auskommentiert==
 
@@ -993,7 +972,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskEnabled.js)
-
 
 ### setVectorMaskLinked
 ==auskommentiert==
@@ -1025,7 +1003,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskLinked.js)
 
-
 ### isLocked
 ***boolean*** check if the Layer/Group is totally locked
 
@@ -1044,7 +1021,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLocked.js)
-
 
 ### unlock
 ***action*** unlock even specific locking methods
@@ -1080,7 +1056,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/unlock.js)
 
-
 ### lock
 ***action*** totally lock Layer/Group
 
@@ -1115,7 +1090,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/lock.js)
 
-
 ### getColor
 ***string*** get Color of the Layer/Group 
 
@@ -1134,7 +1108,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getColor.js)
-
 
 ### setColorTo
 ***action*** color the Layer/Group in the panel 
@@ -1168,9 +1141,7 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setColorTo.js)
 
-
 * col `None` <code>Rd  </code> <code>Orng</code> <code>Ylw </code> <code>Grn </code> <code>Bl  </code> <code>Vlt </code> <code>Gry </code>
-
 
 ### activateLayerMask
 ***action*** 
@@ -1201,7 +1172,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/activateLayerMask.js)
 
-
 ### deleteMask
 ***action*** works only when the LayerMask is selected
 
@@ -1228,7 +1198,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteMask.js)
 
-
 ### selectLayerMask
 ***action*** 
 
@@ -1252,7 +1221,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/selectLayerMask.js)
-
 
 ### loadSelectionOfMask
 ***action*** 
@@ -1280,7 +1248,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/loadSelectionOfMask.js)
-
 
 ### maskFromSelection
 ***action*** 
@@ -1315,7 +1282,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/maskFromSelection.js)
-
 
 ### duplicateVectorMask
 ***action*** duplicate VektorMask and name it "mbTemp_path"
@@ -1388,7 +1354,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/duplicateVectorMask.js)
 
-
 ### recreateVectorMask
 ***action*** get path called "mbTemp_path", create VektorMask on Layer/Group and delete "mbTemp_path"
 
@@ -1442,7 +1407,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/recreateVectorMask.js)
 
-
 ### groupSelected
 ***action*** group active Layer/Group and name it
 
@@ -1470,7 +1434,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/groupSelected.js)
 
-
 ### addToSelection
 ***action*** add Layer/Group to active Selection
 
@@ -1495,7 +1458,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addToSelection.js)
 
-
 ### TemporaryAlpha
 ***action*** create selection into Alpha-Channel and activate it
 
@@ -1516,7 +1478,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/TemporaryAlpha.js)
-
 
 ### makeActiveByIndex
 
@@ -1546,7 +1507,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/makeActiveByIndex.js)
 
-
 ### deleteActiveLayer
 
 <button class="btn" data-clipboard-text="deleteActiveLayer();"></button>
@@ -1570,7 +1530,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteActiveLayer.js)
 
-
 ### isLayerSet
 
 <button class="btn" data-clipboard-text="isLayerSet( idx );"></button>
@@ -1592,7 +1551,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerSet.js)
 
-
 ### openGroup1
 
 <button class="btn" data-clipboard-text="openGroup1(theGroup);"></button>
@@ -1613,7 +1571,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/openGroup1.js)
 
-
 ### openGroup1byIDX
 
 <button class="btn" data-clipboard-text="openGroup1byIDX(idx);"></button>
@@ -1630,7 +1587,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/openGroup1byIDX.js)
-
 
 ### getNamesPlusIDsOfLayerSet
 ==geht das? die Formatierung ist kommisch==
@@ -1680,7 +1636,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getNamesPlusIDsOfLayerSet.js)
 
-
 ### getLayersNb
 
 <button class="btn" data-clipboard-text="getLayersNb();"></button>
@@ -1700,7 +1655,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getLayersNb.js)
-
 
 ### toogleOpenCloseSet
 
@@ -1741,7 +1695,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet.js)
-
 
 ### getFristLayerSetChildVisible
 
@@ -1798,7 +1751,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getFristLayerSetChildVisible.js)
 
-
 ### getLastChildIdx
 
 <button class="btn" data-clipboard-text="getLastChildIdx();"></button>
@@ -1846,7 +1798,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getLastChildIdx.js)
-
 
 ### getNbOfChilds
 
@@ -1896,7 +1847,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getNbOfChilds.js)
 
-
 ### isSetOpened2
 
 <button class="btn" data-clipboard-text="isSetOpened2( grIDX );"></button>
@@ -1930,7 +1880,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isSetOpened2.js)
-
 
 ### addTempLayerSetIn
 ==idxx ?==
@@ -1992,7 +1941,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addTempLayerSetIn.js)
 
-
 ### deleteTempLayerSetbyIdx
 
 <button class="btn" data-clipboard-text="deleteTempLayerSetbyIdx(idxx);"></button>
@@ -2013,7 +1961,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteTempLayerSetbyIdx.js)
-
 
 ### myselectNext
 
@@ -2065,7 +2012,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectNext.js)
 
-
 ### addNext
 
 <button class="btn" data-clipboard-text="addNext();"></button>
@@ -2083,7 +2029,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addNext.js)
-
 
 ### isEndOfSet
 
@@ -2115,7 +2060,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isEndOfSet.js)
-
 
 ### getStartIDXfor
 
@@ -2164,7 +2108,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getStartIDXfor.js)
 
-
 ### myselectPrevious
 
 <button class="btn" data-clipboard-text="myselectPrevious();"></button>
@@ -2202,7 +2145,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectPrevious.js)
 
-
 ### addPrevious
 
 <button class="btn" data-clipboard-text="addPrevious();"></button>
@@ -2221,7 +2163,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addPrevious.js)
 
-
 ### myselectNextFor
 
 <button class="btn" data-clipboard-text="myselectNextFor(times);"></button>
@@ -2237,7 +2178,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectNextFor.js)
-
 
 ### getVisible
 
@@ -2256,7 +2196,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisible.js)
 
-
 ### getVisibleforIDX
 
 <button class="btn" data-clipboard-text="getVisibleforIDX(idx);"></button>
@@ -2273,7 +2212,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisibleforIDX.js)
-
 
 ### toogleVisibility
 
@@ -2304,7 +2242,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleVisibility.js)
-
 
 ### showOnlyThis
 
@@ -2401,7 +2338,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/showOnlyThis.js)
 
-
 ### removeFromSel
 
 <button class="btn" data-clipboard-text="removeFromSel(idx);"></button>
@@ -2422,7 +2358,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/removeFromSel.js)
-
 
 ### makeVisByIndex
 
@@ -2447,7 +2382,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/makeVisByIndex.js)
-
 
 ### getSelectedLayersIdx
 
@@ -2483,7 +2417,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getSelectedLayersIdx.js)
 
-
 ### selectParent
 
 <button class="btn" data-clipboard-text="selectParent();"></button>
@@ -2497,7 +2430,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/selectParent.js)
-
 
 ### getParentIDXfor
 
@@ -2545,7 +2477,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getParentIDXfor.js)
 
-
 ### loopParentsIDXfor
 
 <button class="btn" data-clipboard-text="loopParentsIDXfor(idx);"></button>
@@ -2571,7 +2502,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/loopParentsIDXfor.js)
 
-
 ### hasBackground
 
 <button class="btn" data-clipboard-text="hasBackground();"></button>
@@ -2594,7 +2524,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hasBackground.js)
 
-
 ### getLayerName
 
 <button class="btn" data-clipboard-text="getLayerName(idx);"></button>
@@ -2611,7 +2540,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getLayerName.js)
-
 
 ### getSibilings
 
@@ -2672,7 +2600,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getSibilings.js)
-
 
 ### getSibilings1
 
@@ -2744,7 +2671,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getSibilings1.js)
 
-
 ### addSibilings
 
 <button class="btn" data-clipboard-text="addSibilings();"></button>
@@ -2762,7 +2688,6 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addSibilings.js)
 
-
 ### selectOnlySibilings
 
 <button class="btn" data-clipboard-text="selectOnlySibilings();"></button>
@@ -2777,7 +2702,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/selectOnlySibilings.js)
-
 
 ### getParentIndex1
 
@@ -2797,7 +2721,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getParentIndex1.js)
-
 
 ### eliminateDuplicates
 
@@ -2823,7 +2746,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/eliminateDuplicates.js)
-
 
 ### eliminateTheSame
 
@@ -2855,7 +2777,6 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/eliminateTheSame.js)
-
 
 ### testSelectMultiple
 
@@ -2898,9 +2819,5 @@
     testSelectMultiple([1,3,5,7]);
     ```
 
-
-
-
-
-
-
+    !!! warning show "not documented functions"
+    - isSetOpened1

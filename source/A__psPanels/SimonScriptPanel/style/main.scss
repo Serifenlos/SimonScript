@@ -1,0 +1,77 @@
+@import "../../../_assets/node_modules/@csstools/normalize.css/normalize";
+
+body {
+    padding: 4px;
+    transition: all .2s;
+    box-sizing: border-box;
+}
+
+// .sp-action-button-row {
+//     display: flex;
+//     // justify-content: flex-start;
+//     // align-items: baseline;
+//     height: 20px;
+
+// }
+
+
+// sp-action-button {
+//     flex: 0 1 auto;
+//     padding: 0 4px;
+//     // line-height: 2rem;
+//     margin: 0;
+//     font-size: 10px;
+//     height: 18px;
+//     // min-width: 22px;
+//     // width: auto;
+//     // max-width: 120px;
+//     background-color: #666;
+//     border: 0px none transparent;
+//     // outline: transparent none 0px;
+//     outline: 2px #333 solid;
+//     // text-shadow: 1px 1px black;
+//     color: #ddd;
+//     border-radius: 0;
+//     // display: inline-block;
+//     // margin: 0 auto;
+//     text-align: center;
+//     vertical-align: middle;
+
+//     box-shadow: none;
+
+
+//     &:hover {
+//         cursor: pointer;    
+//     }
+//     &:active {
+//         background-color: #555;
+//     }
+
+//     span {
+//         // margin: 0 4px;
+//         // background-color: darkgreen;
+//         // display: inline-block;
+//         vertical-align: middle;
+//     }
+// }
+
+.sp-action-button-row {
+    display: flex;
+    margin-bottom: 2px;
+}
+
+sp-action-button {
+    font-size: 10px;
+    height: 18px;
+    margin: 0;
+    border-radius: 0;
+    min-width: 14px;
+    background: #555;
+    margin-right: 2px;
+    padding: 2px;
+    text-shadow: 1px 1px black;
+    
+    &:active {
+        background: #333;
+    }
+}

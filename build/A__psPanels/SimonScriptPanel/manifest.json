@@ -1,0 +1,54 @@
+{
+  "id": "e3f22fe6",
+  "name": "SimonScript",
+  "version": "2.0.0",
+  "host": [
+    {
+      "app": "PS",
+      "minVersion": "22.0.0"
+    }
+  ],
+  "main": "index.html",
+  "manifestVersion": 4,
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "vanilla",
+      "label": {
+        "default": "SimonScriptPanel"
+      },
+      "minimumSize": {
+        "width": 1,
+        "height": 1
+      },
+      "maximumSize": {
+        "width": 1200,
+        "height": 10000
+      },
+      "preferredDockedSize": {
+        "width": 150,
+        "height": 200
+      },
+      "preferredFloatingSize": {
+        "width": 300,
+        "height": 200
+      },
+      "icons": [
+        { "width": 23, "height": 23, "path": "icons/SS_logo.png", "scale": [ 1, 2 ], "theme": [ "dark", "darkest","medium", "lightest", "light"]}
+      ],
+      "commands": [
+        {
+          "id": "show_alert",
+          "label": {
+            "default": "Show Alert",
+            "en-US": "Show Alert (US)",
+            "es-ES": "Show Alert (ES)"
+          }
+        }
+      ]
+    }
+  ],
+  "icons": [
+    { "width": 23, "height": 23, "path": "icons/SS_logo.png", "scale": [ 1, 2 ], "theme": [ "dark", "darkest","medium", "lightest", "light"], "species": [ "generic" ] }
+  ]
+}

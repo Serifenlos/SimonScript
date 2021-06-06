@@ -1,1 +1,1 @@
-function rulerUnits_prefSave(){startRulerUnits=app.preferences.rulerUnits}function rulerUnits_prefSet(e){app.preferences.rulerUnits=e}
+function rulerUnits_prefReset(){app.preferences.rulerunits=startRulerUnits}function rulerUnits_prefSave(){startRulerUnits=app.preferences.rulerUnits}function rulerUnits_prefSet(e){app.preferences.rulerUnits=e}

@@ -1,0 +1,3 @@
+function wow() {
+    alert("dingdongwuhhu++")
+}
