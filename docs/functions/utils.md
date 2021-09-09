@@ -244,19 +244,30 @@
 
 ??? "hide();"
     ``` js linenums="1"
-    function hide(){
-        var idHd = charIDToTypeID( "Hd  " );
-          var desc809 = new ActionDescriptor();
-          var idnull = charIDToTypeID( "null" );
-              var list12 = new ActionList();
-                  var ref648 = new ActionReference();
-                  var idLyr = charIDToTypeID( "Lyr " );
-                  var idOrdn = charIDToTypeID( "Ordn" );
-                  var idTrgt = charIDToTypeID( "Trgt" );
-                  ref648.putEnumerated( idLyr, idOrdn, idTrgt );
-              list12.putReference( ref648 );
-          desc809.putList( idnull, list12 );
-      executeAction( idHd, desc809, DialogModes.NO );
+    // function hide() {
+    //     var idHd = charIDToTypeID("Hd  ");
+    //     var desc809 = new ActionDescriptor();
+    //     var idnull = charIDToTypeID("null");
+    //     var list12 = new ActionList();
+    //     var ref648 = new ActionReference();
+    //     var idLyr = charIDToTypeID("Lyr ");
+    //     var idOrdn = charIDToTypeID("Ordn");
+    //     var idTrgt = charIDToTypeID("Trgt");
+    //     ref648.putEnumerated(idLyr, idOrdn, idTrgt);
+    //     list12.putReference(ref648);
+    //     desc809.putList(idnull, list12);
+    //     executeAction(idHd, desc809, DialogModes.NO);
+    // }
+    
+    // hide();
+    function hide() {
+        var d = new ActionDescriptor();
+        var l = new ActionList();
+        var rl = new ActionReference();
+        rl.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        l.putReference(rl);
+        d.putList(c2t("null"), l);
+        executeAction(s2t("hide"), d, DialogModes.NO);
     }
     ```
 
@@ -602,10 +613,10 @@
 ### setMaskDensityTo
 ***action*** set density in percent
 
-<button class="btn" data-clipboard-text="setMaskDensityTo(dens);"></button>
+<button class="btn" data-clipboard-text="setMaskDensityTo(_dens);"></button>
 {: .btn_p }
 
-??? "setMaskDensityTo(dens);"
+??? "setMaskDensityTo(_dens);"
     ``` js linenums="1"
     function setMaskDensityTo(_dens){
     //     var idsetd = charIDToTypeID( "setd" );
@@ -643,12 +654,12 @@
 ### setMaskFeatherTo
 ***action*** set feather in pixel
 
-<button class="btn" data-clipboard-text="setMaskFeatherTo(feath);"></button>
+<button class="btn" data-clipboard-text="setMaskFeatherTo(_feath);"></button>
 {: .btn_p }
 
-??? "setMaskFeatherTo(feath);"
+??? "setMaskFeatherTo(_feath);"
     ``` js linenums="1"
-    function setMaskFeatherTo(feath){
+    function setMaskFeatherTo(_feath){
         var idsetd = charIDToTypeID( "setd" );
           var desc21 = new ActionDescriptor();
           var idnull = charIDToTypeID( "null" );
@@ -662,7 +673,7 @@
               var desc22 = new ActionDescriptor();
               var iduserMaskDensity = stringIDToTypeID( "userMaskFeather" );
               var idPrc = charIDToTypeID( "#Prc" );
-              desc22.putUnitDouble( iduserMaskDensity, idPrc, feath );
+              desc22.putUnitDouble( iduserMaskDensity, idPrc, _feath );
           var idLyr = charIDToTypeID( "Lyr " );
           desc21.putObject( idT, idLyr, desc22 );
       executeAction( idsetd, desc21, DialogModes.NO );

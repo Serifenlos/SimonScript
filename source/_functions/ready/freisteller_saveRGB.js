@@ -1,26 +1,27 @@
 function freisteller_saveRGB() {
     var startLayer, startVisibilityHelper, startMaskVisibility, docNameCopy;
-    var startLayer = getActiveLayerIndex();
+    var startLayer = layer_selectedIDX_get();
     var startVisibilityHelper = null;
     gotoLayer("Freisteller");
     if (hasLayerMask()) {
         var startMaskVisibility = getMaskVisibility();
         setMaskVisibility(true);
 
-        if (getLayerName(1) == "Freisteller helper") {
+        if (getLayerName(1) == "Freisteller helper") {  //TODO was wenn ich den helper dupliziert habe //hier brauchts einen anderen Checker
             var startVisibilityHelper = isVisibleIDX(1);
             makeVisByIndex(1, false);
         }
-        var docNameCopy = doc.path + "/" + GetFileNameOnly(doc.name) + "-frei";
-        saveFile_PSD(new File(docNameCopy), t, f, f, t, f, f);
+        var docNameCopy = app.activeDocument.path + "/" + GetFileNameOnly(app.activeDocument.name) + "-frei";
+        // saveFile_PSD(new File(docNameCopy), t, f, f, t, f, f);
+        savePSD_v2(new File(docNameCopy), t, t, t, f);
 
         setMaskVisibility(false);
         if (startVisibilityHelper != null) {
             makeVisByIndex(1, startVisibilityHelper);
         }
 
-        doc.save();
+        // app.activeDocument.save();
         setMaskVisibility(startMaskVisibility);
     }
-    gotoLayer(startLayer);
+    layer_selectedIDX_set(startLayer);
 }

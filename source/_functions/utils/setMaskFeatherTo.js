@@ -1,4 +1,4 @@
-function setMaskFeatherTo(feath){
+function setMaskFeatherTo(_feath){
     var idsetd = charIDToTypeID( "setd" );
       var desc21 = new ActionDescriptor();
       var idnull = charIDToTypeID( "null" );
@@ -12,7 +12,7 @@ function setMaskFeatherTo(feath){
           var desc22 = new ActionDescriptor();
           var iduserMaskDensity = stringIDToTypeID( "userMaskFeather" );
           var idPrc = charIDToTypeID( "#Prc" );
-          desc22.putUnitDouble( iduserMaskDensity, idPrc, feath );
+          desc22.putUnitDouble( iduserMaskDensity, idPrc, _feath );
       var idLyr = charIDToTypeID( "Lyr " );
       desc21.putObject( idT, idLyr, desc22 );
   executeAction( idsetd, desc21, DialogModes.NO );

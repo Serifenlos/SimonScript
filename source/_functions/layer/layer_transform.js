@@ -26,26 +26,26 @@ function layer_transform(_point, _moveX, _moveY, _transformX, _transformY, _unit
 	d.putObject( s2t( "offset" ), s2t( "offset" ), d2 );
 
     if(_unit == "%_canvas") {
-        var layer_width = doc.activeLayer.bounds[2] - doc.activeLayer.bounds[0];
-        var layer_height = doc.activeLayer.bounds[3] - doc.activeLayer.bounds[1];
-        var doc_layer_width = parseFloat(doc.width / layer_width * _transformX);
-        var doc_layer_height = parseFloat(doc.height / layer_height * _transformY);
+        var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
+        var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
+        var doc_layer_width = parseFloat(app.activeDocument.width / layer_width * _transformX);
+        var doc_layer_height = parseFloat(app.activeDocument.height / layer_height * _transformY);
         // alert(doc_layer_width + " " + doc_layer_height)
         if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
 	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
 
     } else if(_unit == "%_layer") {
-        var layer_width = doc.activeLayer.bounds[2] - doc.activeLayer.bounds[0];
-        var layer_height = doc.activeLayer.bounds[3] - doc.activeLayer.bounds[1];
-        var doc_layer_width = parseFloat(layer_width / doc.width * _transformX * 10);
-        var doc_layer_height = parseFloat(layer_height / doc.height * _transformY * 10);
+        var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
+        var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
+        var doc_layer_width = parseFloat(layer_width / app.activeDocument.width * _transformX * 10);
+        var doc_layer_height = parseFloat(layer_height / app.activeDocument.height * _transformY * 10);
         // alert(doc_layer_width + " " + doc_layer_height);
         if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
 	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
 
     } else if(_unit == "px") {
-        var doc_layer_width =  parseFloat(_transformX / doc.width * 100);
-        var doc_layer_height = parseFloat(_transformY / doc.height * 100);
+        var doc_layer_width =  parseFloat(_transformX / app.activeDocument.width * 100);
+        var doc_layer_height = parseFloat(_transformY / app.activeDocument.height * 100);
         // alert(doc_layer_width + " " + doc_layer_height)
         if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
 	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}

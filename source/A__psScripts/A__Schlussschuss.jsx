@@ -265,6 +265,7 @@ if (checkSettings == "positiv") {
 
 /*=================================================================================*/
 function run() {
+    var doc = app.activeDocument;
 
     if (doc.saved == false) {
         var dialogSave = new Window("dialog", "Schlussschuss");
@@ -291,6 +292,7 @@ function run() {
     try {
         if (doc.layerSets.getByName("Freisteller")) {
             gotoLayer("Freisteller");
+            fixMask(getActiveLayerIndex(), 1);
             duplicateLayerMaskAsAlpha();
             setMaskVisibility(false);
             selectLayers("selectAllLayers");
@@ -311,7 +313,7 @@ function run() {
         if (doc.artLayers.getByName("Freisteller")) {
             setMaskVisibility(true);
             var docNameCopy = saveFolder + "/" + replace_RGB_to_RZ() + "-frei";
-            saveFile_PSD(new File(docNameCopy), t, f, f, t, f, f);
+            savePSD_v2(new File(docNameCopy), t, t, t, f);
             setMaskVisibility(false);
         }
     } catch (e) {}

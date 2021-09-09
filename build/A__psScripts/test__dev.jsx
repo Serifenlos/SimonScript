@@ -10,6 +10,7 @@
 //@include "../../build/A__psScripts/functions/save.jsx";
 //@include "../../build/A__psScripts/functions/loopFiles.jsx";
 //@include "../../build/A__psScripts/functions/meta.jsx";
+//@include "/Users/simon/Arbeit/__temp/json2.js";
 // curves
 // selectiveColor
 // hueSaturation
@@ -40,9 +41,9 @@ ElementPlacement.PLACEATEND
 function getSmartFilterArray(e){try{var t=new ActionReference;t.putProperty(stringIDToTypeID("property"),stringIDToTypeID("smartObject")),t.putIndex(sTID("layer"),e);
 // ref.putProperty(stringIDToTypeID("property"), stringIDToTypeID("smartObject"));
 // ref.putEnumerated(stringIDToTypeID("layer"), stringIDToTypeID("ordinal"), stringIDToTypeID("targetEnum"));
-var r=executeActionGet(t).getObjectValue(stringIDToTypeID("smartObject")).getList(stringIDToTypeID("filterFX"));filterArray=[];for(var s=0;s<r.count;s++){var a=r.getObjectValue(s),i=a.getObjectValue(stringIDToTypeID("filter")),o=typeIDToStringID(a.getObjectType(stringIDToTypeID("filter")));filterArray_inner=[],filterArray_inner.push(e,s,o);for(var n=0;n<i.count;n++){getSmartFilterValues(i,n);try{if(i.getObjectValue(i.getKey(n)))for(var c=typeIDToStringID(i.getKey(n)),l=(c=i.getObjectValue(stringIDToTypeID(c)),0);l<c.count;l++)getSmartFilterValues(c,l)}catch(e){}}filterArray.push(filterArray_inner)}return!0}catch(e){
+var r=executeActionGet(t).getObjectValue(stringIDToTypeID("smartObject")).getList(stringIDToTypeID("filterFX"));filterArray=[];for(var s=0;s<r.count;s++){var a=r.getObjectValue(s),i=a.getObjectValue(stringIDToTypeID("filter")),n=typeIDToStringID(a.getObjectType(stringIDToTypeID("filter")));filterArray_inner=[],filterArray_inner.push(e,s,n);for(var c=0;c<i.count;c++){getSmartFilterValues(i,c);try{if(i.getObjectValue(i.getKey(c)))for(var o=typeIDToStringID(i.getKey(c)),l=(o=i.getObjectValue(stringIDToTypeID(o)),0);l<o.count;l++)getSmartFilterValues(o,l)}catch(e){}}filterArray.push(filterArray_inner)}return!0}catch(e){
 // alert("no SmartObjekt " + _layerIDX);
-return!1}}function getSmartFilterValues(e,t){var r=filterArray_inner,s=e.getKey(t);if(t2s(s))a=t2s(s);else var a=s;switch(e.getType(e.getKey(t))){case DescValueType.BOOLEANTYPE:var i=e.getBoolean(e.getKey(t));r.push(a,i);break;case DescValueType.CLASSTYPE:i=e.getClass(e.getKey(t));r.push(a,i);break;case DescValueType.DOUBLETYPE:i=e.getDouble(e.getKey(t));r.push(a,i);break;case DescValueType.ENUMERATEDTYPE:var o=typeIDToStringID(e.getEnumerationType(e.getKey(t)));i=typeIDToStringID(e.getEnumerationValue(e.getKey(t)));r.push(a,o,i);break;case DescValueType.INTEGERTYPE:i=e.getInteger(e.getKey(t));r.push(a,i);break;case DescValueType.LISTTYPE:i=e.getList(e.getKey(t));r.push(a,i);break;case DescValueType.OBJECTTYPE:var n=typeIDToStringID(e.getObjectType(e.getKey(t)));i=e.getObjectValue(e.getKey(t));r.push(a,n,i);break;case DescValueType.REFERENCETYPE:i=e.getReference(e.getKey(t));r.push(a,i);break;case DescValueType.STRINGTYPE:i=e.getString(e.getKey(t));r.push(a,i);break;case DescValueType.UNITDOUBLE:var c=typeIDToStringID(e.getUnitDoubleType(e.getKey(t)));i=e.getUnitDoubleValue(e.getKey(t));r.push(a,c,i)}}function adjust_filter_TiefenLichter(e,t,r,s,a,i,o,n,c,l,y,u,g,L,p,h,d,f,b,D,_,A,T,w,v,I){var m=new ActionDescriptor,F=new ActionDescriptor,k=new ActionDescriptor,E=new ActionDescriptor,x=new ActionDescriptor,V=new ActionReference;V.putIndex(s2t("filterFX"),t),V.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),k.putReference(s2t("null"),V),m.putUnitDouble(s2t(r),s2t(s),a),m.putUnitDouble(s2t(i),s2t(o),n),m.putInteger(s2t(c),Math.round(l*e)),x.putObject(s2t("shadowMode"),s2t("adaptCorrectTones"),m),F.putUnitDouble(s2t(y),s2t(u),g),F.putUnitDouble(s2t(L),s2t(p),h),F.putInteger(s2t(d),Math.round(f*e)),x.putObject(s2t("highlightMode"),s2t("adaptCorrectTones"),F),x.putDouble(s2t(b),D),x.putDouble(s2t(_),A),x.putInteger(s2t(T),w),x.putInteger(s2t(v),I),E.putObject(s2t("filter"),s2t("adaptCorrect"),x),k.putObject(s2t("filterFX"),s2t("filterFX"),E),executeAction(s2t("set"),k,DialogModes.NO)}function resize(){prefSave(),prefSet(DialogModes.NO,Units.PIXELS);try{try{gotoLayer("Original")}catch(e){alert("keine Ebene ‘Original‘ gefunden")}"LayerKind.SMARTOBJECT"!=doc.activeLayer.kind&&alert("Ebene ‘Original‘ ist kein SmartObjekt");var e=app.activeDocument.width;SmartObject_edit();var t=app.activeDocument.width,r=t/e;$.writeln("width_faktor: "+r),app.activeDocument.close(SaveOptions.DONOTSAVECHANGES),doc.resizeImage(t,void 0,void 0,ResampleMethod.PRESERVEDETAILS,0),getSmartFilterArray();for(var s=0;s<filterArray.length;s++){if("adaptCorrect"==filterArray[s][1])try{adjust_filter_TiefenLichter(r,filterArray[s][0]+1,filterArray[s][5],filterArray[s][6],filterArray[s][7],filterArray[s][8],filterArray[s][9],filterArray[s][10],filterArray[s][11],filterArray[s][12],filterArray[s][16],filterArray[s][17],filterArray[s][18],filterArray[s][19],filterArray[s][20],filterArray[s][21],filterArray[s][22],filterArray[s][23],filterArray[s][24],filterArray[s][25],filterArray[s][26],filterArray[s][27],filterArray[s][28],filterArray[s][29],filterArray[s][30],filterArray[s][31])}catch(e){}$.writeln(filterArray[s].length),$.writeln(filterArray[s][1]),$.writeln(filterArray[s]),
+return!1}}function getSmartFilterValues(e,t){var r=filterArray_inner,s=e.getKey(t);if(t2s(s))a=t2s(s);else var a=s;switch(e.getType(e.getKey(t))){case DescValueType.BOOLEANTYPE:var i=e.getBoolean(e.getKey(t));r.push(a,i);break;case DescValueType.CLASSTYPE:i=e.getClass(e.getKey(t));r.push(a,i);break;case DescValueType.DOUBLETYPE:i=e.getDouble(e.getKey(t));r.push(a,i);break;case DescValueType.ENUMERATEDTYPE:var n=typeIDToStringID(e.getEnumerationType(e.getKey(t)));i=typeIDToStringID(e.getEnumerationValue(e.getKey(t)));r.push(a,n,i);break;case DescValueType.INTEGERTYPE:i=e.getInteger(e.getKey(t));r.push(a,i);break;case DescValueType.LISTTYPE:i=e.getList(e.getKey(t));r.push(a,i);break;case DescValueType.OBJECTTYPE:var c=typeIDToStringID(e.getObjectType(e.getKey(t)));i=e.getObjectValue(e.getKey(t));r.push(a,c,i);break;case DescValueType.REFERENCETYPE:i=e.getReference(e.getKey(t));r.push(a,i);break;case DescValueType.STRINGTYPE:i=e.getString(e.getKey(t));r.push(a,i);break;case DescValueType.UNITDOUBLE:var o=typeIDToStringID(e.getUnitDoubleType(e.getKey(t)));i=e.getUnitDoubleValue(e.getKey(t));r.push(a,o,i)}}function adjust_filter_TiefenLichter(e,t,r,s,a,i,n,c,o,l,y,u,g,p,d,f,h,L,b,D,_,I,T,A,w,m){var v=new ActionDescriptor,k=new ActionDescriptor,x=new ActionDescriptor,F=new ActionDescriptor,E=new ActionDescriptor,M=new ActionReference;M.putIndex(s2t("filterFX"),t),M.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),x.putReference(s2t("null"),M),v.putUnitDouble(s2t(r),s2t(s),a),v.putUnitDouble(s2t(i),s2t(n),c),v.putInteger(s2t(o),Math.round(l*e)),E.putObject(s2t("shadowMode"),s2t("adaptCorrectTones"),v),k.putUnitDouble(s2t(y),s2t(u),g),k.putUnitDouble(s2t(p),s2t(d),f),k.putInteger(s2t(h),Math.round(L*e)),E.putObject(s2t("highlightMode"),s2t("adaptCorrectTones"),k),E.putDouble(s2t(b),D),E.putDouble(s2t(_),I),E.putInteger(s2t(T),A),E.putInteger(s2t(w),m),F.putObject(s2t("filter"),s2t("adaptCorrect"),E),x.putObject(s2t("filterFX"),s2t("filterFX"),F),executeAction(s2t("set"),x,DialogModes.NO)}function resize(){prefSave(),prefSet(DialogModes.NO,Units.PIXELS);try{try{gotoLayer("Original")}catch(e){alert("keine Ebene ‘Original‘ gefunden")}"LayerKind.SMARTOBJECT"!=doc.activeLayer.kind&&alert("Ebene ‘Original‘ ist kein SmartObjekt");var e=app.activeDocument.width;SmartObject_edit();var t=app.activeDocument.width,r=t/e;$.writeln("width_faktor: "+r),app.activeDocument.close(SaveOptions.DONOTSAVECHANGES),doc.resizeImage(t,void 0,void 0,ResampleMethod.PRESERVEDETAILS,0),getSmartFilterArray();for(var s=0;s<filterArray.length;s++){if("adaptCorrect"==filterArray[s][1])try{adjust_filter_TiefenLichter(r,filterArray[s][0]+1,filterArray[s][5],filterArray[s][6],filterArray[s][7],filterArray[s][8],filterArray[s][9],filterArray[s][10],filterArray[s][11],filterArray[s][12],filterArray[s][16],filterArray[s][17],filterArray[s][18],filterArray[s][19],filterArray[s][20],filterArray[s][21],filterArray[s][22],filterArray[s][23],filterArray[s][24],filterArray[s][25],filterArray[s][26],filterArray[s][27],filterArray[s][28],filterArray[s][29],filterArray[s][30],filterArray[s][31])}catch(e){}$.writeln(filterArray[s].length),$.writeln(filterArray[s][1]),$.writeln(filterArray[s]),
 // $.writeln("shadow " + filterArray[i][12] + "(" + filterArray[i][12] * 2 + ")" + " -- highlight " + filterArray[i][23] + "(" + filterArray[i][23] * 2 + ")")
 $.writeln("-----")}fixMaskLoop(r),fitScreen()}catch(e){}prefReset()}
 // loop_getSmartFilterArray();
@@ -134,28 +135,23 @@ selectLayers("selectNoLayers"),selectLayer("IKAUZ_weiss",t),selectLayer("11F-Log
 //// HG umfärben
 gotoLayer("HG"),makeVisible(),gotoLayer("Hilfsebene Farbe - DOCMA"),makeVisible(),fillColor(255,255,255),gotoLayer("HG"),
 // hide();
-toogleOpenCloseSet(),gotoLayer("Textil-Ebene")}function fillColor(e,t,r){var s=function(e){return app.stringIDToTypeID(e)},a=new ActionDescriptor,i=new ActionDescriptor,o=new ActionDescriptor,n=new ActionReference;n.putEnumerated(s("contentLayer"),s("ordinal"),s("targetEnum")),a.putReference(s("null"),n),o.putDouble(s("red"),e),o.putDouble(s("grain"),t),o.putDouble(s("blue"),r),i.putObject(s("color"),s("RGBColor"),o),a.putObject(s("to"),s("solidColorLayer"),i),executeAction(s("set"),a,DialogModes.NO)}function selectLayer2(e,t){var r=new ActionDescriptor,s=new ActionReference;if("remove"!=t&&t)a="addToSelection";else var a="removeFromSelection";s.putName(s2t("layer"),e),r.putReference(s2t("null"),s),r.putEnumerated(s2t("selectionModifier"),s2t("selectionModifierType"),s2t(a)),r.putBoolean(s2t("makeVisible"),!1),executeAction(s2t("select"),r,DialogModes.NO)}function gaussianBlur(e){var t=new ActionDescriptor;t.putUnitDouble(s2t("radius"),s2t("pixelsUnit"),e),executeAction(s2t("gaussianBlur"),t,DialogModes.NO)}
+toogleOpenCloseSet(),gotoLayer("Textil-Ebene")}function fillColor(e,t,r){var s=function(e){return app.stringIDToTypeID(e)},a=new ActionDescriptor,i=new ActionDescriptor,n=new ActionDescriptor,c=new ActionReference;c.putEnumerated(s("contentLayer"),s("ordinal"),s("targetEnum")),a.putReference(s("null"),c),n.putDouble(s("red"),e),n.putDouble(s("grain"),t),n.putDouble(s("blue"),r),i.putObject(s("color"),s("RGBColor"),n),a.putObject(s("to"),s("solidColorLayer"),i),executeAction(s("set"),a,DialogModes.NO)}function selectLayer2(e,t){var r=new ActionDescriptor,s=new ActionReference;if("remove"!=t&&t)a="addToSelection";else var a="removeFromSelection";s.putName(s2t("layer"),e),r.putReference(s2t("null"),s),r.putEnumerated(s2t("selectionModifier"),s2t("selectionModifierType"),s2t(a)),r.putBoolean(s2t("makeVisible"),!1),executeAction(s2t("select"),r,DialogModes.NO)}function gaussianBlur(e){var t=new ActionDescriptor;t.putUnitDouble(s2t("radius"),s2t("pixelsUnit"),e),executeAction(s2t("gaussianBlur"),t,DialogModes.NO)}
 ////////////////////////////////
 // exportTextil();
 function exportTextil(){_saveFolder="~/Arbeit/_RZ/TextilOnDemand+";var e=new Folder(_saveFolder);e.exists||e.create();var r=[],s=Folder.selectDialog("Wähle den obersten Ordner aus. \nDie Unterordner werden auch mitverarbeitet.");if(null!=s)for(var a in(r=function e(t,r){for(var s=Folder(t).getFiles(),a=0;a<s.length;a++){var i=s[a];i instanceof File||(r.push(Folder(i)),e(i.toString(),r))}return r}(s,r)).unshift(s),r)
 // if (files.length < 1) continue;
-for(var i in files=[],files=r[a].getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i),files){var o="";if(s!=r[a])o=r[a].name;var n=files[i],c=new File(n);app.open(c);var l=app.activeDocument;
+for(var i in files=[],files=r[a].getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i),files){var n="";if(s!=r[a])n=r[a].name;var c=files[i],o=new File(c);app.open(o);var l=app.activeDocument;
 // include "functions/basic.jsx";
 // include "functions/utils.jsx";
 // include "functions/meta.jsx";
 // include "functions/save.jsx";
 // include "functions/loopFiles.jsx";
-prefSave(),prefSet(DialogModes.NO,Units.PIXELS);var y=GetFileNameOnly(l.name).replace(/(_Packshot)/g,"").replace(/(_Main_0)/g,"");y=(o=o.replace(/%20/g,""))+"__"+y;selectLayers("selectNoLayers"),selectLayer("IKAUZ_weiss",t),selectLayer("11F-Logo_beidseitig-vorne_schwarz",t),selectLayer("11F-Logo_beidseitig-vorne_weiss",t),selectLayer("11F-Logo_beidseitig-hinten_schwarz",t),selectLayer("11F-Logo_beidseitig-hinten_weiss",t),selectLayer("11F-Logo_weiss",t),selectLayer("11F-Logo_schwarz",t),selectLayer("11-Kasten_weiss",t),selectLayer("11-Kasten_orange",t),selectLayer("Fussball-ist-bunt_weiss",t),selectLayer("Fussball-ist-bunt_schwarz",t),hide(),selectLayers("selectNoLayers");try{selectLayer2(u="IKAUZ_weiss",t),makeVisible(),
+prefSave(),prefSet(DialogModes.NO,Units.PIXELS);var y=GetFileNameOnly(l.name).replace(/(_Packshot)/g,"").replace(/(_Main_0)/g,"");y=(n=n.replace(/%20/g,""))+"__"+y;selectLayers("selectNoLayers"),selectLayer("IKAUZ_weiss",t),selectLayer("11F-Logo_beidseitig-vorne_schwarz",t),selectLayer("11F-Logo_beidseitig-vorne_weiss",t),selectLayer("11F-Logo_beidseitig-hinten_schwarz",t),selectLayer("11F-Logo_beidseitig-hinten_weiss",t),selectLayer("11F-Logo_weiss",t),selectLayer("11F-Logo_schwarz",t),selectLayer("11-Kasten_weiss",t),selectLayer("11-Kasten_orange",t),selectLayer("Fussball-ist-bunt_weiss",t),selectLayer("Fussball-ist-bunt_schwarz",t),hide(),selectLayers("selectNoLayers");try{selectLayer2(u="IKAUZ_weiss",t),makeVisible(),
 // alert(saveFolder)
 // alert(layer)
 // alert(fileName)
 // var savePath = saveFolder + "/" + _layer + "__" + _fileName + ".tif";
 saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11F-Logo_beidseitig-vorne_schwarz",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11F-Logo_beidseitig-vorne_weiss",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11F-Logo_beidseitig-hinten_schwarz",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11F-Logo_beidseitig-hinten_weiss",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11F-Logo_weiss",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11F-Logo_schwarz",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11-Kasten_weiss",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="11-Kasten_orange",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{selectLayer2(u="Fussball-ist-bunt_weiss",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}try{var u;selectLayer2(u="Fussball-ist-bunt_schwarz",t),makeVisible(),saveTextil(e,u,y),hide(),selectLayers("selectNoLayers")}catch(e){}l.close(SaveOptions.DONOTSAVECHANGES)}}function saveTextil(e,t,r){var s=e+"/"+t+"__"+r+".tif",a=(File(s),new TiffSaveOptions);a.alphaChannels=!0,a.byteOrder=ByteOrder.IBM,a.embedColorProfile=!0,a.imageCompression=TIFFEncoding.TIFFLZW,a.layers=!1,a.spotColors=!1,a.transparency=!0,a.annotations=!1,doc.saveAs(new File(s),a,!1,Extension.LOWERCASE)}
-//// Gigapixel in Startchuss ?? puhh
-function getforegroundColor(){activeDocument;var e=foregroundColor.rgb.red,t=foregroundColor.rgb.green,r=foregroundColor.rgb.blue;return Math.round(e)+" "+Math.round(t)+" "+Math.round(r)}function text2Clipboard(e){var t=new ActionDescriptor;t.putString(stringIDToTypeID("textData"),e),executeAction(stringIDToTypeID("textToClipboard"),t,DialogModes.NO)}
-// text2Clipboard(getforegroundColor())
-function runGigapixel(){alert("eins"),executeAction(sTID("adc931a0-cfe2-11d5-98bf-00b0d0204936"),void 0,DialogModes.ALL),alert("zwei")}
-// runGigapixel()
 //// Freisteller Gruppe
 // doc.suspendHistory('Freisteller-Gruppe erstellt', 'createGroup_Freisteller()')
 function hasLayerMask(){var e=!1;try{var t=new ActionReference,r=app.charIDToTypeID("UsrM");t.putProperty(app.charIDToTypeID("Prpr"),r),t.putEnumerated(app.charIDToTypeID("Lyr "),app.charIDToTypeID("Ordn"),app.charIDToTypeID("Trgt")),executeActionGet(t).hasKey(r)&&(e=!0)}catch(t){e=!1}return e}
@@ -227,4 +223,137 @@ function createGroup_Freisteller2(){var e=getActiveLayerIndex();selectLayers("se
 // addToSelection("nachher");
 // addToSelection("vorher");   
 // mergeLayers();
-$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx");
+////////////////////////////////////////////////////////////////////////////////////
+//// Reset active/selected Layers after Work                                    ////
+//// evtl für Freisteller etc                                                   ////
+//// besser als getActiveLayerIndex() ??                                        ////
+//// weil dieser bei unseleceted Layers den Wert der höchesten Ebene zurückgibt ////
+// if (app.documents.length > 0) {
+//     var start_selectedLayers = layer_selectedIDX_get()
+//     // blabla
+//     gotoLayer(5);
+//     if (start_selectedLayers.length === 0) {
+//         alert("null")
+//     } else {
+//         alert("nicht null")
+//     }
+//     alert("selectedLayers " + start_selectedLayers);
+//     // blabla
+//     layer_selectedIDX_set(start_selectedLayers);
+// }
+// function layer_selectedIDX_get() {
+//     var selectedLayers = [];
+//     var ref = new ActionReference();
+//     ref.putEnumerated(stringIDToTypeID('document'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
+//     var desc = executeActionGet(ref);
+//     if (desc.hasKey(stringIDToTypeID('targetLayers'))) {
+//         desc = desc.getList(stringIDToTypeID('targetLayers'));
+//         for (var i = 0, c = desc.count; i < c; i++) {
+//             hasBackground() ? selectedLayers.push(desc.getReference(i).getIndex()) : selectedLayers.push(desc.getReference(i).getIndex() + 1);
+//         }
+//     }
+//     return selectedLayers;
+// };
+// function layer_selectedIDX_set(_array) {
+//     try {
+//         selectLayers("selectNoLayers");
+//         if (_array.length > 0) {
+//             for (var j = 0; j < _array.length; j++) {
+//                 selectLayerBySelector(_array[j], t);
+//             }
+//         }
+//     } catch (e) {
+//         selectLayers("selectNoLayers");
+//     }
+// }
+// function getActiveLayerIndex() {
+//     var r = new ActionReference();
+//     r.putProperty(c2t("Prpr"), c2t("ItmI"));
+//     r.putEnumerated(c2t("Lyr "), c2t("Ordn"), c2t("Trgt"));
+//     return hasBackground() ? executeActionGet(r).getInteger(c2t("ItmI")) - 1 : executeActionGet(r).getInteger(c2t("ItmI"));
+// };
+function setMeta_nativeSoftProof(){var e=new ActionReference,t=new ActionDescriptor;e.putEnumerated(stringIDToTypeID("application"),stringIDToTypeID("ordinal"),stringIDToTypeID("targetEnum")),t.putReference(stringIDToTypeID("target"),e);var r=_executeAction(stringIDToTypeID("proofSetup"),t,DialogModes.NO),s=_executeAction(stringIDToTypeID("proofSetup"),t,DialogModes.NO).getString(stringIDToTypeID("profile"));typeIDToStringID(r.getEnumerationValue(stringIDToTypeID("intent"))),r.getBoolean(stringIDToTypeID("mapBlack"));alert(s)}
+// setMeta_nativeSoftProof();
+////////////////////////////////////
+// get BlendIf //////////////////
+////////////////////////////////////
+function blendif_2(e,t,r,s,a){var i=new ActionDescriptor,n=new ActionReference;isNaN(e)?n.putEnumerated(sTID("layer"),sTID("ordinal"),sTID("targetEnum")):n.putIndex(s2t("layer"),e),i.putReference(sTID("null"),n);var c=new ActionDescriptor,o=new ActionList,l=new ActionDescriptor,y=new ActionReference;y.putEnumerated(sTID("channel"),sTID("channel"),sTID("gray")),l.putReference(sTID("channel"),y),l.putInteger(sTID("srcBlackMin"),0),l.putInteger(sTID("srcBlackMax"),0),l.putInteger(sTID("srcWhiteMin"),255),l.putInteger(sTID("srcWhiteMax"),255),l.putInteger(sTID("destBlackMin"),t),l.putInteger(sTID("destBlackMax"),r),l.putInteger(sTID("destWhiteMin"),s),l.putInteger(sTID("desaturate"),a),o.putObject(sTID("blendRange"),l),c.putList(sTID("blendRange"),o),i.putObject(sTID("to"),sTID("layer"),c),executeAction(sTID("set"),i,DialogModes.NO)}
+// blendif_2(0, 0, 215, 240);
+// test_blendif_get()
+function test_blendif_get(){gotoLayer("Gradation neutral");
+//@include "/Applications/B-Programme/Grafik/xtools22/xlib/Styles.js"
+var e={},t=activeDocument,r=t.activeLayer,s=Styles.getLayerStyleDescriptor(t,r,!0).getObjectValue(stringIDToTypeID("blendOptions")).getList(stringIDToTypeID("blendRange")).getObjectValue(0);
+// alert(Styles.getLayerStyleDescriptor(doc, layer, true))
+// alert("2 " + desc)
+// alert(Styles.getLayerStyleDescriptor(doc, layer, true).getObjectValue(stringIDToTypeID('blendOptions')))
+e.channel=typeIDToStringID(s.getReference(stringIDToTypeID("channel")).getEnumeratedValue()),e.srcBlackMin=s.getInteger(stringIDToTypeID("srcBlackMin")),// 'This Layer' in dialog
+e.srcBlackMax=s.getInteger(stringIDToTypeID("srcBlackMax")),e.srcWhiteMin=s.getInteger(stringIDToTypeID("srcWhiteMin")),e.srcWhiteMax=s.getInteger(stringIDToTypeID("srcWhiteMax")),e.destBlackMin=s.getInteger(stringIDToTypeID("destBlackMin")),// 'Underlaying Layer' in dialog
+e.destBlackMax=s.getInteger(stringIDToTypeID("destBlackMax")),e.destWhiteMin=s.getInteger(stringIDToTypeID("destWhiteMin")),e.destWhiteMax=s.getInteger(stringIDToTypeID("desaturate")),
+// alert(blendIf.destWhiteMin)
+$.writeln(e.destBlackMin),$.writeln(e.destBlackMax),$.writeln(e.destWhiteMin),$.writeln(e.destWhiteMax),alert(e.destBlackMin+","+e.destBlackMax+","+e.destWhiteMin+","+e.destWhiteMax)}function test2(e){try{
+// var d1 = new ActionDescriptor();
+var t=new ActionReference;
+// var d1 = new ActionDescriptor();
+// var d2 = new ActionDescriptor();
+// var d3 = new ActionDescriptor();
+// AR points to the Active Layer
+t.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),
+// r.putIndex(sTID("layer"), _idx);
+d1=executeActionGet(t),d1.putReference(sTID("null"),t),d2=d1.getObjectValue(s2t("blendOptions")),
+// d2 = d1.getList(s2t("blendRange"))
+// // d1.putObject(sTID('blendOptions'), sTID('blendOptions'), 99);
+// if(d1.hasKey(stringIDToTypeID('blendOptions'))) {
+//     alert("ja")
+// } else {
+//     alert("nenin")
+// }
+// d2 = d1.getObjectValue(s2t('blendOptions'))
+// d3 = d2.getList(s2t("blendRange"))
+alert("2 "+d2)}catch(e){alert(e)}
+// return;
+}
+// alert(layer_getIDXbyString("Tiefen_check"))
+// alert(layer_blendif_get(19)[0]+","+layer_blendif_get(19)[1]+","+layer_blendif_get(19)[2]+","+layer_blendif_get(19)[3])
+// alert(layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[0])
+function layer_blendif_get(_idx){try{var r=new ActionReference,d=new ActionDescriptor,array=[];if(r.putProperty(s2t("property"),s2t("json")),isNaN(_idx)?r.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")):r.putIndex(s2t("layer"),_idx),d.putReference(s2t("null"),r),eval("var json="+executeAction(s2t("get"),d,DialogModes.NO).getString(s2t("json"))),json.layers[0].layers[0].layers[0].blendOptions){
+// $.writeln(json.layers[0].layers[0].layers[0].blendOptions.blendRange.toSource())
+var data=json.layers[0].layers[0].layers[0].blendOptions.blendRange.toSource(),data=data.replace(/^\[\(/g,"").replace(/\)\]$/g,""),data=data.replace(/([a-zA-Z]+)/g,'"$1"'),data=data.replace(/\"\"gray\"\"/g,'"gray"'),data=JSON.parse(data);for(var i in data)"destBlackMin"!=i&&"destBlackMax"!=i&&"destWhiteMin"!=i&&"desaturate"!=i||
+// $.writeln(i + " = " + data[i])
+array.push(data[i]);return array}}catch(e){alert(e)}}
+// alert(getActiveLayerIndex())
+// blendif_2(f, layer_blendif_get(3)[0], layer_blendif_get(3)[1], layer_blendif_get(3)[2]-5, layer_blendif_get(3)[3]-5)
+// toogleVisibility2("check ")
+// alert(getVisible2("check "))
+// hide Layer/Groupe by IDX, name, or activeLayer
+function hide2(e){var t=new ActionDescriptor,r=new ActionList,s=new ActionReference;"number"==typeof e?s.putIndex(s2t("layer"),e):"string"==typeof e?layer_checkExistence2(e)?s.putName(s2t("layer"),e):s.putIndex(s2t("layer"),layer_getIDXbyString(e)[0]):"boolean"==typeof e&&s.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),
+// r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+r.putReference(s),t.putList(c2t("null"),r),executeAction(s2t("hide"),t,DialogModes.NO)}function toogleVisibility2(e){var t=new ActionDescriptor,r=new ActionList,s=new ActionReference;getVisible2(e)?("number"==typeof e?s.putIndex(s2t("layer"),e):"string"==typeof e?layer_checkExistence2(e)?s.putName(s2t("layer"),e):s.putIndex(s2t("layer"),layer_getIDXbyString(e)[0]):"boolean"==typeof e&&s.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),r.putReference(s),t.putList(c2t("null"),r),executeAction(s2t("hide"),t,DialogModes.NO)):("number"==typeof e?s.putIndex(s2t("layer"),e):"string"==typeof e?layer_checkExistence2(e)?s.putName(s2t("layer"),e):s.putIndex(s2t("layer"),layer_getIDXbyString(e)[0]):"boolean"==typeof e&&s.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),r.putReference(s),t.putList(c2t("null"),r),executeAction(s2t("show"),t,DialogModes.NO))}function getVisible2(e){var t=new ActionReference;return"number"==typeof e?t.putIndex(s2t("layer"),e):"string"==typeof e?layer_checkExistence2(e)?t.putName(s2t("layer"),e):t.putIndex(s2t("layer"),layer_getIDXbyString(e)[0]):"boolean"==typeof e&&t.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),executeActionGet(t).getInteger(s2t("visible"))}
+// create_check_blendif(11)
+// blendif_edit_button(10)
+function create_check_blendif(e){createGroup("check "+e,"passThrough","none",100,f),createColorLayer("Tiefen_check","normal","none",100,"none",0,0,255),blendif_2("current",0,0,0+e,0+e),createColorLayer("Lichter_check","normal","none",100,"none",255,0,0),blendif_2("current",255-e,255-e,255,255),gotoLayer("check "+e),toogleOpenCloseSet(),hide(),layer_checkExistence2("nachher")&&(moveLayer("check "+e,"nachher","up"),gotoLayer("check "+e),moveLayer3("down",1))}function create_check_blendif_button(e){try{if(layer_checkExistenceByRegex("check "))toogleVisibility2("check ");else try{doc.suspendHistory("Create checkFolder","create_check_blendif("+e+")")}catch(e){alert("Error1:"+e)}}catch(e){alert("Error2:"+e)}}
+// blendif_2(layer_getIDXbyString("Tiefen_check")[0], layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[0], layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[1], layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[2] - 25, layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[3] - 25)
+// blendif_edit(true, layer_getIDXbyString("Tiefen_check")[0], 0, 20);
+function blendif_edit(e,t,r,s){var a=layer_blendif_get(t)[2]+s,i=layer_blendif_get(t)[0]+r,n=0;if(a<0){for(n=1;a+n<0;)n++;a=a+n}var c=0;if(i>255){for(c=1;i-c>255;)c++;i=i-c}
+// alert("tiefen->" + __shadows + " lichter->" + __lights)
+e&&(blendif_2(t,i,i,a,a),blendif_check_steps.push(0+a),blendif_check_steps.push(255-i)),blendif_check_value.push(s+n),blendif_check_value.push(-1*(r-c))}function blendif_edit_both(e,t){return blendif_check_steps=[],blendif_check_value=[],
+// blendif_check_steps.push(blendif_edit(layer_getIDXbyString("Tiefen_check")[0], 0, __value));
+// blendif_check_steps.push(blendif_edit(layer_getIDXbyString("Lichter_check")[0], -1 * (__value), 0));
+blendif_edit(e,layer_getIDXbyString("Tiefen_check")[0],0,t),blendif_edit(e,layer_getIDXbyString("Lichter_check")[0],-1*t,0),
+// blendif_check_value.sort(function(a, b){return b - a});  // sort to get the highest value //for the protocol
+// alert(blendif_check_value)
+e?(
+// sort to get the lowest value //to name the groupe
+blendif_check_steps.sort((function(e,t){return e-t})),layer_renameByIDX(layer_getIDXbyString("check ")[0],"check "+blendif_check_steps[0])):t>=0?
+// sort to get the highest value //for the protocol
+blendif_check_value.sort((function(e,t){return t-e})):
+// sort to get the lowest value
+blendif_check_value.sort((function(e,t){return e-t})),blendif_check_value[0]}function blendif_edit_button(e){try{if(layer_checkExistenceByRegex("check"))try{
+// doc.suspendHistory('TiefenLichter Check ' + blendif_edit_both(_value) + ' ', 'blendif_edit_both(' + _value + ');')
+// doc.suspendHistory("TiefenLichter Check " + blendif_edit_both_fake(_value) + " ", "blendif_edit_both(" + _value + ");")
+doc.suspendHistory("TiefenLichter Check "+blendif_edit_both(!1,e)+" ","blendif_edit_both(true, "+e+");")}catch(e){alert("Error1:"+e)}}catch(e){alert("Error2:"+e)}}
+// alert(layer_checkExistence2("check"))
+function layer_checkExistence2(e){try{var t=new ActionReference;t.putProperty(s2t("property"),s2t("itemIndex")),"number"==typeof e?t.putIndex(s2t("layer"),e):"string"==typeof e&&t.putName(s2t("layer"),e);executeActionGet(t).getInteger(s2t("itemIndex"));return!0}catch(e){return!1}}
+// alert(layer_checkExistenceByRegex("check"))
+function layer_checkExistenceByRegex(e){return 0!==layer_getIDXbyString(e).length}function layer_renameByIDX(e,t){if(0!=e){var r=new ActionDescriptor,s=new ActionReference;s.putIndex(s2t("layer"),e),r.putReference(s2t("null"),s);var a=new ActionDescriptor;a.putString(s2t("name"),t),r.putObject(s2t("to"),s2t("layer"),a),executeAction(s2t("set"),r,DialogModes.NO)}}function layer_getIDXbyName(e){var t=new ActionReference;return t.putProperty(s2t("property"),s2t("itemIndex")),
+// r.putEnumerated( charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt") );
+t.putName(s2t("layer"),e),hasBackground()?executeActionGet(t).getInteger(s2t("itemIndex"))-1:executeActionGet(t).getInteger(s2t("itemIndex"))}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),create_check_blendif_button(10);

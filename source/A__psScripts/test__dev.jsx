@@ -13,6 +13,8 @@ $.evalFile("/Users/simon/Library/Application\ Support/Adobe/UXP/PluginsStorage/P
 //@include "../../build/A__psScripts/functions/loopFiles.jsx";
 //@include "../../build/A__psScripts/functions/meta.jsx";
 
+//@include "/Users/simon/Arbeit/__temp/json2.js";
+
 
 
 
@@ -995,33 +997,6 @@ function saveTextil(__saveFolder, _layer, _fileName) {
 
 
 
-//// Gigapixel in Startchuss ?? puhh
-
-function getforegroundColor() {
-    var doc = activeDocument;
-    var bR = foregroundColor.rgb.red;
-    var bG = foregroundColor.rgb.green;
-    var bB = foregroundColor.rgb.blue
-    var myColor = Math.round(bR) + ' ' + Math.round(bG) + ' ' + Math.round(bB);
-    return myColor;
-}
-
-function text2Clipboard(_text) {
-    var d = new ActionDescriptor();
-    d.putString(stringIDToTypeID("textData"), _text);
-    executeAction(stringIDToTypeID("textToClipboard"), d, DialogModes.NO);
-}
-
-// text2Clipboard(getforegroundColor())
-
-function runGigapixel() {
-    alert("eins")
-    executeAction(sTID('adc931a0-cfe2-11d5-98bf-00b0d0204936'), undefined, DialogModes.ALL);
-    alert("zwei")
-}
-
-// runGigapixel()
-
 
 
 //// Freisteller Gruppe
@@ -1156,5 +1131,526 @@ function createGroup_Freisteller2() {
 
 
 
+////////////////////////////////////////////////////////////////////////////////////
+//// Reset active/selected Layers after Work                                    ////
+//// evtl für Freisteller etc                                                   ////
+//// besser als getActiveLayerIndex() ??                                        ////
+//// weil dieser bei unseleceted Layers den Wert der höchesten Ebene zurückgibt ////
 
 
+// if (app.documents.length > 0) {
+//     var start_selectedLayers = layer_selectedIDX_get()
+
+//     // blabla
+//     gotoLayer(5);
+//     if (start_selectedLayers.length === 0) {
+//         alert("null")
+//     } else {
+//         alert("nicht null")
+//     }
+//     alert("selectedLayers " + start_selectedLayers);
+//     // blabla
+
+//     layer_selectedIDX_set(start_selectedLayers);
+// }
+
+
+// function layer_selectedIDX_get() {
+//     var selectedLayers = [];
+//     var ref = new ActionReference();
+//     ref.putEnumerated(stringIDToTypeID('document'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
+//     var desc = executeActionGet(ref);
+//     if (desc.hasKey(stringIDToTypeID('targetLayers'))) {
+//         desc = desc.getList(stringIDToTypeID('targetLayers'));
+//         for (var i = 0, c = desc.count; i < c; i++) {
+//             hasBackground() ? selectedLayers.push(desc.getReference(i).getIndex()) : selectedLayers.push(desc.getReference(i).getIndex() + 1);
+//         }
+//     }
+//     return selectedLayers;
+// };
+
+// function layer_selectedIDX_set(_array) {
+//     try {
+//         selectLayers("selectNoLayers");
+//         if (_array.length > 0) {
+//             for (var j = 0; j < _array.length; j++) {
+//                 selectLayerBySelector(_array[j], t);
+//             }
+//         }
+//     } catch (e) {
+//         selectLayers("selectNoLayers");
+//     }
+// }
+
+
+
+// function getActiveLayerIndex() {
+//     var r = new ActionReference();
+//     r.putProperty(c2t("Prpr"), c2t("ItmI"));
+//     r.putEnumerated(c2t("Lyr "), c2t("Ordn"), c2t("Trgt"));
+//     return hasBackground() ? executeActionGet(r).getInteger(c2t("ItmI")) - 1 : executeActionGet(r).getInteger(c2t("ItmI"));
+// };
+
+
+
+function setMeta_nativeSoftProof() {
+    var r = new ActionReference();
+    var d = new ActionDescriptor();
+    r.putEnumerated(stringIDToTypeID("application"), stringIDToTypeID("ordinal"), stringIDToTypeID("targetEnum"));
+    d.putReference(stringIDToTypeID("target"), r);
+    var d2 = _executeAction(stringIDToTypeID("proofSetup"), d, DialogModes.NO);
+
+    var proofProfil = _executeAction(stringIDToTypeID("proofSetup"), d, DialogModes.NO).getString(stringIDToTypeID("profile"));
+    var proofIntent = typeIDToStringID(d2.getEnumerationValue(stringIDToTypeID("intent")));
+    var proofTK = d2.getBoolean(stringIDToTypeID("mapBlack"));
+
+    alert(proofProfil)
+
+}
+
+// setMeta_nativeSoftProof();
+
+
+
+////////////////////////////////////
+// get BlendIf //////////////////
+////////////////////////////////////
+
+
+
+function blendif_2(_idx, _blackMin, _blackMax, _whiteMin, _whiteMax) {
+    var d = new ActionDescriptor();
+    var r = new ActionReference();
+    if (!isNaN(_idx)) {
+        r.putIndex(s2t("layer"), _idx)
+    } else {
+        r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'))
+    }
+    d.putReference(sTID('null'), r);
+
+    var d2 = new ActionDescriptor();
+    var l = new ActionList();
+    var d3 = new ActionDescriptor();
+    var r2 = new ActionReference();
+    r2.putEnumerated(sTID('channel'), sTID('channel'), sTID('gray'));
+    d3.putReference(sTID('channel'), r2);
+    d3.putInteger(sTID('srcBlackMin'), 0);
+    d3.putInteger(sTID('srcBlackMax'), 0);
+    d3.putInteger(sTID('srcWhiteMin'), 255);
+    d3.putInteger(sTID('srcWhiteMax'), 255);
+    d3.putInteger(sTID('destBlackMin'), _blackMin);
+    d3.putInteger(sTID('destBlackMax'), _blackMax);
+    d3.putInteger(sTID('destWhiteMin'), _whiteMin);
+    d3.putInteger(sTID('desaturate'), _whiteMax);
+    l.putObject(sTID('blendRange'), d3);
+    d2.putList(sTID('blendRange'), l);
+    d.putObject(sTID('to'), sTID('layer'), d2);
+    executeAction(sTID('set'), d, DialogModes.NO);
+}
+
+
+
+// blendif_2(0, 0, 215, 240);
+
+// test_blendif_get()
+
+function test_blendif_get() {
+    gotoLayer("Gradation neutral")
+    //@include "/Applications/B-Programme/Grafik/xtools22/xlib/Styles.js"
+
+    var blendIf = {};
+    var doc = activeDocument;
+    var layer = doc.activeLayer;
+    var desc = Styles.getLayerStyleDescriptor(doc, layer, true).getObjectValue(stringIDToTypeID('blendOptions')).getList(stringIDToTypeID('blendRange')).getObjectValue(0);
+    // alert(Styles.getLayerStyleDescriptor(doc, layer, true))
+    // alert("2 " + desc)
+    // alert(Styles.getLayerStyleDescriptor(doc, layer, true).getObjectValue(stringIDToTypeID('blendOptions')))
+
+    blendIf.channel = typeIDToStringID(desc.getReference(stringIDToTypeID('channel')).getEnumeratedValue());
+    blendIf.srcBlackMin = desc.getInteger(stringIDToTypeID('srcBlackMin')); // 'This Layer' in dialog
+    blendIf.srcBlackMax = desc.getInteger(stringIDToTypeID('srcBlackMax'));
+    blendIf.srcWhiteMin = desc.getInteger(stringIDToTypeID('srcWhiteMin'));
+    blendIf.srcWhiteMax = desc.getInteger(stringIDToTypeID('srcWhiteMax'));
+    blendIf.destBlackMin = desc.getInteger(stringIDToTypeID('destBlackMin')); // 'Underlaying Layer' in dialog
+    blendIf.destBlackMax = desc.getInteger(stringIDToTypeID('destBlackMax'));
+    blendIf.destWhiteMin = desc.getInteger(stringIDToTypeID('destWhiteMin'));
+    blendIf.destWhiteMax = desc.getInteger(stringIDToTypeID('desaturate'));
+
+    // alert(blendIf.destWhiteMin)
+    $.writeln(blendIf.destBlackMin)
+    $.writeln(blendIf.destBlackMax)
+    $.writeln(blendIf.destWhiteMin)
+    $.writeln(blendIf.destWhiteMax)
+    alert(blendIf.destBlackMin + "," + blendIf.destBlackMax + "," + blendIf.destWhiteMin + "," + blendIf.destWhiteMax)
+}
+
+
+
+function test2(_idx) {
+    try {
+        // var d1 = new ActionDescriptor();
+        var r = new ActionReference();
+        // var d1 = new ActionDescriptor();
+        // var d2 = new ActionDescriptor();
+        // var d3 = new ActionDescriptor();
+        // AR points to the Active Layer
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+
+        // r.putIndex(sTID("layer"), _idx);
+        d1 = executeActionGet(r);
+        d1.putReference(sTID('null'), r);
+        d2 = d1.getObjectValue(s2t("blendOptions"))
+        // d2 = d1.getList(s2t("blendRange"))
+        // // d1.putObject(sTID('blendOptions'), sTID('blendOptions'), 99);
+        // if(d1.hasKey(stringIDToTypeID('blendOptions'))) {
+        //     alert("ja")
+        // } else {
+        //     alert("nenin")
+        // }
+        // d2 = d1.getObjectValue(s2t('blendOptions'))
+        // d3 = d2.getList(s2t("blendRange"))
+
+
+        alert("2 " + d2)
+
+
+
+
+
+    } catch (e) {
+        alert(e)
+    }
+
+
+    // return;
+}
+
+// alert(layer_getIDXbyString("Tiefen_check"))
+// alert(layer_blendif_get(19)[0]+","+layer_blendif_get(19)[1]+","+layer_blendif_get(19)[2]+","+layer_blendif_get(19)[3])
+// alert(layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[0])
+
+function layer_blendif_get(_idx) {
+    try {
+        var r = new ActionReference();
+        var d = new ActionDescriptor();
+        var array = [];
+
+        r.putProperty(s2t("property"), s2t("json"));
+        if (!isNaN(_idx)) {
+            r.putIndex(s2t("layer"), _idx)
+        } else {
+            r.putEnumerated(s2t('layer'), s2t('ordinal'), s2t('targetEnum'))
+        }
+        d.putReference(s2t("null"), r);
+        eval("var json=" + executeAction(s2t("get"), d, DialogModes.NO).getString(s2t("json")));
+
+        if (json.layers[0].layers[0].layers[0].blendOptions) {
+            // $.writeln(json.layers[0].layers[0].layers[0].blendOptions.blendRange.toSource())
+            var data = json.layers[0].layers[0].layers[0].blendOptions.blendRange.toSource();
+            var data = data.replace(/^\[\(/g, "").replace(/\)\]$/g, ""); // umschliesende Klammern wegnehmen [(…)]
+            var data = data.replace(/([a-zA-Z]+)/g, "\"$1\"") // key goes string
+            var data = data.replace(/\"\"gray\"\"/g, "\"gray\"") // doppelte Anführungszeichen bei gray
+            // $.writeln(data)
+
+            var data = JSON.parse(data)
+
+            for (var i in data) {
+
+                if (i == "destBlackMin" || i == "destBlackMax" || i == "destWhiteMin" || i == "desaturate") {
+                    // $.writeln(i + " = " + data[i])
+                    array.push(data[i]);
+                }
+            }
+            return array
+
+        } else {
+            // $.writeln("no blendOptions found");
+        }
+    } catch (e) {
+        alert(e)
+    }
+}
+
+// alert(getActiveLayerIndex())
+
+
+// blendif_2(f, layer_blendif_get(3)[0], layer_blendif_get(3)[1], layer_blendif_get(3)[2]-5, layer_blendif_get(3)[3]-5)
+
+// toogleVisibility2("check ")
+// alert(getVisible2("check "))
+
+// hide Layer/Groupe by IDX, name, or activeLayer
+function hide2(_input) {
+    var d = new ActionDescriptor();
+    var l = new ActionList();
+    var r = new ActionReference();
+    if (typeof _input == "number") {
+        r.putIndex(s2t("layer"), _input);
+    } else if (typeof _input == "string") {
+        if (layer_checkExistence2(_input)) {
+            r.putName(s2t('layer'), _input);
+        } else {
+            r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+        }
+    } else if (typeof _input == "boolean") {
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+    }
+    // r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+    l.putReference(r);
+    d.putList(c2t("null"), l);
+    executeAction(s2t("hide"), d, DialogModes.NO);
+}
+
+
+function toogleVisibility2(_input) {
+    var d = new ActionDescriptor();
+    var l = new ActionList();
+    var r = new ActionReference();
+
+    if (getVisible2(_input)) {
+        if (typeof _input == "number") {
+            r.putIndex(s2t("layer"), _input);
+        } else if (typeof _input == "string") {
+            if (layer_checkExistence2(_input)) {
+                r.putName(s2t('layer'), _input);
+            } else {
+                r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+            }
+        } else if (typeof _input == "boolean") {
+            r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        }
+        l.putReference(r);
+        d.putList(c2t("null"), l);
+        executeAction(s2t("hide"), d, DialogModes.NO);
+    } else {
+        if (typeof _input == "number") {
+            r.putIndex(s2t("layer"), _input);
+        } else if (typeof _input == "string") {
+            if (layer_checkExistence2(_input)) {
+                r.putName(s2t('layer'), _input);
+            } else {
+                r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+            }
+        } else if (typeof _input == "boolean") {
+            r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        }
+        l.putReference(r);
+        d.putList(c2t("null"), l);
+        executeAction(s2t("show"), d, DialogModes.NO);
+    }
+}
+
+
+function getVisible2(_input) {
+    var r = new ActionReference();
+    if (typeof _input == "number") {
+        r.putIndex(s2t("layer"), _input);
+    } else if (typeof _input == "string") {
+        if (layer_checkExistence2(_input)) {
+            r.putName(s2t('layer'), _input);
+        } else {
+            r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+        }
+    } else if (typeof _input == "boolean") {
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+    }
+    var vis = executeActionGet(r).getInteger(s2t('visible'));
+    return vis;
+}
+
+
+
+
+
+
+// create_check_blendif(11)
+// blendif_edit_button(10)
+create_check_blendif_button(10)
+
+function create_check_blendif(__value) {
+    createGroup("check " + __value + "", "passThrough", "none", 100, f);
+    createColorLayer("Tiefen_check", "normal", "none", 100, "none", 0, 0, 255);
+    blendif_2("current", 0, 0, 0 + __value, 0 + __value);
+    createColorLayer("Lichter_check", "normal", "none", 100, "none", 255, 0, 0);
+    blendif_2("current", 255 - __value, 255 - __value, 255, 255)
+    gotoLayer("check " + __value + "");
+    toogleOpenCloseSet();
+    hide();
+    if (layer_checkExistence2("nachher")) {
+        moveLayer("check " + __value + "", "nachher", "up");
+        gotoLayer("check " + __value + "");
+        moveLayer3("down", 1);
+    } else {
+        // move to TOP
+    }
+}
+
+function create_check_blendif_button(_value) {
+    try {
+        if (!layer_checkExistenceByRegex("check ")) {
+            try {
+                doc.suspendHistory("Create checkFolder", "create_check_blendif(" + _value + ")")
+            } catch (e) {
+                alert("Error1:" + e)
+            };
+        } else {
+            toogleVisibility2("check ")
+        }
+    } catch (e) {
+        alert("Error2:" + e)
+    }
+}
+
+// blendif_2(layer_getIDXbyString("Tiefen_check")[0], layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[0], layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[1], layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[2] - 25, layer_blendif_get(layer_getIDXbyString("Tiefen_check")[0])[3] - 25)
+
+// blendif_edit(true, layer_getIDXbyString("Tiefen_check")[0], 0, 20);
+
+function blendif_edit(__real, _idx, _lights, _shadows) {
+    var __shadows = layer_blendif_get(_idx)[2] + _shadows;
+    var __lights = layer_blendif_get(_idx)[0] + _lights;
+
+    var i = 0;
+    if (__shadows < 0) {
+        var i = 1;
+        while (__shadows + i < 0) {
+            i++;
+        }
+        var __shadows = __shadows + i;
+    }
+
+    var j = 0;
+    if (__lights > 255) {
+        var j = 1;
+        while (__lights - j > 255) {
+            j++;
+        }
+        var __lights = __lights - j;
+    }
+    // alert("tiefen->" + __shadows + " lichter->" + __lights)
+    if (__real) {
+        blendif_2(
+            _idx,
+            __lights,
+            __lights,
+            __shadows,
+            __shadows
+        )
+        blendif_check_steps.push(0 + __shadows);
+        blendif_check_steps.push(255 - __lights);
+    }
+
+    blendif_check_value.push(_shadows + i);
+    blendif_check_value.push(-1 * (_lights - j));
+    return;
+}
+
+
+
+function blendif_edit_both(_real, __value) {
+    blendif_check_steps = [];
+    blendif_check_value = [];
+    // blendif_check_steps.push(blendif_edit(layer_getIDXbyString("Tiefen_check")[0], 0, __value));
+    // blendif_check_steps.push(blendif_edit(layer_getIDXbyString("Lichter_check")[0], -1 * (__value), 0));
+    blendif_edit(_real, layer_getIDXbyString("Tiefen_check")[0], 0, __value);
+    blendif_edit(_real, layer_getIDXbyString("Lichter_check")[0], -1 * (__value), 0);
+
+
+    // blendif_check_value.sort(function(a, b){return b - a});  // sort to get the highest value //for the protocol
+    // alert(blendif_check_value)
+
+    if (_real) {
+        // sort to get the lowest value //to name the groupe
+        blendif_check_steps.sort(function(a, b) {
+            return a - b
+        });
+        layer_renameByIDX(layer_getIDXbyString("check ")[0], "check " + blendif_check_steps[0]);
+    } else {
+        if (__value >= 0) {
+            // sort to get the highest value //for the protocol
+            blendif_check_value.sort(function(a, b) {
+                return b - a
+            });
+        } else {
+            // sort to get the lowest value
+            blendif_check_value.sort(function(a, b) {
+                return a - b
+            });
+        }
+    }
+    return blendif_check_value[0];
+}
+
+
+
+
+
+
+
+
+function blendif_edit_button(_value) {
+    try {
+        if (layer_checkExistenceByRegex("check")) {
+            try {
+                // doc.suspendHistory('TiefenLichter Check ' + blendif_edit_both(_value) + ' ', 'blendif_edit_both(' + _value + ');')
+                // doc.suspendHistory("TiefenLichter Check " + blendif_edit_both_fake(_value) + " ", "blendif_edit_both(" + _value + ");")
+                doc.suspendHistory("TiefenLichter Check " + blendif_edit_both(false, _value) + " ", "blendif_edit_both(true, " + _value + ");")
+            } catch (e) {
+                alert("Error1:" + e)
+            };
+        }
+    } catch (e) {
+        alert("Error2:" + e)
+    }
+}
+
+
+
+
+// alert(layer_checkExistence2("check"))
+function layer_checkExistence2(_input) {
+    try {
+        var r = new ActionReference();
+        r.putProperty(s2t("property"), s2t("itemIndex"));
+        if (typeof _input == "number") {
+            r.putIndex(s2t("layer"), _input);
+        } else if (typeof _input == "string") {
+            r.putName(s2t('layer'), _input);
+        }
+        var getLayerIDX = executeActionGet(r).getInteger(s2t("itemIndex"));
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+
+
+// alert(layer_checkExistenceByRegex("check"))
+function layer_checkExistenceByRegex(_input) {
+    if (layer_getIDXbyString(_input).length !== 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function layer_renameByIDX(_idx, _name) {
+    if (_idx == 0) return;
+    var d = new ActionDescriptor();
+    var r = new ActionReference();
+    r.putIndex(s2t('layer'), _idx);
+    d.putReference(s2t('null'), r);
+    var d2 = new ActionDescriptor();
+    d2.putString(s2t('name'), _name);
+    d.putObject(s2t('to'), s2t('layer'), d2);
+    executeAction(s2t('set'), d, DialogModes.NO);
+}
+
+
+function layer_getIDXbyName(_name) {
+    var r = new ActionReference();
+    r.putProperty(s2t("property"), s2t("itemIndex"));
+    // r.putEnumerated( charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt") );
+    r.putName(s2t('layer'), _name);
+    return hasBackground() ? executeActionGet(r).getInteger(s2t("itemIndex")) - 1 : executeActionGet(r).getInteger(s2t("itemIndex"));
+};

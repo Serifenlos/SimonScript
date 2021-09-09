@@ -186,3 +186,140 @@ function setTool(tool) {
 // zoomTool
 ```
 
+
+
+### some functions from Micheal L. Hale
+*https://community.adobe.com/t5/photoshop-ecosystem-discussions/ps3-script-to-batch-rename-layers/m-p/1102323#M283521*
+
+```js
+// Try this. Just select the layers you want 'copy' removed from and run this script.
+
+if( app.documents.length > 0 ){
+app.activeDocument.suspendHistory('Rename selected layers','removeCopyFromSelectedLayersNames()');
+}
+function removeCopyFromLayerName(){
+     if( getSelectedLayersIdx().length > 1 ){
+          var selectedLayers = getSelectedLayersIdx();
+          makeActiveByIndex( selectedLayers[0], false );
+     }
+   var startLoop = Number( !hasBackground() );
+   var endLoop = getNumberOfLayer() + 1; 
+   for( var l = startLoop;l < endLoop; l++){
+        while( !isValidActiveLayer( l ) ) {
+            l++;
+        }
+          var oldName =  getLayerNameByIndex( l );
+          var newName = oldName.replace(/\scopy\s?\d*$/i,'');
+          putLayerNameByIndex( l, newName )
+     }
+     if( selectedLayers != undefined ) makeActiveByIndex( selectedLayers, false );
+}
+
+function removeCopyFromSelectedLayersNames(){
+     var selectedLayers = getSelectedLayersIdx();
+     for( var l = 0;l < selectedLayers.length; l++){
+          var oldName =  getLayerNameByIndex( selectedLayers[ l ] );
+          var newName = oldName.replace(/\scopy.*$/i,'');
+          makeActiveByIndex( selectedLayers[ l ], false );
+          putLayerNameByIndex( selectedLayers[ l ], newName )
+     }
+     makeActiveByIndex( selectedLayers, false );
+}
+
+function getNumberOfLayer(){ 
+var ref = new ActionReference(); 
+ref.putEnumerated( charIDToTypeID('Dcmn'), charIDToTypeID('Ordn'), charIDToTypeID('Trgt') ); 
+var desc = executeActionGet(ref); 
+var numberOfLayer = desc.getInteger(charIDToTypeID('NmbL')); 
+return numberOfLayer; 
+}
+function getLayerNameByIndex( idx ) { 
+    var ref = new ActionReference(); 
+    ref.putProperty( charIDToTypeID('Prpr') , charIDToTypeID( 'Nm  ' )); 
+    ref.putIndex( charIDToTypeID( 'Lyr ' ), idx );
+    return executeActionGet(ref).getString(charIDToTypeID( 'Nm  ' ));; 
+}
+
+function putLayerNameByIndex( idx, name ) {
+     if( idx == 0 ) return;
+    var desc = new ActionDescriptor();
+        var ref = new ActionReference();
+        ref.putIndex( charIDToTypeID( 'Lyr ' ), idx );
+    desc.putReference( charIDToTypeID('null'), ref );
+        var nameDesc = new ActionDescriptor();
+        nameDesc.putString( charIDToTypeID('Nm  '), name );
+    desc.putObject( charIDToTypeID('T   '), charIDToTypeID('Lyr '), nameDesc );
+    executeAction( charIDToTypeID('setd'), desc, DialogModes.NO );
+}
+
+function getActiveLayerIndex() {
+     var ref = new ActionReference();
+     ref.putProperty( 1349677170 , 1232366921 );
+     ref.putEnumerated( 1283027488, 1332896878, 1416783732 );
+     var res = executeActionGet(ref).getInteger( 1232366921 )
+                                                       - Number( hasBackground() );
+     return res;   
+}
+
+function isValidActiveLayer( idx ) {
+     var propName = stringIDToTypeID( 'layerSection' );
+     var ref = new ActionReference(); 
+     ref.putProperty( 1349677170 , propName);
+     ref.putIndex( 1283027488, idx );
+     var desc =  executeActionGet( ref );
+     var type = desc.getEnumerationValue( propName );
+     var res = typeIDToStringID( type ); 
+     return res == 'layerSectionEnd' ? false:true;
+}
+
+function hasBackground(){
+    var res = undefined;
+    try{
+        var ref = new ActionReference();
+        ref.putProperty( 1349677170 , 1315774496); 
+        ref.putIndex( 1283027488, 0 );
+        executeActionGet(ref).getString(1315774496 );; 
+        res = true;
+    }catch(e){ res = false}
+    return res;
+}
+
+function getSelectedLayersIdx(){
+     var selectedLayers = new Array;
+     var ref = new ActionReference();
+     ref.putEnumerated( charIDToTypeID('Dcmn'), charIDToTypeID('Ordn'), charIDToTypeID('Trgt') );
+     var desc = executeActionGet(ref);
+     if( desc.hasKey( stringIDToTypeID( 'targetLayers' ) ) ){
+          desc = desc.getList( stringIDToTypeID( 'targetLayers' ));
+          var c = desc.count 
+          var selectedLayers = new Array();
+          for(var i=0;i<c;i++){
+               selectedLayers.push(  desc.getReference( i ).getIndex());
+          }
+     }else{
+          var ref = new ActionReference(); 
+          ref.putProperty( charIDToTypeID('Prpr') , charIDToTypeID( 'ItmI' )); 
+          ref.putEnumerated( charIDToTypeID('Lyr '), charIDToTypeID('Ordn'), charIDToTypeID('Trgt') );
+          selectedLayers.push( executeActionGet(ref).getInteger(charIDToTypeID( 'ItmI' )));
+     }
+     return selectedLayers;
+}
+
+function makeActiveByIndex( idx, visible ){
+     if( idx.constructor != Array ) idx = [ idx ];
+     for( var i = 0; i < idx.length; i++ ){
+          var desc = new ActionDescriptor();
+          var ref = new ActionReference();
+          ref.putIndex(charIDToTypeID( 'Lyr ' ), idx)
+          desc.putReference( charIDToTypeID( 'null' ), ref );
+          if( i > 0 ) {
+               var idselectionModifier = stringIDToTypeID( 'selectionModifier' );
+               var idselectionModifierType = stringIDToTypeID( 'selectionModifierType' );
+               var idaddToSelection = stringIDToTypeID( 'addToSelection' );
+               desc.putEnumerated( idselectionModifier, idselectionModifierType, idaddToSelection );
+          }
+          desc.putBoolean( charIDToTypeID( 'MkVs' ), visible );
+          executeAction( charIDToTypeID( 'slct' ), desc, DialogModes.NO );
+     }     
+}
+```

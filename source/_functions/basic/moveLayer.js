@@ -5,8 +5,18 @@ function moveLayer(_objectLayer, _aimLayer, _direction) {
     var ref_2 = app.activeDocument.activeLayer;
     if (_direction == "up") {
         var direction = ElementPlacement.PLACEBEFORE
-    } else if (_direction == "down") {
+    }
+    if (_direction == "down") {
         var direction = ElementPlacement.PLACEAFTER
-    };
+    }
+    if (_direction == "inside") {
+        var direction = ElementPlacement.INSIDE;
+    }
+    if (_direction == "PlaceAtBeginning") {
+        var direction = ElementPlacement.PLACEATBEGINNING;
+    }
+    if (_direction == "PlaceAtEnd") {
+        var direction = ElementPlacement.PLACEATEND;
+    }
     ref_1.move(ref_2, direction);
 }

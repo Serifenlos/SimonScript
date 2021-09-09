@@ -228,7 +228,7 @@ document.getElementById("db").addEventListener("click", function () {
     loadScript("[A] Dodge & Burn")
 });
 document.getElementById("db_hochtief").addEventListener("click", function () {
-    loadScript("[A] Dodge & Burn △▽")
+    loadScript("[A] Dodge & Burn △▽");
 });
 
 
@@ -236,7 +236,10 @@ document.getElementById("saveall").addEventListener("click", function () {
     loadScript("[panel] saveAllDocs")
 });
 document.getElementById("freisteller").addEventListener("click", function () {
-    loadScript("[panel] Freisteller")
+    loadScript("[panel] Freisteller");
+});
+document.getElementById("freistellerHG").addEventListener("click", function () {
+    loadScript("[panel] FreistellerHG");
 });
 document.getElementById("layerExpand").addEventListener("click", function () {
     loadScript("[panel] LayerExpand")
@@ -295,5 +298,5 @@ document.getElementById("A_zoomin").addEventListener("click", function () {
     loadScript("[panel] view ZoomIn")
 });
 document.getElementById("A_allesAngleichen").addEventListener("click", function () {
-    loadScript("[panel] view MatchAll")
+    loadScript("[panel] view MatchAll");
 });

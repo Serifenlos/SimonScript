@@ -2,6 +2,7 @@
 // @codekit-prepend './ready/burn.js';
 // @codekit-prepend './ready/dodge.js';
 // @codekit-prepend './ready/dodgeburn.js';
+// @codekit-prepend './ready/freisteller_allHG.js';
 // @codekit-prepend './ready/freisteller_button.js';
 // @codekit-prepend './ready/freisteller_createGroup.js';
 // @codekit-prepend './ready/freisteller_saveRGB.js';

@@ -53,6 +53,7 @@ for (i = links.length - 1; i >= 0; i--) {
         }
     }
 }
+alert("alle RZs verknüpft")
 
 
 

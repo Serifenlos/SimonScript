@@ -132,26 +132,26 @@
     	d.putObject( s2t( "offset" ), s2t( "offset" ), d2 );
     
         if(_unit == "%_canvas") {
-            var layer_width = doc.activeLayer.bounds[2] - doc.activeLayer.bounds[0];
-            var layer_height = doc.activeLayer.bounds[3] - doc.activeLayer.bounds[1];
-            var doc_layer_width = parseFloat(doc.width / layer_width * _transformX);
-            var doc_layer_height = parseFloat(doc.height / layer_height * _transformY);
+            var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
+            var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
+            var doc_layer_width = parseFloat(app.activeDocument.width / layer_width * _transformX);
+            var doc_layer_height = parseFloat(app.activeDocument.height / layer_height * _transformY);
             // alert(doc_layer_width + " " + doc_layer_height)
             if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
     	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
     
         } else if(_unit == "%_layer") {
-            var layer_width = doc.activeLayer.bounds[2] - doc.activeLayer.bounds[0];
-            var layer_height = doc.activeLayer.bounds[3] - doc.activeLayer.bounds[1];
-            var doc_layer_width = parseFloat(layer_width / doc.width * _transformX * 10);
-            var doc_layer_height = parseFloat(layer_height / doc.height * _transformY * 10);
+            var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
+            var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
+            var doc_layer_width = parseFloat(layer_width / app.activeDocument.width * _transformX * 10);
+            var doc_layer_height = parseFloat(layer_height / app.activeDocument.height * _transformY * 10);
             // alert(doc_layer_width + " " + doc_layer_height);
             if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
     	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
     
         } else if(_unit == "px") {
-            var doc_layer_width =  parseFloat(_transformX / doc.width * 100);
-            var doc_layer_height = parseFloat(_transformY / doc.height * 100);
+            var doc_layer_width =  parseFloat(_transformX / app.activeDocument.width * 100);
+            var doc_layer_height = parseFloat(_transformY / app.activeDocument.height * 100);
             // alert(doc_layer_width + " " + doc_layer_height)
             if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
     	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
@@ -184,36 +184,275 @@
         * _linked `hab keinen Effekt beobachtet`
 
 ### selectLayerBySelector
-select Layer by Name ==TODO by IDX==
+select Layer by Name or ID
 
 <button class="btn" data-clipboard-text="selectLayerBySelector(_selector, _add);"></button>
 {: .btn_p }
 
 ??? "selectLayerBySelector(_selector, _add);"
     ``` js linenums="1"
-    function selectLayerBySelector(_selector, _add) {  //TODO select by IDX
+    function selectLayerBySelector(_selector, _add) {
         try {
             var d = new ActionDescriptor();
-            // var list = new ActionList();
             var r = new ActionReference();
     
             if (_add == "remove" || !_add) {var addX = "removeFromSelection"} else {var addX = "addToSelection"}
-            r.putName(s2t("layer"), _selector);
+            if (isNaN(_selector)) {r.putName(s2t("layer"), _selector)}
+            else {r.putIndex(s2t("layer"), _selector)}
             d.putReference(s2t("null"), r);
             d.putEnumerated(s2t("selectionModifier"), s2t("selectionModifierType"), s2t(addX));
             d.putBoolean(s2t("makeVisible"), false);
-            // list.putInteger( 65 );
-            // list.putInteger( 66 );
-            // d.putList( s2t( "layerID" ), list );
             executeAction(s2t("select"), d, DialogModes.NO);
         } catch (e) {}
     }
+    
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/selectLayerBySelector.js)
 
-!!! warning show "not documented functions"
-    - check
-     - getMaskVisibility
-     - setLayerOpacity
-     - setMaskVisibility
+### getMaskVisibility
+
+<button class="btn" data-clipboard-text="getMaskVisibility();"></button>
+{: .btn_p }
+
+??? "getMaskVisibility();"
+    ``` js linenums="1"
+    function getMaskVisibility() {
+        var r = new ActionReference();
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        return executeActionGet(r).getBoolean(s2t("userMaskEnabled"));
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/getMaskVisibility.js)
+
+### setLayerOpacity
+
+<button class="btn" data-clipboard-text="setLayerOpacity(_opacity);"></button>
+{: .btn_p }
+
+??? "setLayerOpacity(_opacity);"
+    ``` js linenums="1"
+    function setLayerOpacity(_opacity) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        d2.putUnitDouble(s2t("opacity"), s2t("percentUnit"), _opacity);
+        d.putObject(s2t("to"), s2t("layer"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/setLayerOpacity.js)
+
+### setMaskVisibility
+
+<button class="btn" data-clipboard-text="setMaskVisibility(_set);"></button>
+{: .btn_p }
+
+??? "setMaskVisibility(_set);"
+    ``` js linenums="1"
+    function setMaskVisibility(_set) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        if (_set == false || _set == "hide") {
+            var _setX = false
+        } else if (_set == true || _set == "show") {
+            var _setX = true
+        } else if (_set == "toggle" || _set == "X") {
+            if (getMaskVisibility()) {
+                var _setX = false
+            } else {
+                var _setX = true
+            }
+        }
+    
+        try {
+            r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+            d.putReference(s2t("null"), r);
+            d2.putBoolean(s2t("userMaskEnabled"), _setX);
+            d.putObject(s2t("to"), s2t("layer"), d2);
+            executeAction(s2t("set"), d, DialogModes.NO);
+        } catch (e) {}
+    }
+    
+    // setMaskVisibility(true)
+    // setMaskVisibility(false)
+    // setMaskVisibility("toggle");
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/setMaskVisibility.js)
+
+### checkExistence
+
+<button class="btn" data-clipboard-text="layer_checkExistence(_idx);"></button>
+{: .btn_p }
+
+??? "layer_checkExistence(_idx);"
+    ``` js linenums="1"
+    function layer_checkExistence(_idx) {
+        try {
+            var r = new ActionReference();
+            r.putProperty(s2t("property"), s2t("itemIndex"));
+            r.putIndex(s2t("layer"), _idx);
+            var getLayerIDX = executeActionGet(r).getInteger(s2t("itemIndex"));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_checkExistence.js)
+
+### getIDXbyString
+
+<button class="btn" data-clipboard-text="layer_getIDXbyString(_string);"></button>
+{: .btn_p }
+
+??? "layer_getIDXbyString(_string);"
+    ``` js linenums="1"
+    function layer_getIDXbyString(_string) {
+        var i = 1;
+        var layerIDX_array = [];
+        while (layer_checkExistence(i)) {
+            try {
+                var regex = new RegExp(_string, 'g');
+                if (layer_getName(i).match(regex)) {
+                    layerIDX_array.push(i)
+                }
+            } catch (e) {}
+            i++;
+        };
+        return layerIDX_array;
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_getIDXbyString.js)
+
+### getName
+
+<button class="btn" data-clipboard-text="layer_getName(_idx);"></button>
+{: .btn_p }
+
+??? "layer_getName(_idx);"
+    ``` js linenums="1"
+    function layer_getName(_idx) {
+        try {
+            var ref = new ActionReference();
+            ref.putIndex(charIDToTypeID("Lyr "), _idx);
+            var layerDesc = executeActionGet(ref);
+            var theName = layerDesc.getString(stringIDToTypeID("name"));
+            return theName;
+        } catch (e) {
+            return e;
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_getName.js)
+
+### solidColorHSB_change
+
+<button class="btn" data-clipboard-text="layer_solidColorHSB_change(_h, _s, _b);"></button>
+{: .btn_p }
+
+??? "layer_solidColorHSB_change(_h, _s, _b);"
+    ``` js linenums="1"
+    function layer_solidColorHSB_change(_h, _s, _b) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        r.putEnumerated(s2t("contentLayer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+    
+        d3.putUnitDouble(s2t('hue'), s2t('angleUnit'), _h);
+        d3.putDouble(s2t('saturation'), _s);
+        d3.putDouble(s2t('brightness'), _b);
+        d2.putObject(s2t('color'), s2t('HSBColorClass'), d3);
+    
+        d.putObject(s2t("to"), s2t("solidColorLayer"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_solidColorHSB_change.js)
+
+### layer_selectedIDX_get
+
+<button class="btn" data-clipboard-text="layer_selectedIDX_get();"></button>
+{: .btn_p }
+
+??? "layer_selectedIDX_get();"
+    ``` js linenums="1"
+    function layer_selectedIDX_get() {
+        var selectedLayers = [];
+        var ref = new ActionReference();
+        ref.putEnumerated(stringIDToTypeID('document'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
+        var desc = executeActionGet(ref);
+        if (desc.hasKey(stringIDToTypeID('targetLayers'))) {
+            desc = desc.getList(stringIDToTypeID('targetLayers'));
+            for (var i = 0, c = desc.count; i < c; i++) {
+                hasBackground() ? selectedLayers.push(desc.getReference(i).getIndex()) : selectedLayers.push(desc.getReference(i).getIndex() + 1);
+            }
+        }
+        return selectedLayers;
+    };
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_selectedIDX_get.js)
+
+### layer_selectedIDX_set
+
+<button class="btn" data-clipboard-text="layer_selectedIDX_set(_array);"></button>
+{: .btn_p }
+
+??? "layer_selectedIDX_set(_array);"
+    ``` js linenums="1"
+    function layer_selectedIDX_set(_array) {
+        try {
+            selectLayers("selectNoLayers");
+            if (_array.length > 0) {
+                for (var j = 0; j < _array.length; j++) {
+                    selectLayerBySelector(_array[j], t);
+                }
+            }
+        } catch (e) {
+            selectLayers("selectNoLayers");
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_selectedIDX_set.js)
+
+### layer_getSolidFillColor
+
+<button class="btn" data-clipboard-text="layer_getSolidFillColor();"></button>
+{: .btn_p }
+
+??? "layer_getSolidFillColor();"
+    ``` js linenums="1"
+    function layer_getSolidFillColor() {
+        var colors_layer = [];
+        var r = new ActionReference();
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        var desc = executeActionGet(r)
+        var adjList = desc.getList(s2t('adjustment'));
+        var adjDesc = adjList.getObjectValue(0);
+        var colorDesc = adjDesc.getObjectValue(s2t('color'));
+        colors_layer.push(Math.round(colorDesc.getDouble(s2t('red'))));
+        colors_layer.push(Math.round(colorDesc.getDouble(s2t('green'))));
+        colors_layer.push(Math.round(colorDesc.getDouble(s2t('blue'))));
+        return colors_layer;
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_getSolidFillColor.js)
+
+!!! warning hide "not documented functions"

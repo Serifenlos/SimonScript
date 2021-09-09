@@ -54,24 +54,49 @@ body {
 //         vertical-align: middle;
 //     }
 // }
+html {
+    font-size: 0;
+}
 
-.sp-action-button-row {
-    display: flex;
+// .sp-action-button-row {
+//     display: flex;
+//     margin-bottom: 2px;
+// }
+
+sp-action-group {
     margin-bottom: 2px;
 }
 
 sp-action-button {
-    font-size: 10px;
-    height: 18px;
-    margin: 0;
+    // font-size: 10px;
+    // height: 18px;
+    // max-height: 18px;
+    // max-width: 18px;
+    // margin: 0;
     border-radius: 0;
     min-width: 14px;
     background: #555;
     margin-right: 2px;
-    padding: 2px;
-    text-shadow: 1px 1px black;
+    padding: 0 4px;
+    // text-shadow: 1px 1px black;
     
     &:active {
         background: #333;
     }
 }
+
+// :root {
+//     --uxp-host-font-size: 8px;
+//     --uxp-host-font-size-smaller: 8px;
+//     --uxp-host-font-size-larger: 12px;
+//     --uxp-host-background-color: #323232;
+//     --uxp-host-text-color: #FFFFFF;
+//     --uxp-host-border-color: #292929;
+//     --uxp-host-link-text-color: #4B9CF5;
+//     --uxp-host-widget-hover-background-color: #3D3D3D;
+//     --uxp-host-widget-hover-text-color: #FFFFFF;
+//     --uxp-host-widget-hover-border-color: #3D3D3D;
+//     --uxp-host-text-color-secondary: #9B9B9B;
+//     --uxp-host-link-hover-text-color: #FFFFFF;
+//     --uxp-host-label-text-color: #FFFFFF;
+// }

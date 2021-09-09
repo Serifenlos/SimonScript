@@ -1,9 +1,15 @@
-// @codekit-prepend './layer/check.js';
 // @codekit-prepend './layer/fixMask.js';
 // @codekit-prepend './layer/fixMaskDens.js';
 // @codekit-prepend './layer/fixMaskFeather.js';
 // @codekit-prepend './layer/fixMask_loop.js';
 // @codekit-prepend './layer/getMaskVisibility.js';
+// @codekit-prepend './layer/layer_checkExistence.js';
+// @codekit-prepend './layer/layer_getIDXbyString.js';
+// @codekit-prepend './layer/layer_getName.js';
+// @codekit-prepend './layer/layer_getSolidFillColor.js';
+// @codekit-prepend './layer/layer_selectedIDX_get.js';
+// @codekit-prepend './layer/layer_selectedIDX_set.js';
+// @codekit-prepend './layer/layer_solidColorHSB_change.js';
 // @codekit-prepend './layer/layer_transform.js';
 // @codekit-prepend './layer/selectLayerBySelector.js';
 // @codekit-prepend './layer/setLayerOpacity.js';

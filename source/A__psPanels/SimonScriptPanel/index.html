@@ -25,57 +25,72 @@
 <body>
 
 
-  <div class="sp-action-button-row">
-    <sp-action-button id="curves">Gr</sp-action-button>
-    <sp-action-button id="levels">Ton</sp-action-button>
-    <sp-action-button id="brightnessEvent">H+K</sp-action-button>
-    <sp-action-button id="selectiveColor">Sel</sp-action-button>
-    <sp-action-button id="colorBalance">Fa</sp-action-button>
-    <sp-action-button id="hueSaturation">Sä</sp-action-button>
-    <sp-action-button id="blackAndWhite">SW</sp-action-button>
-    <sp-action-button id="vibrance">Dy</sp-action-button>
-  </div>
-  <div class="sp-action-button-row">
-    <sp-action-button id="grau">Grau</sp-action-button>
-    <sp-action-button id="bunt">bunt</sp-action-button>
-    <sp-action-button id="unbunt">unbunt</sp-action-button>
-    <sp-action-button id="hochpass">Hochpass</sp-action-button>
-    <sp-action-button id="mirco">Mirco</sp-action-button>
-    <sp-action-button id="saft">Saft</sp-action-button>
-  </div>
-  </div>
-  <div class="sp-action-button-row">
-    <sp-action-button id="dodge">D</sp-action-button>
-    <sp-action-button id="burn">B</sp-action-button>
-    <sp-action-button id="db">D&B</sp-action-button>
-    <sp-action-button id="db_hochtief">D+B△▽</sp-action-button>
-  </div>
-  <div class="sp-action-button-row">
-    <sp-action-button id="layerExpand">⤱</sp-action-button>
-    <sp-action-button id="saveall">saveAll</sp-action-button>
-    <sp-action-button id="freisteller">frei</sp-action-button>
-    <sp-action-button id="itunes">iTunes</sp-action-button>
-  </div>
-  <div class="sp-action-button-row">
-    <sp-action-button id="A_kachel">᎒᎒᎒</sp-action-button>
-    <sp-action-button id="A_1">☐</sp-action-button>
-    <sp-action-button id="A_2vertical">II</sp-action-button>
-    <sp-action-button id="A_2horizontal">=</sp-action-button>
-    <sp-action-button id="A_3">I=</sp-action-button>
-    <sp-action-button id="A_3vertical">III</sp-action-button>
-    <sp-action-button id="A_3horizontal">☰</sp-action-button>
-    <sp-action-button id="A_4">⸬</sp-action-button>
-    <sp-action-button id="A_6">:::</sp-action-button>
-    <sp-action-button id="A_zoomout">−</sp-action-button>
-    <sp-action-button id="A_zoomin">+</sp-action-button>
-    <sp-action-button id="A_allesAngleichen">×</sp-action-button><!--  ♺ ♺ ↻ ★ ✱ ◌ ○ ⤱  ◯ -->
-  </div>
-  <div class="sp-action-button-row">
-    <sp-action-button id="ScriptListenerON">on</sp-action-button>
-    <sp-action-button id="ScriptListenerOFF">off</sp-action-button>
-    <sp-action-button id="startLastLogEntry">xTools</sp-action-button>
-    <sp-action-button id="startCleanSL">CleanSL</sp-action-button>
-  </div>
+  <!-- <div class="sp-action-button-row"> -->
+
+  <!-- <sp-action-button style="padding: 0; max-width: 18px; max-height: 18px;">
+      <div slot="icon" style="fill: currentColor">
+        <svg viewBox="0 0 36 36" style="width: 12px; height: 12px;">
+          <path
+            d="M33.567 8.2L27.8 2.432a1.215 1.215 0 0 0-.866-.353H26.9a1.371 1.371 0 0 0-.927.406L5.084 23.372a.99.99 0 0 0-.251.422L2.055 33.1c-.114.377.459.851.783.851a.251.251 0 0 0 .062-.007c.276-.063 7.866-2.344 9.311-2.778a.972.972 0 0 0 .414-.249l20.888-20.889a1.372 1.372 0 0 0 .4-.883 1.221 1.221 0 0 0-.346-.945zM11.4 29.316c-2.161.649-4.862 1.465-6.729 2.022l2.009-6.73z" />
+        </svg>
+      </div>
+    </sp-action-button> -->
+  <sp-action-group>
+    <sp-action-button size="S" id="curves">Gr</sp-action-button>
+    <sp-action-button size="S" id="levels">Ton</sp-action-button>
+    <sp-action-button size="S" id="brightnessEvent">H+K</sp-action-button>
+    <sp-action-button size="S" id="selectiveColor">Sel</sp-action-button>
+    <sp-action-button size="S" id="colorBalance">Fa</sp-action-button>
+    <sp-action-button size="S" id="hueSaturation">Sä</sp-action-button>
+    <sp-action-button size="S" id="blackAndWhite">SW</sp-action-button>
+    <sp-action-button size="S" id="vibrance">Dy</sp-action-button>
+  </sp-action-group>
+  
+  <sp-action-group>
+    <sp-action-button size="S" id="grau">Grau</sp-action-button>
+    <sp-action-button size="S" id="bunt">bunt</sp-action-button>
+    <sp-action-button size="S" id="unbunt">unbunt</sp-action-button>
+    <sp-action-button size="S" id="hochpass">Hochpass</sp-action-button>
+    <sp-action-button size="S" id="mirco">Mirco</sp-action-button>
+    <sp-action-button size="S" id="saft">Saft</sp-action-button>
+  </sp-action-group>
+
+  <sp-action-group>
+    <sp-action-button size="S" id="dodge">D</sp-action-button>
+    <sp-action-button size="S" id="burn">B</sp-action-button>
+    <sp-action-button size="S" id="db">D&B</sp-action-button>
+    <sp-action-button size="S" id="db_hochtief">D+B△▽</sp-action-button>
+  </sp-action-group>
+
+  <sp-action-group>
+    <sp-action-button size="S" id="layerExpand">⤱</sp-action-button>
+    <sp-action-button size="S" id="saveall">saveAll</sp-action-button>
+    <sp-action-button size="S" id="freisteller">frei</sp-action-button>
+    <sp-action-button size="S" id="freistellerHG">freiHG</sp-action-button>
+    <sp-action-button size="S" id="itunes">iTunes</sp-action-button>
+  </sp-action-group>
+
+  <sp-action-group>
+    <sp-action-button size="S" id="A_kachel">᎒᎒᎒</sp-action-button>
+    <sp-action-button size="S" id="A_1">☐</sp-action-button>
+    <sp-action-button size="S" id="A_2vertical">II</sp-action-button>
+    <sp-action-button size="S" id="A_2horizontal">=</sp-action-button>
+    <sp-action-button size="S" id="A_3">I=</sp-action-button>
+    <sp-action-button size="S" id="A_3vertical">III</sp-action-button>
+    <sp-action-button size="S" id="A_3horizontal">☰</sp-action-button>
+    <sp-action-button size="S" id="A_4">⸬</sp-action-button>
+    <sp-action-button size="S" id="A_6">:::</sp-action-button>
+    <sp-action-button size="S" id="A_zoomout">−</sp-action-button>
+    <sp-action-button size="S" id="A_zoomin">+</sp-action-button>
+    <sp-action-button size="S" id="A_allesAngleichen">×</sp-action-button><!--  ♺ ♺ ↻ ★ ✱ ◌ ○ ⤱  ◯ -->
+  </sp-action-group>
+  
+  <sp-action-group>
+    <sp-action-button size="S" id="ScriptListenerON">on</sp-action-button>
+    <sp-action-button size="S" id="ScriptListenerOFF">off</sp-action-button>
+    <sp-action-button size="S" id="startLastLogEntry">xTools</sp-action-button>
+    <sp-action-button size="S" id="startCleanSL">CleanSL</sp-action-button>
+  </sp-action-group>
 
 </body>
 
