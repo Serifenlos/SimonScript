@@ -41,7 +41,7 @@ function startschuss() {
     createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
     moveLayer("Weiss", "Original", "down");
 
-    createGroup("Einstellungen", "passThrough", "none", 100);
+    createGroup("Einstellungen", "passThrough", "none", 100, f);
     createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
     toogleVisibility();
     createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);

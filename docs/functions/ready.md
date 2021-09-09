@@ -50,7 +50,7 @@
         createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
         moveLayer("Weiss", "Original", "down");
     
-        createGroup("Einstellungen", "passThrough", "none", 100);
+        createGroup("Einstellungen", "passThrough", "none", 100, f);
         createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
         toogleVisibility();
         createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);
@@ -162,7 +162,103 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn.js)
 
+### freisteller_button
+
+<button class="btn" data-clipboard-text="freisteller_button();"></button>
+{: .btn_p }
+
+??? "freisteller_button();"
+    ``` js linenums="1"
+    function freisteller_button() {
+        try {
+            if (app.activeDocument.layerSets.getByName("Freisteller")) {
+                try {
+                    var docPath = app.activeDocument.path;
+                    app.activeDocument.suspendHistory('Freisteller SaveRGB', 'freisteller_saveRGB()');
+                    app.activeDocument.save();
+                } catch (e) {
+                    alert(e)
+                };
+            }
+        } catch (e) {
+            app.activeDocument.suspendHistory('Freisteller-Gruppe', 'freisteller_createGroup()');
+            try {
+                var docPath = app.activeDocument.path;
+                app.activeDocument.suspendHistory('Freisteller SaveRGB', 'freisteller_saveRGB()');
+                app.activeDocument.save();
+            } catch (e) {};
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_button.js)
+
+### freisteller_createGroup
+
+<button class="btn" data-clipboard-text="freisteller_createGroup();"></button>
+{: .btn_p }
+
+??? "freisteller_createGroup();"
+    ``` js linenums="1"
+    function freisteller_createGroup() {
+        var startLayer, set, newLayerSetRef;
+        var startLayer = layer_selectedIDX_get();
+        selectLayers('selectAllLayers');
+        createGroup("Freisteller", "passThrough", "none", 100, t);
+        try {
+            if (isSelectionActive()) {
+                maskFromSelection()
+            }
+        } catch (e) {}
+        toogleOpenCloseSet();
+        var set = app.activeDocument.layerSets.getByName("Freisteller")
+        createColorLayer("Freisteller helper", "normal", "none", 100, "none", 128, 128, 128);
+        hide();
+        var newLayerSetRef = app.activeDocument.activeLayer;
+        newLayerSetRef.move(set, ElementPlacement.PLACEAFTER);
+        layer_selectedIDX_set(startLayer);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_createGroup.js)
+
+### freisteller_saveRGB
+
+<button class="btn" data-clipboard-text="freisteller_saveRGB();"></button>
+{: .btn_p }
+
+??? "freisteller_saveRGB();"
+    ``` js linenums="1"
+    function freisteller_saveRGB() {
+        var startLayer, startVisibilityHelper, startMaskVisibility, docNameCopy;
+        var startLayer = layer_selectedIDX_get();
+        var startVisibilityHelper = null;
+        gotoLayer("Freisteller");
+        if (hasLayerMask()) {
+            var startMaskVisibility = getMaskVisibility();
+            setMaskVisibility(true);
+    
+            if (getLayerName(1) == "Freisteller helper") {  //TODO was wenn ich den helper dupliziert habe //hier brauchts einen anderen Checker
+                var startVisibilityHelper = isVisibleIDX(1);
+                makeVisByIndex(1, false);
+            }
+            var docNameCopy = app.activeDocument.path + "/" + GetFileNameOnly(app.activeDocument.name) + "-frei";
+            // saveFile_PSD(new File(docNameCopy), t, f, f, t, f, f);
+            savePSD_v2(new File(docNameCopy), t, t, t, f);
+    
+            setMaskVisibility(false);
+            if (startVisibilityHelper != null) {
+                makeVisByIndex(1, startVisibilityHelper);
+            }
+    
+            // app.activeDocument.save();
+            setMaskVisibility(startMaskVisibility);
+        }
+        layer_selectedIDX_set(startLayer);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_saveRGB.js)
+
 !!! warning show "not documented functions"
-    - freisteller_button
-     - freisteller_createGroup
-     - freisteller_saveRGB
+    - freisteller_allHG

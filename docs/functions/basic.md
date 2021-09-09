@@ -118,6 +118,22 @@ reset the dialog- and unit-settings to the previous state
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefReset.js)
 
+### startScriptFile
+
+<button class="btn" data-clipboard-text="startScriptFile(_scriptName, _dialogModes);"></button>
+{: .btn_p }
+
+??? "startScriptFile(_scriptName, _dialogModes);"
+    ``` js linenums="1"
+    function startScriptFile(_scriptName, _dialogModes) {
+        var d = new ActionDescriptor();
+        d.putString(sTID("javaScriptName"), _scriptName);
+        executeAction(sTID('AdobeScriptAutomation Scripts'), d, _dialogModes);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/startScriptFile.js)
+
 ## document
 
 ### undoSteps
@@ -451,9 +467,19 @@ erstelle eine Farbfläche
         var ref_2 = app.activeDocument.activeLayer;
         if (_direction == "up") {
             var direction = ElementPlacement.PLACEBEFORE
-        } else if (_direction == "down") {
+        }
+        if (_direction == "down") {
             var direction = ElementPlacement.PLACEAFTER
-        };
+        }
+        if (_direction == "inside") {
+            var direction = ElementPlacement.INSIDE;
+        }
+        if (_direction == "PlaceAtBeginning") {
+            var direction = ElementPlacement.PLACEATBEGINNING;
+        }
+        if (_direction == "PlaceAtEnd") {
+            var direction = ElementPlacement.PLACEATEND;
+        }
         ref_1.move(ref_2, direction);
     }
     ```
@@ -1601,12 +1627,101 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObjectTransparencyIssue.js)
 
+### isSelectionActive
+
+<button class="btn" data-clipboard-text="isSelectionActive();"></button>
+{: .btn_p }
+
+??? "isSelectionActive();"
+    ``` js linenums="1"
+    function isSelectionActive() {
+        var layerRef = doc.selection;
+        try      {return (layerRef.bounds) ? true : false;}
+        catch(e) {return false;}
+    }
+    
+    
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/isSelectionActive.js)
+
+## shortener
+
+### c2t
+
+<button class="btn" data-clipboard-text="c2t(s);"></button>
+{: .btn_p }
+
+??? "c2t(s);"
+    ``` js linenums="1"
+    // CleanSL
+    function c2t(s) {
+        return app.charIDToTypeID(s);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_c2t.js)
+
+### cTID
+
+<button class="btn" data-clipboard-text="cTID(s);"></button>
+{: .btn_p }
+
+??? "cTID(s);"
+    ``` js linenums="1"
+    // xtools
+    function cTID(s) {
+        return app.charIDToTypeID(s)
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_cTID.js)
+
+### s2t
+
+<button class="btn" data-clipboard-text="s2t(s);"></button>
+{: .btn_p }
+
+??? "s2t(s);"
+    ``` js linenums="1"
+    // CleanSL
+    function s2t(s) {
+        return app.stringIDToTypeID(s);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_s2t.js)
+
+### sTID
+
+<button class="btn" data-clipboard-text="sTID(s);"></button>
+{: .btn_p }
+
+??? "sTID(s);"
+    ``` js linenums="1"
+    // xtools
+    function sTID(s) {
+        return app.stringIDToTypeID(s)
+    };
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_sTID.js)
+
+### t2s
+
+<button class="btn" data-clipboard-text="t2s(s);"></button>
+{: .btn_p }
+
+??? "t2s(s);"
+    ``` js linenums="1"
+    // CleanSL
+    function t2s(s) {
+        return app.typeIDToStringID(s)
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_t2s.js)
+
 !!! warning show "not documented functions"
     - _a
-     - _c2t
-     - _cTID
-     - _s2t
-     - _sTID
-     - _t2s
-     - isSelectionActive
-     - startScriptFile
+     - app_getForegroundColor

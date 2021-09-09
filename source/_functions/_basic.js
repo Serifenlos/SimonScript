@@ -7,6 +7,7 @@
 // @codekit-prepend './basic/_s2t.js';
 // @codekit-prepend './basic/_sTID.js';
 // @codekit-prepend './basic/_t2s.js';
+// @codekit-prepend './basic/app_getForegroundColor.js';
 // @codekit-prepend './basic/assignProfile.js';
 // @codekit-prepend './basic/blendif.js';
 // @codekit-prepend './basic/checkTransparency.js';

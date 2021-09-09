@@ -1,12 +1,5 @@
 function SaveForWeb(_format, _path, _filename, _scale, _interlace, _convert2sRGB, _embedICC, _matte, _matteR, _matteG, _matteB, _embedMeta, _jpgQquality, _jpgOptimized, _jpgProgressive, _jpgBlur) {
 
-	// var c2t = function (s) {
-	// 	return app.charIDToTypeID(s);
-	// };
-	// var s2t = function (s) {
-	// 	return app.stringIDToTypeID(s);
-	// };
-
 	var d = new ActionDescriptor();
 	var d2 = new ActionDescriptor();
 	var d3 = new ActionDescriptor();

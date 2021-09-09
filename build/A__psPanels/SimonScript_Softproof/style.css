@@ -452,7 +452,8 @@ dialog form sp-body {
   margin-right: 12px; }
 
 .sp-tab sp-label {
-  color: rgba(255, 255, 255, 0.75); }
+  color: rgba(255, 255, 255, 0.75);
+  min-width: 6px; }
 
 .sp-tab:hover sp-label {
   color: white; }
@@ -626,7 +627,7 @@ sp-radio:checked {
   background: red; }
 
 sp-radio-group > * {
-  margin: 0; }
+  margin: 0 6px 0 0; }
 
 .sp-tab {
   padding: 0 6px; }

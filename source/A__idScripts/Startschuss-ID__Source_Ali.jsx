@@ -39,7 +39,8 @@ var subFolder = "#234";
 // no / here, escape \
 getRubrik_array = [
     ["(\\w{1,3}[-,_]\\w{1,3}_11F_\\d{3}_)(.*)(\.indd)", "$2"],
-    ["(\\w{1,3}-\\w{1,3}_11F_BUCH_J11_)(.*)(\.indd)", "$2"]
+    ["(\\w{1,3}-\\w{1,3}_11F_BUCH_J11_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}-\\w{1,3}_11F_Spezial_Torhüter_)(.*)(\.indd)", "$2"]
 ];
 
 if (!app.selection.length > 0) {
@@ -96,7 +97,7 @@ for (var i = 0; i < app.selection.length; i++) {
 /*=================================================================================*/
 function getRubrik(_array) {
     try {
-        var indd_docname = app.activeDocument.fullName.name;
+        var indd_docname = decodeURI(app.activeDocument.fullName.name);
         for (j = 0; j < _array.length; j++) {
             var regex = new RegExp(_array[j][0], 'g');
 

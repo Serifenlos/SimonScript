@@ -7,13 +7,6 @@
     ``` js linenums="1"
     function SaveForWeb(_format, _path, _filename, _scale, _interlace, _convert2sRGB, _embedICC, _matte, _matteR, _matteG, _matteB, _embedMeta, _jpgQquality, _jpgOptimized, _jpgProgressive, _jpgBlur) {
     
-    	// var c2t = function (s) {
-    	// 	return app.charIDToTypeID(s);
-    	// };
-    	// var s2t = function (s) {
-    	// 	return app.stringIDToTypeID(s);
-    	// };
-    
     	var d = new ActionDescriptor();
     	var d2 = new ActionDescriptor();
     	var d3 = new ActionDescriptor();
@@ -354,5 +347,33 @@ thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile_TIF.js)
+
+### savePSD_v2
+
+<button class="btn" data-clipboard-text="savePSD_v2(_saveFile, _copy, _maximizeCompatibility, _lowerCase, _layers);"></button>
+{: .btn_p }
+
+??? "savePSD_v2(_saveFile, _copy, _maximizeCompatibility, _lowerCase, _layers);"
+    ``` js linenums="1"
+    function savePSD_v2(_saveFile, _copy, _maximizeCompatibility, _lowerCase, _layers) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        d2.putBoolean(s2t("maximizeCompatibility"), _maximizeCompatibility);
+        d.putObject(s2t("as"), s2t("photoshop35Format"), d2);
+        d.putPath(s2t("in"), _saveFile);
+        d.putBoolean(s2t("copy"), _copy);
+        d.putBoolean(s2t("lowerCase"), _lowerCase);
+        d.putBoolean(s2t("layers"), _layers);
+        d.putEnumerated(s2t("saveStage"), s2t("saveStageType"), s2t("saveSucceeded"));
+        executeAction(s2t("save"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/save/savePSD_v2.js)
+
+???+ a
+    ```js
+    savePSD_v2(file_RGB, f, t, t, t);
+    ```
 
 !!! warning hide "not documented functions"

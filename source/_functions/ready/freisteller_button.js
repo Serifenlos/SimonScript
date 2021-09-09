@@ -1,9 +1,20 @@
 function freisteller_button() {
     try {
         if (app.activeDocument.layerSets.getByName("Freisteller")) {
-            doc.suspendHistory('Freisteller SaveRGB', 'freisteller_saveRGB()');
+            try {
+                var docPath = app.activeDocument.path;
+                app.activeDocument.suspendHistory('Freisteller SaveRGB', 'freisteller_saveRGB()');
+                app.activeDocument.save();
+            } catch (e) {
+                alert(e)
+            };
         }
     } catch (e) {
-        doc.suspendHistory('Freisteller-Gruppe', 'freisteller_createGroup()');
+        app.activeDocument.suspendHistory('Freisteller-Gruppe', 'freisteller_createGroup()');
+        try {
+            var docPath = app.activeDocument.path;
+            app.activeDocument.suspendHistory('Freisteller SaveRGB', 'freisteller_saveRGB()');
+            app.activeDocument.save();
+        } catch (e) {};
     }
 }

@@ -57,6 +57,14 @@ const noSoftproofs = document.querySelectorAll("sp-radio.noSoftproof");
 
 for (const button of buttons) {
   button.addEventListener('click', async function (event) {
+    const app = require("photoshop").app;
+    if (app.documents.length != 0) {
+    //   showAlert("Please open at least one document.");
+    //   return;
+    // }
+    // else {
+
+    
     
     var c, e;
     for(c = 0; c < buttons.length; c++ ) {                          // uncheck all other radios
@@ -78,56 +86,69 @@ for (const button of buttons) {
     let dataProofGroup = this.getAttribute('data-proofGroup');
 
 
-    setSoftproof(dataProofProfil, dataProofIntent, dataproofTK_Boolean);
-    setMeta(dataProofProfil, dataProofIntent, dataproofTK, dataProofGroup);       // loadScript("[panel] softproof2meta");
-    
+    await setSoftproof(dataProofProfil, dataProofIntent, dataproofTK_Boolean);
+    await setMeta(dataProofProfil, dataProofIntent, dataproofTK, dataProofGroup);       // loadScript("[panel] softproof2meta");
+    await setUI();
     // proofinfo.innerHTML = dataProofProfil + " – " + dataProofIntent;
 
-    var f = document.getElementsByClassName("sp-tab");
-    var g;
-    for (g = 0; g < f.length; g++) {
-      f[g].classList.remove("active");
-    }
+    // var f = document.getElementsByClassName("sp-tab");
+    // var g;
+    // for (g = 0; g < f.length; g++) {
+    //   f[g].classList.remove("active");
+    // }
     
-    var thisTab = this.parentElement.parentElement.getAttribute('id').replace("-page", "");
-    document.getElementById(thisTab).classList.add("active");
+    // var thisTab = this.parentElement.parentElement.getAttribute('id').replace("-page", "");
+    // document.getElementById(thisTab).classList.add("active");
 
-    // showAlert(setMeta(dataProofProfil, dataProofIntent, dataproofTK))
+    // // showAlert(setMeta(dataProofProfil, dataProofIntent, dataproofTK))
     
-    var a = document.getElementsByClassName("noSoftproof");
-    var b;
-    for (b = 0; b < a.length; b++) {
-      a[b].classList.remove("checked");
-    }
+    // var a = document.getElementsByClassName("noSoftproof");
+    // var b;
+    // for (b = 0; b < a.length; b++) {
+    //   a[b].classList.remove("checked");
+    // }
     menuCommand(2982);menuCommand(2986);menuCommand(2986);
-  })
+  }
+  });
 }
 
 
 for (const noSoftproof of noSoftproofs) {
-  noSoftproof.addEventListener('click', function (event) {
+  noSoftproof.addEventListener('click', async function () {
+    const app = require("photoshop").app;
+    if (app.documents.length != 0) {
+    // console.log(noSoftproof);
+    await toggleProofColors();
+    await delMeta();
+    await setUI();
 
-    if (!this.classList.contains("checked")) {
-      toggleProofColors();
-      // loadScript("[panel] softproof2meta delete")
-      delMeta();
-      var element = document.getElementById("proofinfo");
-      element.innerHTML = "no Softproof";
-      // this.classList.add("checked");
+    // if (!this.classList.contains("checked")) {
+    //   await toggleProofColors();
+    //   // loadScript("[panel] softproof2meta delete")
+    //   await delMeta();
+      
+    //   var element = document.getElementById("proofinfo");
+    //   element.innerHTML = "no Softproof";
+    //   this.classList.add("checked");
 
-      var d;
-      for(d=0; d<noSoftproofs.length; d++ ) {                          // check all noSoftproof-Radios
-        noSoftproofs[d].checked = true;
-        noSoftproofs[d].classList.add("checked");
-      }
+    //   var d;
+    //   for(d=0; d<noSoftproofs.length; d++ ) {                          // check all noSoftproof-Radios
+    //     noSoftproofs[d].checked = true;
+    //     noSoftproofs[d].classList.add("checked");
+    //   }
 
-      var h = document.getElementsByClassName("sp-tab");
-      var i;
-      for (i = 0; i < h.length; i++) {
-        h[i].classList.remove("active");
-      }
-    }
+    //   var h = document.getElementsByClassName("sp-tab");
+    //   var i;
+    //   for (i = 0; i < h.length; i++) {
+    //     h[i].classList.remove("active");
+    //   }
+    //   await setUI_del();
+    // }
+    // else {
+    //   console.log("noSoftproof found");
+    // }
     menuCommand(2982);menuCommand(2986);menuCommand(2986);
+    }
   })
 }
 
@@ -137,7 +158,6 @@ async function showAlert(message) {
   const app = require('photoshop').app;
   await app.showAlert(message);
 }
-
 
 async function setSoftproof(_profil, _intent, _mapBlack) {
   const batchPlay = require("photoshop").action.batchPlay;
@@ -159,6 +179,29 @@ async function setSoftproof(_profil, _intent, _mapBlack) {
     });
 }
 
+async function getSoftProof() {
+  const batchPlay = require("photoshop").action.batchPlay;
+  const result = await batchPlay(
+  [
+    {
+        "_obj": "proofSetup",
+        "_target": [
+          {
+              "_ref": "application",
+              "_enum": "ordinal",
+              "_value": "targetEnum"
+          }
+        ],
+        "_options": {
+          "dialogOptions": "silent"
+        }
+    }
+  ],{
+    "synchronousExecution": false,
+    "modalBehavior": "fail"
+  });
+  return result[0];
+}
 
 async function toggleProofColors() {
   const batchPlay = require("photoshop").action.batchPlay;
@@ -197,7 +240,6 @@ async function loadScript(_name) {
       // menuCommand(2982);menuCommand(2986);menuCommand(2986);
 }
 
-
 async function setXMPMetaData(xmp) {
   const batchPlay = require("photoshop").action.batchPlay;
   const result = await batchPlay(
@@ -221,7 +263,6 @@ async function setXMPMetaData(xmp) {
     }
   );
 }
-
 
 async function getXMPMetaData() {
   const batchPlay = require("photoshop").action.batchPlay;
@@ -310,11 +351,13 @@ async function setMeta(_setProofProfil, _setProofIntent, _setProofTK, _setProofG
   // console.log(serialized);
   await setXMPMetaData(serialized);
   // console.log("setMeta!");
-  await getMeta();
+  // await getMeta();
+  // await setUI();
 }
 
 
 async function getMeta() {
+  console.log("start getMeta");
   const xmpString = await getXMPMetaData();
   const doc = await new DOMParser().parseFromString(xmpString, 'text/xml');
 
@@ -338,18 +381,16 @@ async function getMeta() {
     }
 
     document.querySelectorAll('sp-radio[data-proofProfil="'+metaProofProfil+'"][data-proofIntent="'+metaProofIntent+'"][data-proofTK="'+metaProofTK+'"]')[0].checked = true;
-
+    console.log("getMeta-> " + metaProofProfil +" - "+ metaProofIntent +" - "+ metaProofTK +" - "+ metaProofGroup);
     // for(e = 0; e < noSoftproofs.length; e++ ) {                          // uncheck all noSoftproof-Radios
     //   noSoftproofs[e].checked = false;
     // }
 
 
-    
-
     // console.log(metaProofProfil);
     // console.log(metaProofIntent);
     // console.log(metaProofTK);
-    console.log("end getMeta if true");
+    // console.log("end getMeta if true");
   
 
   } else {
@@ -362,7 +403,9 @@ async function getMeta() {
       buttons[k].checked = false;
     }
     document.querySelectorAll('sp-radio')[0].checked = true;
+    console.log("no Softproof");
   }
+  console.log("end getMeta");
 }
 
 
@@ -370,66 +413,179 @@ async function delMeta() {
   const xmpString = await getXMPMetaData();
   const doc = await new DOMParser().parseFromString(xmpString, 'text/xml');
 
-
   try {
     doc.getElementsByTagName("rdf:Description")[0].removeAttribute("xmlns:" + ns + "");
-  } catch (e) {}
+  } catch (e) {console.log("Error " + e)}
 
   try {
-    var profilElem = doc.getElementsByTagName(ns + ":" + profil)[0];
+    var profilElem = doc.getElementsByTagName(ns + ":" + profil);
     doc.documentElement.removeChild(profilElem);
-  } catch (e) {}
+  } catch (e) {console.log("Error " + e + profilElem)}
 
   try {
-    var intentElem = doc.getElementsByTagName(ns + ":" + intent)[0];
+    var intentElem = doc.getElementsByTagName(ns + ":" + intent);
     doc.documentElement.removeChild(intentElem);
-  } catch (e) {}
+  } catch (e) {console.log("Error " + e)}
 
   try {
-    var tkElem = doc.getElementsByTagName(ns + ":" + tk)[0];
+    var tkElem = doc.getElementsByTagName(ns + ":" + tk);
     doc.documentElement.removeChild(tkElem);
-  } catch (e) {}
+  } catch (e) {console.log("Error " + e)}
+
+  try {
+    var groupElem = doc.getElementsByTagName(ns + ":" + group);
+    doc.documentElement.removeChild(groupElem);
+  } catch (e) {console.log("Error " + e)}
 
   const serialized = await new XMLSerializer().serializeToString(doc);
   await setXMPMetaData(serialized);
 }
 
 
-async function setUI() {
 
+
+async function setUI() {
+  // console.log("setUI start");
+  const xmpString = await getXMPMetaData();
+  const doc = await new DOMParser().parseFromString(xmpString, 'text/xml');
+
+  // IF METAPROOF-TAG FOUND ###############################
+  if ((doc.getElementsByTagName(ns + ":" + profil).length != 0) && (doc.getElementsByTagName(ns + ":" + intent).length != 0) && (doc.getElementsByTagName(ns + ":" + tk).length != 0)) {
+    var metaProofProfil = doc.getElementsByTagName(ns + ":" + profil)[0].childNodes[0].nodeValue;
+    var metaProofIntent = doc.getElementsByTagName(ns + ":" + intent)[0].childNodes[0].nodeValue;
+    var metaProofTK = doc.getElementsByTagName(ns + ":" + tk)[0].childNodes[0].nodeValue;
+    var metaProofGroup = "";
+    if (doc.getElementsByTagName(ns + ":" + group).length != 0) {
+      var metaProofGroup = doc.getElementsByTagName(ns + ":" + group)[0].childNodes[0].nodeValue; 
+    } 
+    
+    proofinfo.innerHTML = metaProofProfil + " – " + metaProofIntent;
+
+
+    var j;
+    for(j = 0; j < buttons.length; j++ ) {                          // uncheck all other radios
+      buttons[j].checked = false;
+    }
+    try {document.querySelectorAll('sp-radio[data-proofProfil="'+metaProofProfil+'"][data-proofIntent="'+metaProofIntent+'"][data-proofTK="'+metaProofTK+'"]')[0].checked = true}
+    catch(e){}
+
+    var f = document.getElementsByClassName("sp-tab");              // uncheck all tabs
+    var g;
+    for (g = 0; g < f.length; g++) {
+      f[g].classList.remove("active", "selected");
+    }
+    try{document.getElementById(metaProofGroup+"-tab").classList.add("active", "selected")} // check spezific tab
+    catch(e){}
+
+    var f = document.getElementsByClassName("sp-tab-page");         // uncheck all tab-pages
+    var g;
+    for (g = 0; g < f.length; g++) {
+      f[g].classList.remove("active", "visible");
+    }
+    try {document.getElementById(metaProofGroup+"-tab-page").classList.add("active", "visible")} // check spezific tab-page
+    catch(e){}
+    // console.log("setUI-> " + metaProofProfil +" - "+ metaProofIntent +" - "+ metaProofTK +" - "+ metaProofGroup);
+
+
+    var metaProofTK_Boolean = (metaProofTK === 'true');               // convert metaProofTK to boolean
+    await setSoftproof(metaProofProfil, metaProofIntent, metaProofTK_Boolean)  // set SoftProof
+
+  } 
+
+  // IF NO METAPROOF-TAG FOUND ############################# 
+  else {
+    await setUI_noSoftproof();
+
+    // console.log("no Softproof");
+  }
+
+  // console.log("setUI end");
+}
+
+
+async function setUI_noSoftproof() {
+  var element = document.getElementById("proofinfo");
+  element.innerHTML = "no Softproof";
+
+  var k;
+  for(k = 0; k < buttons.length; k++ ) {                          // uncheck all other radios
+    buttons[k].checked = false;
+  }
+  document.querySelectorAll('sp-radio')[0].checked = true;
+
+  var d;
+  for(d=0; d<noSoftproofs.length; d++ ) {                          // check all noSoftproof-Radios
+    noSoftproofs[d].checked = true;
+    noSoftproofs[d].classList.add("checked");
+  }
+
+  
+  var f = document.getElementsByClassName("sp-tab");
+  var g;
+  for (g = 0; g < f.length; g++) {
+    f[g].classList.remove("active");
+  }
+
+  var f = document.getElementsByClassName("sp-tab-page");
+  var g;
+  for (g = 0; g < f.length; g++) {
+    f[g].classList.remove("active");
+  }
 }
 
 
 
 
-// var listener = (e,d) => { console.log(e,d); }
+
+// var listener = function ding() {
+//   // showAlert("dingAlert")
+//   // console.log("ding");
+//   getMeta()
+// }
 // require('photoshop').action.addNotificationListener([
-//     // {
-//     //     event: "select"
-//     // },
-//     // {
-//     //     event: "open"
-//     // },
-//     {
-//       event: "all"
-//   },
+//   // {event: "select"},
+//   // {event: "open"},
+//   {event: "layersFiltered"}       // switch Doc  
 // ], listener);
 
 
-
-var listener2 = function ding() {
-  // showAlert("dingAlert")
-  // console.log("ding");
-  getMeta()
+var listener2 = async function() {
+  await setUI();
 }
 require('photoshop').action.addNotificationListener([
-    // {
-    //     event: "select"
-    // },
-    {
-        event: "open"
-    },
-    {
-      event: "layersFiltered"
-    }
+  {event: "open"},
+  // {event: "select"},
+  {event: "layersFiltered"}       // switch Doc  
 ], listener2);
+
+
+
+
+var listener3 = async function() {
+  var getProofSetup = await getSoftProof();
+  // console.log(getProofSetup.profile);
+  // console.log(getProofSetup.intent._value);
+  // console.log(getProofSetup.mapBlack);
+  await setMeta(getProofSetup.profile, getProofSetup.intent._value, getProofSetup.mapBlack, undefined);
+  await setUI();
+
+}
+require('photoshop').action.addNotificationListener([
+  {event: "proofSetup"}
+], listener3);
+
+
+// var listener4 = function ding4() {
+//   console.log("all");
+// }
+// require('photoshop').action.addNotificationListener([
+//   {event: "all"}
+// ], listener4);
+
+
+var listener5 = async function() {
+  await setUI_noSoftproof();
+}
+require('photoshop').action.addNotificationListener([
+  {event: "close"}
+], listener5);
