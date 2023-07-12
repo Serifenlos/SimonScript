@@ -14,7 +14,7 @@
 
 if (app.documents.length >= 6) {
     anordung_6();
-    anordnung_zoom(-4);
+    anordnung_zoom(0);
 } else {
     alert("zu wenig Bilder\nfür diese Ansicht")
 }

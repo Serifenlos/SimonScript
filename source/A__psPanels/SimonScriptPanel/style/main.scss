@@ -1,4 +1,4 @@
-@import "../../../_assets/node_modules/@csstools/normalize.css/normalize";
+// @import "../../../_assets/node_modules/@csstools/normalize.css/normalize";
 
 body {
     padding: 4px;
@@ -83,6 +83,9 @@ sp-action-button {
     &:active {
         background: #333;
     }
+}
+#checkTL_create {
+    padding-top: 3px;
 }
 
 // :root {

@@ -32,7 +32,11 @@ function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeD
 function flattenImage(){doc.flatten()}
 /*=================================================================================*/
 //FUNCTION schärfen
-function sharp(){var e=getZoomLevel();vollbildmodus(),zoom100();try{executeAction(stringIDToTypeID("unsharpMask"),void 0,DialogModes.ALL)}catch(e){}standardmodus(),setZoom(e)}
+function sharp(){var e=getZoomLevel();
+// vollbildmodus();
+app_panelsVisible()&&togglePalettes(),zoom100();try{executeAction(stringIDToTypeID("unsharpMask"),void 0,DialogModes.ALL)}catch(e){}
+// standardmodus();
+app_panelsVisible()||togglePalettes(),setZoom(e)}
 /*=================================================================================*/
 //FUNCTION convertProfil
 function convertProfile_bySimon(){function e(){editXMP();if(xmpMeta.doesPropertyExist(customNamespace,"proof_profil")&&xmpMeta.doesPropertyExist(customNamespace,"proof_intent")&&xmpMeta.doesPropertyExist(customNamespace,"proof_tk")){var e=xmpMeta.getProperty(customNamespace,"proof_profil"),t=xmpMeta.getProperty(customNamespace,"proof_intent"),o=xmpMeta.getProperty(customNamespace,"proof_tk");return["positiv",e.value,t.value,o.value]}return["negativ"]}if("positiv"==e()[0]){//convert by Meta

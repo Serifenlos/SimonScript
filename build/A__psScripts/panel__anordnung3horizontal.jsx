@@ -9,4 +9,4 @@
 */
 //@include "functions/basic.jsx";
 //@include "functions/view.jsx";
-app.documents.length>=3?(anordung_3horizontal(),anordnung_zoom(-4)):alert("zu wenig Bilder\nfür diese Ansicht");
+app.documents.length>=3?(anordung_3horizontal(),anordnung_zoom(0)):alert("zu wenig Bilder\nfür diese Ansicht");

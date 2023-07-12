@@ -2,6 +2,18 @@
 
 ## application
 
+### _a
+
+<button class="btn" data-clipboard-text=""></button>
+{: .btn_p }
+
+??? " "
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/_a.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_a.js)
+
 ### emptyProtocoll
 ***action***
 das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. Kann nicht rückgängig gemacht werden.
@@ -91,6 +103,42 @@ reset the dialog- and unit-settings to the previous state
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/startScriptFile.js)
+
+### copy
+
+<button class="btn" data-clipboard-text="copy();"></button>
+{: .btn_p }
+
+??? "copy();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/copy.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/copy.js)
+
+### paste_into
+
+<button class="btn" data-clipboard-text="paste_into();"></button>
+{: .btn_p }
+
+??? "paste_into();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/paste_into.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/paste_into.js)
+
+### app_getForegroundColor
+
+<button class="btn" data-clipboard-text="app_getForegroundColor();"></button>
+{: .btn_p }
+
+??? "app_getForegroundColor();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/app_getForegroundColor.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/app_getForegroundColor.js)
 
 ## document
 
@@ -228,6 +276,18 @@ erstelle eine Farbfläche
         * _blue `0-255`
     
 
+### createMask
+
+<button class="btn" data-clipboard-text="createMask();"></button>
+{: .btn_p }
+
+??? "createMask();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/createMask.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createMask.js)
+
 ### gotoMask
 ***action***
 ==TODO toogle Mask/RGB-Layer //  bisher nur im CreateColorLayer verwendet==
@@ -254,6 +314,18 @@ erstelle eine Farbfläche
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoFill.js)
+
+### invert
+
+<button class="btn" data-clipboard-text="invert();"></button>
+{: .btn_p }
+
+??? "invert();"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/invert.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/invert.js)
 
 ### moveLayer
 ***action***
@@ -521,6 +593,62 @@ TODO mit unterer Funktion ersetzt
     
     ??? b
         * _input `number` `string` *idx oder LayerName*
+
+## Adjustment Layer
+
+### adjustLayer_levels_autoLevels
+
+<button class="btn" data-clipboard-text="adjustLayer_levels_autoLevels(_algorithmus, _autoNeutrals);"></button>
+{: .btn_p }
+
+??? "adjustLayer_levels_autoLevels(_algorithmus, _autoNeutrals);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/adjustLayer_levels_autoLevels.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels.js)
+
+???+ a
+    ```js
+    adjustLayer_levels_autoLevels("autoContrast", t)
+    ```
+    
+    ??? b
+        * _algorithmus `autoContrast` `auto` `autoBlackWhite` `autoMachineLearning`
+
+### adjustLayer_levels_autoLevels_wrapper
+
+<button class="btn" data-clipboard-text="adjustLayer_levels_autoLevels_wrapper(__algorithmus, __autoNeutrals);"></button>
+{: .btn_p }
+
+??? "adjustLayer_levels_autoLevels_wrapper(__algorithmus, __autoNeutrals);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/adjustLayer_levels_autoLevels_wrapper.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels_wrapper.js)
+
+### adjustLayer_levels_edit
+
+<button class="btn" data-clipboard-text="adjustLayer_levels_edit(_setRGB_dark, _setRGB_light, _maxRGB_dark, _maxRGB_light, _gammaRGB,  _setRED_dark, _setRGB_light, _maxRED_dark, _maxRED_light, _gammaRED, _setGREEN_dark, _setGREEN_light, _maxGREEN_dark, _maxGREEN_light, _gammaGREEN, _setBLUE_dark, _setBLUE_light, _maxBLUE_dark, _maxBLUE_light, _gammaBLUE);"></button>
+{: .btn_p }
+
+??? "adjustLayer_levels_edit(_setRGB_dark, _setRGB_light, _maxRGB_dark, _maxRGB_light, _gammaRGB,  _setRED_dark, _setRGB_light, _maxRED_dark, _maxRED_light, _gammaRED, _setGREEN_dark, _setGREEN_light, _maxGREEN_dark, _maxGREEN_light, _gammaGREEN, _setBLUE_dark, _setBLUE_light, _maxBLUE_dark, _maxBLUE_light, _gammaBLUE);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/basic/adjustLayer_levels_edit.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_edit.js)
+
+???+ a
+    ```js
+    adjustLayer_levels_edit(0, 255, 0, 255, 1,  0, 255, 0, 255, 1,  0, 255, 0, 255, 1,  0, 255, 0, 255, 1);
+    adjustLayer_levels_edit(null);
+    ```
+    
+    ??? b
+        * with arguments
+        * no argument ot null to reset
 
 ## Image 
 ### SmartObject_edit
@@ -990,6 +1118,4 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_t2s.js)
 
-!!! warning show "not documented functions"
-    - _a
-     - app_getForegroundColor
+!!! warning hide "not documented functions"

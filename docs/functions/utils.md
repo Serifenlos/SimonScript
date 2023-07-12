@@ -218,19 +218,47 @@
 
 ??? "makeVisible();"
     ``` js linenums="1"
-    function makeVisible(){
-        var idShw = charIDToTypeID( "Shw " );
-            var desc808 = new ActionDescriptor();
-            var idnull = charIDToTypeID( "null" );
-                var list11 = new ActionList();
-                    var ref647 = new ActionReference();
-                    var idLyr = charIDToTypeID( "Lyr " );
-                    var idOrdn = charIDToTypeID( "Ordn" );
-                    var idTrgt = charIDToTypeID( "Trgt" );
-                    ref647.putEnumerated( idLyr, idOrdn, idTrgt );
-                list11.putReference( ref647 );
-            desc808.putList( idnull, list11 );
-        executeAction( idShw, desc808, DialogModes.NO );
+    // function makeVisible() {
+    //     var idShw = charIDToTypeID("Shw ");
+    //     var desc808 = new ActionDescriptor();
+    //     var idnull = charIDToTypeID("null");
+    //     var list11 = new ActionList();
+    //     var ref647 = new ActionReference();
+    //     var idLyr = charIDToTypeID("Lyr ");
+    //     var idOrdn = charIDToTypeID("Ordn");
+    //     var idTrgt = charIDToTypeID("Trgt");
+    //     ref647.putEnumerated(idLyr, idOrdn, idTrgt);
+    //     list11.putReference(ref647);
+    //     desc808.putList(idnull, list11);
+    //     executeAction(idShw, desc808, DialogModes.NO);
+    // }
+    
+    
+    function makeVisible(_input) {
+        try {
+            var d = new ActionDescriptor();
+            var l = new ActionList();
+            var r = new ActionReference();
+            if (typeof _input == "number") {
+                // show by Index
+                r.putIndex(s2t("layer"), _input);
+            } else if (typeof _input == "string") {
+                if (layer_checkExistence(_input)) {
+                    // show by Layername
+                    r.putName(s2t('layer'), _input);
+                } else {
+                    // show by Layername via Regex // first hit
+                    r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+                }
+                // } else if (typeof _input == "boolean" || typeof _input == 'undefined') {
+            } else if (typeof _input === "undefined") {
+                // show activeLayer
+                r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+            }
+            l.putReference(r);
+            d.putList(c2t("null"), l);
+            executeAction(s2t("show"), d, DialogModes.NO)
+        } catch (e) {}
     }
     ```
 
@@ -259,15 +287,41 @@
     //     executeAction(idHd, desc809, DialogModes.NO);
     // }
     
-    // hide();
-    function hide() {
-        var d = new ActionDescriptor();
-        var l = new ActionList();
-        var rl = new ActionReference();
-        rl.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
-        l.putReference(rl);
-        d.putList(c2t("null"), l);
-        executeAction(s2t("hide"), d, DialogModes.NO);
+    // function hide() {
+    //     var d = new ActionDescriptor();
+    //     var l = new ActionList();
+    //     var rl = new ActionReference();
+    //     rl.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+    //     l.putReference(rl);
+    //     d.putList(c2t("null"), l);
+    //     executeAction(s2t("hide"), d, DialogModes.NO);
+    // }
+    
+    function hide(_input) {
+        try {
+            var d = new ActionDescriptor();
+            var l = new ActionList();
+            var r = new ActionReference();
+            if (typeof _input == "number") {
+                // hide by Index
+                r.putIndex(s2t("layer"), _input);
+            } else if (typeof _input == "string") {
+                if (layer_checkExistence(_input)) {
+                    // hide by Layername
+                    r.putName(s2t('layer'), _input);
+                } else {
+                    // hide by Layername via Regex // first hit
+                    r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+                }
+                // } else if (typeof _input == "boolean" || typeof _input == 'undefined') {
+            } else if (typeof _input === "undefined") {
+                // hide activeLayer
+                r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+            }
+            l.putReference(r);
+            d.putList(c2t("null"), l);
+            executeAction(s2t("hide"), d, DialogModes.NO)
+        } catch (e) {}
     }
     ```
 
@@ -1675,34 +1729,39 @@
 ??? "toogleOpenCloseSet();"
     ``` js linenums="1"
     function toogleOpenCloseSet() {
+        app.activeDocument.suspendHistory("toogleOpenCloseSet", "toogleOpenCloseSet_inner()");
+    }
+    
+    
+    function toogleOpenCloseSet_inner() {
         myALayerIDX = getActiveLayerIndex();
         myGroupP = app.activeDocument.activeLayer;
         if (!isLayerSet(myALayerIDX)) {
-          myGroupP = app.activeDocument.activeLayer.parent;
-          try {
-            app.activeDocument.activeLayer = myGroupP
-          } catch (err) {
-            return
-          };
-          if (getNbOfChilds() > 1) {
-            if (myGroupP.typename != "Document") {
-              if (isSetOpened1(myGroupP)) {
-                closeGroup(myGroupP)
-              } else {
-                openGroup1(myGroupP)
-              };
-            }
-          }
-        } else {
-          if (getNbOfChilds() > 1) {
-            if (isSetOpened1(myGroupP)) {
-              closeGroup(myGroupP)
-            } else {
-              openGroup1(myGroupP)
+            myGroupP = app.activeDocument.activeLayer.parent;
+            try {
+                app.activeDocument.activeLayer = myGroupP
+            } catch (err) {
+                return
             };
-          }
+            if (getNbOfChilds() > 1) {
+                if (myGroupP.typename != "Document") {
+                    if (isSetOpened1(myGroupP)) {
+                        closeGroup(myGroupP)
+                    } else {
+                        openGroup1(myGroupP)
+                    };
+                }
+            }
+        } else {
+            if (getNbOfChilds() > 1) {
+                if (isSetOpened1(myGroupP)) {
+                    closeGroup(myGroupP)
+                } else {
+                    openGroup1(myGroupP)
+                };
+            }
         }
-      }
+    }
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet.js)
@@ -2197,12 +2256,32 @@
 
 ??? "getVisible();"
     ``` js linenums="1"
-    function getVisible(){
-        var ref = new ActionReference();
-         ref.putEnumerated( charIDToTypeID('Lyr '), charIDToTypeID('Ordn'), charIDToTypeID('Trgt') );
-         var vis = executeActionGet(ref).getInteger(stringIDToTypeID('visible'));
-         return vis;
-      }
+    // function getVisible() {
+    //     var ref = new ActionReference();
+    //     ref.putEnumerated(charIDToTypeID('Lyr '), charIDToTypeID('Ordn'), charIDToTypeID('Trgt'));
+    //     var vis = executeActionGet(ref).getInteger(stringIDToTypeID('visible'));
+    //     return vis;
+    // }
+    
+    // get Visibility by IDX, name or activeLayer
+    function getVisible(_input) {
+        try {
+            var r = new ActionReference();
+            if (typeof _input == "number") {
+                r.putIndex(s2t("layer"), _input);
+            } else if (typeof _input == "string") {
+                if (layer_checkExistence(_input)) {
+                    r.putName(s2t('layer'), _input);
+                } else {
+                    r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+                }
+            } else if (typeof _input === 'undefined') {
+                r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+            }
+            var vis = executeActionGet(r).getInteger(s2t('visible'));
+            return vis;
+        } catch (e) {}
+    }
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisible.js)
@@ -2231,25 +2310,68 @@
 
 ??? "toogleVisibility();"
     ``` js linenums="1"
-    function toogleVisibility(){
-        if(getVisible()){
-              var desc = new ActionDescriptor();
-                  var list2 = new ActionList();
-                      var ref = new ActionReference();
-                      ref.putEnumerated( charIDToTypeID( "Lyr " ), charIDToTypeID( "Ordn" ), charIDToTypeID( "Trgt" ) );
-                  list2.putReference( ref );
-              desc.putList( charIDToTypeID( "null" ), list2 );
-          executeAction( charIDToTypeID( "Hd  " ), desc, DialogModes.NO );
-        }else{
-            var desc = new ActionDescriptor();
-                var list2 = new ActionList();
-                    var ref = new ActionReference();
-                    ref.putEnumerated( charIDToTypeID( "Lyr " ), charIDToTypeID( "Ordn" ), charIDToTypeID( "Trgt" ) );
-                list2.putReference( ref );
-            desc.putList( charIDToTypeID( "null" ), list2 );
-        executeAction( charIDToTypeID( "Shw " ), desc, DialogModes.NO );
+    // function toogleVisibility(){
+    //     if(getVisible()){
+    //           var desc = new ActionDescriptor();
+    //               var list2 = new ActionList();
+    //                   var ref = new ActionReference();
+    //                   ref.putEnumerated( charIDToTypeID( "Lyr " ), charIDToTypeID( "Ordn" ), charIDToTypeID( "Trgt" ) );
+    //               list2.putReference( ref );
+    //           desc.putList( charIDToTypeID( "null" ), list2 );
+    //       executeAction( charIDToTypeID( "Hd  " ), desc, DialogModes.NO );
+    //     }else{
+    //         var desc = new ActionDescriptor();
+    //             var list2 = new ActionList();
+    //                 var ref = new ActionReference();
+    //                 ref.putEnumerated( charIDToTypeID( "Lyr " ), charIDToTypeID( "Ordn" ), charIDToTypeID( "Trgt" ) );
+    //             list2.putReference( ref );
+    //         desc.putList( charIDToTypeID( "null" ), list2 );
+    //     executeAction( charIDToTypeID( "Shw " ), desc, DialogModes.NO );
+    //     }
+    //   }
+    
+    // toogle by IDX, name or activeLayer
+    function toogleVisibility(_input) {
+        try {
+            var d = new ActionDescriptor();
+            var l = new ActionList();
+            var r = new ActionReference();
+    
+            if (getVisible(_input)) {
+                if (typeof _input == "number") {
+                    r.putIndex(s2t("layer"), _input);
+                } else if (typeof _input == "string") {
+                    if (layer_checkExistence(_input)) {
+                        r.putName(s2t('layer'), _input);
+                    } else {
+                        r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+                    }
+                } else if (typeof _input === 'undefined') {
+                    r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+                }
+                l.putReference(r);
+                d.putList(c2t("null"), l);
+                executeAction(s2t("hide"), d, DialogModes.NO);
+            } else {
+                if (typeof _input == "number") {
+                    r.putIndex(s2t("layer"), _input);
+                } else if (typeof _input == "string") {
+                    if (layer_checkExistence(_input)) {
+                        r.putName(s2t('layer'), _input);
+                    } else {
+                        r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+                    }
+                } else if (typeof _input === 'undefined') {
+                    r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+                }
+                l.putReference(r);
+                d.putList(c2t("null"), l);
+                executeAction(s2t("show"), d, DialogModes.NO);
+            }
+        } catch (e) {
+            alert("Error by toogleVisibility: " + e)
         }
-      }
+    }
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleVisibility.js)

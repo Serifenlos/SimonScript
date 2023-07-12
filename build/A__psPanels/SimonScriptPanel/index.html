@@ -3,24 +3,11 @@
 
 <head>
   <script src="index.js"></script>
+  <!-- <script src="index_v2.js"></script> -->
   <!-- <script src="./js/index_es.js"></script> -->
   <link rel="stylesheet" href="./style/main.css">
 </head>
-<style>
-  body {
-    color: black;
 
-  }
-
-  /* sp-action-button {
-    padding: 0;
-    line-height: 2rem;
-    margin: 0;
-    font-size: 12px;
-    height: 18px;
-    background-color: lightgray;
-  } */
-</style>
 
 <body>
 
@@ -48,19 +35,44 @@
   
   <sp-action-group>
     <sp-action-button size="S" id="grau">Grau</sp-action-button>
-    <sp-action-button size="S" id="bunt">bunt</sp-action-button>
-    <sp-action-button size="S" id="unbunt">unbunt</sp-action-button>
     <sp-action-button size="S" id="hochpass">Hochpass</sp-action-button>
     <sp-action-button size="S" id="mirco">Mirco</sp-action-button>
     <sp-action-button size="S" id="saft">Saft</sp-action-button>
   </sp-action-group>
 
   <sp-action-group>
+    <sp-action-button size="S" id="motivMask">Motiv</sp-action-button>
+    <sp-action-button size="S" id="skyMask">Sky</sp-action-button>
+    <!-- <sp-action-button size="S" id="bunt_old">b</sp-action-button>
+    <sp-action-button size="S" id="unbunt_old">u</sp-action-button> -->
+    <sp-action-button size="S" id="bunt">bunt</sp-action-button>
+    <sp-action-button size="S" id="unbunt">unbunt</sp-action-button>
+    <!-- <sp-action-button size="S" id="depthMask_old">t</sp-action-button> -->
+    <sp-action-button size="S" id="depthMask">tief</sp-action-button>
+  </sp-action-group>
+
+  <sp-action-group>
     <sp-action-button size="S" id="dodge">D</sp-action-button>
     <sp-action-button size="S" id="burn">B</sp-action-button>
-    <sp-action-button size="S" id="db">D&B</sp-action-button>
-    <sp-action-button size="S" id="db_hochtief">D+B△▽</sp-action-button>
+    <sp-action-button size="S" id="db">D+B</sp-action-button>
+    <sp-action-button size="S" id="db_mid">D+B⬨</sp-action-button>
+    <!-- <sp-action-button size="S" id="db_hochtief">D+B△▽</sp-action-button> -->
+    <sp-action-button size="S" id="db_hochmidtief">D+B△⬨▽</sp-action-button>
+    <sp-action-button size="S" id="checkTL_minus">–</sp-action-button>
+    <sp-action-button size="S" id="checkTL_create">◯</sp-action-button>
+    <sp-action-button size="S" id="checkTL_plus">+</sp-action-button>
+    <sp-action-button size="S" id="autoLevel">auto</sp-action-button>
   </sp-action-group>
+
+  <!-- <sp-action-group>
+    <sp-action-button size="S" id="autoLevel1">AutoLevel 1</sp-action-button>
+    <sp-action-button size="S" id="autoLevel1+">+</sp-action-button>
+    <sp-action-button size="S" id="autoLevel2">2</sp-action-button>
+    <sp-action-button size="S" id="autoLevel2+">+</sp-action-button>
+    <sp-action-button size="S" id="autoLevel3">3</sp-action-button>
+    <sp-action-button size="S" id="autoLevel3+">+</sp-action-button>
+    <sp-action-button size="S" id="autoLevel4">4</sp-action-button>
+  </sp-action-group> -->
 
   <sp-action-group>
     <sp-action-button size="S" id="layerExpand">⤱</sp-action-button>

@@ -45,7 +45,7 @@ function startschuss() {
     createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
     toogleVisibility();
     createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);
-    DodgeBurn_highlow(true);
+    DodgeBurn_highmidlow(true);
     selectLayer("up", 1);
     createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f);
     createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f);

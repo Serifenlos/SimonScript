@@ -7,12 +7,7 @@
 </javascriptresource>
 // END__HARVEST_EXCEPTION_ZSTRING
 */
-if(app.documents.length<=0)alert("Fehler\nÖffne zunächst ein Bild!");else{function run(){try{function e(){return!(1!=getLayersNb()||!hasBackground())}if(doc.activeLayer.kind!=LayerKind.NORMAL||getLayersNb()>=2||e()){
-// if ((doc.activeLayer.kind != LayerKind.NORMAL) || (getLayersNb() >= 2) || ((getLayersNb() == 1) && (hasBackground()))) {
-// alert("hier");
-var s=0;
-// alert(getActiveLayerIndex());
-if(dialog_chooseLayer(),1===s)return!1;doc.suspendHistory("Startschuss","startschuss();")}else{if(1==debug)
+if(app.documents.length<=0)alert("Fehler\nÖffne zunächst ein Bild!");else{function run(){try{if(doc.activeLayer.kind!=LayerKind.NORMAL||getLayersNb()>=2||1==getLayersNb()&&hasBackground()){dialog_chooseLayer(),doc.suspendHistory("Startschuss","startschuss();")}else{if(1==debug)
 // var x = "0"; // Was ist das?
 return void startschuss();
 // alert("dort");

@@ -19,6 +19,8 @@ for (i = links.length - 1; i >= 0; i--) {
 
     // if (/.*(__RGB).*/.test(link_RGB.name)) {
     var regexTest = new RegExp(selector_RGB);
+    // alert(regexTest);
+    // alert(link_RGB.name);
     if (regexTest.test(link_RGB.name)) {
 
         var prefix, suffix;

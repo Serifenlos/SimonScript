@@ -7,9 +7,9 @@
 </javascriptresource>
 // END__HARVEST_EXCEPTION_ZSTRING
 */
-var run_all=!0,run_3x2quer=!1,run_3x2hoch=!1,run_4x3quer=!1,run_4x3hoch=!1,run_1x1=!1,run_DinAquer=!1,run_DinAhoch=!1,run_pano=!0,outputFileFormat="JPG",outputResize=2400,outputDesination="web",doCrop=!0;function cTID(e){return app.charIDToTypeID(e)}function sTID(e){return app.stringIDToTypeID(e)}prefSave(),prefSet(),inputFolder=Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");var fileList=inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i),masterFolder=new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
+var run_all=!0,run_3x2quer=!1,run_3x2hoch=!1,run_4x3quer=!1,run_4x3hoch=!1,run_1x1=!1,run_DinAquer=!1,run_DinAhoch=!1,run_pano=!0,outputFileFormat="JPG",outputResize=2400,outputDesination="web",doCrop=!0;function cTID(e){return app.charIDToTypeID(e)}function sTID(e){return app.stringIDToTypeID(e)}prefSave(),prefSet(),inputFolder=Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");var fileList=inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i),masterFolder=new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
+// var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
 // var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER_maximal");
-// var masterFolder = new Folder("~/11F <-> Simon/Shop/2019-09/RGB/MASTER");
 masterFolder.exists||errorExit("kein Master-Folder!");var tempFolder=new Folder(masterFolder+"/.temp");
 // var tempFolder = new Folder("~/11F <-> Simon/Shop/2019-09/material/_test");
 tempFolder.exists||tempFolder.create();
@@ -17,7 +17,8 @@ tempFolder.exists||tempFolder.create();
 // var outputFolder = new Folder("~/11F <-> Simon/Shop/2019-09/material/_output");
 // var outputFolder = new Folder("~/Desktop/Simon/Plattenmontage/test_output");
 // var outputFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Bilderwelt/Plattenmontage+");
-var outputFolder=new Folder("/Volumes/homes/pixoprint/11F_BW_2021-03__moods");if(outputFolder.exists||outputFolder.create(),run_all||run_3x2quer)for(var i=0;i<fileList.length;i++){if((thisFileName=GetFileNameOnly((thisFile=fileList[i]).name)).match(/__45x30/g)){/* 3x2 */
+// var outputFolder = new Folder("/Volumes/homes/pixoprint/11F_BW_2021-03__moods");
+var outputFolder=new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/Mood_Output");if(outputFolder.exists||outputFolder.create(),run_all||run_3x2quer)for(var i=0;i<fileList.length;i++){if((thisFileName=GetFileNameOnly((thisFile=fileList[i]).name)).match(/__45x30/g)){/* 3x2 */
 var doc_file=new File(thisFile);if(app.open(doc_file),(doc=app.activeDocument).width>doc.height){/* QUER */
 var docFileName_decode=decodeURI(doc_file.name);app.documents.getByName(docFileName_decode).close(SaveOptions.DONOTSAVECHANGES),format="3x2",seitenverhältnis="quer",originalName=thisFileName.replace("__45x30","").replace("__RGB",""),createBlanko(),placeTemp(doc_file,0,0,100,100,0);var spezial="";saveTempFile(temp_1=new File(tempFolder+"/"+format+"-"+seitenverhältnis+spezial)),app.documents.getByName("blanko").close(SaveOptions.DONOTSAVECHANGES),processItem("Acryl","detail",temp_1),processItem("Acryl","full",temp_1),processItem("Alu","detail",temp_1),processItem("Alu","full",temp_1),processItem("FineArt","detail",temp_1),processItem("Leinwand","detail",temp_1),processItem("Leinwand","full",temp_1),processItem("Poster","detail",temp_1)}}closeAll()}if(run_all||run_3x2hoch)for(i=0;i<fileList.length;i++){if((thisFileName=GetFileNameOnly((thisFile=fileList[i]).name)).match(/__45x30/g)){/* 3x2 */
 doc_file=new File(thisFile);if(app.open(doc_file),(doc=app.activeDocument).width<doc.height){/* HOCH */

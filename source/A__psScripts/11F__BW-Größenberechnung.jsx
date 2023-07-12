@@ -65,7 +65,7 @@ function process_BW(_file) {
 
     if (ratio >= 1.48 && ratio <= 1.52) {
 
-        var sizes = [180, 150, 120, 90, 75, 60, 45];
+        var sizes = [180, 150, 120, 90, 75, 60, 45, 30];
         var longSite = get_longSite();
 
         for (var i = 0; i < sizes.length; i++) {
@@ -84,6 +84,7 @@ function process_BW(_file) {
                 else if (soll ==  75){var maße =   "75x50"}
                 else if (soll ==  60){var maße =   "60x40"}
                 else if (soll ==  45){var maße =   "45x30"}
+                else if (soll ==  30){var maße =   "30x20"}
                 newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
                 saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
             }
@@ -167,6 +168,31 @@ function process_BW(_file) {
                 else if (soll == 125){var maße =  "125x50"}
                 else if (soll == 100){var maße =  "100x40"}
                 else if (soll == 62.5){var maße =  "62x25"}
+                newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
+                saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
+            } 
+            resetImage();
+        }
+    }
+
+    else if (ratio >= 1.40 && ratio <= 1.44) {
+        var sizes = [118.9, 84.1, 59.4, 42, 29.7];
+        var longSite = get_longSite();
+
+        for (var i = 0; i < sizes.length; i++) {
+            flattenImage();
+            try{if(getBitDepth(!8)){setBitDepth(8)}}catch(e){};
+            clearAllGuides();
+            var soll = parseFloat(sizes[i]);
+            var ist = parseFloat(longSite);
+
+            if(soll <= ist) {
+                img_resize(soll, 300);
+                if      (soll == 118.9){var maße = "A0"}
+                else if (soll == 84.1){var maße =  "A1"}
+                else if (soll == 59.4){var maße =  "A2"}
+                else if (soll == 42){var maße =  "A3"}
+                else if (soll == 29.7){var maße =  "A4"}
                 newFilePath = new File(outputFolder + "/" + thisFileName + "__" + maße);
                 saveFile_JPG(11, true, "FormatOptions.OPTIMIZEDBASELINE", "MatteType.NONE");
             } 
