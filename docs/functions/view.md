@@ -601,6 +601,101 @@ set_doc_position(50, 50)
         * left ++alt+a++
         * right ++alt+s++
 
-!!! warning show "not documented functions"
-    - anordung_zoom
-     - rulersVisibility
+### anordung_zoom
+
+<button class="btn" data-clipboard-text="anordnung_zoom(_zoomSteps);"></button>
+{: .btn_p }
+
+??? "anordnung_zoom(_zoomSteps);"
+    ``` js linenums="1"
+    function anordnung_zoom(_zoomSteps) {
+        if (app.documents.length > 0) {
+            var theFirst = app.activeDocument;
+            var theDocs = app.documents;
+    
+            for (var m = 0; m < theDocs.length; m++) {
+                var theDoc = theDocs[m];
+                app.activeDocument = theDoc;
+    
+                try {
+                    fitScreen();
+                    if (_zoomSteps != 0) {
+                        zoomSteps(_zoomSteps);
+                    }
+                } catch (e) {
+                    alert('Error')
+                };
+            };
+            app.activeDocument = theFirst;
+        };
+    }
+    
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_zoom.js)
+
+### app_panelsVisible
+
+<button class="btn" data-clipboard-text="app_panelsVisible();"></button>
+{: .btn_p }
+
+??? "app_panelsVisible();"
+    ``` js linenums="1"
+    // https://community.adobe.com/t5/photoshop-ecosystem-discussions/alert-togglepalettes/m-p/10683352#M271446
+    function app_panelsVisible() {
+        try {
+            var r = new ActionReference();
+            r.putProperty(stringIDToTypeID("property"), stringIDToTypeID("panelList"));
+            r.putEnumerated(stringIDToTypeID("application"), stringIDToTypeID("ordinal"), stringIDToTypeID("targetEnum"));
+    
+            var list = executeActionGet(r).getList(stringIDToTypeID("panelList"));
+    
+            var viz = false;
+    
+            for (var i = 0; i < list.count; i++) {
+                var obj = list.getObjectValue(i);
+    
+                var id = obj.getString(stringIDToTypeID("ID"));
+    
+                // skip some panels if shift+tab was pressed
+    
+                if (id == "panelid.static.toolbar") continue; // skip tool panel
+                if (id == "panelid.static.options") continue; // skip options panel
+                if (id == "panelid.static.blrb") continue; // what is panelid.static.blrb ??
+    
+    
+                if (obj.getBoolean(stringIDToTypeID("visible"))) {
+                    viz = true;
+                    break;
+                }
+            }
+    
+            return viz;
+        } catch (e) {
+            throw (e);
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/app_panelsVisible.js)
+
+### rulersVisibility
+
+<button class="btn" data-clipboard-text="rulersVisibility();"></button>
+{: .btn_p }
+
+??? "rulersVisibility();"
+    ``` js linenums="1"
+    function rulersVisibility() {
+        var r = new ActionReference();
+        r.putProperty(charIDToTypeID("Prpr"), stringIDToTypeID("rulersVisibility"));
+        r.putEnumerated(charIDToTypeID("Dcmn"), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+        return executeActionGet(r).getBoolean(stringIDToTypeID("rulersVisibility"));
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/rulersVisibility.js)
+
+        
+
+!!! warning hide "not documented functions"

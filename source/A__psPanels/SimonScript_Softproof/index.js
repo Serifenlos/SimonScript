@@ -107,7 +107,7 @@ for (const button of buttons) {
     // for (b = 0; b < a.length; b++) {
     //   a[b].classList.remove("checked");
     // }
-    menuCommand(2982);menuCommand(2986);menuCommand(2986);
+    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
   }
   });
 }
@@ -147,7 +147,7 @@ for (const noSoftproof of noSoftproofs) {
     // else {
     //   console.log("noSoftproof found");
     // }
-    menuCommand(2982);menuCommand(2986);menuCommand(2986);
+    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
     }
   })
 }

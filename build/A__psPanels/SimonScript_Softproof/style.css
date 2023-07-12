@@ -398,38 +398,31 @@ sp-textarea {
   height: 240px;
   padding: 0;
   margin: 0;
-  display: -webkit-flex;
   display: flex; }
 
 :not(.xd) dialog form {
   width: 100vw;
   height: 100vh;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   padding: 32px; }
 
 :not(.xd) dialog form > * {
-  -webkit-flex: 0 0 auto;
-          flex: 0 0 auto;
+  flex: 0 0 auto;
   margin: 8px; }
 
 .xd dialog form sp-divider {
   width: calc(100% - 16px); }
 
 dialog form sp-body {
-  -webkit-flex: 1 1 auto;
-          flex: 1 1 auto; }
+  flex: 1 1 auto; }
 
 .wrapper {
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  -webkit-flex-direction: column;
-          flex-direction: column;
-  display: -webkit-flex;
+  flex-direction: column;
   display: flex;
   padding: 12px;
   overflow: hidden; }
@@ -440,12 +433,9 @@ dialog form sp-body {
 
 /* tabs */
 .sp-tabs {
-  -webkit-flex: 0 0 auto;
-          flex: 0 0 auto;
-  display: -webkit-flex;
+  flex: 0 0 auto;
   display: flex;
-  -webkit-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
   border-bottom: 2px solid #3E3E3E; }
 
 .sp-tab {
@@ -479,26 +469,21 @@ dialog form sp-body {
 
 .sp-tab-page {
   display: none;
-  -webkit-flex: 1 1 auto;
-          flex: 1 1 auto;
+  flex: 1 1 auto;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 12px 0;
-  -webkit-flex-direction: column;
-          flex-direction: column; }
+  flex-direction: column; }
 
 .sp-tab-page.visible {
-  display: -webkit-flex;
   display: flex; }
 
 .sp-tab-page > * {
-  -webkit-flex: 0 0 auto;
-          flex: 0 0 auto; }
+  flex: 0 0 auto; }
 
 /* groups */
 .group {
-  -webkit-flex: 0 0 auto;
-          flex: 0 0 auto;
+  flex: 0 0 auto;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
   padding: 24px 12px 12px 12px;
@@ -540,8 +525,7 @@ dialog form sp-body {
 
 /* logs */
 .console {
-  -webkit-flex: 0 0 auto;
-          flex: 0 0 auto;
+  flex: 0 0 auto;
   overflow: scroll;
   height: 140px;
   display: none; }
@@ -557,7 +541,6 @@ dialog form sp-body {
   background-color: white; }
 
 .sp-action-button-row {
-  display: -webkit-flex;
   display: flex;
   margin-bottom: 2px; }
 

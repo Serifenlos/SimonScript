@@ -2,6 +2,24 @@
 
 ## application
 
+### _a
+
+<button class="btn" data-clipboard-text=""></button>
+{: .btn_p }
+
+??? " "
+    ``` js linenums="1"
+    if (app.documents.length > 0) {
+        doc = app.activeDocument;
+        docs = app.documents;
+    }
+    f = false;
+    t = true;
+    debug = false; /* Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt. */
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_a.js)
+
 ### emptyProtocoll
 ***action***
 das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. Kann nicht rückgängig gemacht werden.
@@ -133,6 +151,59 @@ reset the dialog- and unit-settings to the previous state
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/startScriptFile.js)
+
+### copy
+
+<button class="btn" data-clipboard-text="copy();"></button>
+{: .btn_p }
+
+??? "copy();"
+    ``` js linenums="1"
+    // Apfel c
+    function copy() {
+        executeAction(cTID("copy"), undefined, DialogModes.NO);
+    }
+    
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/copy.js)
+
+### paste_into
+
+<button class="btn" data-clipboard-text="paste_into();"></button>
+{: .btn_p }
+
+??? "paste_into();"
+    ``` js linenums="1"
+    // Apfel v
+    function paste_into() {
+        var descriptor = new ActionDescriptor();
+    
+        descriptor.putEnumerated(c2t("AntA"), s2t("antiAliasType"), s2t("antiAliasNone"));
+        executeAction(s2t("pasteInto"), descriptor, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/paste_into.js)
+
+### app_getForegroundColor
+
+<button class="btn" data-clipboard-text="app_getForegroundColor();"></button>
+{: .btn_p }
+
+??? "app_getForegroundColor();"
+    ``` js linenums="1"
+    function app_getForegroundColor() {
+        var colors_foreground = [];
+        var color = app.foregroundColor;
+        colors_foreground.push(Math.round(color.rgb.red));
+        colors_foreground.push(Math.round(color.rgb.green));
+        colors_foreground.push(Math.round(color.rgb.blue));
+        return colors_foreground;
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/app_getForegroundColor.js)
 
 ## document
 
@@ -410,6 +481,27 @@ erstelle eine Farbfläche
         * _blue `0-255`
     
 
+### createMask
+
+<button class="btn" data-clipboard-text="createMask();"></button>
+{: .btn_p }
+
+??? "createMask();"
+    ``` js linenums="1"
+    function createMask() {
+        var descriptor = new ActionDescriptor();
+        var reference = new ActionReference();
+    
+        descriptor.putClass(s2t("new"), s2t("channel"));
+        reference.putEnumerated(s2t("channel"), s2t("channel"), s2t("mask"));
+        descriptor.putReference(s2t("at"), reference);
+        descriptor.putEnumerated(s2t("using"), c2t("UsrM"), s2t("revealAll"));
+        executeAction(s2t("make"), descriptor, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createMask.js)
+
 ### gotoMask
 ***action***
 ==TODO toogle Mask/RGB-Layer //  bisher nur im CreateColorLayer verwendet==
@@ -450,6 +542,21 @@ erstelle eine Farbfläche
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoFill.js)
+
+### invert
+
+<button class="btn" data-clipboard-text="invert();"></button>
+{: .btn_p }
+
+??? "invert();"
+    ``` js linenums="1"
+    // Apfel i
+    function invert() {
+        executeAction(s2t("invert"), undefined, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/invert.js)
 
 ### moveLayer
 ***action***
@@ -707,7 +814,7 @@ erstelle eine Farbfläche
     ``` js linenums="1"
     function nameLayer(_name) {
         try {
-            doc.activeLayer.name = _name;
+            app.activeDocument.activeLayer.name = _name;
         } catch (err) {
             logger(arguments.callee.name)
         }
@@ -825,7 +932,9 @@ TODO mit unterer Funktion ersetzt
         var r = new ActionReference();
         r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'));
         d.putReference(sTID('null'), r);
-        executeAction(sTID(_all_or_nothing), d, DialogModes.NO);
+        try {
+            executeAction(sTID(_all_or_nothing), d, DialogModes.NO);
+        } catch (e) { }
     }
     ```
 
@@ -904,6 +1013,213 @@ TODO mit unterer Funktion ersetzt
     
     ??? b
         * _input `number` `string` *idx oder LayerName*
+
+## Adjustment Layer
+
+### adjustLayer_levels_autoLevels
+
+<button class="btn" data-clipboard-text="adjustLayer_levels_autoLevels(_algorithmus, _autoNeutrals);"></button>
+{: .btn_p }
+
+??? "adjustLayer_levels_autoLevels(_algorithmus, _autoNeutrals);"
+    ``` js linenums="1"
+    function adjustLayer_levels_autoLevels(_algorithmus, _autoNeutrals) {
+    
+        /* reset levels */
+        adjustLayer_levels_edit(null);
+    
+        /* set autoLevels option */
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var l = new ActionList();
+        var r = new ActionReference();
+        var r2 = new ActionReference();
+    
+        r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("composite"));
+        d3.putReference(s2t("channel"), r2);
+        if (_algorithmus == "autoContrast") {
+            d3.putBoolean(s2t("autoContrast"), true);
+        }
+        if (_algorithmus == "auto") {
+            d3.putBoolean(s2t("auto"), true);
+        }
+        if (_algorithmus == "autoBlackWhite") {
+            d3.putBoolean(s2t("autoBlackWhite"), true);
+        }
+        if (_algorithmus == "autoMachineLearning") {
+            d3.putBoolean(s2t("autoMachineLearning"), true);
+            d3.putBoolean(s2t("autoFaces"), true);
+        }
+    
+        if (_autoNeutrals) {
+            d3.putBoolean(s2t("autoNeutrals"), _autoNeutrals);
+        }
+    
+        l.putObject(s2t("levelsAdjustment"), d3);
+        d2.putList(s2t("adjustment"), l);
+        d.putObject(s2t("to"), s2t("levels"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels.js)
+
+???+ a
+    ```js
+    adjustLayer_levels_autoLevels("autoContrast", t)
+    ```
+    
+    ??? b
+        * _algorithmus `autoContrast` `auto` `autoBlackWhite` `autoMachineLearning`
+
+### adjustLayer_levels_autoLevels_wrapper
+
+<button class="btn" data-clipboard-text="adjustLayer_levels_autoLevels_wrapper(__algorithmus, __autoNeutrals);"></button>
+{: .btn_p }
+
+??? "adjustLayer_levels_autoLevels_wrapper(__algorithmus, __autoNeutrals);"
+    ``` js linenums="1"
+    function adjustLayer_levels_autoLevels_wrapper(__algorithmus, __autoNeutrals) {
+        var startLayer = layer_selectedIDX_get();
+    
+        if (doc.activeLayer.kind == "LayerKind.LEVELS") {
+            // alert("ding")
+            makeVisible();
+    
+        } else if (layer_checkExistence("AutoTonwert")) {
+            gotoLayer("AutoTonwert");
+            makeVisible();
+    
+        }
+        else {
+            alert("keine TonWert-Ebene ausgewählt bzw vorbereitet")
+        }
+    
+        adjustLayer_levels_autoLevels(__algorithmus, __autoNeutrals)
+        layer_selectedIDX_set(startLayer);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels_wrapper.js)
+
+### adjustLayer_levels_edit
+
+<button class="btn" data-clipboard-text="adjustLayer_levels_edit(_setRGB_dark, _setRGB_light, _maxRGB_dark, _maxRGB_light, _gammaRGB,  _setRED_dark, _setRGB_light, _maxRED_dark, _maxRED_light, _gammaRED, _setGREEN_dark, _setGREEN_light, _maxGREEN_dark, _maxGREEN_light, _gammaGREEN, _setBLUE_dark, _setBLUE_light, _maxBLUE_dark, _maxBLUE_light, _gammaBLUE);"></button>
+{: .btn_p }
+
+??? "adjustLayer_levels_edit(_setRGB_dark, _setRGB_light, _maxRGB_dark, _maxRGB_light, _gammaRGB,  _setRED_dark, _setRGB_light, _maxRED_dark, _maxRED_light, _gammaRED, _setGREEN_dark, _setGREEN_light, _maxGREEN_dark, _maxGREEN_light, _gammaGREEN, _setBLUE_dark, _setBLUE_light, _maxBLUE_dark, _maxBLUE_light, _gammaBLUE);"
+    ``` js linenums="1"
+    function adjustLayer_levels_edit(_setRGB_dark, _setRGB_light, _maxRGB_dark, _maxRGB_light, _gammaRGB,  _setRED_dark, _setRGB_light, _maxRED_dark, _maxRED_light, _gammaRED, _setGREEN_dark, _setGREEN_light, _maxGREEN_dark, _maxGREEN_light, _gammaGREEN, _setBLUE_dark, _setBLUE_light, _maxBLUE_dark, _maxBLUE_light, _gammaBLUE) {
+    
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var d4 = new ActionDescriptor();
+        var d5 = new ActionDescriptor();
+        var d6 = new ActionDescriptor();
+        var l = new ActionList();
+        var l2 = new ActionList();
+        var l3 = new ActionList();
+        var l4 = new ActionList();
+        var l5 = new ActionList();
+        var l6 = new ActionList();
+        var l7 = new ActionList();
+        var l8 = new ActionList();
+        var l9 = new ActionList();
+        var r = new ActionReference();
+        var r2 = new ActionReference();
+        var r3 = new ActionReference();
+        var r4 = new ActionReference();
+        var r5 = new ActionReference();
+    
+        if(_setRGB_dark == null) {_setRGB_dark = 0}
+        if(_setRGB_light == null) {_setRGB_light = 255}
+        if(_maxRGB_dark == null) {_maxRGB_dark = 0}
+        if(_maxRGB_light == null) {_maxRGB_light = 255}
+        if(_gammaRGB == null) {_gammaRGB = 1}
+    
+        if(_setRED_dark == null) {_setRED_dark = 0}
+        if(_setRGB_light == null) {_setRGB_light = 255}
+        if(_maxRED_dark == null) {_maxRED_dark = 0}
+        if(_maxRED_light == null) {_maxRED_light = 255}
+        if(_gammaRED == null) {_gammaRED = 1}
+    
+        if(_setGREEN_dark == null) {_setGREEN_dark = 0}
+        if(_setGREEN_light == null) {_setGREEN_light = 255}
+        if(_maxGREEN_dark == null) {_maxGREEN_dark = 0}
+        if(_maxGREEN_light == null) {_maxGREEN_light = 255}
+        if(_gammaGREEN == null) {_gammaGREEN = 1}
+    
+        if(_setBLUE_dark == null) {_setBLUE_dark = 0}
+        if(_setBLUE_light == null) {_setBLUE_light = 255}
+        if(_maxBLUE_dark == null) {_maxBLUE_dark = 0}
+        if(_maxBLUE_light == null) {_maxBLUE_light = 255}
+        if(_gammaBLUE == null) {_gammaBLUE = 1}
+    
+    
+        r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindDefault"));
+        r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("composite"));
+        d3.putReference(s2t("channel"), r2);
+        l2.putInteger(_setRGB_dark);
+        l2.putInteger(_setRGB_light);
+        d3.putList(s2t("input"), l2);
+        d3.putDouble(s2t("gamma"), _gammaRGB);
+        l3.putInteger(_maxRGB_dark);
+        l3.putInteger(_maxRGB_light);
+        d3.putList(s2t("output"), l3);
+        l.putObject(s2t("levelsAdjustment"), d3);
+        r3.putEnumerated(s2t("channel"), s2t("channel"), s2t("red"));
+        d4.putReference(s2t("channel"), r3);
+        l4.putInteger(_setRED_dark);
+        l4.putInteger(_setRGB_light);
+        d4.putList(s2t("input"), l4);
+        d4.putDouble(s2t("gamma"), _gammaRED);
+        l5.putInteger(_maxRED_dark);
+        l5.putInteger(_maxRED_light);
+        d4.putList(s2t("output"), l5);
+        l.putObject(s2t("levelsAdjustment"), d4);
+        r4.putEnumerated(s2t("channel"), s2t("channel"), s2t("grain"));
+        d5.putReference(s2t("channel"), r4);
+        l6.putInteger(_setGREEN_dark);
+        l6.putInteger(_setGREEN_light);
+        d5.putList(s2t("input"), l6);
+        d5.putDouble(s2t("gamma"), _gammaGREEN);
+        l7.putInteger(_maxGREEN_dark);
+        l7.putInteger(_maxGREEN_light);
+        d5.putList(s2t("output"), l7);
+        l.putObject(s2t("levelsAdjustment"), d5);
+        r5.putEnumerated(s2t("channel"), s2t("channel"), s2t("blue"));
+        d6.putReference(s2t("channel"), r5);
+        l8.putInteger(_setBLUE_dark);
+        l8.putInteger(_setBLUE_light);
+        d6.putList(s2t("input"), l8);
+        d6.putDouble(s2t("gamma"), _gammaBLUE);
+        l9.putInteger(_maxBLUE_dark);
+        l9.putInteger(_maxBLUE_light);
+        d6.putList(s2t("output"), l9);
+        l.putObject(s2t("levelsAdjustment"), d6);
+        d2.putList(s2t("adjustment"), l);
+        d.putObject(s2t("to"), s2t("levels"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_edit.js)
+
+???+ a
+    ```js
+    adjustLayer_levels_edit(0, 255, 0, 255, 1,  0, 255, 0, 255, 1,  0, 255, 0, 255, 1,  0, 255, 0, 255, 1);
+    adjustLayer_levels_edit(null);
+    ```
+    
+    ??? b
+        * with arguments
+        * no argument ot null to reset
 
 ## Image 
 ### SmartObject_edit
@@ -1437,11 +1753,44 @@ Convert cm to Point, imageSize needs Points
 
 ??? "blendif(_blackMin, _blackMax, _whiteMin, _whiteMax);"
     ``` js linenums="1"
-    function blendif(_blackMin, _blackMax, _whiteMin, _whiteMax) {
+    // function blendif(_blackMin, _blackMax, _whiteMin, _whiteMax) {
+    //     var d = new ActionDescriptor();
+    //     var r = new ActionReference();
+    //     r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'));
+    //     d.putReference(sTID('null'), r);
+    //     var d2 = new ActionDescriptor();
+    //     var l = new ActionList();
+    //     var d3 = new ActionDescriptor();
+    //     var r2 = new ActionReference();
+    //     r2.putEnumerated(sTID('channel'), sTID('channel'), sTID('gray'));
+    //     d3.putReference(sTID('channel'), r2);
+    //     d3.putInteger(sTID('srcBlackMin'), 0);
+    //     d3.putInteger(sTID('srcBlackMax'), 0);
+    //     d3.putInteger(sTID('srcWhiteMin'), 255);
+    //     d3.putInteger(sTID('srcWhiteMax'), 255);
+    //     d3.putInteger(sTID('destBlackMin'), _blackMin);
+    //     d3.putInteger(sTID('destBlackMax'), _blackMax);
+    //     d3.putInteger(sTID('destWhiteMin'), _whiteMin);
+    //     d3.putInteger(sTID('desaturate'), _whiteMax);
+    //     l.putObject(sTID('blendRange'), d3);
+    //     d2.putList(sTID('blendRange'), l);
+    //     var d4 = new ActionDescriptor();
+    //     d4.putUnitDouble(sTID('scale'), sTID('percentUnit'), 100.000000);
+    //     d2.putObject(sTID('layerEffects'), sTID('layerEffects'), d4);
+    //     d.putObject(sTID('to'), sTID('layer'), d2);
+    //     executeAction(sTID('set'), d, DialogModes.NO);
+    // }
+    
+    function blendif(_idx, _blackMin, _blackMax, _whiteMin, _whiteMax) {
         var d = new ActionDescriptor();
         var r = new ActionReference();
-        r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'));
+        if (!isNaN(_idx)) {
+            r.putIndex(s2t("layer"), _idx)
+        } else {
+            r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'))
+        }
         d.putReference(sTID('null'), r);
+    
         var d2 = new ActionDescriptor();
         var l = new ActionList();
         var d3 = new ActionDescriptor();
@@ -1458,9 +1807,6 @@ Convert cm to Point, imageSize needs Points
         d3.putInteger(sTID('desaturate'), _whiteMax);
         l.putObject(sTID('blendRange'), d3);
         d2.putList(sTID('blendRange'), l);
-        var d4 = new ActionDescriptor();
-        d4.putUnitDouble(sTID('scale'), sTID('percentUnit'), 100.000000);
-        d2.putObject(sTID('layerEffects'), sTID('layerEffects'), d4);
         d.putObject(sTID('to'), sTID('layer'), d2);
         executeAction(sTID('set'), d, DialogModes.NO);
     }
@@ -1722,6 +2068,4 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_t2s.js)
 
-!!! warning show "not documented functions"
-    - _a
-     - app_getForegroundColor
+!!! warning hide "not documented functions"

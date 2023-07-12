@@ -12,4 +12,4 @@
 //@include "functions/view.jsx";
 
 anordung_kachel();
-anordnung_zoom(-3);
+anordnung_zoom(0);

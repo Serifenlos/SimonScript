@@ -14,7 +14,8 @@
 
 
 /** Optionen  **************************************************************/
-var Rasterweite = 70;
+// var Rasterweite = 70;
+var ZielAufloesung_dpi = 355.6;
 var minAufloesung = 300;
 var Suffix_RGB = "__RGB";
 
@@ -22,17 +23,30 @@ var Suffix_RGB = "__RGB";
 getRubrik_array = [
     ["(\\w{1,3}[-,_]\\w{1,3}_11F_\\d{3}_)(.*)(\.indd)", "$2"],
     ["(\\w{1,3}-\\w{1,3}_11F_BUCH_J11_)(.*)(\.indd)", "$2"],
-    ["(\\w{1,3}-\\w{1,3}_11F_Spezial_Torhüter_)(.*)(\.indd)", "$2"]
+    ["(\\w{1,3}-\\w{1,3}_11F_Spezial_DFB_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}_\\w{1,3}_11F_Spezial_WM_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}[-,_]\\w{1,3}_11F_Spezial_REK_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}-\\w{1,3}_11F_Legenden_S04_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}-\\w{1,3}_11F_Chronik_2021_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}-\\w{1,3}_11F_Chronik_2022_)(.*)(\.indd)", "$2"],
+    ["(\\w{1,3}[-,_]\\w{1,3}_11F_FMLUI_2022_)(.*)(\.indd)", "$2"],      // xxx_xxx_11F_FMLUI_2022_
+    ["(\\w{1,3}[-,_]\\w{1,3}_11F_Planer_Gruppe_)(.*)(\.indd)", "$2"]       // 08-09_11F_Planer_Gruppe_
     // ["(\\w{1,3}_\\w{1,3}_11F_\\d{3}_)(.*)(\.indd)", "$2"]       // 30_31_11F_235_Planer_Gruppe_F_FRA_GER.indd
 ];
 
 
-// var mainFolder = "/Users/simon/Arbeit/11Freunde/239/";
-// var mainFolder = "/Users/simon/Arbeit/11Freunde/Spezial_Torhüter_RGB/";
-// var mainFolder = "/Users/simon/Arbeit/Judith/NSP_Ergebnisb/";
-// var mainFolder = "/Users/simon/Arbeit/Judith/Christoph_Buch/";
+
+
+var mainFolder = "/Users/simon/Arbeit/11Freunde/261/";
+// var mainFolder = "/Users/simon/Arbeit/Judith/Porz_Kabinett/";
+// var mainFolder = "/Users/simon/Arbeit/Judith/Porz_Zeitreise/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/_weissNicht/Eigenanzeigen/;
+// var mainFolder = "/Users/simon/Arbeit/Judith/WBM_Geschäftsbericht22_2/";
 // var mainFolder = "/Users/simon/Arbeit/Veganz/";
-var mainFolder = "/Users/simon/Arbeit/Katharina/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/Kalender_Heft_2022/";
+// var mainFolder = "/Users/simon/Arbeit/Judith/Hörmann_Magazin/";
+
+
 
 
 var subFolder = "RGB";
@@ -54,11 +68,19 @@ for (var i = 0; i < app.selection.length; i++) {
     var myLivePath = myDoc.filePath;
     var myFolder = new Folder(myLivePath);
 
-    var myFile = app.selection[i];
+    
+    if (app.selection[i] instanceof Image && app.selection[i].parent.graphics.length > 0) {
+        var myFile = app.selection[i].parent;
+    } else {
+        var myFile = app.selection[i];
+    }
+
+    
     var myImage = myFile.images[0];
     myLink = myFile.graphics[0].itemLink;
 
-    var ZielAufloesung = Rasterweite * 2.54 * 2;
+    // var ZielAufloesung = Rasterweite * 2.54 * 2;
+    var ZielAufloesung = ZielAufloesung_dpi;
     var hScale = myImage.horizontalScale;
     var vScale = myImage.verticalScale;
     var hPPI = myImage.effectivePpi[0];
@@ -347,7 +369,8 @@ function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloe
         var scale = (minAufloesung/hPPI).toFixed(2).replace('.', ',');
         /* alert(scale); */
         text2Clipboard(scale);
-        executeAction(sTID('adc931a0-cfe2-11d5-98bf-00b0d0204936'), undefined, DialogModes.ALL);
+        /* executeAction(sTID('adc931a0-cfe2-11d5-98bf-00b0d0204936'), undefined, DialogModes.ALL); */
+        executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
     }
 
     function text2Clipboard(_text) {

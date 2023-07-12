@@ -14,7 +14,7 @@
 
 if (app.documents.length >= 2) {
     anordung_2vertical();
-    anordnung_zoom(-2);
+    anordnung_zoom(0);
 } else {
     alert("zu wenig Bilder\nfür diese Ansicht")
 }

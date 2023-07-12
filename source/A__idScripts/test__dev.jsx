@@ -66,7 +66,7 @@ for (var i = 0; i < app.selection.length; i++) {
     var myImagePath = myLink.filePath;
     var myImageFile = new File(myImagePath);
     var myNewImageFile = GetFileNameOnly(myImageFile.name);
-    var ding = "drei";
+    var myNewImageFile_RGB = myNewImageFile.replace("-frei", "");
 
     if (typeof getRubrik(getRubrik_array) !== 'undefined') {
         var indd_rubrik = getRubrik(getRubrik_array);
@@ -80,8 +80,14 @@ for (var i = 0; i < app.selection.length; i++) {
     /*TODO ob tif oder psd // hier muss variabl */
     var myNewPath = myFolder + "/" + myNewImageFile + Suffix_RGB + ".psd";
 
+    var path_RGB = new Folder(myImagePath.parent) + "/" + myNewImageFile_RGB + ".psd";
+
     /** run Main-function **************************************************************/
-    run_ID();
+    // run_ID();
+    alert("1 "+path_RGB);
+    // alert("myNewImageFile " +myNewImageFile)
+    run_ID_openFrei(path_RGB)
+
 }
 
 
@@ -176,6 +182,12 @@ function run_ID() {
     }
 }
 
+function run_ID_openFrei(_path_RGB) {
+    alert("2 "+_path_RGB)
+    BridgeTalkMessage_docFrei(_path_RGB);
+    return true;
+}
+
 
 /*=================================================================================*/
 function GetFileNameOnly(myFileName) {
@@ -238,6 +250,25 @@ function CreateBridgeTalkMessage(__interpolMethod) {
     bt.send(100);
 }
 
+function BridgeTalkMessage_docFrei(__path_RGB) {
+    alert("3 "+__path_RGB)
+    var bt = new BridgeTalk();
+    // bt.target = "photoshop"; //call for cc2020 -> "photoshop-140" //cc2021 -> "photoshop-150"
+    // bt.body = ResaveInPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + "," + papier + ");";
+    // bt.body = runPS_docFrei.toSource() + "('" + __path_RGB + "');";
+
+    // bt.body = runPS_docFrei.toSource();
+    // bt.onResult = function(resObj) {}
+    // bt.send(100);
+
+    bt.target = 'photoshop-160.064';
+    bt.body = runPS_docFrei.toSource() + "('" + __path_RGB + "');";
+    bt.send(5);
+}
+
+function runPS_docFrei(_tata) {
+    alert(_tata);
+}
 
 
 function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloesung, hPPI, ___interpolMethod) {

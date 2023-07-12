@@ -1,16 +1,39 @@
-//@include "../../build/A__psScripts/functions/basic.jsx";
-//@include "../../build/A__psScripts/functions/pref.jsx";
-//@include "../../build/A__psScripts/functions/utils.jsx";
-//@include "../../build/A__psScripts/functions/LUT-dodge.jsx";
-//@include "../../build/A__psScripts/functions/LUT-burn.jsx";
-//@include "../../build/A__psScripts/functions/dialog.jsx";
-//@include "../../build/A__psScripts/functions/ready.jsx";
-//@include "../../build/A__psScripts/functions/view.jsx";
-//@include "../../build/A__psScripts/functions/layer.jsx";
-//@include "../../build/A__psScripts/functions/save.jsx";
-//@include "../../build/A__psScripts/functions/loopFiles.jsx";
-//@include "../../build/A__psScripts/functions/meta.jsx";
+/*
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+<javascriptresource>
+<name>[11F] TextilOnDemand Moods</name>
+<about>ToD | By Simon Adrian | http://www.SimonAdrian.de</about>
+<category>11Freunde</category>
+</javascriptresource>
+// END__HARVEST_EXCEPTION_ZSTRING
+*/
 
+
+// include "../../build/A__psScripts/functions/basic.jsx";
+// include "../../build/A__psScripts/functions/pref.jsx";
+// include "../../build/A__psScripts/functions/utils.jsx";
+// include "../../build/A__psScripts/functions/LUT-dodge.jsx";
+// include "../../build/A__psScripts/functions/LUT-burn.jsx";
+// include "../../build/A__psScripts/functions/dialog.jsx";
+// include "../../build/A__psScripts/functions/ready.jsx";
+// include "../../build/A__psScripts/functions/view.jsx";
+// include "../../build/A__psScripts/functions/layer.jsx";
+// include "../../build/A__psScripts/functions/save.jsx";
+// include "../../build/A__psScripts/functions/loopFiles.jsx";
+// include "../../build/A__psScripts/functions/meta.jsx";
+
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
 
 
 // color2csv()
@@ -43,6 +66,7 @@ const white = [0.00, 0.00, 96.47, "white", 0]
 
 // Color
 const anthracite = [0.00, 0.00, 34.90, "anthracite", 0]
+const atlantic_blue = [197.47, 41.80, 74.12, "atlantic_blue", 0]
 const azur = [217.40, 47.82, 63.14, "azur", 0]
 const black = [0.00, 0.00, 19.22, "black", 0]
 const bottle_green = [137.36, 15.38, 34.14, "bottle_green", 0]
@@ -60,6 +84,7 @@ const carmine_red = [357.11, 57.87, 84.70, "carmine_red", 0]
 const cotton_pink = [343.64, 20.71, 92.75, "cotton_pink", 0]
 const deep_chocolate = [0.00, 20.36, 21.18, "deep_chocolate", 0]
 const desert_dust = [32.51, 13.30, 71.88, "desert_dust", 0]
+const dusty_mint = [129.67, 17.41, 69.80, "dusty_mint", 0]
 const french_navy = [240.00, 25.45, 21.57, "french_navy", 0]
 const fresh_green = [110.76, 43.91, 58.04, "fresh_green", 0]
 const geyser_green = [151.66, 16.59, 85.10, "geyser_green", 0]
@@ -67,6 +92,7 @@ const glazed_green = [184.13, 44.62, 25.49, "glazed_green", 0]
 const golden_yellow = [52.34, 78.01, 94.51, "golden_yellow", 0]
 const hay_yellow = [54.22, 77.58, 68.23, "hay_yellow", 0]
 const india_ink_grey = [230.54, 21.11, 35.29, "india_ink_grey", 0]
+const jojoba = [47.56, 37.27, 86.27, "jojoba", 0]
 const khaki = [60.00, 10.74, 34.55, "khaki", 0]
 const lava_grey = [233.33, 13.95, 50.59, "lava_grey", 0]
 const lavender_dawn = [257.99, 20.83, 75.29, "lavender_dawn", 0]
@@ -145,20 +171,73 @@ const expresser__color = [white, vintage_white, natural_raw, black, anthracite, 
 
 
 
-// motiv_call = [front_Main, front_Varination, back_Name, back_Variation]
+
+// motiv_call = [front_Motiv, back_Motiv]
 // Motiv Sets
-const motiv__11_Kasten = ["11-Kasten_orange", "11-Kasten_weiss", false, false];
-const motiv__11F_innen_doppelpunkt = ["11F-innen_doppelpunkt_schwarz", "11F-innen_doppelpunkt_weiss", false, false];
-const motiv__11F_innen = ["11F-innen_schwarz", "11F-innen_weiss", false, false];
-const motiv__11F_Logo_beidseitig = ["11F-Logo_beidseitig-vorne_schwarz", "11F-Logo_beidseitig-vorne_weiss", "11F-Logo_beidseitig-hinten_schwarz", "11F-Logo_beidseitig-hinten_weiss", ];
-const motiv__11F_Logo = ["11F-Logo_schwarz", "11F-Logo_weiss", false, false];
-const motiv__Auswärtsfans = ["Auswärtsfans_schwarz", "Auswärtsfans_weiss", false, false];
-const motiv__Brehme = ["Brehme_schwarz", "Brehme_weiss", false, false];
-const motiv__BrigadeHS = ["BrigadeHS_vorne", false, "BrigadeHS-hinten_schwarz", "BrigadeHS-hinten_weiss"];
-const motiv__Fussball_ist_bunt = ["Fussball-ist-bunt_schwarz", "Fussball-ist-bunt_weiss", false, false];
-const motiv__IKAUZ = ["IKAUZ_weiss", false, false, false];
-const motiv__Nöhler = ["Nöhler", false, false, false];
-const motiv__blanko = ["blanko", false, "blanko", false];
+const motiv__11F_Logo_schwarz = ["11FREUNDE_Logo_(Druck_SCHWARZ)", "blanko"];
+const motiv__11F_Logo_weiss = ["11FREUNDE_Logo_(Druck_WEISS)", "blanko"];
+
+const motiv__11_Kasten_orange = ["11Kasten_Logo_(Druck_ORANGE)", "blanko"];
+const motiv__11_Kasten_weiss = ["11Kasten_Logo_(Druck_WEISS)", "blanko"];
+const motiv__11_Kasten_schwarz = ["11Kasten_Logo_(Druck_SCHWARZ)", "blanko"];
+
+const motiv__Auswartsfans_schwarz = ["Auswärtsfans_(Druck_SchwarzRot)", "blanko"];
+const motiv__Auswartsfans_weiss = ["Auswärtsfans_(Druck_WeißRot)", "blanko"];
+
+const motiv__Fussball_ist_bunt_schwarz = ["Fußball_ist_bunt_(Druck_Schwarz)", "blanko"];
+const motiv__Fussball_ist_bunt_weiss = ["Fußball_ist_bunt_(Druck_WEISS)", "blanko"];
+
+const motiv__11F_Logo_beidseitig_schwarz = ["FREUNDE_im_Rücken_(Druck_SCHWARZ)_vorne", "FREUNDE_im_Rücken_(Druck_SCHWARZ)_hinten"];
+const motiv__11F_Logo_beidseitig_weiss = ["FREUNDE_im_Rücken_(Druck_WEISS)_vorne", "FREUNDE_im_Rücken_(Druck_WEISS)_hinten"];
+
+const motiv__11F_innen_schwarz = ["11FREUNDINNEN_(Druck_SCHWARZ)", "blanko"];
+const motiv__11F_innen_weiss = ["11FREUNDINNEN_(Druck_WEISS)", "blanko"];
+
+const motiv__11F_innen_doppelpunkt_schwarz = ["11FREUND_doppelpunkt_INNEN_(Druck_SCHWARZ)", "blanko"];
+const motiv__11F_innen_doppelpunkt_weiss = ["11FREUND_doppelpunkt_INNEN_(Druck_WEISS)", "blanko"];
+
+const motiv__Nohler = ["NÖHLER", "blanko"];
+
+const motiv__BrigadeHS = ["Referees_Welcome_vorne", "Referees_Welcome_hinten"];
+
+const motiv__Brehme_schwarz = ["Scheisse_am_Fuß_(Druck_SCHWARZ)", "blanko"];
+const motiv__Brehme_weiss = ["Scheisse_am_Fuß_(Druck_WEISS)", "blanko"];
+
+const motiv_HoG_AD10S = ["HoG_AD10S", "blanko"];
+const motiv_HoG_Black_Lives_Matter = ["HoG_Black_Lives_Matter", "blanko"];
+const motiv_HoG_Black_Power = ["HoG_Black_Power", "blanko"];
+const motiv_HoG_Der_Grantler = ["HoG_Der_Grantler", "blanko"];
+const motiv_HoG_Granate_von_Giesing = ["HoG_Granate_von_Giesing", "blanko"];
+const motiv_HoG_Kap = ["HoG_Kap", "blanko"];
+const motiv_HoG_Lorant_auf_Lunge = ["HoG_Lorant_auf_Lunge", "blanko"];
+const motiv_HoG_Meister_Marschall = ["HoG_Meister_Marschall", "blanko"];
+const motiv_HoG_Stumpen_Rudi = ["HoG_Stumpen_Rudi", "blanko"];
+const motiv_HoG_Tennis_Punk = ["HoG_Tennis_Punk", "blanko"];
+const motiv_HoG_Zaubermaus = ["HoG_Zaubermaus", "blanko"];
+
+
+// const motiv__IKAUZ = ["IKAUZ_weiss", false];
+
+const motiv__blanko = ["blanko", "blanko"];
+
+const motiv_Clash_11F_Hoodie_grau = ["Clash_11Freunde_Hoodie_grau_vorne", "Clash_11Freunde_Hoodie_grau_hinten"];
+const motiv_Clash_11F_Hoodie_schwarz = ["Clash_11Freunde_Hoodie_schwarz_vorne", "Clash_11Freunde_Hoodie_schwarz_hinten"];
+const motiv_Clash_11F_Shirt_grau = ["Clash_11Freunde_Shirt_grau_vorne", "blanko"];
+const motiv_Clash_11F_Shirt_schwarz = ["Clash_11Freunde_Shirt_schwarz_vorne", "blanko"];
+
+const motiv_Clash_Gladbach_Hoodie = ["Clash_Gladbach_Hoodie_vorne", "Clash_Gladbach_Hoodie_hinten"];
+const motiv_Clash_Gladbach_Shirt = ["Clash_Gladbach_Shirt_vorne", "blanko"];
+
+const motiv_Clash_Dortmund_Hoodie = ["Clash_Dortmund_Hoodie_vorne", "Clash_Dortmund_Hoodie_hinten"];
+const motiv_Clash_Dortmund_Shirt = ["Clash_Dortmund_Shirt_vorne", "blanko"];
+
+const motiv_FootballBloodyHell_weiss = ["Football_Bloody_Hell_(Druck_WEISS)", "blanko"];
+const motiv_FootballBloodyHell_schwarz = ["Football_Bloody_Hell_(Druck_SCHWARZ)", "blanko"];
+
+const motiv_HoG_Peace_french_navy = ["blanko", "HoG_WM_PEACE_(textil_french_navy)"];
+const motiv_HoG_Peace_grau = ["blanko", "HoG_WM_PEACE_(textil_grau)"];
+const motiv_HoG_Peace_royal_blue = ["blanko", "HoG_WM_PEACE_(textil_royal_blue)"];
+
 
 var motive = [
     "11-Kasten_orange",
@@ -185,14 +264,7 @@ var motive = [
     "IKAUZ_weiss",
     "Nöhler",
     "blanko"
-]
-
-
-
-const farbe = [lava_grey, anthracite, stem_green, tangerine, caramel, wooden_heather, melon_code]
-// const farbe = [wooden_heather]
-// const farbe = [lava_grey]
-
+];
 
 function loopFarben() {
     protocol_delSnapshop();
@@ -219,8 +291,7 @@ function ToD_colorLayer(a) {
         gotoLayer(name_base + "__grau");
         ToD_curves_shirt_modify(0, farbe[a][2] * 0.62, 128, 128, 192, 192, 255, 255);
     };
-}
-
+};
 
 function loopMotive() {
     protocol_delSnapshop();
@@ -237,28 +308,798 @@ function ToD_motivChange(_file) {
 };
 
 
+// REAL COLLECTION
+
 var collection = [
+    //// 11F Logo
     [
-        ["Spinner"],
-        // spinner__color,
-        // [white, canyon_pink],
-        // [white],
-        [natural_raw, heather_grey],
-        // [white, natural_raw, black, caramel, ochre, fresh_green, stem_green, teal_monstera, serene_blue, royal_blue, french_navy, burgundy, cotton_pink, bright_red, heather_grey, black_heather_blue, heather_cranberry],
-        [motiv__blanko, motiv__11_Kasten]
-        // [motiv__11_Kasten, motiv__11F_innen_doppelpunkt]
-        // [motiv__11_Kasten, motiv__11F_innen_doppelpunkt, motiv__Fussball_ist_bunt]
-        // [motiv__11_Kasten, motiv__11F_innen_doppelpunkt, motiv__11F_innen, motiv__11F_Logo_beidseitig, motiv__11F_Logo, motiv__Auswärtsfans, motiv__Brehme, motiv__BrigadeHS, motiv__Fussball_ist_bunt, motiv__IKAUZ, motiv__Nöhler]
+        ["T_Shirt"],
+        [black, rose_clay],
+        [motiv__11F_Logo_weiss]
     ],
     [
-        ["Sparker"],
-        [white, dark_heather_grey, heather_grey, burgundy],
-        [motiv__IKAUZ, motiv__Auswärtsfans]
+        ["T_Shirt"],
+        [white, heather_grey],
+        [motiv__11F_Logo_schwarz]
+    ],
+    [
+        ["Shirtkleid"],
+        [white, heather_grey],
+        [motiv__11F_Logo_schwarz]
+    ],
+    [
+        ["Shirtkleid"],
+        [black],
+        [motiv__11F_Logo_weiss]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [caramel],
+        [motiv__11F_Logo_schwarz]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [dark_heather_grey, sky_blue, cream_heather_grey],
+        [motiv__11F_Logo_weiss]
+    ],
+    //// 11 Kasten
+    [
+        ["Hoodie"],
+        [natural_raw, white],
+        [motiv__11_Kasten_orange]
+    ],
+    [
+        ["T_Shirt"],
+        [black, rose_clay, heather_grey],
+        [motiv__11_Kasten_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [white],
+        [motiv__11_Kasten_orange]
+    ],
+    [
+        ["Sweatshirt"],
+        [black, camel, black_heather_blue, french_navy, heather_grey, lava_grey],
+        [motiv__11_Kasten_weiss]
+    ],
+    [
+        ["Kinder_Shirt"],
+        [white],
+        [motiv__11_Kasten_orange]
+    ],
+    [
+        ["Kinder_Shirt"],
+        [black, burgundy, geyser_green, ocean_depth, tangerine],
+        [motiv__11_Kasten_weiss]
+    ],
+    [
+        ["Kinder_Sweatshirt"],
+        [natural_raw],
+        [motiv__11_Kasten_orange]
+    ],
+    [
+        ["Kinder_Sweatshirt"],
+        [bright_red, varsity_green, ochre],
+        [motiv__11_Kasten_weiss]
+    ],
+    //// Auswährtsfans
+    [
+        ["T_Shirt"],
+        [white],
+        [motiv__Auswartsfans_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [black],
+        [motiv__Auswartsfans_weiss]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [white],
+        [motiv__Auswartsfans_schwarz]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [black],
+        [motiv__Auswartsfans_weiss]
+    ],
+    [
+        ["Shirtkleid"],
+        [white],
+        [motiv__Auswartsfans_schwarz]
+    ],
+    [
+        ["Shirtkleid"],
+        [black],
+        [motiv__Auswartsfans_weiss]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [cream_heather_grey],
+        [motiv__Auswartsfans_schwarz]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [black],
+        [motiv__Auswartsfans_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [white],
+        [motiv__Auswartsfans_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [black],
+        [motiv__Auswartsfans_weiss]
+    ],
+    [
+        ["Sweatshirt"],
+        [white],
+        [motiv__Auswartsfans_schwarz]
+    ],
+    [
+        ["Sweatshirt"],
+        [black],
+        [motiv__Auswartsfans_weiss]
+    ],
+    //// Clash 11Freunde
+    [
+        ["Hoodie"],
+        [black],
+        [motiv_Clash_11F_Hoodie_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [heather_grey],
+        [motiv_Clash_11F_Hoodie_grau]
+    ],
+    [
+        ["T_Shirt"],
+        [black],
+        [motiv_Clash_11F_Shirt_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [heather_grey],
+        [motiv_Clash_11F_Shirt_grau]
+    ],
+
+
+    //// Clash Gladbach
+    [
+        ["Hoodie"],
+        [black],
+        [motiv_Clash_Gladbach_Hoodie]
+    ],
+    [
+        ["T_Shirt"],
+        [black],
+        [motiv_Clash_Gladbach_Shirt]
+    ],
+
+    //// Clash Dortmund
+    [
+        ["Hoodie"],
+        [heather_grey],
+        [motiv_Clash_Dortmund_Hoodie]
+    ],
+    [
+        ["T_Shirt"],
+        [heather_grey],
+        [motiv_Clash_Dortmund_Shirt]
+    ],
+
+    //// Fussball ist bunt
+    [
+        ["T_Shirt"],
+        [black],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [white, heather_grey],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Baby_Body"],
+        [white],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Sweatshirt"],
+        [french_navy, lava_grey],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    [
+        ["Sweatshirt"],
+        [heather_grey],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [cream_heather_grey, white],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [black, caramel, sky_blue],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [heather_grey, white, carmine_red],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [black, bright_blue, desert_dust, glazed_green, india_ink_grey],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    [
+        ["Kinder_Sweatshirt"], // textil hat keine Fotos
+        [natural_raw],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Kinder_Sweatshirt"], // textil hat keine Fotos
+        [black, bright_orange, varsity_green],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    //// Freunde im Rücken
+    [
+        ["Hoodie"],
+        [natural_raw, heather_grey, ochre],
+        [motiv__11F_Logo_beidseitig_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [bright_blue, burgundy, carmine_red, glazed_green, india_ink_grey],
+        [motiv__11F_Logo_beidseitig_weiss]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [heather_sand],
+        [motiv__11F_Logo_beidseitig_schwarz]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [caribbean_blue, black, heather_grey],
+        [motiv__11F_Logo_beidseitig_weiss]
+    ],
+    //// Nöhler
+    [
+        ["Kinder_Shirt"],
+        [black],
+        [motiv__Nohler]
+    ],
+    [
+        ["Kinder_Hoodie"],
+        [black],
+        [motiv__Nohler]
+    ],
+    [
+        ["Kinder_Sweatshirt"],
+        [black],
+        [motiv__Nohler]
+    ],
+    //// 11Freundinnen
+    [
+        ["T_Shirt"],
+        [white, heather_grey],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [black, rose_clay],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["Sweatshirt"],
+        [camel, heather_grey],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["Sweatshirt"],
+        [black, french_navy, lava_grey],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [heather_grey, bright_red, desert_dust, natural_raw, ochre, white],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [black, bright_blue, burgundy, carmine_red, dark_heather_grey, glazed_green, india_ink_grey],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["Shirtkleid"],
+        [white, heather_grey],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["Shirtkleid"],
+        [black],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [caramel, heather_grey, cream_heather_grey, white, sky_blue],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [black, dark_heather_grey],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [caribbean_blue, cream_heather_grey, heather_grey, heather_sand],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [black, dark_heather_grey],
+        [motiv__11F_innen_weiss]
+    ],
+    //// 11Freundinnen Doppelpunkt
+    [
+        ["Sweatshirt"],
+        [camel, heather_grey],
+        [motiv__11F_innen_doppelpunkt_schwarz]
+    ],
+    [
+        ["Sweatshirt"],
+        [black, french_navy, lava_grey, caramel],
+        [motiv__11F_innen_doppelpunkt_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [heather_grey, desert_dust, natural_raw],
+        [motiv__11F_innen_doppelpunkt_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [burgundy],
+        [motiv__11F_innen_doppelpunkt_weiss]
+    ],
+    [
+        ["Shirtkleid"],
+        [white, heather_grey],
+        [motiv__11F_innen_doppelpunkt_schwarz]
+    ],
+    [
+        ["Shirtkleid"],
+        [black],
+        [motiv__11F_innen_doppelpunkt_weiss]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [heather_sand, heather_grey, caribbean_blue, cream_heather_grey],
+        [motiv__11F_innen_doppelpunkt_schwarz]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [black, dark_heather_grey],
+        [motiv__11F_innen_doppelpunkt_weiss]
+    ],
+    //// 11Freundinnen Doppelpunkt
+    [
+        ["Sweatshirt"],
+        [black],
+        [motiv__BrigadeHS]
+    ],
+    [
+        ["Hoodie"],
+        [black],
+        [motiv__BrigadeHS]
+    ],
+    [
+        ["T_Shirt"],
+        [black],
+        [motiv__BrigadeHS]
+    ],
+    [
+        ["Shirtkleid"],
+        [black],
+        [motiv__BrigadeHS]
+    ],
+    [
+        ["Frauen_Shirt"],
+        [black],
+        [motiv__BrigadeHS]
+    ],
+    [
+        ["Frauen_Hoodie"],
+        [black],
+        [motiv__BrigadeHS]
+    ],
+    //// Brehme
+    [
+        ["T_Shirt"],
+        [white, heather_grey, rose_clay],
+        [motiv__Brehme_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [black],
+        [motiv__Brehme_weiss]
+    ],
+    [
+        ["Sweatshirt"],
+        [camel, heather_grey, lava_grey, white, caramel],
+        [motiv__Brehme_schwarz]
+    ],
+    [
+        ["Sweatshirt"],
+        [black, dark_heather_blue, french_navy],
+        [motiv__Brehme_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [bright_blue, bright_red, desert_dust, heather_grey, natural_raw, ochre, white],
+        [motiv__Brehme_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [black, burgundy, dark_heather_grey, glazed_green, india_ink_grey],
+        [motiv__Brehme_weiss]
     ]
 ]
 
 
-// motiv__11_Kasten, motiv__11F_innen_doppelpunkt, motiv__11F_innen, motiv__11F_Logo_beidseitig, motiv__11F_Logo, motiv__Auswärtsfans, motiv__Brehme, motiv__BrigadeHS, motiv__Fussball_ist_bunt, motiv__IKAUZ, motiv__Nöhler
+
+
+// Collection 2022-11
+var collection = [
+    [
+        ["T_Shirt"],
+        [dusty_mint, red, burgundy],
+        [motiv__11F_Logo_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [jojoba, stem_green],
+        [motiv__11F_Logo_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [dusty_mint, red, burgundy],
+        [motiv__11_Kasten_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [jojoba, stem_green],
+        [motiv__11_Kasten_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [dusty_mint, red, burgundy],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [jojoba, stem_green],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [dusty_mint, red, burgundy],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [jojoba, stem_green],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [dusty_mint, red, burgundy],
+        [motiv__11F_innen_doppelpunkt_weiss]
+    ],
+    [
+        ["T_Shirt"],
+        [jojoba, stem_green],
+        [motiv__11F_innen_doppelpunkt_schwarz]
+    ],
+    [
+        ["T_Shirt"],
+        [french_navy],
+        [motiv_HoG_Peace_french_navy]
+    ],
+    [
+        ["T_Shirt"],
+        [heather_grey],
+        [motiv_HoG_Peace_grau]
+    ],
+
+
+
+
+    [
+        ["Hoodie"],
+        [atlantic_blue, bright_red, glazed_green, burgundy, deep_chocolate],
+        [motiv__11F_Logo_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [melon_code, natural_raw],
+        [motiv__11F_Logo_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [atlantic_blue, bright_red, glazed_green, burgundy, deep_chocolate],
+        [motiv__11_Kasten_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [melon_code, natural_raw],
+        [motiv__11_Kasten_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [atlantic_blue, bright_red, glazed_green, burgundy, deep_chocolate],
+        [motiv__Fussball_ist_bunt_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [melon_code, natural_raw],
+        [motiv__Fussball_ist_bunt_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [atlantic_blue, bright_red, glazed_green, burgundy, deep_chocolate],
+        [motiv__11F_innen_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [melon_code, natural_raw],
+        [motiv__11F_innen_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [atlantic_blue, bright_red, glazed_green, burgundy, deep_chocolate],
+        [motiv__11F_innen_doppelpunkt_weiss]
+    ],
+    [
+        ["Hoodie"],
+        [melon_code, natural_raw],
+        [motiv__11F_innen_doppelpunkt_schwarz]
+    ],
+    [
+        ["Hoodie"],
+        [royal_blue],
+        [motiv_HoG_Peace_royal_blue]
+    ],
+    [
+        ["Hoodie"],
+        [heather_grey],
+        [motiv_HoG_Peace_grau]
+    ],
+    [
+        ["Hoodie"],
+        [french_navy],
+        [motiv_HoG_Peace_french_navy]
+    ],
+]
+
+
+
+
+// TEST COLLECTION
+// var collection = [
+//     [
+//         ["Baby_Body"],
+//         [white],
+//         [motiv__Fussball_ist_bunt_schwarz]
+//     ]
+// ]
+
+
+
+
+// var Keys = ["Baby_Body"];
+// meta_setKeywords(thisFile, Keys)
+
+
+// var Keys = ["keyword1", "keyword2", "keyword3"];
+// var file = File(Folder.desktop + "/zz.jpg");
+// if (file.exists) setKeywords(file, Keys);
+
+function schnell() {
+    // if (array_contains(meta_getKeywords(doc.fullName), "Hoodie")) {
+    // app.open(doc_file);
+    // var doc = app.activeDocument;
+
+    // alert(app.activeDocument.fullName)
+
+
+    // layer_selectByColor("orange");
+    // if (array_contains(meta_getKeywords(doc.fullName), "vorne")) {
+    //     var motiv = "Clash_11Freunde_Hoodie_grau_vorne";
+    // } else {
+    //     var motiv = "Clash_11Freunde_Hoodie_grau_hinten";
+    // }
+    // // var motiv = "Clash_11Freunde_Hoodie_grau_vorne";
+    //     var motiv = "blanko";
+    //     var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + motiv + ".psd");
+    //     smartObject_placeFile(file_Motiv_X);
+
+    //     var farbe = black;
+    //     // gotoLayer("heather_texture");
+    //     if (farbe[4] == 0) {
+    //         hide("heather_texture")
+    //     } else {
+    //         makeVisible("heather_texture")
+    //     }
+
+    //     for (var b = 0; b < layer_getIDXbyString("Farbe").length; b++) {
+    //         gotoLayer(layer_getIDXbyString("Farbe")[b])
+    //         layer_solidColorHSB_change(farbe[0], farbe[1], farbe[2]);
+    //         nameLayer(layer_getName(getActiveLayerIndex()).replace(/\[.*\]/g, "[" + farbe[3] + "]"));
+
+    //     };
+    //     var name_base = GetFileNameOnly(doc.name).replace(/(__RGB)/g, "");
+    //     gotoLayer(name_base + "__grau");
+    //     var schatten_korr = farbe[2] - 80;
+    //     if (schatten_korr >= 0) {
+    //         schatten_korr = schatten_korr * 1;
+    //     } else {
+    //         schatten_korr = 0;
+    //     }
+    //     ToD_curves_shirt_modify(0, schatten_korr, 128, 128, 192, 192, 255, 255);
+    //     // ToD_curves_shirt_modify(0, farbe[2] * 0.62, 128, 128, 192, 192, 255, 255);
+
+    //     layer_selectByColor("orange");
+    //     // doc.save();
+    //     // doc.close(SaveOptions.SAVECHANGES);
+
+    //     // }
+
+    gotoLayer("heather_texture")
+    makeVisible();
+    // var heather_texture= new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Heather_Textur/heather_texture_v2.jpg");
+    smartObject_placeFile(new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Heather_Textur/heather_texture_v2.jpg"));
+    nameLayer("heather_texture");
+
+    // layer_getMaskBounds("Textil");
+    // gotoLayer("heather_texture");
+    // var r = app.preferences.rulerUnits;
+    // app.preferences.rulerUnits = Units.PIXELS;
+    // var bounds = layer_getMaskBounds("Textil");
+    // ToD_transform(parseFloat(bounds[0]), parseFloat(bounds[1]), parseFloat(bounds[2]), parseFloat(bounds[3]));
+    // // alert(layer_getMaskBounds("Textil"))
+    // $.writeln("Bounds " + bounds)
+    // app.preferences.rulerUnits = r;
+
+    // =======================================================
+    var idtransform = stringIDToTypeID("transform");
+    var desc4 = new ActionDescriptor();
+    var idfreeTransformCenterState = stringIDToTypeID("freeTransformCenterState");
+    var idquadCenterState = stringIDToTypeID("quadCenterState");
+    var idQCSAverage = stringIDToTypeID("QCSAverage");
+    desc4.putEnumerated(idfreeTransformCenterState, idquadCenterState, idQCSAverage);
+    var idoffset = stringIDToTypeID("offset");
+    var desc5 = new ActionDescriptor();
+    var idhorizontal = stringIDToTypeID("horizontal");
+    var idpixelsUnit = stringIDToTypeID("pixelsUnit");
+    desc5.putUnitDouble(idhorizontal, idpixelsUnit, 0.000000);
+    var idvertical = stringIDToTypeID("vertical");
+    var idpixelsUnit = stringIDToTypeID("pixelsUnit");
+    desc5.putUnitDouble(idvertical, idpixelsUnit, 0.000000);
+    var idoffset = stringIDToTypeID("offset");
+    desc4.putObject(idoffset, idoffset, desc5);
+    executeAction(idtransform, desc4, DialogModes.ALL);
+
+    hide("heather_texture");
+    layer_selectByColor("orange");
+    doc.close(SaveOptions.SAVECHANGES);
+
+}
+
+
+
+
+
+function correctRGB() {
+    var folders = [];
+    var topLevel = Folder.selectDialog("Wähle den obersten Ordner aus. \nDie Unterordner werden auch mitverarbeitet.");
+    if (topLevel == null) return;
+    folders = FindAllFolders(topLevel, folders);
+    folders.unshift(topLevel);
+
+    for (var a in folders) {
+        files = [];
+        // files = folders[a].getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i);
+        files = folders[a].getFiles(/.+\.(tif|psd)$/i);
+        if (files.length < 1) continue;
+
+        for (var b in files) {
+            var thisFile = files[b];
+            var doc_file = new File(thisFile);
+
+
+            try {
+
+
+
+                // Motiv auf 86% Deckkraft ????
+                // oder hab ich das mit der Graditionskurve geregelt ????
+
+
+                // fixMask(layer_getIDXbyString("Maske")[0], 1);
+                // moveLayer("heather_texture", "Farbecheck [init]", "up");
+                // hide("heather_texture");
+                // hide("Farbecheck [init]");
+                // layer_selectByColor("orange");
+
+                // if (array_contains(meta_getKeywords(thisFile), "Hoodie") && array_contains(meta_getKeywords(thisFile), "vorne")) {
+                if (!array_contains(meta_getKeywords(thisFile), "Frauen_Hoodie")) {
+                    app.open(doc_file);
+                    var doc = app.activeDocument;
+
+
+                    layer_selectByColor("orange");
+                    // if (array_contains(meta_getKeywords(thisFile), "vorne")) {
+                    //     var motiv = "Clash_11Freunde_Hoodie_grau_vorne";
+                    // } else {
+                    //     var motiv = "Clash_11Freunde_Hoodie_grau_hinten";
+                    // }
+                    // var motiv = "Clash_11Freunde_Hoodie_grau_hinten";
+                    // var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + motiv + ".psd");
+                    // smartObject_placeFile(file_Motiv_X);
+
+                    var farbe = white;
+                    if (farbe[4] == 0) {
+                        hide("heather_texture")
+                    } else {
+                        makeVisible("heather_texture")
+                    }
+
+                    for (var c = 0; c < layer_getIDXbyString("Farbe").length; c++) {
+                        gotoLayer(layer_getIDXbyString("Farbe")[c])
+                        layer_solidColorHSB_change(farbe[0], farbe[1], farbe[2]);
+                        nameLayer(layer_getName(getActiveLayerIndex()).replace(/\[.*\]/g, "[" + farbe[3] + "]"));
+                    };
+
+                    var name_base = GetFileNameOnly(app.activeDocument.name).replace(/(__RGB)/g, "")
+                    gotoLayer(layer_getIDXbyString(name_base + "__grau")[0]);
+                    // ToD_curves_shirt_modify(0, farbe[2] * 0.62, 128, 128, 192, 192, 255, 255);
+                    // ToD_curves_shirt_modify(0, 0, 128, 128, 192, 192, 255, 255);
+                    var schatten_korr = farbe[2] - 80;
+                    if (schatten_korr >= 0) {
+                        schatten_korr = schatten_korr * 1;
+                    } else {
+                        schatten_korr = 0;
+                    }
+                    ToD_curves_shirt_modify(0, schatten_korr, 128, 128, 192, 192, 255, 255);
+
+                    layer_selectByColor("orange");
+                    doc.close(SaveOptions.SAVECHANGES);
+                }
+            } catch (e) {
+                $.writeln("Error: " + e)
+            }
+        }
+    }
+
+    function FindAllFolders(srcFolderStr, destArray) {
+        var fileFolderArray = Folder(srcFolderStr).getFiles();
+        for (var i = 0; i < fileFolderArray.length; i++) {
+            var fileFoldObj = fileFolderArray[i];
+            if (fileFoldObj instanceof File) {} else {
+                destArray.push(Folder(fileFoldObj));
+                FindAllFolders(fileFoldObj.toString(), destArray);
+            }
+        }
+        return destArray;
+    };
+}
+
+// motiv__11_Kasten, motiv__11F_innen_doppelpunkt, motiv__11F_innen, motiv__11F_Logo_beidseitig, motiv__11F_Logo, motiv__Auswärtsfans, motiv__Brehme, motiv__BrigadeHS, motiv__Fussball_ist_bunt, motiv__IKAUZ, motiv__Nohler
 
 // ~/Arbeit/11Freunde/TextilOnDemand/Test/test2/1_4A1A0038__RGB.psd
 // 00 - Spinner
@@ -300,19 +1141,34 @@ var collection = [
 // 1212 - false
 // 1213 - false
 
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 
+run(collection);
+// correctRGB();
+// schnell();
+
+// color2csv()
+// loopMotive();
+// ToD_exportMotive();
+// loopFarben();
+// createRGB();
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 
 function run(x) {
-    farbe2 = "q"
-    motiv2 = "q"
+    var farbe2, motiv2, motiv_main, motivDruck, rohling;
 
     var folders = [];
     var topLevel = Folder.selectDialog("Wähle den obersten Ordner aus. \nDie Unterordner werden auch mitverarbeitet.");
     if (topLevel == null) return;
     folders = FindAllFolders(topLevel, folders);
     folders.unshift(topLevel);
+    time_start();
+    $.writeln("Start: " + start)
 
     for (var a in folders) {
         files = [];
@@ -323,12 +1179,12 @@ function run(x) {
         for (var b in files) {
             var thisFile = files[b];
             var doc_file = new File(thisFile);
-            $.writeln(decodeURIComponent(thisFile));
+            // $.writeln("GET " + decodeURIComponent(thisFile));
 
             try {
 
                 for (var a = 0; a < x.length; a++) {
-                    $.writeln(a + " - " + x[a]);
+                    // $.writeln(a + " - " + x[a]);
 
                     for (var b = 0; b < x[a].length; b++) {
 
@@ -338,44 +1194,64 @@ function run(x) {
                             }
                         }
 
-                        //TODO hinten vorne unterscheiden 
-                        //     heather einschalten
-                        //     doc schliessen
-                        //     emptyProtocoll richitg?
-                        //     blanko noch einbauen
-
-
                         // if (documents.length != 0) {
                         try {
                             for (var c = 0; c < x[a][b].length; c++) {
                                 // $.writeln(a + "-" + b + "-" + c + " - " + x[a][b][c])
                                 var name_base = GetFileNameOnly(app.activeDocument.name).replace(/(__RGB)/g, "")
+                                // $.writeln("PROCESS " + name_base)
 
                                 for (var d = 0; d < x[a][2][c].length; d++) {
                                     // $.writeln(a + "-" + b + "-" + c + "-" + d + " - " + x[a][b][c][d] + " - Motiv");
 
                                     if (x[a][2][c][d]) {
-                                        $.writeln(array_contains(meta_getKeywords(thisFile), "vorne") + " " + d);
-                                        $.writeln(array_contains(meta_getKeywords(thisFile), "hinten") + " " + d)
-                                        if ((array_contains(meta_getKeywords(thisFile), "vorne") && d <= 1) || (array_contains(meta_getKeywords(thisFile), "hinten") && d >= 2)) {
+                                        // $.writeln(array_contains(meta_getKeywords(thisFile), "vorne") + " " + d);
+                                        // $.writeln(array_contains(meta_getKeywords(thisFile), "hinten") + " " + d)
+                                        if ((array_contains(meta_getKeywords(thisFile), "vorne") && d <= 0) || (array_contains(meta_getKeywords(thisFile), "hinten") && d >= 1)) {
 
 
                                             for (g = 0; g < x[a][1].length; g++) {
-                                                motiv2 = x[a][2][c][d];
+                                                var direction = "";
+                                                if (array_contains(meta_getKeywords(thisFile), "vorne") && d <= 0) {
+                                                    var direction = "__vorne"
+                                                } else if (array_contains(meta_getKeywords(thisFile), "hinten") && d >= 1) {
+                                                    var direction = "__hinten"
+                                                }
+                                                rohling = x[a][0][0];
+                                                motiv2 = x[a][2][c][d].replace("_vorne", "").replace("_hinten", "");
+                                                motiv_main = x[a][2][c][0];
+                                                if (typeof motiv_main !== 'undefined') {
+                                                    if (motiv_main == "blanko") {
+                                                        motiv_main = x[a][2][c][1];
+                                                    }
+                                                    motivDruck = motiv_main.replace(/(.*)(_\(.*\))/g, "$1").replace("_vorne", "").replace("_hinten", "").replace("_Hoodie", "").replace("_Shirt", "").replace("_schwarz", "").replace("_grau", "");
+                                                }
+                                                motivFarbe = motiv_main.replace("_vorne", "").replace("_hinten", "");
+                                                farbe2 = x[a][1][g][3];
+                                                // $.writeln(rohling + " -- " + motiv2 + " -- " + motiv_main + " -- " + motivFarbe + " -- " + motivDruck + " -- " + farbe2)
+
+
                                                 farbe2 = x[a][1][g][3];
 
-                                                var export_path = "~/Arbeit/11Freunde/TextilOnDemand/Test/test2/output";
-                                                var export_name = x[a][0][0] + "__" + motiv2 + "__" + farbe2 + "__(" + name_base + ")";
-                                                var export_file = new File(export_path + "/" + export_name + ".jpg");
+                                                var export_path = "~/Arbeit/11Freunde/TextilOnDemand/Output";
+
+                                                // var export_path = new Folder(export_path + "/" + x[0][3][0] + "/" + x[0][3][1]);
+                                                var export_path_print = new Folder(export_path + "/" + motivDruck + "/" + rohling + "__" + motivFarbe);
+                                                if (!export_path_print.exists) export_path_print.create();
+                                                // alert(export_path)
+
+                                                // var export_name = x[a][0][0] + "__" + motiv2 + "__" + farbe2 + "__(" + name_base + ")";
+                                                // var export_name = x[0][3][1] + "__" + farbe2 + "__(" + name_base.replace(" ", "_") + ")";
+                                                var export_name = rohling + "__" + farbe2 + direction + "__" + motiv2 + "__(" + name_base.replace(" ", "_") + ")";
+
+                                                var export_file = new File(export_path_print + "/" + export_name + ".jpg");
                                                 if (!export_file.exists) {
 
                                                     layer_selectByColor("orange");
+
                                                     var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + x[a][2][c][d] + ".psd");
                                                     smartObject_placeFile(file_Motiv_X);
 
-                                                    // $.writeln(motiv2)
-
-                                                    // $.writeln("length " + g + " farbe " + x[a][1][g][3]);
                                                     for (var e = 0; e < layer_getIDXbyString("Farbe").length; e++) {
                                                         gotoLayer(layer_getIDXbyString("Farbe")[e])
                                                         layer_solidColorHSB_change(x[a][1][g][0], x[a][1][g][1], x[a][1][g][2]);
@@ -387,24 +1263,36 @@ function run(x) {
                                                         makeVisible()
                                                     }
                                                     gotoLayer(name_base + "__grau");
-                                                    ToD_curves_shirt_modify(0, x[a][1][g][2] * 0.62, 128, 128, 192, 192, 255, 255);
+                                                    // ToD_curves_shirt_modify(0, x[a][1][g][2] * 0.62, 128, 128, 192, 192, 255, 255);
+                                                    var schatten_korr = x[a][1][g][2] - 80;
+                                                    if (schatten_korr >= 0) {
+                                                        schatten_korr = schatten_korr * 1;
+                                                    } else {
+                                                        schatten_korr = 0;
+                                                    }
+                                                    ToD_curves_shirt_modify(0, schatten_korr, 128, 128, 192, 192, 255, 255);
+
+
+                                                    SaveForWeb("JPEG", export_path_print, export_name, f, f, f, t, t, 255, 255, 255, "Meta_all_noKameraInfo", 66, t, t, 0);
+                                                    $.writeln("saved " + decodeURIComponent(export_path_print) + "/" + export_name)
+
+                                                    try {
+                                                        // var export_path_web = export_path.replace("Output", "Output_Web");
+                                                        // $.writeln("webpath "+export_path_web)
+                                                        // var export_path_web = new Folder(export_path_web);
+
+                                                        var export_path_web = new Folder(export_path + "_Web" + "/" + motivDruck + "/" + rohling + "__" + motivFarbe);
+                                                        if (!export_path_web.exists) export_path_web.create();
+                                                        SaveForWeb("JPEG", export_path_web, export_name, 50, f, f, t, t, 255, 255, 255, "Meta_all_noKameraInfo", 66, t, t, 0);
+                                                        $.writeln("saved WEB " + decodeURIComponent(export_path_web) + "/" + export_name)
+                                                    } catch (e) {
+                                                        // $.writeln("Error: " + e);
+                                                    }
 
 
 
-                                                    // $.writeln(name_base + "<->" + motiv2 + "<->" + farbe2)
-
-                                                    // if (motiv2 != "q" && farbe2 != "q") {
-                                                    //     if (motiv2) {
-                                                    SaveForWeb("JPEG", export_path, export_name, f, f, f, t, t, 255, 255, 255, "Meta_ck", 66, t, t, 0);
-                                                    $.writeln("saved " + export_name)
-                                                    //     } else {
-                                                    //         $.writeln("motiv ist false")
-                                                    //     }
-                                                    // } else {
-                                                    //     $.writeln("qqqqqqqq found")
-                                                    // }
                                                 } else {
-                                                    $.writeln("export_file existiet bereits")
+                                                    // $.writeln("export_file existiet bereits")
                                                 }
                                             }
                                             emptyProtocoll();
@@ -412,14 +1300,10 @@ function run(x) {
                                     }
                                 }
                             }
-                        } catch (e) {}
-                        // }
-                        // } else {
-                        //     alert("bitte alle Dateine schliessen, dann nochmal starten");
-                        //     return;
-                        // }
+                        } catch (e) {
+                            // alert(e)
+                        }
                     }
-                    // break;
                     try {
                         if (documents.length != 0) {
                             app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
@@ -433,18 +1317,18 @@ function run(x) {
             }
         }
     }
-    alert("done")
+    // $.writeln("Ende: " + time_stop(start))
+    var stop = new Date().getTime();
+    var elapsed = (stop - start) / 1000;
+    var msg = ("Done (" + Number(elapsed).toFixed(3) + " secs).");
+    $.writeln(msg);
+
 }
 
 
 
 
-run(collection);
-// alert("ding")
-// loopMotive();
-// ToD_exportMotive();
-// loopFarben();
-// createRGB();
+
 
 function createRGB() {
     var folders = [];
@@ -898,16 +1782,21 @@ function layer_setBlendMode(_blendMode) {
 
 // =======================================================
 function layer_getMaskBounds(_layer) {
+    var startLayer = layer_selectedIDX_get();
     gotoLayer(_layer);
     loadSelectionOfMask();
     var MaskBound_b = [];
     var MaskBound_b = app.activeDocument.selection.bounds;
+    var MaskBound_get = [];
     MaskBound_x = MaskBound_y = MaskBound_w = MaskBound_h = "";
     MaskBound_x = Math.floor(MaskBound_b[0].value);
     MaskBound_y = Math.floor(MaskBound_b[1].value);
     MaskBound_w = Math.ceil(MaskBound_b[2].value - MaskBound_b[0].value);
     MaskBound_h = Math.ceil(MaskBound_b[3].value - MaskBound_b[1].value);
+    MaskBound_get.push(MaskBound_x, MaskBound_y, MaskBound_w, MaskBound_h);
     app.activeDocument.selection.deselect();
+    layer_selectedIDX_set(startLayer);
+    return MaskBound_get;
 }
 
 
@@ -921,6 +1810,8 @@ function ToD_transform(horizontal, vertical, width, height) {
     d.putObject(s2t("offset"), s2t("offset"), d2);
     var width2 = parseFloat(width / app.activeDocument.width * 100);
     var height2 = parseFloat(height / app.activeDocument.height * 100);
+    $.writeln("width2 " + width2)
+    $.writeln("height2 " + height2)
     d.putUnitDouble(s2t("width"), s2t("percentUnit"), width2);
     d.putUnitDouble(s2t("height"), s2t("percentUnit"), height2);
     executeAction(s2t("transform"), d, DialogModes.NO);
@@ -984,6 +1875,7 @@ function delHist() {
     executeAction(s2t('delete'), d, DialogModes.NO);
 };
 
+
 // =======================================================
 function meta_getKeywords(_file) {
     if (!ExternalObject.AdobeXMPScript) ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript')
@@ -1002,7 +1894,22 @@ function meta_getKeywords(_file) {
         }
         return output;
     }
-}
+};
+
+// =======================================================
+// https://community.adobe.com/t5/bridge-discussions/script-to-add-keywords-in-bridge-based-on-the-filename/m-p/8577169#M20977
+function meta_setKeywords(file, Keys) {
+    if (!ExternalObject.AdobeXMPScript) ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript');
+    var xmpf = new XMPFile(File(file).fsName, XMPConst.UNKNOWN, XMPConst.OPEN_FOR_UPDATE);
+    var xmp = xmpf.getXMP();
+    for (var s in Keys) {
+        xmp.appendArrayItem(XMPConst.NS_DC, "subject", Keys, 0, XMPConst.PROP_IS_ARRAY);
+    }
+    if (xmpf.canPutXMP(xmp)) {
+        xmpf.putXMP(xmp);
+    }
+    xmpf.closeFile(XMPConst.CLOSE_UPDATE_SAFELY);
+};
 
 // =======================================================
 function array_contains(_array, _value) {
@@ -1012,14 +1919,14 @@ function array_contains(_array, _value) {
         }
     }
     return false;
-}
+};
 
 // =======================================================
 function ToD_exportMotive() {
     var _motive_MAIN = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/_motive_MAIN.psd");
     app.open(_motive_MAIN);
     var i = 1;
-    var saveFolder = "/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/";
+    var saveFolder = "/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/export/";
     while (layer_checkExistence(i)) {
         selectLayers("selectAllLayers");
         hide();

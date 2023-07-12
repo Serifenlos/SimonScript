@@ -9,7 +9,9 @@ function anordnung_zoom(_zoomSteps) {
 
             try {
                 fitScreen();
-                zoomSteps(_zoomSteps);
+                if (_zoomSteps != 0) {
+                    zoomSteps(_zoomSteps);
+                }
             } catch (e) {
                 alert('Error')
             };

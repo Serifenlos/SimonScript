@@ -9,6 +9,7 @@
 // @codekit-prepend './view/anordung_kachel.js';
 // @codekit-prepend './view/anordung_zoom.js';
 // @codekit-prepend './view/apfel0.js';
+// @codekit-prepend './view/app_panelsVisible.js';
 // @codekit-prepend './view/fitScreen.js';
 // @codekit-prepend './view/getZoomLevel.js';
 // @codekit-prepend './view/rulersVisibility.js';

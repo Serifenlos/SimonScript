@@ -1,0 +1,3 @@
+document.getElementById("A_kachel").addEventListener("click",(async function(){console.log("dingdong");require("photoshop").action.batchPlay;async function e(){let e,t=require("photoshop").action;e=await t.batchPlay([
+// Ganzes Bild (Menübefehl) Auswahl 
+{_obj:"select",_target:[{_enum:"menuItemType",_ref:"menuItemClass",_value:"fitOnScreen"}]}],{})}await async function(){await require("photoshop").core.executeAsModal(e,{commandName:"Action Commands"})}()}));

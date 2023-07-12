@@ -37,9 +37,9 @@ prefSet();
 inputFolder = Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");
 var fileList = inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i);
 
-var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
+// var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
 // var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER_maximal");
-// var masterFolder = new Folder("~/11F <-> Simon/Shop/2019-09/RGB/MASTER");
+var masterFolder = new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
 
 if (!masterFolder.exists) { errorExit("kein Master-Folder!") };
 
@@ -51,7 +51,8 @@ if (!tempFolder.exists) { tempFolder.create() };
 // var outputFolder = new Folder("~/11F <-> Simon/Shop/2019-09/material/_output");
 // var outputFolder = new Folder("~/Desktop/Simon/Plattenmontage/test_output");
 // var outputFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Bilderwelt/Plattenmontage+");
-var outputFolder = new Folder("/Volumes/homes/pixoprint/11F_BW_2021-03__moods");
+// var outputFolder = new Folder("/Volumes/homes/pixoprint/11F_BW_2021-03__moods");
+var outputFolder = new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/Mood_Output");
 if (!outputFolder.exists) { outputFolder.create() };
 
 if (run_all || run_3x2quer) {

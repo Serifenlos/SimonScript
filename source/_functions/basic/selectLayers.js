@@ -3,5 +3,7 @@ function selectLayers(_all_or_nothing) {
     var r = new ActionReference();
     r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'));
     d.putReference(sTID('null'), r);
-    executeAction(sTID(_all_or_nothing), d, DialogModes.NO);
+    try {
+        executeAction(sTID(_all_or_nothing), d, DialogModes.NO);
+    } catch (e) { }
 }

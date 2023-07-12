@@ -7,6 +7,9 @@
 // @codekit-prepend './basic/_s2t.js';
 // @codekit-prepend './basic/_sTID.js';
 // @codekit-prepend './basic/_t2s.js';
+// @codekit-prepend './basic/adjustLayer_levels_autoLevels.js';
+// @codekit-prepend './basic/adjustLayer_levels_autoLevels_wrapper.js';
+// @codekit-prepend './basic/adjustLayer_levels_edit.js';
 // @codekit-prepend './basic/app_getForegroundColor.js';
 // @codekit-prepend './basic/assignProfile.js';
 // @codekit-prepend './basic/blendif.js';
@@ -15,9 +18,11 @@
 // @codekit-prepend './basic/clearAllGuides.js';
 // @codekit-prepend './basic/cm2pt.js';
 // @codekit-prepend './basic/cmyk2rgb.js';
+// @codekit-prepend './basic/copy.js';
 // @codekit-prepend './basic/createColorLayer.js';
 // @codekit-prepend './basic/createGroup.js';
 // @codekit-prepend './basic/createLayer.js';
+// @codekit-prepend './basic/createMask.js';
 // @codekit-prepend './basic/deleteHistory.js';
 // @codekit-prepend './basic/deleteMask.js';
 // @codekit-prepend './basic/dublicate.js';
@@ -33,6 +38,7 @@
 // @codekit-prepend './basic/hasBackground.js';
 // @codekit-prepend './basic/img_resize.js';
 // @codekit-prepend './basic/indexcolor2rgb.js';
+// @codekit-prepend './basic/invert.js';
 // @codekit-prepend './basic/isSelectionActive.js';
 // @codekit-prepend './basic/logger.js';
 // @codekit-prepend './basic/mergeLayers.js';
@@ -41,6 +47,7 @@
 // @codekit-prepend './basic/moveLayer3.js';
 // @codekit-prepend './basic/nameLayer.js';
 // @codekit-prepend './basic/noProfile.js';
+// @codekit-prepend './basic/paste_into.js';
 // @codekit-prepend './basic/prefReset.js';
 // @codekit-prepend './basic/prefSave.js';
 // @codekit-prepend './basic/prefSet.js';

@@ -86,14 +86,16 @@ function flattenImage() {
 //FUNCTION schärfen
 function sharp() {
     var safeZoom = getZoomLevel();
-    vollbildmodus();
+    // vollbildmodus();
+    if(app_panelsVisible()) togglePalettes();
     zoom100();
 
     try {
         executeAction(stringIDToTypeID("unsharpMask"), undefined, DialogModes.ALL);
     } catch (e) {}
 
-    standardmodus();
+    // standardmodus();
+    if(!app_panelsVisible()) togglePalettes();
     setZoom(safeZoom);
 }
 

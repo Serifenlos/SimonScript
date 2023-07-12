@@ -54,7 +54,7 @@
         createLayer("AutoTonwert", "levels", "normal", "gray", 100, "none", f, t);
         toogleVisibility();
         createLayer("Gradation neutral", "curves", "normal", "gray", 100, "none", f, f);
-        DodgeBurn_highlow(true);
+        DodgeBurn_highmidlow(true);
         selectLayer("up", 1);
         createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f);
         createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f);
@@ -85,25 +85,25 @@
         /* createLayer("Burn █▅▂", "colorLookup", "normal", "gray", 100, "black", f, f); */
         createLayer("Burn ▽", "colorLookup", "normal", "gray", 100, "black", f, f);
         LUT_burn();
-        blendif(0, 0, 0, 255);
+        blendif("current", 0, 0, 0, 255);
         /* createLayer("Dodge ▼", "colorLookup", "normal", "gray", 100, "black", f, f); */
         /* createLayer("Dodge █▅▂", "colorLookup", "normal", "gray", 100, "black", f, f); */
         createLayer("Dodge ▽", "colorLookup", "normal", "gray", 100, "black", f, f);
         LUT_dodge();
-        blendif(0, 0, 0, 255);
+        blendif("current", 0, 0, 0, 255);
         selectParent();
         createGroup("Dodge & Burn △▽", "passThrough", "gray", 100, t);
         /* createLayer("Burn ▲", "colorLookup", "normal", "gray", 100, "black", f, f); */
         /* createLayer("Burn ▂▅█", "colorLookup", "normal", "gray", 100, "black", f, f); */
         createLayer("Burn △", "colorLookup", "normal", "gray", 100, "black", f, f);
         LUT_burn();
-        blendif(0, 255, 255, 255);
+        blendif("current", 0, 255, 255, 255);
         createGroup("Lichter", "passThrough", "gray", 100, t);
         /* createLayer("Dodge ▲", "colorLookup", "normal", "gray", 100, "black", f, f); */
         /* createLayer("Dodge ▂▅█", "colorLookup", "normal", "gray", 100, "black", f, f); */
         createLayer("Dodge △", "colorLookup", "normal", "gray", 100, "black", f, f);
         LUT_dodge();
-        blendif(0, 255, 255, 255);
+        blendif("current", 0, 255, 255, 255);
         selectParent();
         selectParent();
         if (_collapseAll) {
@@ -260,5 +260,347 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_saveRGB.js)
 
+### motivmaske
+
+<button class="btn" data-clipboard-text="motivmaske(_kind, _get);"></button>
+{: .btn_p }
+
+??? "motivmaske(_kind, _get);"
+    ``` js linenums="1"
+    function motivmaske(_kind, _get) {
+    
+        // _kind = 'Motiv' || 'nicht Motiv'
+        // _get = 'Selection' || 'Folder'
+        var startIDXs = layer_selectedIDX_get();
+        cancel = false;
+    
+        selection_loop(function () { select_motiv() });
+    
+        if (!cancel) {
+            if (_get == "Selection") {
+                layer_selectedIDX_set(startIDXs);
+                if (_kind == "nicht Motiv") {
+                    select_invert();
+                }
+            } else {
+                gotoLayer(startIDXs[startIDXs.length - 1])
+                selection2mask(_kind);
+                if (_kind == "nicht Motiv") {
+                    gotoMask();
+                    invert();
+                    gotoFill();
+                }
+            }
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/motivmaske.js)
+
+### himmelmaske
+
+<button class="btn" data-clipboard-text="himmelmaske(_kind, _get);"></button>
+{: .btn_p }
+
+??? "himmelmaske(_kind, _get);"
+    ``` js linenums="1"
+    function himmelmaske(_kind, _get) {
+    
+        // _kind = 'Himmel' || 'nicht Himmel'
+        // _get = 'Selection' || 'Folder'
+    
+    
+        var startIDXs = layer_selectedIDX_get();
+        cancel = false;
+    
+        selection_loop(function () { select_sky(false) });
+    
+    
+        if (!cancel) {
+            if (_get == "Selection") {
+                layer_selectedIDX_set(startIDXs);
+                if (_kind == "nicht Himmel") {
+                    select_invert();
+                }
+            } else {
+                gotoLayer(startIDXs[startIDXs.length - 1])
+                selection2mask(_kind);
+                if (_kind == "nicht Himmel") {
+                    gotoMask();
+                    invert();
+                    gotoFill();
+                }
+            }
+        }
+    
+        // himmelmaske_loop();
+    
+        // createGroup("Himmel", "passThrough", "none", 100, f);
+        // maskFromSelection();
+    
+    
+        // if (startIDXs.length > 0) {
+        //     moveLayer("Himmel", startIDXs[startIDXs.length - 1], "up");
+        // } else if (layer_checkExistence(layer_getIDXbyString("Dodge & Burn △◊▽")[0])) {
+        //     moveLayer("Himmel", "Dodge & Burn △◊▽", "up");
+        // } /*else if (layer_checkExistence(layer_getIDXbyString("Einstellungen")[0])) {
+        //     moveLayer("Motiv", "Einstellungen", "down");
+        // }*/
+        // gotoLayer("Himmel");
+    }
+    
+    
+    
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/himmelmaske.js)
+
+### DodgeBurn_highmidlow
+
+<button class="btn" data-clipboard-text="DodgeBurn_highmidlow(_collapseAll);"></button>
+{: .btn_p }
+
+??? "DodgeBurn_highmidlow(_collapseAll);"
+    ``` js linenums="1"
+    function DodgeBurn_highmidlow(_collapseAll) {
+        createGroup("Tiefen", "passThrough", "gray", 100, f);
+        createLayer("Burn ▽", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_burn();
+        blendif("current", 0, 0, 0, 255);
+        createLayer("Dodge ▽", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_dodge();
+        blendif("current", 0, 0, 0, 255);
+        selectParent();
+        createGroup("Dodge & Burn △◊▽", "passThrough", "gray", 100, t);
+        
+        createLayer("Burn ⬨", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_burn();
+        blendif("current", 20, 202, 109, 240);
+        createGroup("Mitten", "passThrough", "gray", 100, t);
+        createLayer("Dodge ⬨", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_dodge();
+        blendif("current", 20, 202, 109, 240);
+        selectParent();
+        selectParent();
+        
+        createLayer("Burn △", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_burn();
+        blendif("current", 0, 255, 255, 255);
+        createGroup("Lichter", "passThrough", "gray", 100, t);
+        createLayer("Dodge △", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_dodge();
+        blendif("current", 0, 255, 255, 255);
+        selectParent();
+        selectParent();
+        
+        if (_collapseAll) {
+            toogleOpenCloseSet();
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/DodgeBurn_highmidlow.js)
+
+### dodgeburn_mid
+
+<button class="btn" data-clipboard-text="dodgeburn_mid();"></button>
+{: .btn_p }
+
+??? "dodgeburn_mid();"
+    ``` js linenums="1"
+    function dodgeburn_mid() {
+        createGroup("Dodge & Burn ⬨", "passThrough", "gray", 100, f);
+        createLayer("Burn ⬨", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_burn();
+        blendif("current", 20, 202, 109, 240);
+        createLayer("Dodge ⬨", "colorLookup", "normal", "gray", 100, "black", f, f);
+        LUT_dodge();
+        blendif("current", 20, 202, 109, 240);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn_mid.js)
+
+### dodgeburn_toggle
+
+<button class="btn" data-clipboard-text="dodgeburn_toggle();"></button>
+{: .btn_p }
+
+??? "dodgeburn_toggle();"
+    ``` js linenums="1"
+    function dodgeburn_toggle() {
+        try {
+            var thisLayer = doc.activeLayer;
+            var thisLayerIDX = getActiveLayerIndex();
+    
+            if (thisLayer.kind == LayerKind.COLORLOOKUP) {
+                if (/burn/i.test(thisLayer.name)) {
+                    selectLayer("up", 1);
+                    if (!/dodge/i.test(doc.activeLayer.name)) {
+                        gotoLayer(thisLayerIDX);
+                        selectLayer("down", 1);
+                        if (!/dodge/i.test(doc.activeLayer.name)) {
+                            gotoLayer(thisLayerIDX);
+                        }
+                    }
+    
+                } else if (/dodge/i.test(thisLayer.name)) {
+                    selectLayer("down", 1);
+                    if (!/burn/i.test(doc.activeLayer.name)) {
+                        gotoLayer(thisLayerIDX);
+                        selectLayer("up", 1);
+                        if (!/burn/i.test(doc.activeLayer.name)) {
+                            gotoLayer(thisLayerIDX);
+                        }
+                    }
+                }
+            }
+    
+        } catch (e) {}
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn_toggle.js)
+
+### freisteller_allHG
+
+<button class="btn" data-clipboard-text="freisteller_allHG();"></button>
+{: .btn_p }
+
+??? "freisteller_allHG();"
+    ``` js linenums="1"
+    function freisteller_allHG() {
+        var firstDoc = app.activeDocument;
+        var color = app.foregroundColor;
+        var h = color.hsb.hue;
+        var s = color.hsb.saturation;
+        var b = color.hsb.brightness;
+        for (var i = 0; i < app.documents.length; i++) {
+            app.activeDocument = app.documents[i];
+            var doc = app.activeDocument;
+            try {
+                if (app.activeDocument.layers.getByName("Freisteller helper")) {
+                    try {
+                        var currentLayer = layer_selectedIDX_get();
+                        gotoLayer("Freisteller helper");
+    
+                        if (layer_getSolidFillColor()[0] == app_getForegroundColor()[0]) {
+                            if (layer_getSolidFillColor()[1] == app_getForegroundColor()[1]) {
+                                if (layer_getSolidFillColor()[2] == app_getForegroundColor()[2]) {
+                                    if (isVisible()) {
+                                        hide();
+                                    } else {
+                                        makeVisible();
+                                    }
+                                }
+                            }
+                        } else {
+                            layer_solidColorHSB_change(h, s, b);
+                        }
+                        layer_selectedIDX_set(currentLayer);
+                    } catch (e) {};
+                }
+            } catch (e) {}
+        };
+        app.activeDocument = firstDoc;
+    }
+    
+    
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_allHG.js)
+
+### tiefenmaske
+
+<button class="btn" data-clipboard-text="tiefenmaske(_merge);"></button>
+{: .btn_p }
+
+??? "tiefenmaske(_merge);"
+    ``` js linenums="1"
+    function tiefenmaske(_merge) {
+        var startIDXs = layer_selectedIDX_get();
+    
+    
+        if (_merge || layer_selectedIDX_get().length > 1) {
+            if (_merge) {
+                layer_mergeVisible(_merge);
+            } else {
+                layer_copyLayers(); //Ebenen kopieren (Apfel J)
+                layer_mergeLayers(); //auf eine Ebene reduzieren (Apfel E)
+            }
+    
+            nameLayer("helper__depthMask_image");
+    
+            // move to TOP
+            var i = hasBackground() ? 0 : 1;
+            while (layer_checkExistence(i)) {
+                i++;
+            };
+            moveLayer("helper__depthMask_image", parseInt(i - 1), "up");
+            gotoLayer("helper__depthMask_image");
+    
+        } else {
+            if (layer_checkExistence(layer_getIDXbyString("Original")[0])) {
+                // alert("Ori existiert")
+                gotoLayer("Original");
+            } else {
+                gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length - 1])
+            }
+    
+            while (doc.activeLayer.kind != LayerKind.NORMAL) {
+                gotoLayer(getActiveLayerIndex() - 1)
+            };
+    
+            if (doc.activeLayer.kind != LayerKind.SmartObject) {
+                executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
+                nameLayer("helper__depthMask_image");
+            }
+        }
+    
+        neural_depthmap();
+    
+        nameLayer("layer__depthMask_map");
+        select_luminance();
+    
+        layer_delete();
+        gotoLayer("helper__depthMask_image");
+        layer_delete();
+        createGroup("Tiefe", "passThrough", "none", 100, f);
+    
+        maskFromSelection();
+    
+        // if (layer_checkExistence(layer_getIDXbyString("Dodge & Burn △◊▽")[0])) {
+        //     moveLayer("Tiefe", "Dodge & Burn △◊▽", "up");
+        // }
+    
+    
+    
+        if (startIDXs.length > 0) {
+            moveLayer("Tiefe", startIDXs[startIDXs.length - 1], "up");
+            // alert("length");
+            // return;
+        } else if (layer_checkExistence(layer_getIDXbyString("Dodge & Burn △◊▽")[0])) {
+            moveLayer("Tiefe", "Dodge & Burn △◊▽", "up");
+            // alert("Dodge");
+            // return;
+        } else if (layer_checkExistence(layer_getIDXbyString("Einstellungen")[0])) {
+            moveLayer("Tiefe", "Einstellungen", "down");
+            // alert("Einstellungen");
+        }
+    
+    
+    
+    
+        gotoLayer("Tiefe");
+    }
+    
+    
+    
+    
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/tiefenmaske.js)
+
 !!! warning show "not documented functions"
-    - freisteller_allHG
+    - tiefenmaske_part1
+     - tiefenmaske_part2

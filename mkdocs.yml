@@ -46,6 +46,7 @@ nav:
         - 'Schlußschuss': 'PS_Scripts/schlussschuss.md'
     - 'functions':
         - 'basic': 'functions/basic.md'
+        - 'channel': 'functions/channel.md'
         - 'dialog': 'functions/dialog.md'
         - 'layer': 'functions/layer.md'
         - 'loopFiles': 'functions/loopFiles.md'
@@ -56,6 +57,7 @@ nav:
         - 'meta': 'functions/meta.md'
         - 'ready': 'functions/ready.md'
         - 'save': 'functions/save.md'
+        - 'selection': 'functions/selection.md'
         - 'view': 'functions/view.md'
     - 'helpful':
         - 'snippets': 'helpful/snippets.md'

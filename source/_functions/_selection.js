@@ -1,0 +1,10 @@
+// @codekit-prepend './selection/select_all.js';
+// @codekit-prepend './selection/select_invert.js';
+// @codekit-prepend './selection/select_luminance.js';
+// @codekit-prepend './selection/select_motiv.js';
+// @codekit-prepend './selection/select_saturation.js';
+// @codekit-prepend './selection/select_sky.js';
+// @codekit-prepend './selection/selection2mask.js';
+// @codekit-prepend './selection/selection_check.js';
+// @codekit-prepend './selection/selection_deselect.js';
+// @codekit-prepend './selection/selection_loop.js';
