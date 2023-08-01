@@ -41,7 +41,7 @@ for file in $project/docs/kit_helper/*; do
     folder=${folder%%.kit}
     until [ "$(perl -0777 -ne '/{\{([^}]*)}}/ && print $1,"\n";' $project/docs/kit_helper/$kit)" = "" ] || [ ! $count -lt 1000 ]
     do
-        #echo $count
+        # echo $count
         # echo $folder
         count=`expr $count + 1`
         g=$(perl -0777 -ne '/{\{([^}]*)}}/ && print $1,"\n";' $project/docs/kit_helper/$kit)

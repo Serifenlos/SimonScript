@@ -119,6 +119,17 @@ cmd alt 2
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_saturation.js)
 
+???+ a
+    ```js
+    select_saturation('bunt', 'lighten', 'merged', 'folder');
+    ```
+
+    ??? b
+        * _kind `bunt` `unbunt`
+        * _calulation `lighten` `screen` …
+        * _source `merge` `LayerName` `this`
+        * _get `selection` `folder`
+
 ### select_sky
 
 <button class="btn" data-clipboard-text="select_sky(_sampleAllLayers);"></button>
@@ -138,6 +149,46 @@ cmd alt 2
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_sky.js)
+
+???+ a
+    ```js
+    select_sky(false);
+    ```
+
+    ??? b
+        * _sampleAllLayers `true` `false`
+
+### select_Farbbereich
+
+<button class="btn" data-clipboard-text="select_Farbbereich(_bereich);"></button>
+{: .btn_p }
+
+??? "select_Farbbereich(_bereich);"
+    ``` js linenums="1"
+    function select_Farbbereich(_bereich) {
+        var d = new ActionDescriptor();
+    
+        d.putEnumerated(s2t("colors"), s2t("colors"), s2t(_bereich));
+        d.putInteger(s2t("colorModel"), 0);
+        executeAction(s2t("colorRange"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_Farbbereich.js)
+
+???+ a
+    ```js
+    select_Farbbereich("outOfGamut");
+    ```
+
+    ??? b
+        * outOfGamut `outOfGamut`
+        * radius `red`
+        * yellows ` yellow`
+        * graininess `green`
+        * cyans `cyan`
+        * blues `blue`
+        * magenta `magenta`
 
 ### selection2mask
 
@@ -246,4 +297,7 @@ cmd d
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_loop.js)
 
-!!! warning hide "not documented functions"
+???+ a
+    ```js
+    selection_loop(function () { channel_setSaturation(_source, _calculation) });
+    ```

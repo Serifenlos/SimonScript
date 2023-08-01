@@ -45,7 +45,7 @@
 function tiefenmakse_part1(e){layer_selectedIDX_get();if(e||layer_selectedIDX_get().length>1){e?layer_mergeVisible(e):(layer_copyLayers(),//Ebenen kopieren (Apfel J)
 layer_mergeLayers()),nameLayer("helper__depthMask_image");for(
 // move to TOP
-var a=hasBackground()?0:1;layer_checkExistence(a);)a++;moveLayer("helper__depthMask_image",parseInt(a-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
+var o=hasBackground()?0:1;layer_checkExistence(o);)o++;moveLayer("helper__depthMask_image",parseInt(o-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
 // alert("Ori existiert")
 gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length-1]);doc.activeLayer.kind!=LayerKind.NORMAL;)gotoLayer(getActiveLayerIndex()-1);doc.activeLayer.kind!=LayerKind.SmartObject&&(executeAction(sTID("copyToLayer"),void 0,DialogModes.NO),nameLayer("helper__depthMask_image"))}}
 // TODO in die functions
@@ -117,11 +117,12 @@ gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().
 // _source = 'merge' || 'LayerName' || ‘this‘
 // _get = 'selection' || 'folder'
 // channel_setSaturation_check('merge', 'lighten');
-function channel_setSaturation_check(e,a){var n="difference";
+// kanalberechnung("red", f, "grain", f, 'merge', "difference", "1", "RGB");
+function channel_setSaturation_check(e,o){var r="difference";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",f,"grain",f,e,n,"1","RGB"),kanalberechnung("red",f,"blue",f,e,n,"2","RGB"),kanalberechnung("1",f,"2",f,"this",a,"R","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("grain",f,"red",f,e,n,"1","RGB"),kanalberechnung("grain",f,"blue",f,e,n,"2","RGB"),kanalberechnung("1",f,"2",f,"this",a,"G","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("blue",f,"red",f,e,n,"1","RGB"),kanalberechnung("blue",f,"grain",f,e,n,"2","RGB"),kanalberechnung("1",f,"2",f,"this",a,"B","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("R",f,"G",f,"this",a,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",a,"saturation","RGB"),
+kanalberechnung("red",f,"grain",f,e,r,"1","RGB"),kanalberechnung("red",f,"blue",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",o,"R","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("grain",f,"red",f,e,r,"1","RGB"),kanalberechnung("grain",f,"blue",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",o,"G","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("blue",f,"red",f,e,r,"1","RGB"),kanalberechnung("blue",f,"grain",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",o,"B","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("R",f,"G",f,"this",o,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",o,"saturation","RGB"),
 // kanalberechnung("R", f, "G", f, "this", "screen", "RG", "RGB");
 // kanalberechnung("RG", f, "B", f, "this", "screen", "bunt", "RGB");
 channel_delete("R"),channel_delete("G"),channel_delete("B"),channel_delete("RG")}
@@ -144,6 +145,30 @@ channel_delete("R"),channel_delete("G"),channel_delete("B"),channel_delete("RG")
 //*************************************
 //*************************************
 //*************************************
-// select_Farbbereich("outOfGamut");
-// select_Farbbereich("radius");
-function select_Farbbereich(e){var a=new ActionDescriptor;a.putEnumerated(s2t("colors"),s2t("colors"),s2t(e)),a.putInteger(s2t("colorModel"),0),executeAction(s2t("colorRange"),a,DialogModes.NO)}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),kanalberechnung("red",f,"grain",f,"merge","difference","1","RGB");
+// outOfGamut
+// select_Farbbereich("radius"); // red
+function select_Farbbereich__helper(){
+// ======================================================= out of Gamut
+var e=stringIDToTypeID("colorRange"),o=new ActionDescriptor,r=stringIDToTypeID("colors"),t=(r=stringIDToTypeID("colors"),stringIDToTypeID("outOfGamut"));o.putEnumerated(r,r,t);var n=stringIDToTypeID("colorModel");o.putInteger(n,0),executeAction(e,o,DialogModes.NO);
+// ======================================================= red
+e=stringIDToTypeID("colorRange");var i=new ActionDescriptor,s=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("radius"));i.putEnumerated(r,r,s);n=stringIDToTypeID("colorModel");i.putInteger(n,0),executeAction(e,i,DialogModes.NO);
+// ======================================================= yellow
+e=stringIDToTypeID("colorRange");var a=new ActionDescriptor,D=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("yellows"));a.putEnumerated(r,r,D);n=stringIDToTypeID("colorModel");a.putInteger(n,0),executeAction(e,a,DialogModes.NO);
+// ======================================================= green
+e=stringIDToTypeID("colorRange");var g=new ActionDescriptor,I=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("graininess"));g.putEnumerated(r,r,I);n=stringIDToTypeID("colorModel");g.putInteger(n,0),executeAction(e,g,DialogModes.NO);
+// ======================================================= cyan
+e=stringIDToTypeID("colorRange");var c=new ActionDescriptor,l=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("cyans"));c.putEnumerated(r,r,l);n=stringIDToTypeID("colorModel");c.putInteger(n,0),executeAction(e,c,DialogModes.NO);
+// ======================================================= blue
+e=stringIDToTypeID("colorRange");var T=new ActionDescriptor,p=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("blues"));T.putEnumerated(r,r,p);n=stringIDToTypeID("colorModel");T.putInteger(n,0),executeAction(e,T,DialogModes.NO);
+// ======================================================= magenta
+e=stringIDToTypeID("colorRange");var y=new ActionDescriptor,u=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("magenta"));y.putEnumerated(r,r,u);n=stringIDToTypeID("colorModel");y.putInteger(n,0),executeAction(e,y,DialogModes.NO);
+// ======================================================= hightlights
+e=stringIDToTypeID("colorRange");var d=new ActionDescriptor,h=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("highlights"));d.putEnumerated(r,r,h);var _=stringIDToTypeID("highlightsFuzziness");d.putInteger(_,20);var m=stringIDToTypeID("highlightsLowerLimit");d.putInteger(m,190);n=stringIDToTypeID("colorModel");d.putInteger(n,0),executeAction(e,d,DialogModes.NO);
+// ======================================================= midtones
+e=stringIDToTypeID("colorRange");var f=new ActionDescriptor,v=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("midtones"));f.putEnumerated(r,r,v);var M=stringIDToTypeID("midtonesFuzziness");f.putInteger(M,40);var R=stringIDToTypeID("midtonesLowerLimit");f.putInteger(R,105);var A=stringIDToTypeID("midtonesUpperLimit");f.putInteger(A,150);n=stringIDToTypeID("colorModel");f.putInteger(n,0),executeAction(e,f,DialogModes.NO);
+// ======================================================= shadow
+e=stringIDToTypeID("colorRange");var b=new ActionDescriptor,k=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("shadows"));b.putEnumerated(r,r,k);var L=stringIDToTypeID("shadowsFuzziness");b.putInteger(L,20);var G=stringIDToTypeID("shadowsUpperLimit");b.putInteger(G,65);n=stringIDToTypeID("colorModel");b.putInteger(n,0),executeAction(e,b,DialogModes.NO);
+// ======================================================= Haut
+e=stringIDToTypeID("colorRange");var O=new ActionDescriptor,w=stringIDToTypeID("fuzziness");O.putInteger(w,39);r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors");var x=stringIDToTypeID("skinTone");O.putEnumerated(r,r,x);n=stringIDToTypeID("colorModel");O.putInteger(n,0),executeAction(e,O,DialogModes.NO)}
+// alert(app.colorSettings)
+$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),select_Farbbereich("outOfGamut");
