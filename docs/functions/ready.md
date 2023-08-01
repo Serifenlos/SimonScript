@@ -517,47 +517,48 @@
 
 ??? "tiefenmaske(_merge);"
     ``` js linenums="1"
-    function tiefenmaske(_merge) {
+    function tiefenmaske(_merge, _kind, _get) {
+        // _merge = true || false
+        // _kind = 'Tiefe' || 'nicht Tiefe'
+        // _get = 'Selection' || 'Folder'
+    
         var startIDXs = layer_selectedIDX_get();
+        cancel = false;
     
-    
-        if (_merge || layer_selectedIDX_get().length > 1) {
-            if (_merge) {
-                layer_mergeVisible(_merge);
-            } else {
-                layer_copyLayers(); //Ebenen kopieren (Apfel J)
-                layer_mergeLayers(); //auf eine Ebene reduzieren (Apfel E)
-            }
-    
-            nameLayer("helper__depthMask_image");
-    
-            // move to TOP
-            var i = hasBackground() ? 0 : 1;
-            while (layer_checkExistence(i)) {
-                i++;
-            };
-            moveLayer("helper__depthMask_image", parseInt(i - 1), "up");
-            gotoLayer("helper__depthMask_image");
-    
+        if (_merge) {
+            layer_mergeVisible(_merge);
         } else {
-            if (layer_checkExistence(layer_getIDXbyString("Original")[0])) {
-                // alert("Ori existiert")
-                gotoLayer("Original");
+    
+            if (doc.activeLayer.kind == "LayerKind.SMARTOBJECT" || doc.activeLayer.kind == "LayerKind.NORMAL") {
+    
+                layer_copyLayers(); //Ebenen kopieren (Apfel J)
+                if (doc.activeLayer.kind == "LayerKind.SMARTOBJECT") {
+                    rasterSmartObject();
+                }
+                if (layer_selectedIDX_get().length > 1) {
+                    layer_mergeLayers(); //auf eine Ebene reduzieren (Apfel E)
+                }
             } else {
-                gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length - 1])
-            }
-    
-            while (doc.activeLayer.kind != LayerKind.NORMAL) {
-                gotoLayer(getActiveLayerIndex() - 1)
-            };
-    
-            if (doc.activeLayer.kind != LayerKind.SmartObject) {
-                executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
-                nameLayer("helper__depthMask_image");
+                alert("Abruch\n Eine Tiefenmakse von dieser Ebene kann nciht erstellt werden.");
+                return;
             }
         }
     
-        neural_depthmap();
+        nameLayer("helper__depthMask_image");
+    
+        // move to TOP
+        var i = hasBackground() ? 0 : 1;
+        while (layer_checkExistence(i)) {
+            i++;
+        };
+        moveLayer("helper__depthMask_image", parseInt(i - 1), "up");
+        gotoLayer("helper__depthMask_image");
+        // }
+    
+        selection_loop(function () {
+            neural_depthmap2();
+            // neural_depthmap();
+        });
     
         nameLayer("layer__depthMask_map");
         select_luminance();
@@ -565,37 +566,25 @@
         layer_delete();
         gotoLayer("helper__depthMask_image");
         layer_delete();
-        createGroup("Tiefe", "passThrough", "none", 100, f);
-    
-        maskFromSelection();
-    
-        // if (layer_checkExistence(layer_getIDXbyString("Dodge & Burn △◊▽")[0])) {
-        //     moveLayer("Tiefe", "Dodge & Burn △◊▽", "up");
-        // }
     
     
-    
-        if (startIDXs.length > 0) {
-            moveLayer("Tiefe", startIDXs[startIDXs.length - 1], "up");
-            // alert("length");
-            // return;
-        } else if (layer_checkExistence(layer_getIDXbyString("Dodge & Burn △◊▽")[0])) {
-            moveLayer("Tiefe", "Dodge & Burn △◊▽", "up");
-            // alert("Dodge");
-            // return;
-        } else if (layer_checkExistence(layer_getIDXbyString("Einstellungen")[0])) {
-            moveLayer("Tiefe", "Einstellungen", "down");
-            // alert("Einstellungen");
+        if (!cancel) {
+            if (_get == "Selection") {
+                layer_selectedIDX_set(startIDXs);
+                if (_kind == "nicht Tiefe") {
+                    select_invert();
+                }
+            } else {
+                gotoLayer(startIDXs[startIDXs.length - 1])
+                selection2mask(_kind);
+                if (_kind == "nicht Tiefe") {
+                    gotoMask();
+                    invert();
+                    gotoFill();
+                }
+            }
         }
-    
-    
-    
-    
-        gotoLayer("Tiefe");
     }
-    
-    
-    
     
     ```
 

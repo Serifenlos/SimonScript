@@ -214,7 +214,7 @@ function tiefenmakse_part1(_merge) {
 // _get = 'selection' || 'folder'
 
 // channel_setSaturation_check('merge', 'lighten');
-kanalberechnung("red", f, "grain", f, 'merge', "difference", "1", "RGB");
+// kanalberechnung("red", f, "grain", f, 'merge', "difference", "1", "RGB");
 
 function channel_setSaturation_check(_source, _calculation) {
 
@@ -282,13 +282,174 @@ function channel_setSaturation_check(_source, _calculation) {
 //*************************************
 
 
-// select_Farbbereich("outOfGamut");
-// select_Farbbereich("radius");
+select_Farbbereich("outOfGamut"); // outOfGamut
+// select_Farbbereich("radius"); // red
 
-function select_Farbbereich(_bereich) {
-    var d = new ActionDescriptor();
 
-    d.putEnumerated(s2t("colors"), s2t("colors"), s2t(_bereich));
-    d.putInteger(s2t("colorModel"), 0);
-    executeAction(s2t("colorRange"), d, DialogModes.NO);
+
+function select_Farbbereich__helper() {
+    // ======================================================= out of Gamut
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc2 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idoutOfGamut = stringIDToTypeID("outOfGamut");
+    desc2.putEnumerated(idcolors, idcolors, idoutOfGamut);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc2.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc2, DialogModes.NO);
+
+    // ======================================================= red
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc4 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idradius = stringIDToTypeID("radius");
+    desc4.putEnumerated(idcolors, idcolors, idradius);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc4.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc4, DialogModes.NO);
+
+
+
+    // ======================================================= yellow
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc8 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idyellows = stringIDToTypeID("yellows");
+    desc8.putEnumerated(idcolors, idcolors, idyellows);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc8.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc8, DialogModes.NO);
+
+    // ======================================================= green
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc10 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idgraininess = stringIDToTypeID("graininess");
+    desc10.putEnumerated(idcolors, idcolors, idgraininess);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc10.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc10, DialogModes.NO);
+
+
+    // ======================================================= cyan
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc12 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idcyans = stringIDToTypeID("cyans");
+    desc12.putEnumerated(idcolors, idcolors, idcyans);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc12.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc12, DialogModes.NO);
+
+
+
+    // ======================================================= blue
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc14 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idblues = stringIDToTypeID("blues");
+    desc14.putEnumerated(idcolors, idcolors, idblues);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc14.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc14, DialogModes.NO);
+
+
+
+    // ======================================================= magenta
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc18 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idmagenta = stringIDToTypeID("magenta");
+    desc18.putEnumerated(idcolors, idcolors, idmagenta);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc18.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc18, DialogModes.NO);
+
+
+
+
+
+    // ======================================================= hightlights
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc20 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idhighlights = stringIDToTypeID("highlights");
+    desc20.putEnumerated(idcolors, idcolors, idhighlights);
+    var idhighlightsFuzziness = stringIDToTypeID("highlightsFuzziness");
+    desc20.putInteger(idhighlightsFuzziness, 20);
+    var idhighlightsLowerLimit = stringIDToTypeID("highlightsLowerLimit");
+    desc20.putInteger(idhighlightsLowerLimit, 190);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc20.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc20, DialogModes.NO);
+
+
+
+
+    // ======================================================= midtones
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc24 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idmidtones = stringIDToTypeID("midtones");
+    desc24.putEnumerated(idcolors, idcolors, idmidtones);
+    var idmidtonesFuzziness = stringIDToTypeID("midtonesFuzziness");
+    desc24.putInteger(idmidtonesFuzziness, 40);
+    var idmidtonesLowerLimit = stringIDToTypeID("midtonesLowerLimit");
+    desc24.putInteger(idmidtonesLowerLimit, 105);
+    var idmidtonesUpperLimit = stringIDToTypeID("midtonesUpperLimit");
+    desc24.putInteger(idmidtonesUpperLimit, 150);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc24.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc24, DialogModes.NO);
+
+
+
+    // ======================================================= shadow
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc28 = new ActionDescriptor();
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idshadows = stringIDToTypeID("shadows");
+    desc28.putEnumerated(idcolors, idcolors, idshadows);
+    var idshadowsFuzziness = stringIDToTypeID("shadowsFuzziness");
+    desc28.putInteger(idshadowsFuzziness, 20);
+    var idshadowsUpperLimit = stringIDToTypeID("shadowsUpperLimit");
+    desc28.putInteger(idshadowsUpperLimit, 65);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc28.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc28, DialogModes.NO);
+
+
+
+    // ======================================================= Haut
+    var idcolorRange = stringIDToTypeID("colorRange");
+    var desc32 = new ActionDescriptor();
+    var idfuzziness = stringIDToTypeID("fuzziness");
+    desc32.putInteger(idfuzziness, 39);
+    var idcolors = stringIDToTypeID("colors");
+    var idcolors = stringIDToTypeID("colors");
+    var idskinTone = stringIDToTypeID("skinTone");
+    desc32.putEnumerated(idcolors, idcolors, idskinTone);
+    var idcolorModel = stringIDToTypeID("colorModel");
+    desc32.putInteger(idcolorModel, 0);
+    executeAction(idcolorRange, desc32, DialogModes.NO);
+
 }
+
+
+
+
+
+
+
+
+// alert(app.colorSettings)

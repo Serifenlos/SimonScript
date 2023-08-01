@@ -13,4 +13,4 @@
 //@include "functions/ready.jsx";
 //@include "functions/selection.jsx";
 //@include "functions/neural_depthmap.jsx";
-doc.suspendHistory("TiefenMaske","tiefenmaske(true)");
+doc.suspendHistory("TiefenMaske","tiefenmaske(true, 'Tiefe', 'Folder');");

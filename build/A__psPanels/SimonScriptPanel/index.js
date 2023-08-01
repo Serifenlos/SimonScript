@@ -429,13 +429,17 @@ async function menuItem(_name) {
 
 
 
-
-
-document.getElementById("depthMask").addEventListener("click", function () {
-    loadScript("[panel] Tiefenmaske");
+document.getElementById("depthMask").addEventListener("click", function (event) {
+    if (!event.altKey && event.shiftKey) {
+        loadScript("[panel] Tiefenmaske merged tiefe selection");
+    } else if (event.altKey && !event.shiftKey) {
+        loadScript("[panel] Tiefenmaske this tiefe folder");
+    } else if (event.altKey && event.shiftKey) {
+        loadScript("[panel] Tiefenmaske this tiefe selection");
+    } else {
+        loadScript("[panel] Tiefenmaske merged tiefe folder");
+    }
 });
-
-
 
 
 
