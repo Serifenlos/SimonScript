@@ -12,6 +12,7 @@
 // @codekit-prepend './layer/layer_checkExistence.js';
 // @codekit-prepend './layer/layer_checkExistenceByRegex.js';
 // @codekit-prepend './layer/layer_copyLayers.js';
+// @codekit-prepend './layer/layer_create.js';
 // @codekit-prepend './layer/layer_delete.js';
 // @codekit-prepend './layer/layer_getIDXbyName.js';
 // @codekit-prepend './layer/layer_getIDXbyString.js';
