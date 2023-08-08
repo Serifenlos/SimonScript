@@ -308,6 +308,9 @@ document.getElementById("startLastLogEntry").addEventListener("click", function(
 document.getElementById("startCleanSL").addEventListener("click", function() {
     loadScript("Clean SL")
 });
+document.getElementById("mask2image").addEventListener("click", function () {
+    loadScript("[panel] mask2image")
+});
 
 
 document.getElementById("A_kachel").addEventListener("click", async function() {
@@ -495,6 +498,14 @@ document.getElementById("skyMask").addEventListener("click", function (event) {
         loadScript("[panel] Select Himmel-nicht Selection");
     } else {
         loadScript("[panel] Select Himmel Folder");
+    }
+});
+
+document.getElementById("outOfGamut").addEventListener("click", function (event) {
+    if (event.shiftKey) {
+        loadScript("[panel] Select ouOfGamut Selection");
+    } else {
+        loadScript("[panel] Select ouOfGamut Folder");
     }
 });
 

@@ -110,18 +110,13 @@ cmd alt 2
             }
         }
     }
-    
-    // _kind = 'bunt' || 'unbunt'
-    // _calulation = 'lighten' || 'screen' || …
-    // _source = 'merge' || 'LayerName' || ‘this‘
-    // _get = 'selection' || 'folder'
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_saturation.js)
 
 ???+ a
     ```js
-    select_saturation('bunt', 'lighten', 'merged', 'folder');
+    select_saturation("bunt", "lighten", "merged", "folder");
     ```
 
     ??? b
@@ -299,5 +294,37 @@ cmd d
 
 ???+ a
     ```js
-    selection_loop(function () { channel_setSaturation(_source, _calculation) });
+    selection_loop(function() {channel_setSaturation(_source, _calculation)});
     ```
+
+### mask2image
+
+<button class="btn" data-clipboard-text="mask2image(_name);"></button>
+{: .btn_p }
+
+??? "mask2image(_name);"
+    ``` js linenums="1"
+    function mask2image(_name) {
+        if (layer_selectedIDX_get().length === 1 && hasLayerMask()) {
+            var name_sorce = layer_getName(getActiveLayerIndex());
+            gotoMask();
+            loadSelectionOfMask();
+            select_invert();
+            layer_create(_name + " (" + name_sorce + ")", 100, true, "normal");
+            fill("black", "normal", 100);
+            selection_deselect();
+        } else {
+            alert("Abbruch!\nwähle genau eine Ebene mit Maske aus");
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/mask2image.js)
+
+???+ a
+    ```js
+    doc.suspendHistory("Mask2Image", "mask2image('Mask2Image')");
+    ```
+
+    
+!!! warning hide "not documented functions"

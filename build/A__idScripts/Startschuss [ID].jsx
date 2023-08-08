@@ -34,8 +34,8 @@ getRubrik_array = [
 
 
 
-// var mainFolder = "/Users/simon/Arbeit/11Freunde/262/";
-var mainFolder = "/Users/simon/Arbeit/11Freunde/Spezial_60BL/";
+var mainFolder = "/Users/simon/Arbeit/11Freunde/262/";
+// var mainFolder = "/Users/simon/Arbeit/11Freunde/Spezial_60BL/";
 // var mainFolder = "/Users/simon/Arbeit/Judith/Porz_Kabinett/";
 // var mainFolder = "/Users/simon/Arbeit/Judith/Porz_Zeitreise/";
 // var mainFolder = "/Users/simon/Arbeit/11Freunde/_weissNicht/Eigenanzeigen/;

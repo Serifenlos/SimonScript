@@ -24,8 +24,3 @@ function select_saturation(_kind, _calculation, _source, _get) {
         }
     }
 }
-
-// _kind = 'bunt' || 'unbunt'
-// _calulation = 'lighten' || 'screen' || …
-// _source = 'merge' || 'LayerName' || ‘this‘
-// _get = 'selection' || 'folder'

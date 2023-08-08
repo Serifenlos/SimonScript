@@ -282,8 +282,9 @@ function channel_setSaturation_check(_source, _calculation) {
 //*************************************
 
 
-select_Farbbereich("outOfGamut"); // outOfGamut
+// select_Farbbereich("outOfGamut"); // outOfGamut
 // select_Farbbereich("radius"); // red
+
 
 
 
@@ -448,8 +449,332 @@ function select_Farbbereich__helper() {
 
 
 
+// function workingProfile_get(_modus) {
+//     // _modus = RGB || CMYK || Gray || Spot
+
+//     var r = new ActionReference();
+//     r.putProperty(s2t("property"), s2t("colorSettings"));
+//     r.putEnumerated(s2t("application"), s2t("ordinal"), s2t("targetEnum"));
+
+//     return executeActionGet(r).getObjectValue(s2t("colorSettings")).getString(s2t("working" + _modus + ""));
+// };
+
+
+// function workingProfile_set(_modus, _profile) {
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var r = new ActionReference();
+
+//     r.putProperty(s2t("property"), s2t("colorSettings"));
+//     r.putEnumerated(s2t("application"), s2t("ordinal"), s2t("targetEnum"));
+//     d.putReference(s2t("null"), r);
+//     d2.putString(s2t("working" + _modus + ""), _profile);
+//     d.putObject(s2t("to"), s2t("colorSettings"), d2);
+//     try {
+//         executeAction(s2t("set"), d, DialogModes.NO);
+//     } catch (e) {
+//         alert("kann Arbeitsfarbraum nicht ändern")
+//     }
+// }
+
+// alert(workingProfile_get("Spot"));
+// workingProfile_set("Spot", "Dot Gain 15%");
+// alert(workingProfile_get("Spot"));
+
+
+// function getMeta__Softproof() {
+//     editXMP();
+//     var proof_profil, proof_intent, proof_tk;
+//     const softproof = [];
+
+//     if (xmpMeta.doesPropertyExist(customNamespace, "proof_profil")) {
+//         var proof_profil = xmpMeta.getProperty(customNamespace, "proof_profil");
+//     }
+//     if (xmpMeta.doesPropertyExist(customNamespace, "proof_intent")) {
+//         var proof_intent = xmpMeta.getProperty(customNamespace, "proof_intent");
+//     }
+//     if (xmpMeta.doesPropertyExist(customNamespace, "proof_tk")) {
+//         var proof_tk = xmpMeta.getProperty(customNamespace, "proof_tk");
+//     }
+
+//     softproof.push(proof_profil, proof_intent, proof_tk);
+
+//     return softproof;
+// }
+
+
+// function compare_string(_string1, _string2) {
+//     if(_string1 != _string2) {
+//         return false;
+//     } else {
+//         return true;
+//     }
+// }
 
 
 
 
-// alert(app.colorSettings)
+function select_outOfGamut__XX() {
+    const getMet_softproof_profile = getMeta_softproof()[0];
+    const workingProfile_get = workingProfile_get("CMYK");
+
+    if (typeof getMet_softproof_profile !== 'undefined') {
+        if (workingProfile_get != getMet_softproof_profile) {
+            workingProfile_set("CMYK", getMet_softproof_profile);
+        }
+
+        select_Farbbereich("outOfGamut");
+
+        if (workingProfile_get != getMet_softproof_profile) {
+            workingProfile_set("CMYK", workingProfile_get);
+        }
+
+    } else {
+        alert("kein Softproof eingestellt")
+    }
+}
+
+
+// alert(workingProfile_get("CMYK"));
+// alert(getMeta__Softproof_profile());
+// workingProfile_set("CMYK", getMeta__Softproof_profile());
+// alert(workingProfile_get("CMYK"));
+
+//  workingProfile_set("RGB", "Dot Gain 15%");
+
+
+
+// doc.suspendHistory("Mask2Image", "mask2image('Mask2Image')");
+
+function select_outOfGamut(_kind, _get) {
+    // _get = 'Selection' || 'Folder'
+
+    var startIDXs = layer_selectedIDX_get();
+    cancel = false;
+
+    const getMet_softproof_profile = getMeta_softproof()[0];
+    const workingProfile_get1 = workingProfile_get("CMYK");
+
+    if (typeof getMet_softproof_profile !== 'undefined') {
+        if (workingProfile_get1 != getMet_softproof_profile) {
+            workingProfile_set("CMYK", getMet_softproof_profile);
+        }
+
+        gotoFill();
+        selection_loop(function() {
+            select_Farbbereich("outOfGamut")
+        });
+
+        if (workingProfile_get1 != getMet_softproof_profile) {
+            workingProfile_set("CMYK", workingProfile_get1);
+        }
+
+        if (!cancel) {
+            if (_get == "Selection") {
+                layer_selectedIDX_set(startIDXs);
+            } else {
+                gotoLayer(startIDXs[startIDXs.length - 1])
+                selection2mask(_kind);
+            }
+        }
+
+    } else {
+        alert("kein Softproof eingestellt")
+    }
+}
+
+
+// select_outOfGamut("outOfGamut", "Folder")
+// mask_outOfGamut("outOfGamut", "Selection")
+
+
+
+//*************************************
+//*************************************
+//*************************************
+
+
+
+
+// outOfGamut outOfGamut
+// radius red
+// yellows yellow
+// graininess green
+// cyans cyan
+// blues blue
+// magenta magenta
+
+function quick_farbbereich(_bereich, _farbe, _r, _g, _b) {
+    selection_deselect();
+    gotoFill();
+    select_Farbbereich(_bereich);
+    // createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
+    createColorLayer(_farbe, "multiply", "none", 0, "xx", _r, _g, _b);
+    gotoFill();
+}
+
+// quick_farbbereich("radius", "red", 255, 0, 0)
+// quick_farbbereich("yellows", "yellow", 255,255,0)
+// quick_farbbereich("graininess", "green", 0,255,0)
+// quick_farbbereich("cyans", "cyan", 0,255,255)
+// quick_farbbereich("blues", "blue", 0,0,255)
+// quick_farbbereich("magenta", "magenta", 255,0,255)
+
+
+
+
+
+
+// channel_setSaturationXX('merged', 'lighten')
+
+function channel_setSaturationXX(_source, _calculation) {
+
+    var calc_1 = "difference";
+    // var _calculation = "lighten";
+    // var _calculation = "screen";
+
+    // channel_select("RGB", false);
+    kanalberechnung("red", f, "grain", f, _source, calc_1, "rg", "RGB");
+    kanalberechnung("red", f, "blue", f, _source, calc_1, "rb", "RGB");
+    kanalberechnung("rg", f, "rb", f, "this", _calculation, "R", "RGB");
+    // channel_delete("rg");
+    // channel_delete("rb");
+
+    // kanalberechnung("grain", f, "red", f, _source, calc_1, "gr", "RGB");
+    kanalberechnung("grain", f, "blue", f, _source, calc_1, "gb", "RGB");
+    kanalberechnung("rg", f, "gb", f, "this", _calculation, "G", "RGB");
+    // channel_delete("gr");
+    // channel_delete("gb");
+
+    // kanalberechnung("blue", f, "red", f, _source, calc_1, "br", "RGB");
+    // kanalberechnung("blue", f, "grain", f, _source, calc_1, "bg", "RGB");
+    kanalberechnung("rb", f, "gb", f, "this", _calculation, "B", "RGB");
+    // channel_delete("br");
+    // channel_delete("bg");
+
+    kanalberechnung("R", f, "G", f, "this", _calculation, "RG", "RGB");
+    kanalberechnung("RG", f, "B", f, "this", _calculation, "saturation", "RGB");
+
+    // kanalberechnung("R", f, "G", f, "this", "screen", "RG", "RGB");
+    // kanalberechnung("RG", f, "B", f, "this", "screen", "bunt", "RGB");
+
+    // channel_delete("R");
+    // channel_delete("G");
+    // channel_delete("B");
+    // channel_delete("RG");
+}
+
+// channel_setSaturation_2('merged', 'lighten')
+// channel_setSaturation_2('merged', 'multiply')
+function channel_setSaturation_2(_source, _calculation) {
+
+    var calc_1 = "subtract";
+    // var _calculation = "lighten";
+    // var _calculation = "screen";
+
+    // channel_select("RGB", false);
+    kanalberechnung("red", t, "grain", t, _source, calc_1, "rg", "RGB");
+    kanalberechnung("red", t, "blue", t, _source, calc_1, "rb", "RGB");
+    kanalberechnung("rg", f, "rb", f, "this", _calculation, "R", "RGB");
+    // channel_delete("rg");
+    // channel_delete("rb");
+
+    kanalberechnung("grain", t, "red", t, _source, calc_1, "gr", "RGB");
+    kanalberechnung("grain", t, "blue", t, _source, calc_1, "gb", "RGB");
+    kanalberechnung("gr", f, "gb", f, "this", _calculation, "G", "RGB");
+    // channel_delete("gr");
+    // channel_delete("gb");
+
+    kanalberechnung("blue", t, "red", t, _source, calc_1, "br", "RGB");
+    kanalberechnung("blue", t, "grain", t, _source, calc_1, "bg", "RGB");
+    kanalberechnung("br", f, "bg", f, "this", _calculation, "B", "RGB");
+    // channel_delete("br");
+    // channel_delete("bg");
+
+    kanalberechnung("R", f, "G", f, "this", _calculation, "RG", "RGB");
+    kanalberechnung("RG", f, "B", f, "this", _calculation, "saturation", "RGB");
+
+    // kanalberechnung("R", f, "G", f, "this", "screen", "RG", "RGB");
+    // kanalberechnung("RG", f, "B", f, "this", "screen", "bunt", "RGB");
+
+    // channel_delete("R");
+    // channel_delete("G");
+    // channel_delete("B");
+    // channel_delete("RG");
+}
+
+
+channel_setSaturation_3('merged', 'darken')
+
+function channel_setSaturation_3(_source, _calculation) {
+
+    var calc_1 = "subtract";
+    // var _calculation = "lighten";
+    // var _calculation = "screen";
+
+    // channel_select("RGB", false);
+    kanalberechnung("red", t, "grain", t, _source, calc_1, "rg", "RGB");
+    kanalberechnung("red", t, "blue", t, _source, calc_1, "rb", "RGB");
+    
+
+
+    // channel_delete("rg");
+    // channel_delete("rb");
+
+    kanalberechnung("grain", t, "red", t, _source, calc_1, "gr", "RGB");
+    kanalberechnung("grain", t, "blue", t, _source, calc_1, "gb", "RGB");
+    
+
+    // channel_delete("gr");
+    // channel_delete("gb");
+
+    kanalberechnung("blue", t, "red", t, _source, calc_1, "br", "RGB"); 
+    kanalberechnung("blue", t, "grain", t, _source, calc_1, "bg", "RGB");
+
+    kanalberechnung("rg", f, "rb", f, "this", _calculation, "R", "RGB");
+    kanalberechnung("br", f, "bg", f, "this", _calculation, "B", "RGB");
+    kanalberechnung("gb", f, "gr", f, "this", _calculation, "G", "RGB");
+
+    
+    kanalberechnung("gb", f, "gr", f, "this", calc_1, "C", "RGB");
+    kanalberechnung("br", f, "bg", f, "this", calc_1, "M", "RGB");
+    kanalberechnung("rg", f, "rb", f, "this", calc_1, "Y", "RGB");
+
+    
+    // channel_delete("br");
+    // channel_delete("bg");
+
+    // kanalberechnung("R", f, "G", f, "this", _calculation, "RG", "RGB");
+    // kanalberechnung("RG", f, "B", f, "this", _calculation, "saturation", "RGB");
+
+    // kanalberechnung("R", f, "G", f, "this", "screen", "RG", "RGB");
+    // kanalberechnung("RG", f, "B", f, "this", "screen", "bunt", "RGB");
+
+    // channel_delete("R");
+    // channel_delete("G");
+    // channel_delete("B");
+    // channel_delete("RG");
+}
+
+function quick_farbfelder(_channel_name, _r, _g, _b) {
+    selection_deselect();
+    gotoFill();
+    channel2selection(_channel_name);
+    // createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
+    createColorLayer(_channel_name, "multiply", "none", 0, "xx", _r, _g, _b);
+    gotoFill();
+}
+
+quick_farbfelder("R", 255, 0, 0);
+quick_farbfelder("Y", 255,255,0);
+quick_farbfelder("G", 0,255,0);
+quick_farbfelder("C", 0,255,255);
+quick_farbfelder("B", 0,0,255);
+quick_farbfelder("M", 255,0,255);
+
+// quick_farbbereich("radius", "red", 255, 0, 0)
+// quick_farbbereich("yellows", "yellow", 255,255,0)
+// quick_farbbereich("graininess", "green", 0,255,0)
+// quick_farbbereich("cyans", "cyan", 0,255,255)
+// quick_farbbereich("blues", "blue", 0,0,255)
+// quick_farbbereich("magenta", "magenta", 255,0,255)

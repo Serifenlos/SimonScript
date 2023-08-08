@@ -1,0 +1,1 @@
+function mask2image(e){gotoMask(),loadSelectionOfMask(),select_invert(),layer_create(e,100,!0,"normal"),fill("black","normal",100),selection_deselect()}

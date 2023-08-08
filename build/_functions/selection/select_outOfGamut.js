@@ -1,0 +1,3 @@
+function select_outOfGamut(e,t){
+// _get = 'Selection' || 'Folder'
+var o=layer_selectedIDX_get();cancel=!1;const l=getMeta_softproof()[0],i=workingProfile_get("CMYK");void 0!==l?(i!=l&&workingProfile_set("CMYK",l),gotoFill(),selection_loop((function(){select_Farbbereich("outOfGamut")})),i!=l&&workingProfile_set("CMYK",i),cancel||("Selection"==t?layer_selectedIDX_set(o):(gotoLayer(o[o.length-1]),selection2mask(e)))):alert("kein Softproof eingestellt")}

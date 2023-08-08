@@ -45,7 +45,7 @@
 function tiefenmakse_part1(e){layer_selectedIDX_get();if(e||layer_selectedIDX_get().length>1){e?layer_mergeVisible(e):(layer_copyLayers(),//Ebenen kopieren (Apfel J)
 layer_mergeLayers()),nameLayer("helper__depthMask_image");for(
 // move to TOP
-var o=hasBackground()?0:1;layer_checkExistence(o);)o++;moveLayer("helper__depthMask_image",parseInt(o-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
+var n=hasBackground()?0:1;layer_checkExistence(n);)n++;moveLayer("helper__depthMask_image",parseInt(n-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
 // alert("Ori existiert")
 gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length-1]);doc.activeLayer.kind!=LayerKind.NORMAL;)gotoLayer(getActiveLayerIndex()-1);doc.activeLayer.kind!=LayerKind.SmartObject&&(executeAction(sTID("copyToLayer"),void 0,DialogModes.NO),nameLayer("helper__depthMask_image"))}}
 // TODO in die functions
@@ -118,11 +118,11 @@ gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().
 // _get = 'selection' || 'folder'
 // channel_setSaturation_check('merge', 'lighten');
 // kanalberechnung("red", f, "grain", f, 'merge', "difference", "1", "RGB");
-function channel_setSaturation_check(e,o){var r="difference";
+function channel_setSaturation_check(e,n){var r="difference";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",f,"grain",f,e,r,"1","RGB"),kanalberechnung("red",f,"blue",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",o,"R","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("grain",f,"red",f,e,r,"1","RGB"),kanalberechnung("grain",f,"blue",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",o,"G","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("blue",f,"red",f,e,r,"1","RGB"),kanalberechnung("blue",f,"grain",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",o,"B","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("R",f,"G",f,"this",o,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",o,"saturation","RGB"),
+kanalberechnung("red",f,"grain",f,e,r,"1","RGB"),kanalberechnung("red",f,"blue",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",n,"R","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("grain",f,"red",f,e,r,"1","RGB"),kanalberechnung("grain",f,"blue",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",n,"G","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("blue",f,"red",f,e,r,"1","RGB"),kanalberechnung("blue",f,"grain",f,e,r,"2","RGB"),kanalberechnung("1",f,"2",f,"this",n,"B","RGB"),channel_delete("1"),channel_delete("2"),kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB"),
 // kanalberechnung("R", f, "G", f, "this", "screen", "RG", "RGB");
 // kanalberechnung("RG", f, "B", f, "this", "screen", "bunt", "RGB");
 channel_delete("R"),channel_delete("G"),channel_delete("B"),channel_delete("RG")}
@@ -145,30 +145,159 @@ channel_delete("R"),channel_delete("G"),channel_delete("B"),channel_delete("RG")
 //*************************************
 //*************************************
 //*************************************
-// outOfGamut
+// select_Farbbereich("outOfGamut"); // outOfGamut
 // select_Farbbereich("radius"); // red
 function select_Farbbereich__helper(){
 // ======================================================= out of Gamut
-var e=stringIDToTypeID("colorRange"),o=new ActionDescriptor,r=stringIDToTypeID("colors"),t=(r=stringIDToTypeID("colors"),stringIDToTypeID("outOfGamut"));o.putEnumerated(r,r,t);var n=stringIDToTypeID("colorModel");o.putInteger(n,0),executeAction(e,o,DialogModes.NO);
+var e=stringIDToTypeID("colorRange"),n=new ActionDescriptor,r=stringIDToTypeID("colors"),t=(r=stringIDToTypeID("colors"),stringIDToTypeID("outOfGamut"));n.putEnumerated(r,r,t);var o=stringIDToTypeID("colorModel");n.putInteger(o,0),executeAction(e,n,DialogModes.NO);
 // ======================================================= red
-e=stringIDToTypeID("colorRange");var i=new ActionDescriptor,s=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("radius"));i.putEnumerated(r,r,s);n=stringIDToTypeID("colorModel");i.putInteger(n,0),executeAction(e,i,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var a=new ActionDescriptor,i=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("radius"));a.putEnumerated(r,r,i);o=stringIDToTypeID("colorModel");a.putInteger(o,0),executeAction(e,a,DialogModes.NO);
 // ======================================================= yellow
-e=stringIDToTypeID("colorRange");var a=new ActionDescriptor,D=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("yellows"));a.putEnumerated(r,r,D);n=stringIDToTypeID("colorModel");a.putInteger(n,0),executeAction(e,a,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var l=new ActionDescriptor,g=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("yellows"));l.putEnumerated(r,r,g);o=stringIDToTypeID("colorModel");l.putInteger(o,0),executeAction(e,l,DialogModes.NO);
 // ======================================================= green
-e=stringIDToTypeID("colorRange");var g=new ActionDescriptor,I=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("graininess"));g.putEnumerated(r,r,I);n=stringIDToTypeID("colorModel");g.putInteger(n,0),executeAction(e,g,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var c=new ActionDescriptor,s=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("graininess"));c.putEnumerated(r,r,s);o=stringIDToTypeID("colorModel");c.putInteger(o,0),executeAction(e,c,DialogModes.NO);
 // ======================================================= cyan
-e=stringIDToTypeID("colorRange");var c=new ActionDescriptor,l=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("cyans"));c.putEnumerated(r,r,l);n=stringIDToTypeID("colorModel");c.putInteger(n,0),executeAction(e,c,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var u=new ActionDescriptor,D=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("cyans"));u.putEnumerated(r,r,D);o=stringIDToTypeID("colorModel");u.putInteger(o,0),executeAction(e,u,DialogModes.NO);
 // ======================================================= blue
-e=stringIDToTypeID("colorRange");var T=new ActionDescriptor,p=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("blues"));T.putEnumerated(r,r,p);n=stringIDToTypeID("colorModel");T.putInteger(n,0),executeAction(e,T,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var I=new ActionDescriptor,p=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("blues"));I.putEnumerated(r,r,p);o=stringIDToTypeID("colorModel");I.putInteger(o,0),executeAction(e,I,DialogModes.NO);
 // ======================================================= magenta
-e=stringIDToTypeID("colorRange");var y=new ActionDescriptor,u=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("magenta"));y.putEnumerated(r,r,u);n=stringIDToTypeID("colorModel");y.putInteger(n,0),executeAction(e,y,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var T=new ActionDescriptor,f=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("magenta"));T.putEnumerated(r,r,f);o=stringIDToTypeID("colorModel");T.putInteger(o,0),executeAction(e,T,DialogModes.NO);
 // ======================================================= hightlights
-e=stringIDToTypeID("colorRange");var d=new ActionDescriptor,h=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("highlights"));d.putEnumerated(r,r,h);var _=stringIDToTypeID("highlightsFuzziness");d.putInteger(_,20);var m=stringIDToTypeID("highlightsLowerLimit");d.putInteger(m,190);n=stringIDToTypeID("colorModel");d.putInteger(n,0),executeAction(e,d,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var h=new ActionDescriptor,b=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("highlights"));h.putEnumerated(r,r,b);var d=stringIDToTypeID("highlightsFuzziness");h.putInteger(d,20);var y=stringIDToTypeID("highlightsLowerLimit");h.putInteger(y,190);o=stringIDToTypeID("colorModel");h.putInteger(o,0),executeAction(e,h,DialogModes.NO);
 // ======================================================= midtones
-e=stringIDToTypeID("colorRange");var f=new ActionDescriptor,v=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("midtones"));f.putEnumerated(r,r,v);var M=stringIDToTypeID("midtonesFuzziness");f.putInteger(M,40);var R=stringIDToTypeID("midtonesLowerLimit");f.putInteger(R,105);var A=stringIDToTypeID("midtonesUpperLimit");f.putInteger(A,150);n=stringIDToTypeID("colorModel");f.putInteger(n,0),executeAction(e,f,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var _=new ActionDescriptor,k=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("midtones"));_.putEnumerated(r,r,k);var R=stringIDToTypeID("midtonesFuzziness");_.putInteger(R,40);var G=stringIDToTypeID("midtonesLowerLimit");_.putInteger(G,105);var B=stringIDToTypeID("midtonesUpperLimit");_.putInteger(B,150);o=stringIDToTypeID("colorModel");_.putInteger(o,0),executeAction(e,_,DialogModes.NO);
 // ======================================================= shadow
-e=stringIDToTypeID("colorRange");var b=new ActionDescriptor,k=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("shadows"));b.putEnumerated(r,r,k);var L=stringIDToTypeID("shadowsFuzziness");b.putInteger(L,20);var G=stringIDToTypeID("shadowsUpperLimit");b.putInteger(G,65);n=stringIDToTypeID("colorModel");b.putInteger(n,0),executeAction(e,b,DialogModes.NO);
+e=stringIDToTypeID("colorRange");var m=new ActionDescriptor,M=(r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors"),stringIDToTypeID("shadows"));m.putEnumerated(r,r,M);var v=stringIDToTypeID("shadowsFuzziness");m.putInteger(v,20);var A=stringIDToTypeID("shadowsUpperLimit");m.putInteger(A,65);o=stringIDToTypeID("colorModel");m.putInteger(o,0),executeAction(e,m,DialogModes.NO);
 // ======================================================= Haut
-e=stringIDToTypeID("colorRange");var O=new ActionDescriptor,w=stringIDToTypeID("fuzziness");O.putInteger(w,39);r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors");var x=stringIDToTypeID("skinTone");O.putEnumerated(r,r,x);n=stringIDToTypeID("colorModel");O.putInteger(n,0),executeAction(e,O,DialogModes.NO)}
-// alert(app.colorSettings)
-$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),select_Farbbereich("outOfGamut");
+e=stringIDToTypeID("colorRange");var L=new ActionDescriptor,w=stringIDToTypeID("fuzziness");L.putInteger(w,39);r=stringIDToTypeID("colors"),r=stringIDToTypeID("colors");var O=stringIDToTypeID("skinTone");L.putEnumerated(r,r,O);o=stringIDToTypeID("colorModel");L.putInteger(o,0),executeAction(e,L,DialogModes.NO)}
+// function workingProfile_get(_modus) {
+//     // _modus = RGB || CMYK || Gray || Spot
+//     var r = new ActionReference();
+//     r.putProperty(s2t("property"), s2t("colorSettings"));
+//     r.putEnumerated(s2t("application"), s2t("ordinal"), s2t("targetEnum"));
+//     return executeActionGet(r).getObjectValue(s2t("colorSettings")).getString(s2t("working" + _modus + ""));
+// };
+// function workingProfile_set(_modus, _profile) {
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var r = new ActionReference();
+//     r.putProperty(s2t("property"), s2t("colorSettings"));
+//     r.putEnumerated(s2t("application"), s2t("ordinal"), s2t("targetEnum"));
+//     d.putReference(s2t("null"), r);
+//     d2.putString(s2t("working" + _modus + ""), _profile);
+//     d.putObject(s2t("to"), s2t("colorSettings"), d2);
+//     try {
+//         executeAction(s2t("set"), d, DialogModes.NO);
+//     } catch (e) {
+//         alert("kann Arbeitsfarbraum nicht ändern")
+//     }
+// }
+// alert(workingProfile_get("Spot"));
+// workingProfile_set("Spot", "Dot Gain 15%");
+// alert(workingProfile_get("Spot"));
+// function getMeta__Softproof() {
+//     editXMP();
+//     var proof_profil, proof_intent, proof_tk;
+//     const softproof = [];
+//     if (xmpMeta.doesPropertyExist(customNamespace, "proof_profil")) {
+//         var proof_profil = xmpMeta.getProperty(customNamespace, "proof_profil");
+//     }
+//     if (xmpMeta.doesPropertyExist(customNamespace, "proof_intent")) {
+//         var proof_intent = xmpMeta.getProperty(customNamespace, "proof_intent");
+//     }
+//     if (xmpMeta.doesPropertyExist(customNamespace, "proof_tk")) {
+//         var proof_tk = xmpMeta.getProperty(customNamespace, "proof_tk");
+//     }
+//     softproof.push(proof_profil, proof_intent, proof_tk);
+//     return softproof;
+// }
+// function compare_string(_string1, _string2) {
+//     if(_string1 != _string2) {
+//         return false;
+//     } else {
+//         return true;
+//     }
+// }
+function select_outOfGamut__XX(){const e=getMeta_softproof()[0],n=n("CMYK");void 0!==e?(n!=e&&workingProfile_set("CMYK",e),select_Farbbereich("outOfGamut"),n!=e&&workingProfile_set("CMYK",n)):alert("kein Softproof eingestellt")}
+// alert(workingProfile_get("CMYK"));
+// alert(getMeta__Softproof_profile());
+// workingProfile_set("CMYK", getMeta__Softproof_profile());
+// alert(workingProfile_get("CMYK"));
+//  workingProfile_set("RGB", "Dot Gain 15%");
+// doc.suspendHistory("Mask2Image", "mask2image('Mask2Image')");
+function select_outOfGamut(e,n){
+// _get = 'Selection' || 'Folder'
+var r=layer_selectedIDX_get();cancel=!1;const t=getMeta_softproof()[0],o=workingProfile_get("CMYK");void 0!==t?(o!=t&&workingProfile_set("CMYK",t),gotoFill(),selection_loop((function(){select_Farbbereich("outOfGamut")})),o!=t&&workingProfile_set("CMYK",o),cancel||("Selection"==n?layer_selectedIDX_set(r):(gotoLayer(r[r.length-1]),selection2mask(e)))):alert("kein Softproof eingestellt")}
+// select_outOfGamut("outOfGamut", "Folder")
+// mask_outOfGamut("outOfGamut", "Selection")
+//*************************************
+//*************************************
+//*************************************
+// outOfGamut outOfGamut
+// radius red
+// yellows yellow
+// graininess green
+// cyans cyan
+// blues blue
+// magenta magenta
+function quick_farbbereich(e,n,r,t,o){selection_deselect(),gotoFill(),select_Farbbereich(e),
+// createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
+createColorLayer(n,"multiply","none",0,"xx",r,t,o),gotoFill()}
+// quick_farbbereich("radius", "red", 255, 0, 0)
+// quick_farbbereich("yellows", "yellow", 255,255,0)
+// quick_farbbereich("graininess", "green", 0,255,0)
+// quick_farbbereich("cyans", "cyan", 0,255,255)
+// quick_farbbereich("blues", "blue", 0,0,255)
+// quick_farbbereich("magenta", "magenta", 255,0,255)
+// channel_setSaturationXX('merged', 'lighten')
+function channel_setSaturationXX(e,n){var r="difference";
+// var _calculation = "lighten";
+// var _calculation = "screen";
+// channel_select("RGB", false);
+kanalberechnung("red",f,"grain",f,e,r,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,r,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),
+// channel_delete("rg");
+// channel_delete("rb");
+// kanalberechnung("grain", f, "red", f, _source, calc_1, "gr", "RGB");
+kanalberechnung("grain",f,"blue",f,e,r,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",n,"G","RGB"),
+// channel_delete("gr");
+// channel_delete("gb");
+// kanalberechnung("blue", f, "red", f, _source, calc_1, "br", "RGB");
+// kanalberechnung("blue", f, "grain", f, _source, calc_1, "bg", "RGB");
+kanalberechnung("rb",f,"gb",f,"this",n,"B","RGB"),
+// channel_delete("br");
+// channel_delete("bg");
+kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB")}
+// channel_setSaturation_2('merged', 'lighten')
+// channel_setSaturation_2('merged', 'multiply')
+function channel_setSaturation_2(e,n){var r="subtract";
+// var _calculation = "lighten";
+// var _calculation = "screen";
+// channel_select("RGB", false);
+kanalberechnung("red",t,"grain",t,e,r,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,r,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),
+// channel_delete("rg");
+// channel_delete("rb");
+kanalberechnung("grain",t,"red",t,e,r,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,r,"gb","RGB"),kanalberechnung("gr",f,"gb",f,"this",n,"G","RGB"),
+// channel_delete("gr");
+// channel_delete("gb");
+kanalberechnung("blue",t,"red",t,e,r,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,r,"bg","RGB"),kanalberechnung("br",f,"bg",f,"this",n,"B","RGB"),
+// channel_delete("br");
+// channel_delete("bg");
+kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB")}function channel_setSaturation_3(e,n){var r="subtract";
+// var _calculation = "lighten";
+// var _calculation = "screen";
+// channel_select("RGB", false);
+kanalberechnung("red",t,"grain",t,e,r,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,r,"rb","RGB"),
+// channel_delete("rg");
+// channel_delete("rb");
+kanalberechnung("grain",t,"red",t,e,r,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,r,"gb","RGB"),
+// channel_delete("gr");
+// channel_delete("gb");
+kanalberechnung("blue",t,"red",t,e,r,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,r,"bg","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),kanalberechnung("br",f,"bg",f,"this",n,"B","RGB"),kanalberechnung("gb",f,"gr",f,"this",n,"G","RGB"),kanalberechnung("gb",f,"gr",f,"this",r,"C","RGB"),kanalberechnung("br",f,"bg",f,"this",r,"M","RGB"),kanalberechnung("rg",f,"rb",f,"this",r,"Y","RGB")}function quick_farbfelder(e,n,r,t){selection_deselect(),gotoFill(),channel2selection(e),
+// createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
+createColorLayer(e,"multiply","none",0,"xx",n,r,t),gotoFill()}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),channel_setSaturation_3("merged","darken"),quick_farbfelder("R",255,0,0),quick_farbfelder("Y",255,255,0),quick_farbfelder("G",0,255,0),quick_farbfelder("C",0,255,255),quick_farbfelder("B",0,0,255),quick_farbfelder("M",255,0,255);
+// quick_farbbereich("radius", "red", 255, 0, 0)
+// quick_farbbereich("yellows", "yellow", 255,255,0)
+// quick_farbbereich("graininess", "green", 0,255,0)
+// quick_farbbereich("cyans", "cyan", 0,255,255)
+// quick_farbbereich("blues", "blue", 0,0,255)
+// quick_farbbereich("magenta", "magenta", 255,0,255)

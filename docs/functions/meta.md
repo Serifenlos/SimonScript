@@ -148,4 +148,35 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta.js)
 
+### getMeta_softproof
+***array***
+
+<button class="btn" data-clipboard-text="getMeta_softproof();"></button>
+{: .btn_p }
+
+??? "getMeta_softproof();"
+    ``` js linenums="1"
+    function getMeta_softproof() {
+        editXMP();
+        var proof_profil, proof_intent, proof_tk;
+        const softproof = [];
+    
+        if (xmpMeta.doesPropertyExist(customNamespace, "proof_profil")) {
+            var proof_profil = xmpMeta.getProperty(customNamespace, "proof_profil");
+        }
+        if (xmpMeta.doesPropertyExist(customNamespace, "proof_intent")) {
+            var proof_intent = xmpMeta.getProperty(customNamespace, "proof_intent");
+        }
+        if (xmpMeta.doesPropertyExist(customNamespace, "proof_tk")) {
+            var proof_tk = xmpMeta.getProperty(customNamespace, "proof_tk");
+        }
+    
+        softproof.push(proof_profil, proof_intent, proof_tk);
+    
+        return softproof;
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_softproof.js)
+
 !!! warning hide "not documented functions"

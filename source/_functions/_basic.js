@@ -72,3 +72,5 @@
 // @codekit-prepend './basic/time_stop.js';
 // @codekit-prepend './basic/transformLayer.js';
 // @codekit-prepend './basic/undoSteps.js';
+// @codekit-prepend './basic/workingProfile_get.js';
+// @codekit-prepend './basic/workingProfile_set.js';
