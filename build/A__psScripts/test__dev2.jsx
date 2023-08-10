@@ -35,7 +35,7 @@
 function tiefenmakse_part1(e){layer_selectedIDX_get();if(e||layer_selectedIDX_get().length>1){e?layer_mergeVisible(e):(layer_copyLayers(),//Ebenen kopieren (Apfel J)
 layer_mergeLayers()),nameLayer("helper__depthMask_image");for(
 // move to TOP
-var a=hasBackground()?0:1;layer_checkExistence(a);)a++;moveLayer("helper__depthMask_image",parseInt(a-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
+var n=hasBackground()?0:1;layer_checkExistence(n);)n++;moveLayer("helper__depthMask_image",parseInt(n-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
 // alert("Ori existiert")
 gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length-1]);doc.activeLayer.kind!=LayerKind.NORMAL;)gotoLayer(getActiveLayerIndex()-1);doc.activeLayer.kind!=LayerKind.SmartObject&&(executeAction(sTID("copyToLayer"),void 0,DialogModes.NO),nameLayer("helper__depthMask_image"))}}
 // TODO in die functions
@@ -81,9 +81,9 @@ gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().
 // cyans cyan
 // blues blue
 // magenta magenta
-function quick_farbbereich(e,a,r,n,t){selection_deselect(),gotoFill(),select_Farbbereich(e),
+function quick_farbbereich(e,n,a,t,r){selection_deselect(),gotoFill(),select_Farbbereich(e),
 // createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
-createColorLayer(a,"multiply","none",0,"xx",r,n,t),gotoFill()}
+createColorLayer(n,"multiply","none",0,"xx",a,t,r),gotoFill()}
 // quick_farbbereich("radius", "red", 255, 0, 0)
 // quick_farbbereich("yellows", "yellow", 255,255,0)
 // quick_farbbereich("graininess", "green", 0,255,0)
@@ -91,39 +91,39 @@ createColorLayer(a,"multiply","none",0,"xx",r,n,t),gotoFill()}
 // quick_farbbereich("blues", "blue", 0,0,255)
 // quick_farbbereich("magenta", "magenta", 255,0,255)
 // channel_setSaturationXX('merged', 'lighten')
-function channel_setSaturationXX(e,a){var r="difference";
+function channel_setSaturationXX(e,n){var a="difference";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",f,"grain",f,e,r,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,r,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",a,"R","RGB"),
+kanalberechnung("red",f,"grain",f,e,a,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),
 // channel_delete("rg");
 // channel_delete("rb");
 // kanalberechnung("grain", f, "red", f, _source, calc_1, "gr", "RGB");
-kanalberechnung("grain",f,"blue",f,e,r,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",a,"G","RGB"),
+kanalberechnung("grain",f,"blue",f,e,a,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",n,"G","RGB"),
 // channel_delete("gr");
 // channel_delete("gb");
 // kanalberechnung("blue", f, "red", f, _source, calc_1, "br", "RGB");
 // kanalberechnung("blue", f, "grain", f, _source, calc_1, "bg", "RGB");
-kanalberechnung("rb",f,"gb",f,"this",a,"B","RGB"),
+kanalberechnung("rb",f,"gb",f,"this",n,"B","RGB"),
 // channel_delete("br");
 // channel_delete("bg");
-kanalberechnung("R",f,"G",f,"this",a,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",a,"saturation","RGB")}
+kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB")}
 // channel_setSaturation_2('merged', 'lighten')
 // channel_setSaturation_2('merged', 'multiply')
-function channel_setSaturation_2(e,a){var r="subtract";
+function channel_setSaturation_2(e,n){var a="subtract";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",t,"grain",t,e,r,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,r,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",a,"R","RGB"),
+kanalberechnung("red",t,"grain",t,e,a,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),
 // channel_delete("rg");
 // channel_delete("rb");
-kanalberechnung("grain",t,"red",t,e,r,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,r,"gb","RGB"),kanalberechnung("gr",f,"gb",f,"this",a,"G","RGB"),
+kanalberechnung("grain",t,"red",t,e,a,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,a,"gb","RGB"),kanalberechnung("gr",f,"gb",f,"this",n,"G","RGB"),
 // channel_delete("gr");
 // channel_delete("gb");
-kanalberechnung("blue",t,"red",t,e,r,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,r,"bg","RGB"),kanalberechnung("br",f,"bg",f,"this",a,"B","RGB"),
+kanalberechnung("blue",t,"red",t,e,a,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,a,"bg","RGB"),kanalberechnung("br",f,"bg",f,"this",n,"B","RGB"),
 // channel_delete("br");
 // channel_delete("bg");
-kanalberechnung("R",f,"G",f,"this",a,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",a,"saturation","RGB")}
+kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB")}
 // channel_setSaturation_3('merged', 'darken');
 // function channel_setSaturation_singleColors(_source, _calculation) {
 //     var calc_1 = "subtract";
@@ -256,77 +256,25 @@ kanalberechnung("R",f,"G",f,"this",a,"RG","RGB"),kanalberechnung("RG",f,"B",f,"t
 //     // Fix the xmpMeta
 //     app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
 // }
-function run(){setMeta_2("startID",layer_selectedID_get()),createLayer("AutoTonwert","levels","normal","gray",80,"black",f,f),layer_selectedID_set(getMeta_2("startID")),delMeta_2("startID")}
-// layer_selectedID_set(3)
-// alert("check: " + layer_selectedID_get())
-function gotoLayer2(e){var a=new ActionDescriptor,r=new ActionReference;r.putIdentifier(s2t("layer"),e),
-// if (typeof _input == "number") {
-//     r.putIndex(s2t('layer'), _input);
-// } else if (typeof _input == "string") {
-//     r.putName(s2t('layer'), _input);
-// }
-a.putReference(sTID("null"),r),a.putBoolean(sTID("makeVisible"),!1),executeAction(sTID("select"),a,DialogModes.NO)}
-// function layer_selectedID_get() {
-//     var selectedLayers = [];
-//     var ref = new ActionReference();
-//     ref.putEnumerated(stringIDToTypeID('document'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
-//     var desc = executeActionGet(ref);
-//     if (desc.hasKey(stringIDToTypeID('targetLayers'))) {
-//         desc = desc.getList(stringIDToTypeID('targetLayers'));
-//         for (var i = 0, c = desc.count; i < c; i++) {
-//             ref2 = new ActionReference();
-//             hasBackground() ? ref2.putIndex(s2t('layer'), desc.getReference(i).getIndex()) : ref2.putIndex(s2t('layer'), desc.getReference(i).getIndex() + 1);
-//             desc2 = executeActionGet(ref2);
-//             selectedLayers.push(desc2.getInteger(stringIDToTypeID("layerID")));
-//         }
-//     }
-//     return selectedLayers;
-// };
-// function layer_selectedID_set(_array) {
-//     selectLayers("selectNoLayers");
-//     try {
-//         var _array = arrayCorrect(_array)
-//     } catch (e) {}
-//     try {
-//         if (_array.length > 0) {
-//             for (var j = 0; j < _array.length; j++) {
-//                 selectLayerByID(_array[j], t);
-//             }
-//         }
-//     } catch (e) {
-//         alert("error layer_selectedID_set: " + e)
-//     }
-// }
-function writeln(e){return $.writeln(e+": "+e)}
-// function selectLayerByID(_id, _add) {
-//     try {
-//         var d = new ActionDescriptor();
-//         var r = new ActionReference();
-//         if (_add == "remove" || !_add) {
-//             var addX = "removeFromSelection"
-//         } else {
-//             var addX = "addToSelection"
-//         }
-//         r.putIdentifier(s2t("layer"), _id)
-//         d.putReference(s2t("null"), r);
-//         d.putEnumerated(s2t("selectionModifier"), s2t("selectionModifierType"), s2t(addX));
-//         d.putBoolean(s2t("makeVisible"), false);
-//         executeAction(s2t("select"), d, DialogModes.NO);
-//     } catch (e) {
-//         // alert("error selectLayerByID: " + e)
-//     }
-// }
-// function arrayCorrect(_array) {
-//     if (typeof Array.isArray != "function") {
-//         Array.isArray = function(arr) {
-//             return arr != undefined && arr.constructor == Array
-//         }
-//     }
-//     if (!Array.isArray(_array)) {
-//         var arr2str = _array.toString();
-//         var _array = [];
-//         var _array = arr2str.split(',');
-//     }
-//     return _array;
-// }
-$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),run();
+function run(){setMeta_2("startID",layer_selectedID_get()),createLayer("AutoTonwert","levels","normal","gray",80,"black",f,f),layer_selectedID_set(getMeta_2("startID")),delMeta_2("startID")}function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeDocument.channels,n=[],a=0;a<e.length;a++){(t=e[a]).kind!=ChannelType.COMPONENT&&n.push(t)}for(;n.length;){var t;(t=n.pop()).remove()}}}
+// "screen"
+// "colorDodge"
+// "difference"
+// "lighten"
+// "darken"
+function check(e,n,a){
+// var calc_1 = "subtract";
+// channel_select("RGB", false);
+kanalberechnung("red",t,"grain",t,e,a,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,a,"rb","RGB"),kanalberechnung("grain",t,"red",t,e,a,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,a,"gb","RGB"),kanalberechnung("blue",t,"red",t,e,a,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,a,"bg","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),kanalberechnung("br",f,"bg",f,"this",n,"B","RGB"),kanalberechnung("gb",f,"gr",f,"this",n,"G","RGB"),kanalberechnung("gb",f,"gr",f,"this",a,"C","RGB"),kanalberechnung("br",f,"bg",f,"this",a,"M","RGB"),kanalberechnung("rg",f,"rb",f,"this",a,"Y","RGB"),
+// kanalberechnung("R", f, "Y", f, "this", _calculation, "RY", "RGB");
+// kanalberechnung("Y", f, "G", f, "this", _calculation, "YG", "RGB");
+// kanalberechnung("G", f, "C", f, "this", _calculation, "GC", "RGB");
+// kanalberechnung("C", f, "B", f, "this", _calculation, "CB", "RGB");
+// kanalberechnung("B", f, "M", f, "this", _calculation, "BM", "RGB");
+// kanalberechnung("R", f, "M", f, "this", _calculation, "RM", "RGB");
+kanalberechnung("R",f,"Y",f,"this",n,"RY_temp","RGB"),kanalberechnung("RY_temp",f,"RY_temp",f,"this","colorDodge","RY","RGB"),channel_delete("RY_temp"),kanalberechnung("Y",f,"G",f,"this",n,"YG_temp","RGB"),kanalberechnung("YG_temp",f,"YG_temp",f,"this","colorDodge","YG","RGB"),channel_delete("YG_temp"),kanalberechnung("G",f,"C",f,"this",n,"GC_temp","RGB"),kanalberechnung("GC_temp",f,"GC_temp",f,"this","colorDodge","GC","RGB"),channel_delete("GC_temp"),kanalberechnung("C",f,"B",f,"this",n,"CB_temp","RGB"),kanalberechnung("CB_temp",f,"CB_temp",f,"this","colorDodge","CB","RGB"),channel_delete("CB_temp"),kanalberechnung("B",f,"M",f,"this",n,"BM_temp","RGB"),kanalberechnung("BM_temp",f,"BM_temp",f,"this","colorDodge","BM","RGB"),channel_delete("BM_temp"),kanalberechnung("R",f,"M",f,"this",n,"RM_temp","RGB"),kanalberechnung("RM_temp",f,"RM_temp",f,"this","colorDodge","RM","RGB"),channel_delete("RM_temp")}function writeln(e){return $.writeln(e+": "+e)}function mask2image(e){if(1===layer_selectedIDX_get().length&&hasLayerMask()){var n=layer_getName(getActiveLayerIndex());gotoMask(),loadSelectionOfMask(),select_invert(),layer_create(e+" ("+n+")",100,!0,"normal"),fill("black","normal",100),selection_deselect()}else alert("Abbruch!\nwähle genau eine Ebene mit Maske aus")}function channel2mask(e,n){for(var a=1;layer_checkExistence(layer_getIDXbyString(n+" "+a)[0]);)a++;createGroup(n+" "+a,"passThrough","none",100,f),createMask(),channel_select(e,!1),select_all(),copy(),channel_select("mask",!0),paste_into(),channel_select("RGB",!1),selection_deselect()}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),
+// run()
+// RemoveAlphaChannels();
+// check('merged', 'darken', 'subtract');
+// check('merged', 'lighten', 'difference');
+doc.suspendHistory("channel2image","channel2image('R GC M | ym', 'channel2image')"),doc.suspendHistory("channel2image","channel2image('RY CB | gm', 'channel2image')"),doc.suspendHistory("channel2image","channel2image(' YG BM | rc', 'channel2image')");

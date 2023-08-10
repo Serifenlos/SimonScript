@@ -82,6 +82,50 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/kanalberechnung.js)
 
+### channel2image
+
+<button class="btn" data-clipboard-text="channel2image(_channel_name, _layer_name);"></button>
+{: .btn_p }
+
+??? "channel2image(_channel_name, _layer_name);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/channel2image.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2image.js)
+
+???+ a
+    ```js
+    doc.suspendHistory("channel2image", "channel2image('Alpha 1', 'channel2image')");
+    ```
+
+    ??? b
+        * _channel_name `string`
+        * _layer_name `string`
+
+### bildberechnung
+
+<button class="btn" data-clipboard-text="bildberechnung(_channel_name, _blendmode, _invert, _preserveTransparency);"></button>
+{: .btn_p }
+
+??? "bildberechnung(_channel_name, _blendmode, _invert, _preserveTransparency);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/bildberechnung.js" -->
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/bildberechnung.js)
+
+???+ a
+    ```js
+    bildberechnung('Alpha 1', "normal", f, f);
+    ```
+
+    ??? b
+        * _channel_name `string`
+        * _blendmode `string`
+        * _invert `boolean`
+        * _preserveTransparency `boolean`
+
 !!! warning show "not documented functions"
     - channel_setSaturation_singleColors
      - mask_setSaturation_singleColors

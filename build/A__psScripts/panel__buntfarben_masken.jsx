@@ -15,4 +15,4 @@
 //@include "functions/selection.jsx";
 //@include "functions/channel.jsx";
 //@include "functions/LUT-maskPreview.jsx";
-doc.suspendHistory("[helper] Farbmaske","mask_setSaturation_singleColors_create('[helper] Farbmaske')");
+layer_checkExistence("[helper] Farbmaske")?doc.suspendHistory("[helper] Farbmaske Selection","mask_setSaturation_singleColors_create('[helper] Farbmaske')"):doc.suspendHistory("[helper] Farbmaske preview","mask_setSaturation_singleColors_create('[helper] Farbmaske')");
