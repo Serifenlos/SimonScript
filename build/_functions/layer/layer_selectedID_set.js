@@ -1,0 +1,1 @@
+function layer_selectedID_set(e){selectLayers("selectNoLayers");try{e=arrayCorrect(e)}catch(e){}try{if(e.length>0)for(var r=0;r<e.length;r++)selectLayerByID(e[r],t)}catch(e){alert("error layer_selectedID_set: "+e)}}

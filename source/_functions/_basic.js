@@ -11,6 +11,7 @@
 // @codekit-prepend './basic/adjustLayer_levels_autoLevels_wrapper.js';
 // @codekit-prepend './basic/adjustLayer_levels_edit.js';
 // @codekit-prepend './basic/app_getForegroundColor.js';
+// @codekit-prepend './basic/arrayCorrect.js';
 // @codekit-prepend './basic/assignProfile.js';
 // @codekit-prepend './basic/blendif.js';
 // @codekit-prepend './basic/checkTransparency.js';
