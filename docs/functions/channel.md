@@ -225,6 +225,66 @@
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/kanalberechnung.js)
 
+### channel2image
+
+<button class="btn" data-clipboard-text="channel2image(_channel_name, _layer_name);"></button>
+{: .btn_p }
+
+??? "channel2image(_channel_name, _layer_name);"
+    ``` js linenums="1"
+    function channel2image(_channel_name, _layer_name) {
+        layer_create(_layer_name + " (" + _channel_name + ")", 100, false, "normal");
+        bildberechnung(_channel_name, "normal", f, f);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2image.js)
+
+???+ a
+    ```js
+    doc.suspendHistory("channel2image", "channel2image('Alpha 1', 'channel2image')");
+    ```
+
+    ??? b
+        * _channel_name `string`
+        * _layer_name `string`
+
+### bildberechnung
+
+<button class="btn" data-clipboard-text="bildberechnung(_channel_name, _blendmode, _invert, _preserveTransparency);"></button>
+{: .btn_p }
+
+??? "bildberechnung(_channel_name, _blendmode, _invert, _preserveTransparency);"
+    ``` js linenums="1"
+    function bildberechnung(_channel_name, _blendmode, _invert, _preserveTransparency) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        r.putName(s2t("channel"), _channel_name);
+        d2.putReference(s2t("to"), r);
+        d2.putBoolean(s2t("invert"), _invert);
+        d2.putEnumerated(s2t("calculation"), s2t("calculationType"), s2t(_blendmode));
+        d2.putBoolean(s2t("preserveTransparency"), _preserveTransparency);
+        d.putObject(s2t("with"), s2t("calculation"), d2);
+        try {executeAction(s2t("applyImageEvent"), d, DialogModes.NO)}
+        catch(e) {}
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/bildberechnung.js)
+
+???+ a
+    ```js
+    bildberechnung('Alpha 1', "normal", f, f);
+    ```
+
+    ??? b
+        * _channel_name `string`
+        * _blendmode `string`
+        * _invert `boolean`
+        * _preserveTransparency `boolean`
+
 !!! warning show "not documented functions"
     - channel_setSaturation_singleColors
      - mask_setSaturation_singleColors

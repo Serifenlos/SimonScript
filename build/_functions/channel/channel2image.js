@@ -1,0 +1,1 @@
+function channel2image(n,e){layer_create(e+" ("+n+")",100,!1,"normal"),bildberechnung(n,"normal",f,f)}

@@ -12,6 +12,7 @@ function mask_setSaturation_singleColors(__foldername) {
 
     createGroup(__foldername, "passThrough", "none", 100, f);
     createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
+    quick_farbfelder("RM", 255, 0, 127);
     quick_farbfelder("M", 255, 0, 255);
     quick_farbfelder("BM", 127, 0, 255);
     quick_farbfelder("B", 0, 0, 255);
@@ -48,4 +49,5 @@ function mask_setSaturation_singleColors(__foldername) {
     channel_delete("GC");
     channel_delete("CB");
     channel_delete("BM");
+    channel_delete("RM");
 }

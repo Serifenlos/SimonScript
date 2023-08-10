@@ -1,3 +1,5 @@
+// @codekit-prepend './channel/bildberechnung.js';
+// @codekit-prepend './channel/channel2image.js';
 // @codekit-prepend './channel/channel2mask.js';
 // @codekit-prepend './channel/channel2selection.js';
 // @codekit-prepend './channel/channel_delete.js';

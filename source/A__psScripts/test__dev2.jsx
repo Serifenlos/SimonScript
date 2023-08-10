@@ -459,71 +459,111 @@ function run() {
 }
 
 
+function RemoveAlphaChannels() {
+  if (app.documents.length == 0) {
+    return;
+  }
 
-run()
-// layer_selectedID_set(3)
-// alert("check: " + layer_selectedID_get())
+  var doc = app.activeDocument;
+
+  var channels = doc.channels;
+  var alphas = [];
+  for (var i = 0; i < channels.length; i++) {
+    var channel = channels[i];
+    if (channel.kind == ChannelType.COMPONENT) {
+      continue;
+    }
+    alphas.push(channel);
+  }
+  while (alphas.length) {
+    var channel = alphas.pop();
+    channel.remove();
+  }
+};
+
+
+// run()
+// RemoveAlphaChannels();
+// check('merged', 'darken', 'subtract');
+// check('merged', 'lighten', 'difference');
+
+
+doc.suspendHistory("channel2image", "channel2image('R GC M | ym', 'channel2image')");
+doc.suspendHistory("channel2image", "channel2image('RY CB | gm', 'channel2image')");
+doc.suspendHistory("channel2image", "channel2image(' YG BM | rc', 'channel2image')");
 
 
 
 
 
-function gotoLayer2(_input) {
-    var d = new ActionDescriptor();
-    var r = new ActionReference();
+// "screen"
+// "colorDodge"
+// "difference"
+// "lighten"
+// "darken"
 
-    r.putIdentifier(s2t('layer'), _input);
 
-    // if (typeof _input == "number") {
-    //     r.putIndex(s2t('layer'), _input);
-    // } else if (typeof _input == "string") {
-    //     r.putName(s2t('layer'), _input);
-    // }
+function check(_source, _calculation, calc_1) {
+    // var calc_1 = "subtract";
 
-    d.putReference(sTID('null'), r);
-    d.putBoolean(sTID('makeVisible'), false);
-    executeAction(sTID('select'), d, DialogModes.NO);
+    // channel_select("RGB", false);
+    kanalberechnung("red", t, "grain", t, _source, calc_1, "rg", "RGB");
+    kanalberechnung("red", t, "blue", t, _source, calc_1, "rb", "RGB");
+    kanalberechnung("grain", t, "red", t, _source, calc_1, "gr", "RGB");
+    kanalberechnung("grain", t, "blue", t, _source, calc_1, "gb", "RGB");
+    kanalberechnung("blue", t, "red", t, _source, calc_1, "br", "RGB");
+    kanalberechnung("blue", t, "grain", t, _source, calc_1, "bg", "RGB");
+
+    kanalberechnung("rg", f, "rb", f, "this", _calculation, "R", "RGB");
+    kanalberechnung("br", f, "bg", f, "this", _calculation, "B", "RGB");
+    kanalberechnung("gb", f, "gr", f, "this", _calculation, "G", "RGB");
+
+    kanalberechnung("gb", f, "gr", f, "this", calc_1, "C", "RGB");
+    kanalberechnung("br", f, "bg", f, "this", calc_1, "M", "RGB");
+    kanalberechnung("rg", f, "rb", f, "this", calc_1, "Y", "RGB");
+
+    // kanalberechnung("R", f, "Y", f, "this", _calculation, "RY", "RGB");
+    // kanalberechnung("Y", f, "G", f, "this", _calculation, "YG", "RGB");
+    // kanalberechnung("G", f, "C", f, "this", _calculation, "GC", "RGB");
+    // kanalberechnung("C", f, "B", f, "this", _calculation, "CB", "RGB");
+    // kanalberechnung("B", f, "M", f, "this", _calculation, "BM", "RGB");
+    // kanalberechnung("R", f, "M", f, "this", _calculation, "RM", "RGB");
+
+    kanalberechnung("R", f, "Y", f, "this", _calculation, "RY_temp", "RGB");
+    kanalberechnung("RY_temp", f, "RY_temp", f, "this", "colorDodge", "RY", "RGB");
+    channel_delete("RY_temp");
+
+    kanalberechnung("Y", f, "G", f, "this", _calculation, "YG_temp", "RGB");
+    kanalberechnung("YG_temp", f, "YG_temp", f, "this", "colorDodge", "YG", "RGB");
+    channel_delete("YG_temp");
+
+    kanalberechnung("G", f, "C", f, "this", _calculation, "GC_temp", "RGB");
+    kanalberechnung("GC_temp", f, "GC_temp", f, "this", "colorDodge", "GC", "RGB");
+    channel_delete("GC_temp");
+
+    kanalberechnung("C", f, "B", f, "this", _calculation, "CB_temp", "RGB");
+    kanalberechnung("CB_temp", f, "CB_temp", f, "this", "colorDodge", "CB", "RGB");
+    channel_delete("CB_temp");
+
+    kanalberechnung("B", f, "M", f, "this", _calculation, "BM_temp", "RGB");
+    kanalberechnung("BM_temp", f, "BM_temp", f, "this", "colorDodge", "BM", "RGB");
+    channel_delete("BM_temp");
+
+    kanalberechnung("R", f, "M", f, "this", _calculation, "RM_temp", "RGB");
+    kanalberechnung("RM_temp", f, "RM_temp", f, "this", "colorDodge", "RM", "RGB");
+    channel_delete("RM_temp");
 }
 
-// function layer_selectedID_get() {
-//     var selectedLayers = [];
-//     var ref = new ActionReference();
-//     ref.putEnumerated(stringIDToTypeID('document'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
-//     var desc = executeActionGet(ref);
-//     if (desc.hasKey(stringIDToTypeID('targetLayers'))) {
-//         desc = desc.getList(stringIDToTypeID('targetLayers'));
-//         for (var i = 0, c = desc.count; i < c; i++) {
-//             ref2 = new ActionReference();
-//             hasBackground() ? ref2.putIndex(s2t('layer'), desc.getReference(i).getIndex()) : ref2.putIndex(s2t('layer'), desc.getReference(i).getIndex() + 1);
-//             desc2 = executeActionGet(ref2);
-//             selectedLayers.push(desc2.getInteger(stringIDToTypeID("layerID")));
-//         }
-//     }
-//     return selectedLayers;
-// };
 
 
 
 
 
 
-// function layer_selectedID_set(_array) {
-//     selectLayers("selectNoLayers");
 
-//     try {
-//         var _array = arrayCorrect(_array)
-//     } catch (e) {}
 
-//     try {
-//         if (_array.length > 0) {
-//             for (var j = 0; j < _array.length; j++) {
-//                 selectLayerByID(_array[j], t);
-//             }
-//         }
-//     } catch (e) {
-//         alert("error layer_selectedID_set: " + e)
-//     }
-// }
+
+
 
 function writeln(_ding) {
     return $.writeln("" + _ding + ": " + _ding)
@@ -531,38 +571,37 @@ function writeln(_ding) {
 }
 
 
-// function selectLayerByID(_id, _add) {
-//     try {
-//         var d = new ActionDescriptor();
-//         var r = new ActionReference();
 
-//         if (_add == "remove" || !_add) {
-//             var addX = "removeFromSelection"
-//         } else {
-//             var addX = "addToSelection"
-//         }
-//         r.putIdentifier(s2t("layer"), _id)
-//         d.putReference(s2t("null"), r);
-//         d.putEnumerated(s2t("selectionModifier"), s2t("selectionModifierType"), s2t(addX));
-//         d.putBoolean(s2t("makeVisible"), false);
-//         executeAction(s2t("select"), d, DialogModes.NO);
-//     } catch (e) {
-//         // alert("error selectLayerByID: " + e)
-//     }
-// }
+function mask2image(_name) {
+    if (layer_selectedIDX_get().length === 1 && hasLayerMask()) {
+        var name_sorce = layer_getName(getActiveLayerIndex());
+        gotoMask();
+        loadSelectionOfMask();
+        select_invert();
+        layer_create(_name + " (" + name_sorce + ")", 100, true, "normal");
+        fill("black", "normal", 100);
+        selection_deselect();
+    } else {
+        alert("Abbruch!\nwähle genau eine Ebene mit Maske aus");
+    }
+}
 
 
-// function arrayCorrect(_array) {
-//     if (typeof Array.isArray != "function") {
-//         Array.isArray = function(arr) {
-//             return arr != undefined && arr.constructor == Array
-//         }
-//     }
 
-//     if (!Array.isArray(_array)) {
-//         var arr2str = _array.toString();
-//         var _array = [];
-//         var _array = arr2str.split(',');
-//     }
-//     return _array;
-// }
+function channel2mask(_channel_name, _mask_name) {
+    var i = 1;
+    while (layer_checkExistence(layer_getIDXbyString(_mask_name + " " + i)[0])) {
+        i++
+    }
+    createGroup(_mask_name + " " + i, "passThrough", "none", 100, f);
+
+    createMask();
+
+    channel_select(_channel_name, false)
+    select_all();
+    copy();
+    channel_select("mask", true);
+    paste_into();
+    channel_select("RGB", false);
+    selection_deselect();
+}
