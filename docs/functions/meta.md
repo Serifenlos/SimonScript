@@ -1,4 +1,5 @@
 ### set
+==TODO delete this==
 
 <button class="btn" data-clipboard-text="set();"></button>
 {: .btn_p }
@@ -19,6 +20,99 @@
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/set.js)
+
+### editXMP_2
+universal
+
+<button class="btn" data-clipboard-text="editXMP_2(_namespace, _prefix);"></button>
+{: .btn_p }
+
+??? "editXMP_2(_namespace, _prefix);"
+    ``` js linenums="1"
+    function editXMP_2(_namespace, _prefix) {
+        if (ExternalObject.AdobeXMPScript == undefined) {
+            ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript');
+        }
+        xmpMeta = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
+        customNamespace2 = _namespace ? customNamespace2 : "http://ns.simonadrian.de/1.0";
+        customPrefix2 = _prefix ? customPrefix2 : "simonscript:";
+        XMPMeta.registerNamespace(customNamespace2, customPrefix2);
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP_2.js)
+
+### getMeta_2
+universal
+
+<button class="btn" data-clipboard-text="getMeta_2(_key);"></button>
+{: .btn_p }
+
+??? "getMeta_2(_key);"
+    ``` js linenums="1"
+    function getMeta_2(_key) {
+        editXMP_2();
+    
+        if (xmpMeta.doesPropertyExist(customNamespace2, _key)) {
+            var value = xmpMeta.getProperty(customNamespace2, _key);
+        }
+    
+        if (typeof value !== 'undefined') {
+            return value;
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_2.js)
+
+### setMeta_2
+universal
+
+<button class="btn" data-clipboard-text="setMeta_2(_key, _value);"></button>
+{: .btn_p }
+
+??? "setMeta_2(_key, _value);"
+    ``` js linenums="1"
+    function setMeta_2(_key, _value) {
+        editXMP_2();
+    
+        // deleteProperty
+        if (xmpMeta.doesPropertyExist(customNamespace2, _key)) {
+            xmpMeta.deleteProperty(customNamespace2, _key);
+        }
+    
+        // setProperty
+        xmpMeta.setProperty(customNamespace2, _key, _value);
+    
+        // Fix the xmpMeta
+        app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta_2.js)
+
+### delMeta_2
+universal
+
+<button class="btn" data-clipboard-text="delMeta_2(_key);"></button>
+{: .btn_p }
+
+??? "delMeta_2(_key);"
+    ``` js linenums="1"
+    function delMeta_2(_key) {
+        editXMP_2();
+    
+        // deleteProperty
+        if (xmpMeta.doesPropertyExist(customNamespace2, _key)) {
+            xmpMeta.deleteProperty(customNamespace2, _key);
+        }
+    
+        // Fix the xmpMeta
+        app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta_2.js)
 
 ### getSoftProof
 

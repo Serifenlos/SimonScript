@@ -2069,5 +2069,7 @@ Convert cm to Point, imageSize needs Points
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_t2s.js)
 
 !!! warning show "not documented functions"
-    - workingProfile_get
+    - arrayCorrect
+     - gotoLayer_byID
+     - workingProfile_get
      - workingProfile_set
