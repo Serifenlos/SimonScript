@@ -19,7 +19,7 @@ config.codekit3
 .LSOverride
 
 .vscode/*
-custom_theme/*
+/custom_theme
 
 
 # Icon must end with two \r
