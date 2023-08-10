@@ -34,6 +34,7 @@
 // @codekit-prepend './basic/getScale.js';
 // @codekit-prepend './basic/gotoFill.js';
 // @codekit-prepend './basic/gotoLayer.js';
+// @codekit-prepend './basic/gotoLayer_byID.js';
 // @codekit-prepend './basic/gotoMask.js';
 // @codekit-prepend './basic/gray2rgb.js';
 // @codekit-prepend './basic/hasBackground.js';

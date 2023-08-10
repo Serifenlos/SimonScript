@@ -184,7 +184,7 @@
         * _linked `hab keinen Effekt beobachtet`
 
 ### selectLayerBySelector
-select Layer by Name or ID
+select Layer by Name or IDX
 
 <button class="btn" data-clipboard-text="selectLayerBySelector(_selector, _add);"></button>
 {: .btn_p }
@@ -209,6 +209,55 @@ select Layer by Name or ID
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/selectLayerBySelector.js)
+
+???+ a
+    ```js
+    selectLayerBySelector("Original", "remove");
+    ```
+    
+    ??? b
+        * _selector `LayerName` `IDX`
+        * _add `add` `remove`
+
+### selectLayerByID
+select Layer by ID
+
+<button class="btn" data-clipboard-text="selectLayerByID(_id, _add);"></button>
+{: .btn_p }
+
+??? "selectLayerByID(_id, _add);"
+    ``` js linenums="1"
+    function selectLayerByID(_id, _add) {
+        try {
+            var d = new ActionDescriptor();
+            var r = new ActionReference();
+    
+            if (_add == "remove" || !_add) {
+                var addX = "removeFromSelection"
+            } else {
+                var addX = "addToSelection"
+            }
+            r.putIdentifier(s2t("layer"), _id)
+            d.putReference(s2t("null"), r);
+            d.putEnumerated(s2t("selectionModifier"), s2t("selectionModifierType"), s2t(addX));
+            d.putBoolean(s2t("makeVisible"), false);
+            executeAction(s2t("select"), d, DialogModes.NO);
+        } catch (e) {
+            // alert("error selectLayerByID: " + e)
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/selectLayerByID.js)
+
+???+ a
+    ```js
+    selectLayerByID(1, "add");
+    ```
+    
+    ??? b
+        * _id `number`
+        * _add `add` `remove`
 
 ### getMaskVisibility
 
@@ -402,6 +451,8 @@ select Layer by Name or ID
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_solidColorHSB_change.js)
 
 ### layer_selectedIDX_get
+***array***
+get array of selected Layers by IDX
 
 <button class="btn" data-clipboard-text="layer_selectedIDX_get();"></button>
 {: .btn_p }
@@ -425,7 +476,38 @@ select Layer by Name or ID
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_selectedIDX_get.js)
 
+### layer_selectedID_get
+***array***
+get Array of selected Layers by ID
+
+<button class="btn" data-clipboard-text="layer_selectedID_get();"></button>
+{: .btn_p }
+
+??? "layer_selectedID_get();"
+    ``` js linenums="1"
+    function layer_selectedID_get() {
+        var selectedLayers = [];
+        var ref = new ActionReference();
+        ref.putEnumerated(stringIDToTypeID('document'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
+        var desc = executeActionGet(ref);
+        if (desc.hasKey(stringIDToTypeID('targetLayers'))) {
+            desc = desc.getList(stringIDToTypeID('targetLayers'));
+            for (var i = 0, c = desc.count; i < c; i++) {
+                ref2 = new ActionReference();
+                hasBackground() ? ref2.putIndex(s2t('layer'), desc.getReference(i).getIndex()) : ref2.putIndex(s2t('layer'), desc.getReference(i).getIndex() + 1);
+                desc2 = executeActionGet(ref2);
+                selectedLayers.push(desc2.getInteger(stringIDToTypeID("layerID")));
+            }
+        }
+        return selectedLayers;
+    };
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_selectedID_get.js)
+
 ### layer_selectedIDX_set
+***action***
+select Layers by Array of IDX
 
 <button class="btn" data-clipboard-text="layer_selectedIDX_set(_array);"></button>
 {: .btn_p }
@@ -447,6 +529,45 @@ select Layer by Name or ID
     ```
 
 [](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_selectedIDX_set.js)
+
+???+ a
+    ```js
+    layer_selectedIDX_set(startLayer);
+    ```
+
+### layer_selectedID_set
+***action***
+select Layers by Array of ID
+
+<button class="btn" data-clipboard-text="layer_selectedID_set(_array);"></button>
+{: .btn_p }
+
+??? "layer_selectedID_set(_array);"
+    ``` js linenums="1"
+    function layer_selectedID_set(_array) {
+        selectLayers("selectNoLayers");
+    
+        try {var _array = arrayCorrect(_array)}
+        catch(e) {}
+    
+        try {
+            if (_array.length > 0) {
+                for (var j = 0; j < _array.length; j++) {
+                    selectLayerByID(_array[j], t);
+                }
+            }
+        } catch (e) {
+            alert("error layer_selectedID_set: " + e)
+        }
+    }
+    ```
+
+[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_selectedID_set.js)
+
+???+ a
+    ```js
+    layer_selectedID_set(getMeta_2("startID"));
+    ```
 
 ### layer_getSolidFillColor
 

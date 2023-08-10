@@ -327,4 +327,5 @@ cmd d
     ```
 
     
-!!! warning hide "not documented functions"
+!!! warning show "not documented functions"
+    - select_outOfGamut
