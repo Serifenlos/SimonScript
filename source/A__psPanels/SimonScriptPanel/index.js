@@ -462,6 +462,10 @@ document.getElementById("bunt").addEventListener("click", function (event) {
 });
 
 
+document.getElementById("farbmaske").addEventListener("click", function (event) {
+    loadScript("[panel] Farbmaske");
+});
+
 document.getElementById("unbunt").addEventListener("click", function (event) {
     if (!event.altKey && event.shiftKey) {
         loadScript("[panel] Select Unbunt Selection");

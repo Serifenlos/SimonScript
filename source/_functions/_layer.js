@@ -23,8 +23,11 @@
 // @codekit-prepend './layer/layer_renameByIDX.js';
 // @codekit-prepend './layer/layer_selectedIDX_get.js';
 // @codekit-prepend './layer/layer_selectedIDX_set.js';
+// @codekit-prepend './layer/layer_selectedID_get.js';
+// @codekit-prepend './layer/layer_selectedID_set.js';
 // @codekit-prepend './layer/layer_solidColorHSB_change.js';
 // @codekit-prepend './layer/layer_transform.js';
+// @codekit-prepend './layer/selectLayerByID.js';
 // @codekit-prepend './layer/selectLayerBySelector.js';
 // @codekit-prepend './layer/select_nextLayer.js';
 // @codekit-prepend './layer/select_nextLayer_simple.js';
