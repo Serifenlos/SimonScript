@@ -7,6 +7,8 @@
 // @codekit-prepend './channel/channel_select.js';
 // @codekit-prepend './channel/channel_setSaturation.js';
 // @codekit-prepend './channel/channel_setSaturation_singleColors.js';
+// @codekit-prepend './channel/channel_setSaturation_singleColors_v2.js';
 // @codekit-prepend './channel/kanalberechnung.js';
+// @codekit-prepend './channel/mask_farbmaske_viaSaturation.js';
 // @codekit-prepend './channel/mask_setSaturation_singleColors.js';
 // @codekit-prepend './channel/mask_setSaturation_singleColors_create.js';

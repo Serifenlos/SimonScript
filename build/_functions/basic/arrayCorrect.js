@@ -1,1 +1,0 @@
-function arrayCorrect(r){if("function"!=typeof Array.isArray&&(Array.isArray=function(r){return null!=r&&r.constructor==Array}),!Array.isArray(r)){var t=r.toString();r=[],r=t.split(",")}return r}

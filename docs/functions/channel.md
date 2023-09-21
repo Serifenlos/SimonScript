@@ -61,7 +61,8 @@
     
         r.putName(s2t("channel"), _name);
         d.putReference(s2t("null"), r);
-        executeAction(s2t("delete"), d, DialogModes.NO);
+        try{executeAction(s2t("delete"), d, DialogModes.NO)}
+        catch(e){}
     }
     ```
 
@@ -287,5 +288,6 @@
 
 !!! warning show "not documented functions"
     - channel_setSaturation_singleColors
+     - channel_setSaturation_singleColors_v2
      - mask_setSaturation_singleColors
      - mask_setSaturation_singleColors_create

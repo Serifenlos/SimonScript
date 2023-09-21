@@ -13,6 +13,7 @@ $.evalFile("/Users/simon/Library/Application\ Support/Adobe/UXP/PluginsStorage/P
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview_v2.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
@@ -460,37 +461,343 @@ function run() {
 
 
 function RemoveAlphaChannels() {
-  if (app.documents.length == 0) {
-    return;
-  }
-
-  var doc = app.activeDocument;
-
-  var channels = doc.channels;
-  var alphas = [];
-  for (var i = 0; i < channels.length; i++) {
-    var channel = channels[i];
-    if (channel.kind == ChannelType.COMPONENT) {
-      continue;
+    if (app.documents.length == 0) {
+        return;
     }
-    alphas.push(channel);
-  }
-  while (alphas.length) {
-    var channel = alphas.pop();
-    channel.remove();
-  }
+
+    var doc = app.activeDocument;
+
+    var channels = doc.channels;
+    var alphas = [];
+    for (var i = 0; i < channels.length; i++) {
+        var channel = channels[i];
+        if (channel.kind == ChannelType.COMPONENT) {
+            continue;
+        }
+        alphas.push(channel);
+    }
+    while (alphas.length) {
+        var channel = alphas.pop();
+        channel.remove();
+    }
 };
 
 
 // run()
-// RemoveAlphaChannels();
+
+// doc.suspendHistory("channel2image", "channel2image('(RG 60 sub) (GR 60 sub) darken', 'channel2image')"); 
+
 // check('merged', 'darken', 'subtract');
 // check('merged', 'lighten', 'difference');
+// check2('merged', 'lighten', 'subtract');
 
 
-doc.suspendHistory("channel2image", "channel2image('R GC M | ym', 'channel2image')");
-doc.suspendHistory("channel2image", "channel2image('RY CB | gm', 'channel2image')");
-doc.suspendHistory("channel2image", "channel2image(' YG BM | rc', 'channel2image')");
+// gotoLayer(0)
+// check3('merged');
+// gotoLayer(0)
+// check4('merged');
+// gotoLayer(0)
+// check5('merged');
+// gotoLayer(0)
+// check6('merged');
+
+// Ebenen kopieren (Apfel J)
+function layer_copyLayers_v2() {
+    executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
+}
+
+// layer_copyLayers()
+
+// =======================================================
+// layer_duplicateLayer(false, "dong");
+
+function layer_duplicateLayer(_input, _name) {
+    var d = new ActionDescriptor();
+    var r = new ActionReference();
+
+    if (typeof _input === "number") {
+        // get by Index
+        r.putIndex(s2t("layer"), _input);
+    } else if (typeof _input === "string") {
+        if (layer_checkExistence(_input)) {
+            // get by Layername
+            r.putName(s2t("layer"), _input);
+        } else {
+            // get by Layername via Regex // first hit
+            var idxArray = layer_getIDXbyString(_input);
+            r.putIndex(s2t("layer"), idxArray[0]);
+        }
+    } else {
+        // get activeLayer
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+    }
+    d.putReference(s2t("null"), r);
+    d.putString(s2t("name"), _name);
+    executeAction(s2t("duplicate"), d, DialogModes.NO);
+}
+
+
+
+
+
+
+
+function layer_count() {
+    function getNumberLayers() {
+        var ref = new ActionReference();
+        ref.putProperty(charIDToTypeID("Prpr"), charIDToTypeID("NmbL"))
+        ref.putEnumerated(charIDToTypeID("Dcmn"), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+        return executeActionGet(ref).getInteger(charIDToTypeID("NmbL"));
+    }
+
+    function getLayerType(idx) {
+        var ref = new ActionReference();
+        ref.putProperty(charIDToTypeID("Prpr"), stringIDToTypeID("layerSection"));
+        ref.putIndex(charIDToTypeID("Lyr "), idx);
+        return typeIDToStringID(executeActionGet(ref).getEnumerationValue(stringIDToTypeID('layerSection')));
+    };
+    var cnt = getNumberLayers();
+    var res = cnt;
+    if (activeDocument.layers[activeDocument.layers.length - 1].isBackgroundLayer) {
+        var i = 0;
+        //comment out line below to exclude background from count
+        res++;
+    } else {
+        var i = 1;
+    };
+    for (i; i < cnt; i++) {
+        var temp = getLayerType(i);
+        if (temp == "layerSectionEnd") res--;
+        //if(temp == '"layerSectionStart") res--;//uncomment to count just artLayers
+    };
+    return res;
+};
+
+
+// alert(layer_count())
+
+
+
+//*************************************
+//*************************************
+//*************************************
+
+
+
+// =======================================================
+const workingProfile_get_init = workingProfile_get("Gray");
+const docProfile = doc.colorProfileName;
+alert(workingProfile_get_init);
+alert(docProfile);
+
+gamma_L = [
+    "eciRGB v2",
+    "eciRGB v2 ICCv4"
+]
+
+gamma_18 = [
+    "sRGB IEC61966-2.1",
+    "ProPhoto RGB",
+    "Display P3",
+    "image P3",
+    "Apple RGB",
+    "ColorMatch RGB"
+
+]
+
+gamma_22 = [
+    "Adobe RGB (1998)",
+    "BestRGB",
+    "Beta RGB",
+    "DonRGB4.icm",
+    "MaxRGB",
+    "Russell RGB"
+
+]
+
+
+
+if (array_contains(gamma_18, docProfile)) {
+    alert("Gamma 1.8");
+    if (workingProfile_get_init != "Gray Gamma 1.8") {
+        alert("change it");
+        workingProfile_set("Gray", "Gray Gamma 1.8");
+        alert("gechanged: " + workingProfile_get("Gray"));
+    }
+} else {
+    if (array_contains(gamma_22, docProfile)) {
+        alert("Gamma 2.2");
+        if (workingProfile_get_init != "Gray Gamma 2.2") {
+            alert("change it");
+            workingProfile_set("Gray", "Gray Gamma 2.2");
+            alert("gechanged: " + workingProfile_get("Gray"));
+        }
+    } else {
+        if (array_contains(gamma_L, docProfile)) {
+            alert("Gamma L");
+            workingProfile_set("Gray", "Gray-elle-V4-labl.icc");
+            alert("gechanged: " + workingProfile_get("Gray"));
+        }
+        else {
+            alert("Vorsicht\nDie Helligkeitsverteilung könnte fehlerhaft sein.\nfehlende Info zum Gamma von '" + docProfile + "'" )
+        }
+    }
+}
+
+if(workingProfile_get_init != workingProfile_get("Gray")) {
+    workingProfile_set("Gray", workingProfile_get_init);
+}
+
+
+
+//*************************************
+//*************************************
+//*************************************
+
+
+// mask_farbmaske_viaSaturation("[helper] Farbmaske", 30)
+
+function mask_farbmaske_viaSaturation(_folder, _toleranz) {
+    if (!layer_checkExistence(_folder)) {
+        createGroup(_folder, "passThrough", "none", 100, f);
+        // move to TOP
+        with(activeDocument) activeLayer.move(layers[0], ElementPlacement.PLACEBEFORE)
+
+        createLayer("Farbe auswählen", "hueSaturation", "difference", "none", 100, "none", f, f);
+        createLayer("invert + gradation", "curves", "normal", "none", 100, "none", f, f);
+        adjustLayer_curves_set(0, 255, 255, 0);
+
+        createLayer("Maske Preview", "colorLookup", "normal", "none", 100, "none", f, f);
+        LUT_maske_preview();
+
+        gotoLayer("Farbe auswählen");
+
+
+        // get Farben
+        var color1 = app_getColor("hsb", "vordergrund");
+        var color2 = app_getColor("hsb", "hintergrund");
+
+
+        // validiere Farben
+        if ((color1[1] == 0 || color1[2] == 0) && (color2[1] != 0 && color2[2] != 0)) {
+            var color1 = color2;
+        } else {
+            if (color1[1] == 0 || color1[2] == 0) {
+                var color1 = [0, 100, 100];
+            }
+        }
+
+        if (color2[1] == 0 || color2[2] == 0) {
+            var color2 = color1;
+        }
+
+        // sortiere Farben
+        var colors = [color1, color2];
+        colors.sort(function(a, b) {
+            return a[0] - b[0];
+        });
+        var color1 = colors[0];
+        var color2 = colors[1];
+
+
+        adjustLayer_sat_set(1, adjustHue(color1[0], -_toleranz), color1[0], color2[0], adjustHue(color2[0], _toleranz), f, f, 100);
+
+        app_simulateKeyPress_alt3();
+    }
+}
+
+
+// function adjustHue(hue, amount) {
+//     return (hue + amount + 360) % 360;
+// }
+
+
+
+// function adjustLayer_sat_set(_range, _beginRamp, _beginSustain, _endSustain, _endRamp, _hue, _saturation, _lightness) {
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var d3 = new ActionDescriptor();
+//     var l = new ActionList();
+//     var r = new ActionReference();
+
+//     var _hue = _hue ? _hue : 0;
+//     var _saturation = _saturation ? _saturation : 0;
+//     var _lightness = _lightness ? _lightness : 0;
+
+//     r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+//     d.putReference(s2t("null"), r);
+//     d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindCustom"));
+//     d3.putInteger(s2t("localRange"), _range); // red=1 || yellow=2 …
+//     d3.putInteger(s2t("beginRamp"), _beginRamp);
+//     d3.putInteger(s2t("beginSustain"), _beginSustain);
+//     d3.putInteger(s2t("endSustain"), _endSustain);
+//     d3.putInteger(s2t("endRamp"), _endRamp);
+//     d3.putInteger(s2t("hue"), _hue);
+//     d3.putInteger(s2t("saturation"), _saturation);
+//     d3.putInteger(s2t("lightness"), _lightness);
+//     l.putObject(s2t("hueSatAdjustmentV2"), d3);
+//     d2.putList(s2t("adjustment"), l);
+//     d.putObject(s2t("to"), s2t("hueSaturation"), d2);
+//     executeAction(s2t("set"), d, DialogModes.NO);
+// }
+
+// function adjustLayer_curves_set(horizontal, vertical, horizontal2, vertical2) {
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var d3 = new ActionDescriptor();
+//     var d4 = new ActionDescriptor();
+//     var d5 = new ActionDescriptor();
+//     var l = new ActionList();
+//     var l2 = new ActionList();
+//     var r = new ActionReference();
+//     var r2 = new ActionReference();
+
+//     r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+//     d.putReference(s2t("null"), r);
+//     d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindCustom"));
+//     r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("composite"));
+//     d3.putReference(s2t("channel"), r2);
+//     d4.putDouble(s2t("horizontal"), horizontal);
+//     d4.putDouble(s2t("vertical"), vertical);
+//     l2.putObject(s2t("paint"), d4);
+//     d5.putDouble(s2t("horizontal"), horizontal2);
+//     d5.putDouble(s2t("vertical"), vertical2);
+//     l2.putObject(s2t("paint"), d5);
+//     d3.putList(s2t("curve"), l2);
+//     l.putObject(s2t("curvesAdjustment"), d3);
+//     d2.putList(s2t("adjustment"), l);
+//     d.putObject(s2t("to"), s2t("curves"), d2);
+//     executeAction(s2t("set"), d, DialogModes.NO);
+// }
+
+
+// function app_getColor(_model, _fokus) {
+//     var colors = [];
+
+//     if (_fokus == "vordergrund" || _fokus == "foreground") {
+//         var color = app.foregroundColor;
+//     } else {
+//         var color = app.backgroundColor;
+//     }
+
+//     if (_model == "rgb") {
+//         var model = color.rgb;
+//         colors.push(Math.round(model.red));
+//         colors.push(Math.round(model.green));
+//         colors.push(Math.round(model.blue));
+//     } else {
+//         if (_model == "hsb" || _model == "hsl") {
+//             var model = color.hsb;
+//             colors.push(Math.round(model.hue));
+//             colors.push(Math.round(model.saturation));
+//             colors.push(Math.round(model.brightness));
+//         }
+//     }
+
+//     return colors;
+// }
+
+
 
 
 
@@ -501,66 +808,28 @@ doc.suspendHistory("channel2image", "channel2image(' YG BM | rc', 'channel2image
 // "difference"
 // "lighten"
 // "darken"
+// "subtract"
+// "add"
 
 
-function check(_source, _calculation, calc_1) {
-    // var calc_1 = "subtract";
 
-    // channel_select("RGB", false);
-    kanalberechnung("red", t, "grain", t, _source, calc_1, "rg", "RGB");
-    kanalberechnung("red", t, "blue", t, _source, calc_1, "rb", "RGB");
-    kanalberechnung("grain", t, "red", t, _source, calc_1, "gr", "RGB");
-    kanalberechnung("grain", t, "blue", t, _source, calc_1, "gb", "RGB");
-    kanalberechnung("blue", t, "red", t, _source, calc_1, "br", "RGB");
-    kanalberechnung("blue", t, "grain", t, _source, calc_1, "bg", "RGB");
 
-    kanalberechnung("rg", f, "rb", f, "this", _calculation, "R", "RGB");
-    kanalberechnung("br", f, "bg", f, "this", _calculation, "B", "RGB");
-    kanalberechnung("gb", f, "gr", f, "this", _calculation, "G", "RGB");
 
-    kanalberechnung("gb", f, "gr", f, "this", calc_1, "C", "RGB");
-    kanalberechnung("br", f, "bg", f, "this", calc_1, "M", "RGB");
-    kanalberechnung("rg", f, "rb", f, "this", calc_1, "Y", "RGB");
 
-    // kanalberechnung("R", f, "Y", f, "this", _calculation, "RY", "RGB");
-    // kanalberechnung("Y", f, "G", f, "this", _calculation, "YG", "RGB");
-    // kanalberechnung("G", f, "C", f, "this", _calculation, "GC", "RGB");
-    // kanalberechnung("C", f, "B", f, "this", _calculation, "CB", "RGB");
-    // kanalberechnung("B", f, "M", f, "this", _calculation, "BM", "RGB");
-    // kanalberechnung("R", f, "M", f, "this", _calculation, "RM", "RGB");
 
-    kanalberechnung("R", f, "Y", f, "this", _calculation, "RY_temp", "RGB");
-    kanalberechnung("RY_temp", f, "RY_temp", f, "this", "colorDodge", "RY", "RGB");
-    channel_delete("RY_temp");
 
-    kanalberechnung("Y", f, "G", f, "this", _calculation, "YG_temp", "RGB");
-    kanalberechnung("YG_temp", f, "YG_temp", f, "this", "colorDodge", "YG", "RGB");
-    channel_delete("YG_temp");
 
-    kanalberechnung("G", f, "C", f, "this", _calculation, "GC_temp", "RGB");
-    kanalberechnung("GC_temp", f, "GC_temp", f, "this", "colorDodge", "GC", "RGB");
-    channel_delete("GC_temp");
 
-    kanalberechnung("C", f, "B", f, "this", _calculation, "CB_temp", "RGB");
-    kanalberechnung("CB_temp", f, "CB_temp", f, "this", "colorDodge", "CB", "RGB");
-    channel_delete("CB_temp");
 
-    kanalberechnung("B", f, "M", f, "this", _calculation, "BM_temp", "RGB");
-    kanalberechnung("BM_temp", f, "BM_temp", f, "this", "colorDodge", "BM", "RGB");
-    channel_delete("BM_temp");
 
-    kanalberechnung("R", f, "M", f, "this", _calculation, "RM_temp", "RGB");
-    kanalberechnung("RM_temp", f, "RM_temp", f, "this", "colorDodge", "RM", "RGB");
-    channel_delete("RM_temp");
+
+
+function adjustLayer_sat_get() {
+    var ref = new ActionReference();
+    ref.putEnumerated(charIDToTypeID('Lyr '), charIDToTypeID('Ordn'), charIDToTypeID('Trgt'));
+    var vis = executeActionGet(ref).getInteger(stringIDToTypeID('visible'));
+    return vis;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -568,40 +837,4 @@ function check(_source, _calculation, calc_1) {
 function writeln(_ding) {
     return $.writeln("" + _ding + ": " + _ding)
 
-}
-
-
-
-function mask2image(_name) {
-    if (layer_selectedIDX_get().length === 1 && hasLayerMask()) {
-        var name_sorce = layer_getName(getActiveLayerIndex());
-        gotoMask();
-        loadSelectionOfMask();
-        select_invert();
-        layer_create(_name + " (" + name_sorce + ")", 100, true, "normal");
-        fill("black", "normal", 100);
-        selection_deselect();
-    } else {
-        alert("Abbruch!\nwähle genau eine Ebene mit Maske aus");
-    }
-}
-
-
-
-function channel2mask(_channel_name, _mask_name) {
-    var i = 1;
-    while (layer_checkExistence(layer_getIDXbyString(_mask_name + " " + i)[0])) {
-        i++
-    }
-    createGroup(_mask_name + " " + i, "passThrough", "none", 100, f);
-
-    createMask();
-
-    channel_select(_channel_name, false)
-    select_all();
-    copy();
-    channel_select("mask", true);
-    paste_into();
-    channel_select("RGB", false);
-    selection_deselect();
 }

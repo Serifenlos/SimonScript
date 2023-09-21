@@ -198,7 +198,7 @@ function OpenImage() {
 /*=================================================================================*/
 function CreateBridgeTalkMessage() {
     var bt = new BridgeTalk();
-    bt.target = "photoshop-150";
+    bt.target = "photoshop";
     // bt.body = ResaveInPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + "," + papier + ");";
     bt.body = runPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + ");";
     bt.onResult = function(resObj) {}
@@ -700,8 +700,10 @@ function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloe
         saveFile_PSD(new File(myNewPath), f, t, f, t, t, f);
         prefReset();
     }
+    /*
     try{app.doAction("Hell_Dunkel", "Satz 1")}
     catch(e) {alert("kann die Aktion 'Hell_Dunkel' nicht finden")}
+    */
     
 }
 

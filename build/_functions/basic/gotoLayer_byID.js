@@ -1,1 +1,0 @@
-function gotoLayer_byID(e){var t=new ActionDescriptor,n=new ActionReference;n.putIdentifier(s2t("layer"),e),t.putReference(sTID("null"),n),t.putBoolean(sTID("makeVisible"),!1),executeAction(sTID("select"),t,DialogModes.NO)}
