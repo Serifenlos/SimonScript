@@ -6,6 +6,7 @@
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview.jsx";
+//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview_v2.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
 //@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
@@ -35,7 +36,7 @@
 function tiefenmakse_part1(e){layer_selectedIDX_get();if(e||layer_selectedIDX_get().length>1){e?layer_mergeVisible(e):(layer_copyLayers(),//Ebenen kopieren (Apfel J)
 layer_mergeLayers()),nameLayer("helper__depthMask_image");for(
 // move to TOP
-var n=hasBackground()?0:1;layer_checkExistence(n);)n++;moveLayer("helper__depthMask_image",parseInt(n-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
+var r=hasBackground()?0:1;layer_checkExistence(r);)r++;moveLayer("helper__depthMask_image",parseInt(r-1),"up"),gotoLayer("helper__depthMask_image")}else{for(layer_checkExistence(layer_getIDXbyString("Original")[0])?
 // alert("Ori existiert")
 gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length-1]);doc.activeLayer.kind!=LayerKind.NORMAL;)gotoLayer(getActiveLayerIndex()-1);doc.activeLayer.kind!=LayerKind.SmartObject&&(executeAction(sTID("copyToLayer"),void 0,DialogModes.NO),nameLayer("helper__depthMask_image"))}}
 // TODO in die functions
@@ -81,9 +82,9 @@ gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().
 // cyans cyan
 // blues blue
 // magenta magenta
-function quick_farbbereich(e,n,a,t,r){selection_deselect(),gotoFill(),select_Farbbereich(e),
+function quick_farbbereich(e,r,a,t,n){selection_deselect(),gotoFill(),select_Farbbereich(e),
 // createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
-createColorLayer(n,"multiply","none",0,"xx",a,t,r),gotoFill()}
+createColorLayer(r,"multiply","none",0,"xx",a,t,n),gotoFill()}
 // quick_farbbereich("radius", "red", 255, 0, 0)
 // quick_farbbereich("yellows", "yellow", 255,255,0)
 // quick_farbbereich("graininess", "green", 0,255,0)
@@ -91,39 +92,39 @@ createColorLayer(n,"multiply","none",0,"xx",a,t,r),gotoFill()}
 // quick_farbbereich("blues", "blue", 0,0,255)
 // quick_farbbereich("magenta", "magenta", 255,0,255)
 // channel_setSaturationXX('merged', 'lighten')
-function channel_setSaturationXX(e,n){var a="difference";
+function channel_setSaturationXX(e,r){var a="difference";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",f,"grain",f,e,a,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),
+kanalberechnung("red",f,"grain",f,e,a,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",r,"R","RGB"),
 // channel_delete("rg");
 // channel_delete("rb");
 // kanalberechnung("grain", f, "red", f, _source, calc_1, "gr", "RGB");
-kanalberechnung("grain",f,"blue",f,e,a,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",n,"G","RGB"),
+kanalberechnung("grain",f,"blue",f,e,a,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",r,"G","RGB"),
 // channel_delete("gr");
 // channel_delete("gb");
 // kanalberechnung("blue", f, "red", f, _source, calc_1, "br", "RGB");
 // kanalberechnung("blue", f, "grain", f, _source, calc_1, "bg", "RGB");
-kanalberechnung("rb",f,"gb",f,"this",n,"B","RGB"),
+kanalberechnung("rb",f,"gb",f,"this",r,"B","RGB"),
 // channel_delete("br");
 // channel_delete("bg");
-kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB")}
+kanalberechnung("R",f,"G",f,"this",r,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",r,"saturation","RGB")}
 // channel_setSaturation_2('merged', 'lighten')
 // channel_setSaturation_2('merged', 'multiply')
-function channel_setSaturation_2(e,n){var a="subtract";
+function channel_setSaturation_2(e,r){var a="subtract";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",t,"grain",t,e,a,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),
+kanalberechnung("red",t,"grain",t,e,a,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",r,"R","RGB"),
 // channel_delete("rg");
 // channel_delete("rb");
-kanalberechnung("grain",t,"red",t,e,a,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,a,"gb","RGB"),kanalberechnung("gr",f,"gb",f,"this",n,"G","RGB"),
+kanalberechnung("grain",t,"red",t,e,a,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,a,"gb","RGB"),kanalberechnung("gr",f,"gb",f,"this",r,"G","RGB"),
 // channel_delete("gr");
 // channel_delete("gb");
-kanalberechnung("blue",t,"red",t,e,a,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,a,"bg","RGB"),kanalberechnung("br",f,"bg",f,"this",n,"B","RGB"),
+kanalberechnung("blue",t,"red",t,e,a,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,a,"bg","RGB"),kanalberechnung("br",f,"bg",f,"this",r,"B","RGB"),
 // channel_delete("br");
 // channel_delete("bg");
-kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",n,"saturation","RGB")}
+kanalberechnung("R",f,"G",f,"this",r,"RG","RGB"),kanalberechnung("RG",f,"B",f,"this",r,"saturation","RGB")}
 // channel_setSaturation_3('merged', 'darken');
 // function channel_setSaturation_singleColors(_source, _calculation) {
 //     var calc_1 = "subtract";
@@ -256,25 +257,139 @@ kanalberechnung("R",f,"G",f,"this",n,"RG","RGB"),kanalberechnung("RG",f,"B",f,"t
 //     // Fix the xmpMeta
 //     app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
 // }
-function run(){setMeta_2("startID",layer_selectedID_get()),createLayer("AutoTonwert","levels","normal","gray",80,"black",f,f),layer_selectedID_set(getMeta_2("startID")),delMeta_2("startID")}function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeDocument.channels,n=[],a=0;a<e.length;a++){(t=e[a]).kind!=ChannelType.COMPONENT&&n.push(t)}for(;n.length;){var t;(t=n.pop()).remove()}}}
+function run(){setMeta_2("startID",layer_selectedID_get()),createLayer("AutoTonwert","levels","normal","gray",80,"black",f,f),layer_selectedID_set(getMeta_2("startID")),delMeta_2("startID")}function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeDocument.channels,r=[],a=0;a<e.length;a++){(t=e[a]).kind!=ChannelType.COMPONENT&&r.push(t)}for(;r.length;){var t;(t=r.pop()).remove()}}}
+// run()
+// doc.suspendHistory("channel2image", "channel2image('(RG 60 sub) (GR 60 sub) darken', 'channel2image')"); 
+// check('merged', 'darken', 'subtract');
+// check('merged', 'lighten', 'difference');
+// check2('merged', 'lighten', 'subtract');
+// gotoLayer(0)
+// check3('merged');
+// gotoLayer(0)
+// check4('merged');
+// gotoLayer(0)
+// check5('merged');
+// gotoLayer(0)
+// check6('merged');
+// Ebenen kopieren (Apfel J)
+function layer_copyLayers_v2(){executeAction(sTID("copyToLayer"),void 0,DialogModes.NO)}
+// layer_copyLayers()
+// =======================================================
+// layer_duplicateLayer(false, "dong");
+function layer_duplicateLayer(e,r){var a=new ActionDescriptor,t=new ActionReference;if("number"==typeof e)
+// get by Index
+t.putIndex(s2t("layer"),e);else if("string"==typeof e)if(layer_checkExistence(e))
+// get by Layername
+t.putName(s2t("layer"),e);else{
+// get by Layername via Regex // first hit
+var n=layer_getIDXbyString(e);t.putIndex(s2t("layer"),n[0])}else
+// get activeLayer
+t.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum"));a.putReference(s2t("null"),t),a.putString(s2t("name"),r),executeAction(s2t("duplicate"),a,DialogModes.NO)}function layer_count(){function e(e){var r=new ActionReference;return r.putProperty(charIDToTypeID("Prpr"),stringIDToTypeID("layerSection")),r.putIndex(charIDToTypeID("Lyr "),e),typeIDToStringID(executeActionGet(r).getEnumerationValue(stringIDToTypeID("layerSection")))}var r,a=((r=new ActionReference).putProperty(charIDToTypeID("Prpr"),charIDToTypeID("NmbL")),r.putEnumerated(charIDToTypeID("Dcmn"),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),executeActionGet(r).getInteger(charIDToTypeID("NmbL"))),t=a;if(activeDocument.layers[activeDocument.layers.length-1].isBackgroundLayer){var n=0;
+//comment out line below to exclude background from count
+t++}else n=1;for(;n<a;n++){"layerSectionEnd"==e(n)&&t--;
+//if(temp == '"layerSectionStart") res--;//uncomment to count just artLayers
+}return t}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx");
+// alert(layer_count())
+//*************************************
+//*************************************
+//*************************************
+// =======================================================
+const workingProfile_get_init=workingProfile_get("Gray"),docProfile=doc.colorProfileName;
+//*************************************
+//*************************************
+//*************************************
+// mask_farbmaske_viaSaturation("[helper] Farbmaske", 30)
+function mask_farbmaske_viaSaturation(_folder,_toleranz){if(!layer_checkExistence(_folder)){
+// move to TOP
+with(createGroup(_folder,"passThrough","none",100,f),activeDocument)activeLayer.move(layers[0],ElementPlacement.PLACEBEFORE);createLayer("Farbe auswählen","hueSaturation","difference","none",100,"none",f,f),createLayer("invert + gradation","curves","normal","none",100,"none",f,f),adjustLayer_curves_set(0,255,255,0),createLayer("Maske Preview","colorLookup","normal","none",100,"none",f,f),LUT_maske_preview(),gotoLayer("Farbe auswählen");
+// get Farben
+var color1=app_getColor("hsb","vordergrund"),color2=app_getColor("hsb","hintergrund");
+// validiere Farben
+if(0!=color1[1]&&0!=color1[2]||0==color2[1]||0==color2[2]){if(0==color1[1]||0==color1[2])var color1=[0,100,100]}else var color1=color2;if(0==color2[1]||0==color2[2])var color2=color1;
+// sortiere Farben
+var colors=[color1,color2];colors.sort((function(e,r){return e[0]-r[0]}));var color1=colors[0],color2=colors[1];adjustLayer_sat_set(1,adjustHue(color1[0],-_toleranz),color1[0],color2[0],adjustHue(color2[0],_toleranz),f,f,100),app_simulateKeyPress_alt3()}}
+// function adjustHue(hue, amount) {
+//     return (hue + amount + 360) % 360;
+// }
+// function adjustLayer_sat_set(_range, _beginRamp, _beginSustain, _endSustain, _endRamp, _hue, _saturation, _lightness) {
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var d3 = new ActionDescriptor();
+//     var l = new ActionList();
+//     var r = new ActionReference();
+//     var _hue = _hue ? _hue : 0;
+//     var _saturation = _saturation ? _saturation : 0;
+//     var _lightness = _lightness ? _lightness : 0;
+//     r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+//     d.putReference(s2t("null"), r);
+//     d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindCustom"));
+//     d3.putInteger(s2t("localRange"), _range); // red=1 || yellow=2 …
+//     d3.putInteger(s2t("beginRamp"), _beginRamp);
+//     d3.putInteger(s2t("beginSustain"), _beginSustain);
+//     d3.putInteger(s2t("endSustain"), _endSustain);
+//     d3.putInteger(s2t("endRamp"), _endRamp);
+//     d3.putInteger(s2t("hue"), _hue);
+//     d3.putInteger(s2t("saturation"), _saturation);
+//     d3.putInteger(s2t("lightness"), _lightness);
+//     l.putObject(s2t("hueSatAdjustmentV2"), d3);
+//     d2.putList(s2t("adjustment"), l);
+//     d.putObject(s2t("to"), s2t("hueSaturation"), d2);
+//     executeAction(s2t("set"), d, DialogModes.NO);
+// }
+// function adjustLayer_curves_set(horizontal, vertical, horizontal2, vertical2) {
+//     var d = new ActionDescriptor();
+//     var d2 = new ActionDescriptor();
+//     var d3 = new ActionDescriptor();
+//     var d4 = new ActionDescriptor();
+//     var d5 = new ActionDescriptor();
+//     var l = new ActionList();
+//     var l2 = new ActionList();
+//     var r = new ActionReference();
+//     var r2 = new ActionReference();
+//     r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+//     d.putReference(s2t("null"), r);
+//     d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindCustom"));
+//     r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("composite"));
+//     d3.putReference(s2t("channel"), r2);
+//     d4.putDouble(s2t("horizontal"), horizontal);
+//     d4.putDouble(s2t("vertical"), vertical);
+//     l2.putObject(s2t("paint"), d4);
+//     d5.putDouble(s2t("horizontal"), horizontal2);
+//     d5.putDouble(s2t("vertical"), vertical2);
+//     l2.putObject(s2t("paint"), d5);
+//     d3.putList(s2t("curve"), l2);
+//     l.putObject(s2t("curvesAdjustment"), d3);
+//     d2.putList(s2t("adjustment"), l);
+//     d.putObject(s2t("to"), s2t("curves"), d2);
+//     executeAction(s2t("set"), d, DialogModes.NO);
+// }
+// function app_getColor(_model, _fokus) {
+//     var colors = [];
+//     if (_fokus == "vordergrund" || _fokus == "foreground") {
+//         var color = app.foregroundColor;
+//     } else {
+//         var color = app.backgroundColor;
+//     }
+//     if (_model == "rgb") {
+//         var model = color.rgb;
+//         colors.push(Math.round(model.red));
+//         colors.push(Math.round(model.green));
+//         colors.push(Math.round(model.blue));
+//     } else {
+//         if (_model == "hsb" || _model == "hsl") {
+//             var model = color.hsb;
+//             colors.push(Math.round(model.hue));
+//             colors.push(Math.round(model.saturation));
+//             colors.push(Math.round(model.brightness));
+//         }
+//     }
+//     return colors;
+// }
 // "screen"
 // "colorDodge"
 // "difference"
 // "lighten"
 // "darken"
-function check(e,n,a){
-// var calc_1 = "subtract";
-// channel_select("RGB", false);
-kanalberechnung("red",t,"grain",t,e,a,"rg","RGB"),kanalberechnung("red",t,"blue",t,e,a,"rb","RGB"),kanalberechnung("grain",t,"red",t,e,a,"gr","RGB"),kanalberechnung("grain",t,"blue",t,e,a,"gb","RGB"),kanalberechnung("blue",t,"red",t,e,a,"br","RGB"),kanalberechnung("blue",t,"grain",t,e,a,"bg","RGB"),kanalberechnung("rg",f,"rb",f,"this",n,"R","RGB"),kanalberechnung("br",f,"bg",f,"this",n,"B","RGB"),kanalberechnung("gb",f,"gr",f,"this",n,"G","RGB"),kanalberechnung("gb",f,"gr",f,"this",a,"C","RGB"),kanalberechnung("br",f,"bg",f,"this",a,"M","RGB"),kanalberechnung("rg",f,"rb",f,"this",a,"Y","RGB"),
-// kanalberechnung("R", f, "Y", f, "this", _calculation, "RY", "RGB");
-// kanalberechnung("Y", f, "G", f, "this", _calculation, "YG", "RGB");
-// kanalberechnung("G", f, "C", f, "this", _calculation, "GC", "RGB");
-// kanalberechnung("C", f, "B", f, "this", _calculation, "CB", "RGB");
-// kanalberechnung("B", f, "M", f, "this", _calculation, "BM", "RGB");
-// kanalberechnung("R", f, "M", f, "this", _calculation, "RM", "RGB");
-kanalberechnung("R",f,"Y",f,"this",n,"RY_temp","RGB"),kanalberechnung("RY_temp",f,"RY_temp",f,"this","colorDodge","RY","RGB"),channel_delete("RY_temp"),kanalberechnung("Y",f,"G",f,"this",n,"YG_temp","RGB"),kanalberechnung("YG_temp",f,"YG_temp",f,"this","colorDodge","YG","RGB"),channel_delete("YG_temp"),kanalberechnung("G",f,"C",f,"this",n,"GC_temp","RGB"),kanalberechnung("GC_temp",f,"GC_temp",f,"this","colorDodge","GC","RGB"),channel_delete("GC_temp"),kanalberechnung("C",f,"B",f,"this",n,"CB_temp","RGB"),kanalberechnung("CB_temp",f,"CB_temp",f,"this","colorDodge","CB","RGB"),channel_delete("CB_temp"),kanalberechnung("B",f,"M",f,"this",n,"BM_temp","RGB"),kanalberechnung("BM_temp",f,"BM_temp",f,"this","colorDodge","BM","RGB"),channel_delete("BM_temp"),kanalberechnung("R",f,"M",f,"this",n,"RM_temp","RGB"),kanalberechnung("RM_temp",f,"RM_temp",f,"this","colorDodge","RM","RGB"),channel_delete("RM_temp")}function writeln(e){return $.writeln(e+": "+e)}function mask2image(e){if(1===layer_selectedIDX_get().length&&hasLayerMask()){var n=layer_getName(getActiveLayerIndex());gotoMask(),loadSelectionOfMask(),select_invert(),layer_create(e+" ("+n+")",100,!0,"normal"),fill("black","normal",100),selection_deselect()}else alert("Abbruch!\nwähle genau eine Ebene mit Maske aus")}function channel2mask(e,n){for(var a=1;layer_checkExistence(layer_getIDXbyString(n+" "+a)[0]);)a++;createGroup(n+" "+a,"passThrough","none",100,f),createMask(),channel_select(e,!1),select_all(),copy(),channel_select("mask",!0),paste_into(),channel_select("RGB",!1),selection_deselect()}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx"),
-// run()
-// RemoveAlphaChannels();
-// check('merged', 'darken', 'subtract');
-// check('merged', 'lighten', 'difference');
-doc.suspendHistory("channel2image","channel2image('R GC M | ym', 'channel2image')"),doc.suspendHistory("channel2image","channel2image('RY CB | gm', 'channel2image')"),doc.suspendHistory("channel2image","channel2image(' YG BM | rc', 'channel2image')");
+// "subtract"
+// "add"
+function adjustLayer_sat_get(){var e=new ActionReference;return e.putEnumerated(charIDToTypeID("Lyr "),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),executeActionGet(e).getInteger(stringIDToTypeID("visible"))}function writeln(e){return $.writeln(e+": "+e)}alert(workingProfile_get_init),alert(docProfile),gamma_L=["eciRGB v2","eciRGB v2 ICCv4"],gamma_18=["sRGB IEC61966-2.1","ProPhoto RGB","Display P3","image P3","Apple RGB","ColorMatch RGB"],gamma_22=["Adobe RGB (1998)","BestRGB","Beta RGB","DonRGB4.icm","MaxRGB","Russell RGB"],array_contains(gamma_18,docProfile)?(alert("Gamma 1.8"),"Gray Gamma 1.8"!=workingProfile_get_init&&(alert("change it"),workingProfile_set("Gray","Gray Gamma 1.8"),alert("gechanged: "+workingProfile_get("Gray")))):array_contains(gamma_22,docProfile)?(alert("Gamma 2.2"),"Gray Gamma 2.2"!=workingProfile_get_init&&(alert("change it"),workingProfile_set("Gray","Gray Gamma 2.2"),alert("gechanged: "+workingProfile_get("Gray")))):array_contains(gamma_L,docProfile)?(alert("Gamma L"),workingProfile_set("Gray","Gray-elle-V4-labl.icc"),alert("gechanged: "+workingProfile_get("Gray"))):alert("Vorsicht\nDie Helligkeitsverteilung könnte fehlerhaft sein.\nfehlende Info zum Gamma von '"+docProfile+"'"),workingProfile_get_init!=workingProfile_get("Gray")&&workingProfile_set("Gray",workingProfile_get_init);

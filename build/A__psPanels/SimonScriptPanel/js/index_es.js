@@ -14,6 +14,8 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
+/* global Reflect, Promise */
+
 
 function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -578,6 +580,9 @@ class TemplateInstance {
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
+ */
+/**
+ * @module lit-html
  */
 /**
  * Our TrustedTypePolicy for HTML which is declared using the html template
@@ -1293,6 +1298,22 @@ const defaultTemplateProcessor = new DefaultTemplateProcessor();
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
+/**
+ *
+ * Main lit-html module.
+ *
+ * Main exports:
+ *
+ * -  [[html]]
+ * -  [[svg]]
+ * -  [[render]]
+ *
+ * @packageDocumentation
+ */
+/**
+ * Do not remove this comment; it keeps typedoc from misplacing the module
+ * docs.
+ */
 // IMPORTANT: do not change the property name or the assignment expression.
 // This line will be used in regexes to search for lit-html usage.
 // TODO(justinfagnani): inject version number at build time
@@ -1317,6 +1338,16 @@ const html = (strings, ...values) => new TemplateResult(strings, values, 'html',
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
+ */
+/**
+ * Module to add shady DOM/shady CSS polyfill support to lit-html template
+ * rendering. See the [[render]] method for details.
+ *
+ * @packageDocumentation
+ */
+/**
+ * Do not remove this comment; it keeps typedoc from misplacing the module
+ * docs.
  */
 // Get a key to lookup in `templateCaches`.
 const getTemplateCacheKey = (type, scopeName) => `${type}--${scopeName}`;
@@ -2506,6 +2537,48 @@ const css = (strings, ...values) => {
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
+ */
+/**
+ * The main LitElement module, which defines the [[`LitElement`]] base class and
+ * related APIs.
+ *
+ *  LitElement components can define a template and a set of observed
+ * properties. Changing an observed property triggers a re-render of the
+ * element.
+ *
+ *  Import [[`LitElement`]] and [[`html`]] from this module to create a
+ * component:
+ *
+ *  ```js
+ * import {LitElement, html} from 'lit-element';
+ *
+ * class MyElement extends LitElement {
+ *
+ *   // Declare observed properties
+ *   static get properties() {
+ *     return {
+ *       adjective: {}
+ *     }
+ *   }
+ *
+ *   constructor() {
+ *     this.adjective = 'awesome';
+ *   }
+ *
+ *   // Define the element's template
+ *   render() {
+ *     return html`<p>your ${adjective} template here</p>`;
+ *   }
+ * }
+ *
+ * customElements.define('my-element', MyElement);
+ * ```
+ *
+ * `LitElement` extends [[`UpdatingElement`]] and adds lit-html templating.
+ * The `UpdatingElement` class is provided for users that want to build
+ * their own custom element base classes that don't use lit-html.
+ *
+ * @packageDocumentation
  */
 // IMPORTANT: do not change the property name or the assignment expression.
 // This line will be used in regexes to search for LitElement usage.

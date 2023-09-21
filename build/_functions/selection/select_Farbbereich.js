@@ -1,1 +1,0 @@
-function select_Farbbereich(e){var o=new ActionDescriptor;o.putEnumerated(s2t("colors"),s2t("colors"),s2t(e)),o.putInteger(s2t("colorModel"),0),executeAction(s2t("colorRange"),o,DialogModes.NO)}

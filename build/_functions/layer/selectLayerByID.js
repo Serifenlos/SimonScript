@@ -1,3 +1,0 @@
-function selectLayerByID(e,t){try{var i=new ActionDescriptor,o=new ActionReference;if("remove"!=t&&t)n="addToSelection";else var n="removeFromSelection";o.putIdentifier(s2t("layer"),e),i.putReference(s2t("null"),o),i.putEnumerated(s2t("selectionModifier"),s2t("selectionModifierType"),s2t(n)),i.putBoolean(s2t("makeVisible"),!1),executeAction(s2t("select"),i,DialogModes.NO)}catch(e){
-// alert("error selectLayerByID: " + e)
-}}

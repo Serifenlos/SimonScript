@@ -1,1 +1,0 @@
-function getMeta_2(e){if(editXMP_2(),xmpMeta.doesPropertyExist(customNamespace2,e))var t=xmpMeta.getProperty(customNamespace2,e);if(void 0!==t)return t}
