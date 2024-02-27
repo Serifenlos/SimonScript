@@ -57,16 +57,14 @@ if (a_dialog.show() == false) {
 } else {
     if (heft.selectedButton == 0) {
         var heft = heft1;
-        //~             var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__11F-innen__MASTER.tif");
-        // var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__11F-innen__MASTER_v5_flach.tif");
-        var master = new File("/Users/simon/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__11F-innen__MASTER_v5_flach.tif");  
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__11F-innen__MASTER_v5_flach.tif");  
 
     } else if (heft.selectedButton == 1) {
         var heft = heft2;
-        var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__noSports-innen__MASTER.tif");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__noSports-innen__MASTER.tif");
     } else if (heft.selectedButton == 2) {
         var heft = heft3;
-        var master = new File("/Users/simon/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Chronik-innen__MASTER_flach.tif");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Chronik-innen__MASTER_flach.tif");
     }
     $.writeln(heft);
 }

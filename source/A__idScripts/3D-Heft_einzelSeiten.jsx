@@ -70,23 +70,22 @@ if (a_dialog.show() == false) {
     if (heft.selectedButton == 0) {
         var heft = heft1;
         //~             var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__11F-innen__MASTER.tif");
-        var master = new File("/Users/simon/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__11F-innen__MASTER_v5_flach.tif");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__11F-innen__MASTER_v5_flach.tif");
 
     } else if (heft.selectedButton == 1) {
         var heft = heft2;
-        var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__noSports-innen__MASTER.tif");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__noSports-innen__MASTER.tif");
     } else if (heft.selectedButton == 2) {
         var heft = heft3;
-        var master = new File("/Users/simon/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Chronik-innen__MASTER_flach.tif");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Chronik-innen__MASTER_flach.tif");
     } else if (heft.selectedButton == 3) {
         var heft = heft4;
-        var master = new File("/Users/simon/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_17x24__MASTER.psd");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_17x24__MASTER.psd");
     } else if (heft.selectedButton == 4) {
         var heft = heft5;
-        var master = new File("/Users/simon/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_21x28__MASTER.psd");
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_21x28__MASTER.psd");
     }
 }
-
 
 
 
@@ -300,7 +299,7 @@ id2ps_schatten();
 
 function id2ps_placeItem() {
     var bt = new BridgeTalk();
-    bt.target = "photoshop-160";
+    bt.target = "photoshop";
     bt.body = runPS.toSource() + "(" + Folder_3D.toSource() + "," + master.toSource() + "," + thisFile.toSource() + "," + thisSite.toSource() + "," + thisFileName.toSource() + "," + thisPageNumber.toSource() + ");";
 
     bt.onError = function(e) {
@@ -312,7 +311,7 @@ function id2ps_placeItem() {
 
 function id2ps_schatten() {
     var bt = new BridgeTalk();
-    bt.target = "photoshop-160";
+    bt.target = "photoshop";
     bt.body = runPS_schatten.toSource() + "(" + Folder_3D.toSource() + "," + master.toSource() + ");";
 
     bt.onError = function(e) {

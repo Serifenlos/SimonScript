@@ -550,7 +550,7 @@ erstelle eine Farbfläche
 
 ??? "invert();"
     ``` js linenums="1"
-    // Apfel i
+    /* Apfel i */
     function invert() {
         executeAction(s2t("invert"), undefined, DialogModes.NO);
     }
@@ -1542,7 +1542,7 @@ Convert cm to Point, imageSize needs Points
     ``` js linenums="1"
     function gray2rgb() {
         if (doc.mode == DocumentMode.GRAYSCALE) {
-            doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
+            doc.convertProfile("eciRGB v2 ICCv4", Intent.RELATIVECOLORIMETRIC, true, false);
         }
     };
     ```
@@ -1558,7 +1558,7 @@ Convert cm to Point, imageSize needs Points
     ``` js linenums="1"
     function cmyk2rgb() {
         if (doc.mode == DocumentMode.CMYK) {
-            doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
+            doc.convertProfile("eciRGB v2 ICCv4", Intent.RELATIVECOLORIMETRIC, true, false);
         }
     };
     ```
@@ -1576,7 +1576,7 @@ Convert cm to Point, imageSize needs Points
         var getProfile = doc.colorProfileName;
         var find = new RegExp("^sRGB|Apple RGB|ColorMatch RGB");
         if (getProfile.match(find)) {
-            doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
+            doc.convertProfile("eciRGB v2 ICCv4", Intent.RELATIVECOLORIMETRIC, true, false);
         }
     }
     ```

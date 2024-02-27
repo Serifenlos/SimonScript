@@ -101,8 +101,9 @@ plugins:
         lang:
             - en
             - de
-        prebuild_index: true
-    - localsearch
+#        prebuild_index: true
+#    - localsearch
+    - offline
     - exclude:
         glob:
             - functions_helper/*

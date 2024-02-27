@@ -114,6 +114,6 @@ function setSaveName2(_saveFolder, _name, _saveFormat) {
     return saveName;
 }
 
-var saveFolder = "/Users/simon/Arbeit/__temp/MusikCover";
+var saveFolder = "~/Arbeit/__temp/MusikCover";
 
 SaveForWeb("JPEG", saveFolder, setSaveName2(saveFolder, "cover", "jpg"), f, f, f, t, t, 255, 255, 255,"Meta_no", 66, t,t, 0)

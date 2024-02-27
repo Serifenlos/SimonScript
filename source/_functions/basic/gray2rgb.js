@@ -1,5 +1,5 @@
 function gray2rgb() {
     if (doc.mode == DocumentMode.GRAYSCALE) {
-        doc.convertProfile("eciRGB v2", Intent.RELATIVECOLORIMETRIC, true, false);
+        doc.convertProfile("eciRGB v2 ICCv4", Intent.RELATIVECOLORIMETRIC, true, false);
     }
 };
