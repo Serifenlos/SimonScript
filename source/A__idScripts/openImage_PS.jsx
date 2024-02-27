@@ -48,7 +48,13 @@ if (!app.selection.length > 0) {
 
 
         if (typeof image !== 'undefined') {
-            var imagePath = image.filePath;
+
+            // eine Weiche für Woodwing
+            if(image.filePath) {
+                var imagePath = image.filePath;
+            } else if (image.elvisFilePath) {
+                var imagePath = image.elvisFilePath;
+            }
             var imageFile = new File(imagePath);
 
             var frei = "-frei";

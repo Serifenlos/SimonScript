@@ -22,18 +22,18 @@
 // include "../../build/A__psScripts/functions/loopFiles.jsx";
 // include "../../build/A__psScripts/functions/meta.jsx";
 
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
 
 
 // color2csv()
@@ -44,7 +44,7 @@ function color2csv() {
     var B = Colour.hsb.brightness.toFixed(2);
     var hsb = [H, S, B]
 
-    var filepath = "/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/ToD_farben.csv";
+    var filepath = "/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/_Orga/ToD_farben.csv";
     var write_file = File(filepath);
     if (!write_file.exists) {
         write_file = new File(filepath);
@@ -238,6 +238,11 @@ const motiv_HoG_Peace_french_navy = ["blanko", "HoG_WM_PEACE_(textil_french_navy
 const motiv_HoG_Peace_grau = ["blanko", "HoG_WM_PEACE_(textil_grau)"];
 const motiv_HoG_Peace_royal_blue = ["blanko", "HoG_WM_PEACE_(textil_royal_blue)"];
 
+const motiv_11F_ZK_TShirt1 = ["11F_ZK_TShirt1_vorne", "blanko"];
+const motiv_11F_ZK_TShirt2 = ["11F_ZK_TShirt2_vorne", "11F_ZK_TShirt2_hinten"];
+const motiv_11F_ZK_TShirt3 = ["11F_ZK_TShirt3_vorne", "blanko"];
+const motiv_11F_ZK_TShirt4 = ["11F_ZK_TShirt4_vorne", "11F_ZK_TShirt4_hinten"];
+
 
 var motive = [
     "11-Kasten_orange",
@@ -303,7 +308,7 @@ function loopMotive() {
 };
 
 function ToD_motivChange(_file) {
-    var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + _file + ".psd");
+    var file_Motiv_X = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/" + _file + ".psd");
     smartObject_placeFile(file_Motiv_X);
 };
 
@@ -887,6 +892,16 @@ var collection = [
 ]
 
 
+// 11F_ZK_TShirts
+var collection = [
+    [
+        ["T_Shirt"],
+        [white],
+        [motiv_11F_ZK_TShirt1]
+    ]
+]
+
+
 
 
 // TEST COLLECTION
@@ -925,7 +940,7 @@ function schnell() {
     // }
     // // var motiv = "Clash_11Freunde_Hoodie_grau_vorne";
     //     var motiv = "blanko";
-    //     var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + motiv + ".psd");
+    //     var file_Motiv_X = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/" + motiv + ".psd");
     //     smartObject_placeFile(file_Motiv_X);
 
     //     var farbe = black;
@@ -961,19 +976,10 @@ function schnell() {
 
     gotoLayer("heather_texture")
     makeVisible();
-    // var heather_texture= new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Heather_Textur/heather_texture_v2.jpg");
-    smartObject_placeFile(new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Heather_Textur/heather_texture_v2.jpg"));
+    // var heather_texture= new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/_Orga/Heather_Textur/heather_texture_v2.jpg");
+    smartObject_placeFile(new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/_Orga/Heather_Textur/heather_texture_v2.jpg"));
     nameLayer("heather_texture");
 
-    // layer_getMaskBounds("Textil");
-    // gotoLayer("heather_texture");
-    // var r = app.preferences.rulerUnits;
-    // app.preferences.rulerUnits = Units.PIXELS;
-    // var bounds = layer_getMaskBounds("Textil");
-    // ToD_transform(parseFloat(bounds[0]), parseFloat(bounds[1]), parseFloat(bounds[2]), parseFloat(bounds[3]));
-    // // alert(layer_getMaskBounds("Textil"))
-    // $.writeln("Bounds " + bounds)
-    // app.preferences.rulerUnits = r;
 
     // =======================================================
     var idtransform = stringIDToTypeID("transform");
@@ -1049,7 +1055,7 @@ function correctRGB() {
                     //     var motiv = "Clash_11Freunde_Hoodie_grau_hinten";
                     // }
                     // var motiv = "Clash_11Freunde_Hoodie_grau_hinten";
-                    // var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + motiv + ".psd");
+                    // var file_Motiv_X = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/" + motiv + ".psd");
                     // smartObject_placeFile(file_Motiv_X);
 
                     var farbe = white;
@@ -1199,7 +1205,7 @@ function run(x) {
                             for (var c = 0; c < x[a][b].length; c++) {
                                 // $.writeln(a + "-" + b + "-" + c + " - " + x[a][b][c])
                                 var name_base = GetFileNameOnly(app.activeDocument.name).replace(/(__RGB)/g, "")
-                                // $.writeln("PROCESS " + name_base)
+                                $.writeln("PROCESS " + name_base)
 
                                 for (var d = 0; d < x[a][2][c].length; d++) {
                                     // $.writeln(a + "-" + b + "-" + c + "-" + d + " - " + x[a][b][c][d] + " - Motiv");
@@ -1228,7 +1234,7 @@ function run(x) {
                                                 }
                                                 motivFarbe = motiv_main.replace("_vorne", "").replace("_hinten", "");
                                                 farbe2 = x[a][1][g][3];
-                                                // $.writeln(rohling + " -- " + motiv2 + " -- " + motiv_main + " -- " + motivFarbe + " -- " + motivDruck + " -- " + farbe2)
+                                                $.writeln(rohling + " -- " + motiv2 + " -- " + motiv_main + " -- " + motivFarbe + " -- " + motivDruck + " -- " + farbe2)
 
 
                                                 farbe2 = x[a][1][g][3];
@@ -1245,11 +1251,12 @@ function run(x) {
                                                 var export_name = rohling + "__" + farbe2 + direction + "__" + motiv2 + "__(" + name_base.replace(" ", "_") + ")";
 
                                                 var export_file = new File(export_path_print + "/" + export_name + ".jpg");
+                                                $.writeln("export_file: " + export_file);
                                                 if (!export_file.exists) {
 
                                                     layer_selectByColor("orange");
 
-                                                    var file_Motiv_X = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/" + x[a][2][c][d] + ".psd");
+                                                    var file_Motiv_X = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/" + x[a][2][c][d] + ".psd");
                                                     smartObject_placeFile(file_Motiv_X);
 
                                                     for (var e = 0; e < layer_getIDXbyString("Farbe").length; e++) {
@@ -1286,13 +1293,13 @@ function run(x) {
                                                         SaveForWeb("JPEG", export_path_web, export_name, 50, f, f, t, t, 255, 255, 255, "Meta_all_noKameraInfo", 66, t, t, 0);
                                                         $.writeln("saved WEB " + decodeURIComponent(export_path_web) + "/" + export_name)
                                                     } catch (e) {
-                                                        // $.writeln("Error: " + e);
+                                                        $.writeln("Error: " + e);
                                                     }
 
 
 
                                                 } else {
-                                                    // $.writeln("export_file existiet bereits")
+                                                    $.writeln("export_file existiet bereits")
                                                 }
                                             }
                                             emptyProtocoll();
@@ -1301,7 +1308,7 @@ function run(x) {
                                 }
                             }
                         } catch (e) {
-                            // alert(e)
+                            $.writeln("Error_1: " + e);
                         }
                     }
                     try {
@@ -1352,9 +1359,9 @@ function createRGB() {
 
                 var file_mood = new File(doc_path + "/" + name_base + "__mood.jpg");
                 var file_grau = new File(doc_path + "/" + name_base + "__grau.jpg");
-                var file_heather = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Heather_Textur/heather_texture.jpg");
-                var file_heather_breit = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Heather_Textur/heather_texture_breit.jpg");
-                var file_Motiv = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/11-Kasten_orange.psd");
+                var file_heather = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/_Orga/Heather_Textur/heather_texture.jpg");
+                var file_heather_breit = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/_Orga/Heather_Textur/heather_texture_breit.jpg");
+                var file_Motiv = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/11-Kasten_orange.psd");
                 var file_map = new File(doc_path + "/" + name_base + "__map.psd");
                 var saveFolder = new Folder(doc_path.replace(/(DNG\/Shooting%20Sortierung)/g, "RGB"));
                 if (!saveFolder.exists) saveFolder.create();
@@ -1432,7 +1439,7 @@ function createRGB() {
 
 
                         // OPEN path jpg
-                        var path_of_path_docs = "/Users/simon/Arbeit/11Freunde/TextilOnDemand/_Orga/Pfad/"
+                        var path_of_path_docs = "/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/_Orga/Pfad/"
                         open(new File(path_of_path_docs + name_base + ".jpg"));
 
                         path2selection("Path 1");
@@ -1923,10 +1930,11 @@ function array_contains(_array, _value) {
 
 // =======================================================
 function ToD_exportMotive() {
-    var _motive_MAIN = new File("/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/_motive_MAIN.psd");
+    // var _motive_MAIN = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/_motive_MAIN.psd");
+    var _motive_MAIN = new File("/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/_motive_MAIN.psd");
     app.open(_motive_MAIN);
     var i = 1;
-    var saveFolder = "/Users/simon/Arbeit/11Freunde/TextilOnDemand/mood_Motive/export/";
+    var saveFolder = "/Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/TextilOnDemand/mood_Motive/export/";
     while (layer_checkExistence(i)) {
         selectLayers("selectAllLayers");
         hide();

@@ -34,7 +34,7 @@ function SaveForWeb(_format, _path, _filename, _scale, _interlace, _convert2sRGB
 		}
 		/* TODO gif + webm */
 		var name = _filename + "." + extension;
-		return d2.putString(c2t("ovFN"), name);
+		return d2.putString(c2t("ovFN"), decodeURIComponent(name));
 	}
 	SaveForWeb_helperFilename(_format, _filename)
 

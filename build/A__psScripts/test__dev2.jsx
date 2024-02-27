@@ -1,22 +1,25 @@
+///////// HIER /////////// AUSGECHALTET WEGEN DEM NEUES MACBOOK - und noch kein UXP
+// $.evalFile("/Users/simon/Library/Application\ Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx");
+///////// HIER /////////
 //include "/Users/simon/Arbeit/__temp/json2.js";
 //@include "./assets/json2.js";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview_v2.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/selection.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/channel.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/neural_depthmap.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview_v2.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/selection.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/channel.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/neural_depthmap.jsx";
 //Command Option Shift E
 // function mergeVisible() {
 //     var idmergeVisible = stringIDToTypeID("mergeVisible");
@@ -82,9 +85,9 @@ gotoLayer("Original"):gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().
 // cyans cyan
 // blues blue
 // magenta magenta
-function quick_farbbereich(e,r,a,t,n){selection_deselect(),gotoFill(),select_Farbbereich(e),
+function quick_farbbereich(e,r,t,a,n){selection_deselect(),gotoFill(),select_Farbbereich(e),
 // createLayer(_farbe, "curves", "normal", "gray", 100, "xx", f,f);
-createColorLayer(r,"multiply","none",0,"xx",a,t,n),gotoFill()}
+createColorLayer(r,"multiply","none",0,"xx",t,a,n),gotoFill()}
 // quick_farbbereich("radius", "red", 255, 0, 0)
 // quick_farbbereich("yellows", "yellow", 255,255,0)
 // quick_farbbereich("graininess", "green", 0,255,0)
@@ -92,15 +95,15 @@ createColorLayer(r,"multiply","none",0,"xx",a,t,n),gotoFill()}
 // quick_farbbereich("blues", "blue", 0,0,255)
 // quick_farbbereich("magenta", "magenta", 255,0,255)
 // channel_setSaturationXX('merged', 'lighten')
-function channel_setSaturationXX(e,r){var a="difference";
+function channel_setSaturationXX(e,r){var t="difference";
 // var _calculation = "lighten";
 // var _calculation = "screen";
 // channel_select("RGB", false);
-kanalberechnung("red",f,"grain",f,e,a,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,a,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",r,"R","RGB"),
+kanalberechnung("red",f,"grain",f,e,t,"rg","RGB"),kanalberechnung("red",f,"blue",f,e,t,"rb","RGB"),kanalberechnung("rg",f,"rb",f,"this",r,"R","RGB"),
 // channel_delete("rg");
 // channel_delete("rb");
 // kanalberechnung("grain", f, "red", f, _source, calc_1, "gr", "RGB");
-kanalberechnung("grain",f,"blue",f,e,a,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",r,"G","RGB"),
+kanalberechnung("grain",f,"blue",f,e,t,"gb","RGB"),kanalberechnung("rg",f,"gb",f,"this",r,"G","RGB"),
 // channel_delete("gr");
 // channel_delete("gb");
 // kanalberechnung("blue", f, "red", f, _source, calc_1, "br", "RGB");
@@ -257,7 +260,7 @@ kanalberechnung("R",f,"G",f,"this",r,"RG","RGB"),kanalberechnung("RG",f,"B",f,"t
 //     // Fix the xmpMeta
 //     app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
 // }
-function run(){setMeta_2("startID",layer_selectedID_get()),createLayer("AutoTonwert","levels","normal","gray",80,"black",f,f),layer_selectedID_set(getMeta_2("startID")),delMeta_2("startID")}function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeDocument.channels,r=[],a=0;a<e.length;a++){(t=e[a]).kind!=ChannelType.COMPONENT&&r.push(t)}for(;r.length;){var t;(t=r.pop()).remove()}}}
+function run(){setMeta_2("startID",layer_selectedID_get()),createLayer("AutoTonwert","levels","normal","gray",80,"black",f,f),layer_selectedID_set(getMeta_2("startID")),delMeta_2("startID")}function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeDocument.channels,r=[],t=0;t<e.length;t++){(a=e[t]).kind!=ChannelType.COMPONENT&&r.push(a)}for(;r.length;){var a;(a=r.pop()).remove()}}}
 // run()
 // doc.suspendHistory("channel2image", "channel2image('(RG 60 sub) (GR 60 sub) darken', 'channel2image')"); 
 // check('merged', 'darken', 'subtract');
@@ -276,25 +279,27 @@ function layer_copyLayers_v2(){executeAction(sTID("copyToLayer"),void 0,DialogMo
 // layer_copyLayers()
 // =======================================================
 // layer_duplicateLayer(false, "dong");
-function layer_duplicateLayer(e,r){var a=new ActionDescriptor,t=new ActionReference;if("number"==typeof e)
+function layer_duplicateLayer(e,r){var t=new ActionDescriptor,a=new ActionReference;if("number"==typeof e)
 // get by Index
-t.putIndex(s2t("layer"),e);else if("string"==typeof e)if(layer_checkExistence(e))
+a.putIndex(s2t("layer"),e);else if("string"==typeof e)if(layer_checkExistence(e))
 // get by Layername
-t.putName(s2t("layer"),e);else{
+a.putName(s2t("layer"),e);else{
 // get by Layername via Regex // first hit
-var n=layer_getIDXbyString(e);t.putIndex(s2t("layer"),n[0])}else
+var n=layer_getIDXbyString(e);a.putIndex(s2t("layer"),n[0])}else
 // get activeLayer
-t.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum"));a.putReference(s2t("null"),t),a.putString(s2t("name"),r),executeAction(s2t("duplicate"),a,DialogModes.NO)}function layer_count(){function e(e){var r=new ActionReference;return r.putProperty(charIDToTypeID("Prpr"),stringIDToTypeID("layerSection")),r.putIndex(charIDToTypeID("Lyr "),e),typeIDToStringID(executeActionGet(r).getEnumerationValue(stringIDToTypeID("layerSection")))}var r,a=((r=new ActionReference).putProperty(charIDToTypeID("Prpr"),charIDToTypeID("NmbL")),r.putEnumerated(charIDToTypeID("Dcmn"),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),executeActionGet(r).getInteger(charIDToTypeID("NmbL"))),t=a;if(activeDocument.layers[activeDocument.layers.length-1].isBackgroundLayer){var n=0;
+a.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum"));t.putReference(s2t("null"),a),t.putString(s2t("name"),r),executeAction(s2t("duplicate"),t,DialogModes.NO)}function layer_count(){function e(e){var r=new ActionReference;return r.putProperty(charIDToTypeID("Prpr"),stringIDToTypeID("layerSection")),r.putIndex(charIDToTypeID("Lyr "),e),typeIDToStringID(executeActionGet(r).getEnumerationValue(stringIDToTypeID("layerSection")))}var r,t=((r=new ActionReference).putProperty(charIDToTypeID("Prpr"),charIDToTypeID("NmbL")),r.putEnumerated(charIDToTypeID("Dcmn"),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),executeActionGet(r).getInteger(charIDToTypeID("NmbL"))),a=t;if(activeDocument.layers[activeDocument.layers.length-1].isBackgroundLayer){var n=0;
 //comment out line below to exclude background from count
-t++}else n=1;for(;n<a;n++){"layerSectionEnd"==e(n)&&t--;
+a++}else n=1;for(;n<t;n++){"layerSectionEnd"==e(n)&&a--;
 //if(temp == '"layerSectionStart") res--;//uncomment to count just artLayers
-}return t}$.evalFile("/Users/simon/Library/Application Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx");
+}return a}
 // alert(layer_count())
 //*************************************
 //*************************************
 //*************************************
+// namederfunktion()
+function namederfunktion(){
 // =======================================================
-const workingProfile_get_init=workingProfile_get("Gray"),docProfile=doc.colorProfileName;
+const e=workingProfile_get("Gray"),r=doc.colorProfileName;alert(e),alert(r),gamma_L=["eciRGB v2","eciRGB v2 ICCv4"],gamma_18=["sRGB IEC61966-2.1","ProPhoto RGB","Display P3","image P3","Apple RGB","ColorMatch RGB"],gamma_22=["Adobe RGB (1998)","BestRGB","Beta RGB","DonRGB4.icm","MaxRGB","Russell RGB"],array_contains(gamma_18,r)?(alert("Gamma 1.8"),"Gray Gamma 1.8"!=e&&(alert("change it"),workingProfile_set("Gray","Gray Gamma 1.8"),alert("gechanged: "+workingProfile_get("Gray")))):array_contains(gamma_22,r)?(alert("Gamma 2.2"),"Gray Gamma 2.2"!=e&&(alert("change it"),workingProfile_set("Gray","Gray Gamma 2.2"),alert("gechanged: "+workingProfile_get("Gray")))):array_contains(gamma_L,r)?(alert("Gamma L"),workingProfile_set("Gray","Gray-elle-V4-labl.icc"),alert("gechanged: "+workingProfile_get("Gray"))):alert("Vorsicht\nDie Helligkeitsverteilung könnte fehlerhaft sein.\nfehlende Info zum Gamma von '"+r+"'"),e!=workingProfile_get("Gray")&&workingProfile_set("Gray",e)}
 //*************************************
 //*************************************
 //*************************************
@@ -392,4 +397,135 @@ var colors=[color1,color2];colors.sort((function(e,r){return e[0]-r[0]}));var co
 // "darken"
 // "subtract"
 // "add"
-function adjustLayer_sat_get(){var e=new ActionReference;return e.putEnumerated(charIDToTypeID("Lyr "),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),executeActionGet(e).getInteger(stringIDToTypeID("visible"))}function writeln(e){return $.writeln(e+": "+e)}alert(workingProfile_get_init),alert(docProfile),gamma_L=["eciRGB v2","eciRGB v2 ICCv4"],gamma_18=["sRGB IEC61966-2.1","ProPhoto RGB","Display P3","image P3","Apple RGB","ColorMatch RGB"],gamma_22=["Adobe RGB (1998)","BestRGB","Beta RGB","DonRGB4.icm","MaxRGB","Russell RGB"],array_contains(gamma_18,docProfile)?(alert("Gamma 1.8"),"Gray Gamma 1.8"!=workingProfile_get_init&&(alert("change it"),workingProfile_set("Gray","Gray Gamma 1.8"),alert("gechanged: "+workingProfile_get("Gray")))):array_contains(gamma_22,docProfile)?(alert("Gamma 2.2"),"Gray Gamma 2.2"!=workingProfile_get_init&&(alert("change it"),workingProfile_set("Gray","Gray Gamma 2.2"),alert("gechanged: "+workingProfile_get("Gray")))):array_contains(gamma_L,docProfile)?(alert("Gamma L"),workingProfile_set("Gray","Gray-elle-V4-labl.icc"),alert("gechanged: "+workingProfile_get("Gray"))):alert("Vorsicht\nDie Helligkeitsverteilung könnte fehlerhaft sein.\nfehlende Info zum Gamma von '"+docProfile+"'"),workingProfile_get_init!=workingProfile_get("Gray")&&workingProfile_set("Gray",workingProfile_get_init);
+function adjustLayer_sat_get(){var e=new ActionReference;return e.putEnumerated(charIDToTypeID("Lyr "),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),executeActionGet(e).getInteger(stringIDToTypeID("visible"))}function writeln(e){return $.writeln(e+": "+e)}
+//gigapixel
+// executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
+//photoAI
+// executeAction(sTID('a40009fc-f5fc-4a09-86ec-5a0ed56c5668'), undefined, DialogModes.ALL);
+// BEGIN deFreisteller QUICK
+// deFrei();
+function deFrei(){var e=layer_selectedID_get();
+// DELETE the layers
+try{gotoLayer("Freisteller"),ungroup(),gotoLayer("Freisteller helper"),deleteActiveLayer()}catch(e){}
+// DELETE the file
+var r=new Folder(doc.path),t=GetFileNameOnly(doc.name),a=/(?:\.([^.]+))?$/.exec(doc.name)[1],n=new File(r+"/"+t+"-frei."+a);n.exists&&n.remove(),layer_selectedID_set(e)}
+// END
+//////////////////////////////////
+//////////////////////////////////
+//////////////////////////////////
+// BEGIN Startschuss2 for Woodwing
+//////////////////////////////////
+// OPTIMIZED
+// TYPICAL
+// HIGH_QUALITY
+// DEFAULT_VALUE
+// alert("ding");
+// $.writeln(app.documents.getByName("_OA_0086__RZ__RGB.psd"));
+/////////////////////////////
+/////////////////////////////
+/////////////////////////////
+//// Einordnen in SimonScript 
+function isFileOpen(e){for(var r=!1,t=0;t<app.documents.length;t++)if(app.documents[t].name==e){r=!0;break}return r}
+// if (isFileOpen("_OA_0086__RZ__RGB.psd")) {
+//     alert("Die Datei ist geöffnet.");
+// } else {
+//     alert("Die Datei ist nicht geöffnet.");
+// }
+/////////////////////////////
+/////////////////////////////
+/////////////////////////////
+// set_docDisplaySetting()
+function set_docDisplaySetting(){var e=app.activeWindow.viewDisplaySetting.toString(),r=app.displayPerformancePreferences.ignoreLocalSettings;if($.writeln("docDisplaySetting: "+e),$.writeln("docDisplaySetting_allowImgSetting: "+r),"HIGH_QUALITY"!=e&&r)try{app.displayPerformancePreferences.ignoreLocalSettings=!1,$.writeln("docDisplaySetting_allowImgSetting umgestellt")}catch(e){alert("Error: set_docDisplaySetting() \n"+e)}else $.writeln("docDisplaySetting_allowImgSetting nix")}
+// set_img2hq()
+function set_img2hq(){if(0!=app.documents.length){var e=app.activeDocument;if(e){var r=e.selection[0];if(r){var t=r.images[0];if(t){set_docDisplaySetting(),$.writeln("imgQuali before: "+t.localDisplaySetting.toString()),
+// if (img.localDisplaySetting != 1346922866) {
+// if (img.localDisplaySetting != DisplaySettingOptions.HIGH_QUALITY) {
+"HIGH_QUALITY"!=t.localDisplaySetting.toString()?($.writeln("wird HighQuality eingestellt"),t.localDisplaySetting=DisplaySettingOptions.HIGH_QUALITY):$.writeln("ist schon HighQ");var a=t.itemLink.wwoi,n=t.itemLink.name,o=ww_path+a+"/"+n;$.writeln("imgPath: "+o);var i=new File(o);$.writeln("imgPath2: "+o),
+// waitForFile(imgPath);
+// checkFileExists(imgPath, doSomethingWithFile);
+i.exists?$.writeln("1: The imgFile exists"):$.writeln("1: The imgFile does not exist"),o.exists?$.writeln("2: The imgPath exists"):$.writeln("2: The imgPath does not exist"),$.writeln("imgQuali after: "+t.localDisplaySetting.toString())}else alert("no img")}else alert("no selection")}else alert("no doc");return i}alert("Open at least one document to run this script.")}
+// alert(set_img2hq())
+// waitForFile2()
+function waitForFile2(){$.setTimeout=function(e,r){$.sleep(r),e()};var e=set_img2hq();if(e.exists){function r(e){$.writeln("runPS"),app.open(new File(e)),app.bringToFront()}!function(e){$.writeln("BridgeTalkMessage_openDoc");try{var t=new BridgeTalk;t.target="photoshop",t.body=r.toSource()+"('"+e+"');",t.send(5)}catch(e){$.writeln("BridgeTalkMessage_openDoc Error: "+e)}}(e)}else
+// waitForFile2();
+// $.setTimeout(waitForFile2, 3000)
+$.setTimeout((function(){waitForFile2()}),3e3);
+// $.sleep(1000);
+}function loop(e,r){new File(e).exists?($.writeln("check3"),BridgeTalkMessage_openDoc(e)):($.writeln("check1"),$.sleep(r),$.writeln("check2"),loop(e,r))}function waitForFile(e){for(var r=new File(e);!r.exists;)$.writeln("grüße1"),$.sleep(1e3),$.writeln("grüße2");
+// Sobald die Datei existiert, fahre mit der Funktion fort
+// doSomethingWithFile(filePath);
+BridgeTalkMessage_openDoc(e)}
+// function checkFileExists(_imgPath, callback) {
+//     var file = new File(_imgPath);
+//     var intervalID = setInterval(function() {
+//         if (file.exists) {
+//             clearInterval(intervalID);
+//             callback(_imgPath);
+//         }
+//     }, 1000); // Überprüfe alle 1 Sekunde, ob die Datei existiert
+// }
+// function checkFileExists(_imgPath, callback) {
+//     var file = new File(_imgPath);
+//     var intervalID = app.scheduleTask("checkFile", null, 1000, true);
+//     function checkFile() {
+//         if (file.exists) {
+//             app.cancelTask(intervalID);
+//             callback(_imgPath);
+//         }
+//     }
+// }
+// function checkFileExists(_imgPath, callback) {
+//     var file = new File(_imgPath);
+//     var timer = app.scriptPreferences.userInteractionLevel;
+//     app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
+//     function checkFile() {
+//         if (file.exists) {
+//             clearInterval(intervalID);
+//             app.scriptPreferences.userInteractionLevel = timer;
+//             callback(_imgPath);
+//         }
+//     }
+//     var intervalID = setInterval(checkFile, 1000); // Überprüfe alle 1 Sekunde, ob die Datei existiert
+// }
+function checkFileExists(e,r){var t=new File(e),a=0,n=setInterval((function(){t.exists?(clearInterval(n),r(e)):++a>=10&&(clearInterval(n),console.error("Maximale Anzahl von Versuchen erreicht. Datei konnte nicht gefunden werden."))}),1e3)}function doSomethingWithFile(e){var r,t;function a(e){app.open(new File(e)),app.bringToFront()}
+// Hier kannst du deine Operation mit der heruntergeladenen Datei durchführen
+// Beispiel: Öffnen der Datei in InDesign
+r=e,(t=new BridgeTalk).target="photoshop",t.body=a.toSource()+"('"+r+"');",t.send(5)}
+// Beispielaufruf der Funktion mit dem Dateipfad
+// var filePath = "/Pfad/zur/Datei/meinBild.jpg";
+// checkFileExists(filePath, doSomethingWithFile);
+// if (selectedImage && selectedImage.hasOwnProperty("imageTypeName")) {
+//     var displayQuality = selectedImage.imageTypeName; // Qualitätseinstellung des Bildes
+//     if (displayQuality === "High Quality") {
+//         alert("Das ausgewählte Bild wird mit hoher Anzeigeleistung angezeigt.");
+//     } else {
+//         alert("Das ausgewählte Bild wird nicht mit hoher Anzeigeleistung angezeigt.");
+//     }
+// } else {
+//     alert("Es wurde kein Bild ausgewählt.");
+// }
+// alert(app.activeWindow.viewDisplaySetting)
+// alert("1: " + app.displayPerformancePreferences.defaultDisplaySettings)
+// var idx
+// if(idx == undefined) idx = 0
+// var dOptions = [ViewDisplaySettings.HIGH_QUALITY, ViewDisplaySettings.OPTIMIZED, ViewDisplaySettings.TYPICAL]
+// app.activeWindow.viewDisplaySetting = dOptions[idx++]
+// if(idx == 3) idx = 0
+// alert("2: " + app.displayPerformancePreferences.defaultDisplaySettings)
+// die globale Anzeigen-Qualität - brauche ich nicht 
+// $.writeln("1: " + app.displayPerformancePreferences.defaultDisplaySettings.toString())
+// die Doc-spezifische Anzeigen-Quali
+// $.writeln("docDisplaySetting: " + app.activeWindow.viewDisplaySetting.toString())
+// Objektspezifische Einstellungen zulassen
+// true = nicht zulassen
+// false = zulassen
+// $.writeln("docDisplaySetting_allowImgSetting: " + app.displayPerformancePreferences.ignoreLocalSettings)
+// // Open a log file
+// var myLog = new File("~/WoodWingStudio.noindex/InDesign/64663/_OA_0086__RZ.jpg");
+// // See if the file exists
+// if (myLog.exists) {
+//     $.writeln('3: The file exists');
+// } else {
+//     $.writeln('3: The file does not exist');
+// }
+alert(getMeta_2("isWoodwing")),alert(getMeta_2("woodwing_imageFile_RGB")),alert(getMeta_2("imageFile_copyRGB"));

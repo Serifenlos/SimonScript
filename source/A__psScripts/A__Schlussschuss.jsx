@@ -12,14 +12,12 @@
 
 /*//// OPTIONS ////*/
 /*=================================================================================*/
-// var Rasterweite = 70;
-// var minAufloesung = 300;
-// var Suffix_RZ = "__RZ";
-// var option_convert_8bit = true;
-
-saveFolder = "/Users/simon/Arbeit/_RZ";
+saveFolder = "/Users/adrians/Arbeit/_RZ";
 var Suffix_RZ = "__RZ";
 var saveFormat = "jpg" // tif, jpg, psd
+var delPath = true;
+var sharp_dialog = true;
+
 
 /*=================================================================================*/
 //@include "functions/basic.jsx";
@@ -84,14 +82,14 @@ function flattenImage() {
 
 /*=================================================================================*/
 //FUNCTION schärfen
-function sharp() {
+function sharp(_dialog) {
     var safeZoom = getZoomLevel();
     // vollbildmodus();
     if(app_panelsVisible()) togglePalettes();
     zoom100();
 
     try {
-        executeAction(stringIDToTypeID("unsharpMask"), undefined, DialogModes.ALL);
+        executeAction(stringIDToTypeID("unsharpMask"), undefined, _dialog);
     } catch (e) {}
 
     // standardmodus();
@@ -307,10 +305,13 @@ function run() {
     }
     RemoveAlphaChannels();
     convertProfile_bySimon();
-    sharp();
+    if(sharp_dialog){sharp(DialogModes.ALL)}
+    else {sharp(DialogModes.NO)}
+    
     check8bit();
     clearAllGuides();
     delMeta();
+    if(delPath) {activeDocument.pathItems.removeAll()}
     try {
         if (doc.artLayers.getByName("Freisteller")) {
             setMaskVisibility(true);

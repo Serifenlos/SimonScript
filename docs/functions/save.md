@@ -41,7 +41,7 @@
     		}
     		/* TODO gif + webm */
     		var name = _filename + "." + extension;
-    		return d2.putString(c2t("ovFN"), name);
+    		return d2.putString(c2t("ovFN"), decodeURIComponent(name));
     	}
     	SaveForWeb_helperFilename(_format, _filename)
     

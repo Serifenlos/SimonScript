@@ -1,29 +1,32 @@
-$.evalFile("/Users/simon/Library/Application\ Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx");
 
+
+
+///////// HIER /////////// AUSGECHALTET WEGEN DEM NEUES MACBOOK - und noch kein UXP
+// $.evalFile("/Users/simon/Library/Application\ Support/Adobe/UXP/PluginsStorage/PHSP/22/Developer/2bcdb900/PluginData/alchemist-AM-Hack.jsx");
+///////// HIER /////////
 
 
 //include "/Users/simon/Arbeit/__temp/json2.js";
 
 //@include "./assets/json2.js";
 
-
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview_v2.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/selection.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/channel.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/neural_depthmap.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-maskPreview_v2.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/selection.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/channel.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/neural_depthmap.jsx";
 
 
 
@@ -582,72 +585,74 @@ function layer_count() {
 //*************************************
 //*************************************
 
+// namederfunktion()
+
+function namederfunktion() {
+
+    // =======================================================
+    const workingProfile_get_init = workingProfile_get("Gray");
+    const docProfile = doc.colorProfileName;
+    alert(workingProfile_get_init);
+    alert(docProfile);
+
+    gamma_L = [
+        "eciRGB v2",
+        "eciRGB v2 ICCv4"
+    ]
+
+    gamma_18 = [
+        "sRGB IEC61966-2.1",
+        "ProPhoto RGB",
+        "Display P3",
+        "image P3",
+        "Apple RGB",
+        "ColorMatch RGB"
+
+    ]
+
+    gamma_22 = [
+        "Adobe RGB (1998)",
+        "BestRGB",
+        "Beta RGB",
+        "DonRGB4.icm",
+        "MaxRGB",
+        "Russell RGB"
+
+    ]
 
 
-// =======================================================
-const workingProfile_get_init = workingProfile_get("Gray");
-const docProfile = doc.colorProfileName;
-alert(workingProfile_get_init);
-alert(docProfile);
 
-gamma_L = [
-    "eciRGB v2",
-    "eciRGB v2 ICCv4"
-]
-
-gamma_18 = [
-    "sRGB IEC61966-2.1",
-    "ProPhoto RGB",
-    "Display P3",
-    "image P3",
-    "Apple RGB",
-    "ColorMatch RGB"
-
-]
-
-gamma_22 = [
-    "Adobe RGB (1998)",
-    "BestRGB",
-    "Beta RGB",
-    "DonRGB4.icm",
-    "MaxRGB",
-    "Russell RGB"
-
-]
-
-
-
-if (array_contains(gamma_18, docProfile)) {
-    alert("Gamma 1.8");
-    if (workingProfile_get_init != "Gray Gamma 1.8") {
-        alert("change it");
-        workingProfile_set("Gray", "Gray Gamma 1.8");
-        alert("gechanged: " + workingProfile_get("Gray"));
-    }
-} else {
-    if (array_contains(gamma_22, docProfile)) {
-        alert("Gamma 2.2");
-        if (workingProfile_get_init != "Gray Gamma 2.2") {
+    if (array_contains(gamma_18, docProfile)) {
+        alert("Gamma 1.8");
+        if (workingProfile_get_init != "Gray Gamma 1.8") {
             alert("change it");
-            workingProfile_set("Gray", "Gray Gamma 2.2");
+            workingProfile_set("Gray", "Gray Gamma 1.8");
             alert("gechanged: " + workingProfile_get("Gray"));
         }
     } else {
-        if (array_contains(gamma_L, docProfile)) {
-            alert("Gamma L");
-            workingProfile_set("Gray", "Gray-elle-V4-labl.icc");
-            alert("gechanged: " + workingProfile_get("Gray"));
-        }
-        else {
-            alert("Vorsicht\nDie Helligkeitsverteilung könnte fehlerhaft sein.\nfehlende Info zum Gamma von '" + docProfile + "'" )
+        if (array_contains(gamma_22, docProfile)) {
+            alert("Gamma 2.2");
+            if (workingProfile_get_init != "Gray Gamma 2.2") {
+                alert("change it");
+                workingProfile_set("Gray", "Gray Gamma 2.2");
+                alert("gechanged: " + workingProfile_get("Gray"));
+            }
+        } else {
+            if (array_contains(gamma_L, docProfile)) {
+                alert("Gamma L");
+                workingProfile_set("Gray", "Gray-elle-V4-labl.icc");
+                alert("gechanged: " + workingProfile_get("Gray"));
+            } else {
+                alert("Vorsicht\nDie Helligkeitsverteilung könnte fehlerhaft sein.\nfehlende Info zum Gamma von '" + docProfile + "'")
+            }
         }
     }
-}
 
-if(workingProfile_get_init != workingProfile_get("Gray")) {
-    workingProfile_set("Gray", workingProfile_get_init);
-}
+    if (workingProfile_get_init != workingProfile_get("Gray")) {
+        workingProfile_set("Gray", workingProfile_get_init);
+    }
 
+}
 
 
 //*************************************
@@ -661,7 +666,7 @@ function mask_farbmaske_viaSaturation(_folder, _toleranz) {
     if (!layer_checkExistence(_folder)) {
         createGroup(_folder, "passThrough", "none", 100, f);
         // move to TOP
-        with(activeDocument) activeLayer.move(layers[0], ElementPlacement.PLACEBEFORE)
+        with (activeDocument) activeLayer.move(layers[0], ElementPlacement.PLACEBEFORE)
 
         createLayer("Farbe auswählen", "hueSaturation", "difference", "none", 100, "none", f, f);
         createLayer("invert + gradation", "curves", "normal", "none", 100, "none", f, f);
@@ -693,7 +698,7 @@ function mask_farbmaske_viaSaturation(_folder, _toleranz) {
 
         // sortiere Farben
         var colors = [color1, color2];
-        colors.sort(function(a, b) {
+        colors.sort(function (a, b) {
             return a[0] - b[0];
         });
         var color1 = colors[0];
@@ -835,6 +840,465 @@ function adjustLayer_sat_get() {
 
 
 function writeln(_ding) {
-    return $.writeln("" + _ding + ": " + _ding)
+    return $.writeln('' + _ding + ': ' + _ding)
 
 }
+
+
+//gigapixel
+// executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
+
+//photoAI
+// executeAction(sTID('a40009fc-f5fc-4a09-86ec-5a0ed56c5668'), undefined, DialogModes.ALL);
+
+
+
+
+// BEGIN deFreisteller QUICK
+// deFrei();
+
+function deFrei() {
+    var startLayerID = layer_selectedID_get();
+
+    // DELETE the layers
+    try {
+        gotoLayer("Freisteller");
+        ungroup();
+        gotoLayer("Freisteller helper");
+        deleteActiveLayer();
+    } catch (e) { }
+
+
+    // DELETE the file
+    var docPath = new Folder(doc.path);
+    var docNameOnly = GetFileNameOnly(doc.name);
+    var docFileExtension_re = /(?:\.([^.]+))?$/;
+    var docFileExtension = docFileExtension_re.exec(doc.name)[1];
+    var docFile_frei = new File(docPath + "/" + docNameOnly + "-frei." + docFileExtension);
+    if (docFile_frei.exists) {
+        docFile_frei.remove();
+    }
+
+    layer_selectedID_set(startLayerID);
+}
+// END
+
+
+
+
+//////////////////////////////////
+//////////////////////////////////
+//////////////////////////////////
+// BEGIN Startschuss2 for Woodwing
+//////////////////////////////////
+
+
+// OPTIMIZED
+// TYPICAL
+// HIGH_QUALITY
+// DEFAULT_VALUE
+
+
+
+// alert("ding");
+// $.writeln(app.documents.getByName("_OA_0086__RZ__RGB.psd"));
+
+
+
+/////////////////////////////
+/////////////////////////////
+/////////////////////////////
+//// Einordnen in SimonScript 
+function isFileOpen(_fileName) {
+    var fileIsOpen = false;
+    for (var i = 0; i < app.documents.length; i++) {
+        if (app.documents[i].name == _fileName) {
+            fileIsOpen = true;
+            break;
+        }
+    }
+    return fileIsOpen;
+}
+
+// if (isFileOpen("_OA_0086__RZ__RGB.psd")) {
+//     alert("Die Datei ist geöffnet.");
+// } else {
+//     alert("Die Datei ist nicht geöffnet.");
+// }
+/////////////////////////////
+/////////////////////////////
+/////////////////////////////
+
+
+
+
+alert(getMeta_2("isWoodwing"))
+alert(getMeta_2("woodwing_imageFile_RGB"))
+alert(getMeta_2("imageFile_copyRGB"))
+
+
+// set_docDisplaySetting()
+
+function set_docDisplaySetting() {
+    var docDisplaySetting = app.activeWindow.viewDisplaySetting.toString();
+    var docDisplaySetting_allowImgSetting = app.displayPerformancePreferences.ignoreLocalSettings;
+    $.writeln("docDisplaySetting: " + docDisplaySetting);
+    $.writeln("docDisplaySetting_allowImgSetting: " + docDisplaySetting_allowImgSetting);
+
+    if (docDisplaySetting != "HIGH_QUALITY" && docDisplaySetting_allowImgSetting) {
+        try {
+            app.displayPerformancePreferences.ignoreLocalSettings = false;
+            $.writeln("docDisplaySetting_allowImgSetting umgestellt")
+        } catch (e) {
+            alert("Error: set_docDisplaySetting() \n" + e);
+        }
+    } else {
+        $.writeln("docDisplaySetting_allowImgSetting nix")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// set_img2hq()
+
+function set_img2hq() {
+    if (app.documents.length == 0) {
+        alert("Open at least one document to run this script.");
+        return;
+    } else {
+        var doc = app.activeDocument;
+    }
+
+    if (doc) {
+        var selected = doc.selection[0];
+
+        if (selected) {
+            var img = selected.images[0];
+
+            if (img) {
+
+                set_docDisplaySetting()
+
+
+
+
+                $.writeln("imgQuali before: " + img.localDisplaySetting.toString())
+                // if (img.localDisplaySetting != 1346922866) {
+                // if (img.localDisplaySetting != DisplaySettingOptions.HIGH_QUALITY) {
+                if (img.localDisplaySetting.toString() != "HIGH_QUALITY") {
+                    $.writeln("wird HighQuality eingestellt");
+                    img.localDisplaySetting = DisplaySettingOptions.HIGH_QUALITY;
+
+                } else {
+                    $.writeln("ist schon HighQ");
+                }
+
+
+                var imgID = img.itemLink.wwoi;
+                var imgName = img.itemLink.name
+                var imgPath = ww_path + imgID + "/" + imgName;
+                $.writeln("imgPath: " + imgPath);
+                var imgFile = new File(imgPath);
+                $.writeln("imgPath2: " + imgPath);
+
+                // waitForFile(imgPath);
+                // checkFileExists(imgPath, doSomethingWithFile);
+
+                if (imgFile.exists) {
+                    $.writeln('1: The imgFile exists');
+                } else {
+                    $.writeln('1: The imgFile does not exist');
+                }
+
+
+                // while (!imgPath.exists) {
+                //     $.writeln("grüße1");
+                //     $.sleep(1000);
+                //     $.writeln("grüße2");
+                // }
+
+                // waitForFile(imgPath);
+
+                // loop(imgPath, 1000);
+
+
+                // BridgeTalkMessage_openDoc(imgPath);
+
+                function BridgeTalkMessage_openDoc(__imgPath) {
+                    $.writeln("BridgeTalkMessage_openDoc");
+                    try {
+                        var bt = new BridgeTalk();
+                        bt.target = 'photoshop';
+                        bt.body = runPS.toSource() + "('" + __imgPath + "');";
+                        bt.send(5);
+                    } catch (e) {
+                        $.writeln("BridgeTalkMessage_openDoc Error: " + e)
+                    }
+                }
+
+
+                function runPS(___imgPath) {
+                    $.writeln("runPS");
+                    app.open(new File(___imgPath));
+                    app.bringToFront();
+                }
+
+                if (imgPath.exists) {
+                    $.writeln('2: The imgPath exists');
+                } else {
+                    $.writeln('2: The imgPath does not exist');
+                }
+
+
+                $.writeln("imgQuali after: " + img.localDisplaySetting.toString());
+            } else {
+                alert("no img")
+            }
+        } else {
+            alert("no selection")
+        }
+    } else {
+        alert("no doc")
+    }
+    return imgFile;
+}
+
+
+// alert(set_img2hq())
+// waitForFile2()
+function waitForFile2() {
+    $.setTimeout = function (func, time) {
+        $.sleep(time);
+        func();
+    };
+    var imgFile = set_img2hq();
+    if (!imgFile.exists) {
+        // waitForFile2();
+        // $.setTimeout(waitForFile2, 3000)
+        $.setTimeout(function () { waitForFile2() }, 3000);
+        // $.sleep(1000);
+    } else {
+        BridgeTalkMessage_openDoc(imgFile);
+
+        function BridgeTalkMessage_openDoc(__imgPath) {
+            $.writeln("BridgeTalkMessage_openDoc");
+            try {
+                var bt = new BridgeTalk();
+                bt.target = 'photoshop';
+                bt.body = runPS.toSource() + "('" + __imgPath + "');";
+                bt.send(5);
+            } catch (e) {
+                $.writeln("BridgeTalkMessage_openDoc Error: " + e)
+            }
+        }
+
+
+        function runPS(___imgPath) {
+            $.writeln("runPS");
+            app.open(new File(___imgPath));
+            app.bringToFront();
+        }
+    }
+}
+
+
+
+function loop(_imgPath, time) {
+    var file = new File(_imgPath);
+    if (!file.exists) {
+        $.writeln("check1")
+        $.sleep(time);
+        $.writeln("check2")
+        loop(_imgPath, time); // Übergib das _imgPath Argument
+    } else {
+        $.writeln("check3")
+        BridgeTalkMessage_openDoc(_imgPath); // Aufruf der Funktion BridgeTalkMessage_openDoc
+    }
+}
+
+
+
+
+function waitForFile(_imgPath) {
+    var file = new File(_imgPath);
+
+    while (!file.exists) {
+        $.writeln("grüße1");
+        $.sleep(1000);
+        $.writeln("grüße2");
+    }
+
+    // Sobald die Datei existiert, fahre mit der Funktion fort
+    // doSomethingWithFile(filePath);
+
+    BridgeTalkMessage_openDoc(_imgPath);
+
+
+}
+
+
+
+
+
+
+// function checkFileExists(_imgPath, callback) {
+//     var file = new File(_imgPath);
+//     var intervalID = setInterval(function() {
+//         if (file.exists) {
+//             clearInterval(intervalID);
+//             callback(_imgPath);
+//         }
+//     }, 1000); // Überprüfe alle 1 Sekunde, ob die Datei existiert
+// }
+// function checkFileExists(_imgPath, callback) {
+//     var file = new File(_imgPath);
+//     var intervalID = app.scheduleTask("checkFile", null, 1000, true);
+
+//     function checkFile() {
+//         if (file.exists) {
+//             app.cancelTask(intervalID);
+//             callback(_imgPath);
+//         }
+//     }
+// }
+// function checkFileExists(_imgPath, callback) {
+//     var file = new File(_imgPath);
+//     var timer = app.scriptPreferences.userInteractionLevel;
+//     app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
+
+//     function checkFile() {
+//         if (file.exists) {
+//             clearInterval(intervalID);
+//             app.scriptPreferences.userInteractionLevel = timer;
+//             callback(_imgPath);
+//         }
+//     }
+
+//     var intervalID = setInterval(checkFile, 1000); // Überprüfe alle 1 Sekunde, ob die Datei existiert
+// }
+function checkFileExists(filePath, callback) {
+    var file = new File(filePath);
+    var maxAttempts = 10; // Maximale Anzahl von Versuchen
+    var currentAttempt = 0;
+
+    var interval = setInterval(function () {
+        if (file.exists) {
+            clearInterval(interval);
+            callback(filePath);
+        } else {
+            currentAttempt++;
+            if (currentAttempt >= maxAttempts) {
+                clearInterval(interval);
+                console.error("Maximale Anzahl von Versuchen erreicht. Datei konnte nicht gefunden werden.");
+            }
+        }
+    }, 1000); // Überprüfe alle 1 Sekunde, ob die Datei vorhanden ist
+}
+
+function doSomethingWithFile(_imgPath) {
+    // Hier kannst du deine Operation mit der heruntergeladenen Datei durchführen
+    // Beispiel: Öffnen der Datei in InDesign
+    BridgeTalkMessage_openDoc(_imgPath);
+
+    function BridgeTalkMessage_openDoc(__imgPath) {
+        var bt = new BridgeTalk();
+        bt.target = 'photoshop';
+        bt.body = runPS.toSource() + "('" + __imgPath + "');";
+        bt.send(5);
+    }
+
+
+    function runPS(___imgPath) {
+        app.open(new File(___imgPath));
+        app.bringToFront();
+    }
+}
+
+// Beispielaufruf der Funktion mit dem Dateipfad
+// var filePath = "/Pfad/zur/Datei/meinBild.jpg";
+// checkFileExists(filePath, doSomethingWithFile);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if (selectedImage && selectedImage.hasOwnProperty("imageTypeName")) {
+//     var displayQuality = selectedImage.imageTypeName; // Qualitätseinstellung des Bildes
+
+//     if (displayQuality === "High Quality") {
+//         alert("Das ausgewählte Bild wird mit hoher Anzeigeleistung angezeigt.");
+//     } else {
+//         alert("Das ausgewählte Bild wird nicht mit hoher Anzeigeleistung angezeigt.");
+//     }
+// } else {
+//     alert("Es wurde kein Bild ausgewählt.");
+// }
+
+
+// alert(app.activeWindow.viewDisplaySetting)
+
+// alert("1: " + app.displayPerformancePreferences.defaultDisplaySettings)
+
+// var idx
+// if(idx == undefined) idx = 0
+// var dOptions = [ViewDisplaySettings.HIGH_QUALITY, ViewDisplaySettings.OPTIMIZED, ViewDisplaySettings.TYPICAL]
+// app.activeWindow.viewDisplaySetting = dOptions[idx++]
+// if(idx == 3) idx = 0
+
+
+// alert("2: " + app.displayPerformancePreferences.defaultDisplaySettings)
+
+
+
+
+
+// die globale Anzeigen-Qualität - brauche ich nicht 
+// $.writeln("1: " + app.displayPerformancePreferences.defaultDisplaySettings.toString())
+
+// die Doc-spezifische Anzeigen-Quali
+// $.writeln("docDisplaySetting: " + app.activeWindow.viewDisplaySetting.toString())
+
+// Objektspezifische Einstellungen zulassen
+// true = nicht zulassen
+// false = zulassen
+// $.writeln("docDisplaySetting_allowImgSetting: " + app.displayPerformancePreferences.ignoreLocalSettings)
+
+
+
+
+
+// // Open a log file
+// var myLog = new File("~/WoodWingStudio.noindex/InDesign/64663/_OA_0086__RZ.jpg");
+
+// // See if the file exists
+// if (myLog.exists) {
+//     $.writeln('3: The file exists');
+// } else {
+//     $.writeln('3: The file does not exist');
+// }
+
+

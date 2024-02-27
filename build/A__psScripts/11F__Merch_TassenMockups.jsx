@@ -56,14 +56,22 @@ const moods = [
     'mood01',
     'mood02',
     'mood03',
-    'mood04'
+    'mood04',
+    'mood05',
+    'mood06',
+    // 'mood01_schwarzeTasse',
+    // 'mood02_schwarzeTasse',
+    // 'mood03_schwarzeTasse',
+    // 'mood04_schwarzeTasse',
+    // 'mood05_schwarzeTasse',
+    // 'mood06_schwarzeTasse'
 ]
 
 
 /** von 1 – bis 1508 **/
 /* 0 stoppt den loop */
 const fileList_start = 1;
-const fileList_end = 9999;
+const fileList_end = 999;
 
 const web_px = 2400;
 
@@ -87,7 +95,8 @@ function run() {
     prefSet(DialogModes.NO, Units.PIXELS);
 
     inputFolder = Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");
-    var fileList = inputFolder.getFiles(/.*\.pdf$/i);
+    // var fileList = inputFolder.getFiles(/.*\.pdf$/i);
+    var fileList = inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|pdf)$/i);
 
     if (fileList_start != 0 && fileList_end != 0) {
 
