@@ -330,16 +330,16 @@ sp-radio-group {
   display: inline-block;
 }
 
-sp-radio-group {
-  label {
+// sp-radio-group {
+  // label {
     // outline: 1px red solid;
     // z-index: 2;
     // display: block;
     // position: relative; 
     // display: inline;
-  }
+  // }
 
-  input[type=radio] {
+  // input[type=radio] {
     // outline: 1px blue solid;
     // background: green;
     // z-index: 1;
@@ -349,8 +349,8 @@ sp-radio-group {
     // &::after {
     //   content: "value";
     // }
-  }
-}
+  // }
+// }
 
 sp-radio:checked {
   outline: 1px blue solid;

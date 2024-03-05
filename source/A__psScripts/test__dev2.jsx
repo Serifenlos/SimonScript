@@ -932,373 +932,86 @@ function isFileOpen(_fileName) {
 
 
 
-alert(getMeta_2("isWoodwing"))
-alert(getMeta_2("woodwing_imageFile_RGB"))
-alert(getMeta_2("imageFile_copyRGB"))
+// alert(getMeta_2("isWoodwing"))
+// alert(getMeta_2("woodwing_imageFile_RGB"))
+// alert(getMeta_2("imageFile_copyRGB"))
 
 
-// set_docDisplaySetting()
+// hoch rechnen: hPPI: 2101; minAuflösung: 300
 
-function set_docDisplaySetting() {
-    var docDisplaySetting = app.activeWindow.viewDisplaySetting.toString();
-    var docDisplaySetting_allowImgSetting = app.displayPerformancePreferences.ignoreLocalSettings;
-    $.writeln("docDisplaySetting: " + docDisplaySetting);
-    $.writeln("docDisplaySetting_allowImgSetting: " + docDisplaySetting_allowImgSetting);
+// alert(getLayersNb())
+var ding = "dong";
+// var bing = getLayersNb();
 
-    if (docDisplaySetting != "HIGH_QUALITY" && docDisplaySetting_allowImgSetting) {
-        try {
-            app.displayPerformancePreferences.ignoreLocalSettings = false;
-            $.writeln("docDisplaySetting_allowImgSetting umgestellt")
-        } catch (e) {
-            alert("Error: set_docDisplaySetting() \n" + e);
-        }
-    } else {
-        $.writeln("docDisplaySetting_allowImgSetting nix")
+
+if (getMeta_2("isWoodwing")) var isWoodwing = getMeta_2("isWoodwing");
+if (getMeta_2("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_2("arbeitsdatei_RGB");
+if (getMeta_2("woodwing_RGB")) var woodwing_RGB = getMeta_2("woodwing_RGB");
+if (getMeta_2("woodwing_file")) var woodwing_file = getMeta_2("woodwing_file");
+if (getMeta_2("idDocName")) var idDocName = getMeta_2("idDocName");
+
+// alert("isWoodwing: " + isWoodwing + "\narbeitsdatei_RGB: " + arbeitsdatei_RGB + "\nwoodwing_RGB: " + woodwing_RGB + "\nidDocName: " + idDocName + "\n")
+
+var doc = app.activeDocument;
+alert(doc.name);
+
+var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
+
+// BridgeTalkMessage_openDocID(idDocName, woodwing_file);
+app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
+
+
+function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
+    var bt = new BridgeTalk();
+    bt.target = 'indesign';
+    bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "');";
+    bt.onResult = function(resObj) {
+        app.documents.getByName(_woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
     }
+    bt.send(5);
 }
 
 
+function runID(_idDocName, _woodwing_file) {
 
-
-
-
-
-
-
-
-// set_img2hq()
-
-function set_img2hq() {
-    if (app.documents.length == 0) {
-        alert("Open at least one document to run this script.");
-        return;
-    } else {
-        var doc = app.activeDocument;
-    }
-
-    if (doc) {
-        var selected = doc.selection[0];
-
-        if (selected) {
-            var img = selected.images[0];
-
-            if (img) {
-
-                set_docDisplaySetting()
-
-
-
-
-                $.writeln("imgQuali before: " + img.localDisplaySetting.toString())
-                // if (img.localDisplaySetting != 1346922866) {
-                // if (img.localDisplaySetting != DisplaySettingOptions.HIGH_QUALITY) {
-                if (img.localDisplaySetting.toString() != "HIGH_QUALITY") {
-                    $.writeln("wird HighQuality eingestellt");
-                    img.localDisplaySetting = DisplaySettingOptions.HIGH_QUALITY;
-
-                } else {
-                    $.writeln("ist schon HighQ");
-                }
-
-
-                var imgID = img.itemLink.wwoi;
-                var imgName = img.itemLink.name
-                var imgPath = ww_path + imgID + "/" + imgName;
-                $.writeln("imgPath: " + imgPath);
-                var imgFile = new File(imgPath);
-                $.writeln("imgPath2: " + imgPath);
-
-                // waitForFile(imgPath);
-                // checkFileExists(imgPath, doSomethingWithFile);
-
-                if (imgFile.exists) {
-                    $.writeln('1: The imgFile exists');
-                } else {
-                    $.writeln('1: The imgFile does not exist');
-                }
-
-
-                // while (!imgPath.exists) {
-                //     $.writeln("grüße1");
-                //     $.sleep(1000);
-                //     $.writeln("grüße2");
-                // }
-
-                // waitForFile(imgPath);
-
-                // loop(imgPath, 1000);
-
-
-                // BridgeTalkMessage_openDoc(imgPath);
-
-                function BridgeTalkMessage_openDoc(__imgPath) {
-                    $.writeln("BridgeTalkMessage_openDoc");
-                    try {
-                        var bt = new BridgeTalk();
-                        bt.target = 'photoshop';
-                        bt.body = runPS.toSource() + "('" + __imgPath + "');";
-                        bt.send(5);
-                    } catch (e) {
-                        $.writeln("BridgeTalkMessage_openDoc Error: " + e)
-                    }
-                }
-
-
-                function runPS(___imgPath) {
-                    $.writeln("runPS");
-                    app.open(new File(___imgPath));
-                    app.bringToFront();
-                }
-
-                if (imgPath.exists) {
-                    $.writeln('2: The imgPath exists');
-                } else {
-                    $.writeln('2: The imgPath does not exist');
-                }
-
-
-                $.writeln("imgQuali after: " + img.localDisplaySetting.toString());
-            } else {
-                alert("no img")
-            }
-        } else {
-            alert("no selection")
+    alert("hallo?");
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var woodwing_file = app.activeDocument.links.itemByName(_woodwing_file);
+            woodwing_file.editOriginal();
         }
-    } else {
-        alert("no doc")
+    } catch (e) {
+        alert("Die Datei ist nicht offen: " + _idDocName + "\n" + e);
     }
-    return imgFile;
-}
+
+    return "dingdong";
 
 
-// alert(set_img2hq())
-// waitForFile2()
-function waitForFile2() {
-    $.setTimeout = function (func, time) {
-        $.sleep(time);
-        func();
-    };
-    var imgFile = set_img2hq();
-    if (!imgFile.exists) {
-        // waitForFile2();
-        // $.setTimeout(waitForFile2, 3000)
-        $.setTimeout(function () { waitForFile2() }, 3000);
-        // $.sleep(1000);
-    } else {
-        BridgeTalkMessage_openDoc(imgFile);
-
-        function BridgeTalkMessage_openDoc(__imgPath) {
-            $.writeln("BridgeTalkMessage_openDoc");
-            try {
-                var bt = new BridgeTalk();
-                bt.target = 'photoshop';
-                bt.body = runPS.toSource() + "('" + __imgPath + "');";
-                bt.send(5);
-            } catch (e) {
-                $.writeln("BridgeTalkMessage_openDoc Error: " + e)
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name == _fileName) {
+                fileIsOpen = true;
+                /* var filePath = File(app.documents[j].fullName.fullName);
+                app.open(filePath, true); */
+                app.activeDocument = app.documents[j];
+                break;
             }
         }
-
-
-        function runPS(___imgPath) {
-            $.writeln("runPS");
-            app.open(new File(___imgPath));
-            app.bringToFront();
-        }
-    }
-}
-
-
-
-function loop(_imgPath, time) {
-    var file = new File(_imgPath);
-    if (!file.exists) {
-        $.writeln("check1")
-        $.sleep(time);
-        $.writeln("check2")
-        loop(_imgPath, time); // Übergib das _imgPath Argument
-    } else {
-        $.writeln("check3")
-        BridgeTalkMessage_openDoc(_imgPath); // Aufruf der Funktion BridgeTalkMessage_openDoc
+        return fileIsOpen;
     }
 }
 
 
 
 
-function waitForFile(_imgPath) {
-    var file = new File(_imgPath);
 
-    while (!file.exists) {
-        $.writeln("grüße1");
-        $.sleep(1000);
-        $.writeln("grüße2");
-    }
 
-    // Sobald die Datei existiert, fahre mit der Funktion fort
-    // doSomethingWithFile(filePath);
 
-    BridgeTalkMessage_openDoc(_imgPath);
 
 
-}
+/* alert("woodwing_RGB: " + woodwing_RGB);
+alert(GetFileNameOnly(woodwing_RGB))
 
 
-
-
-
-
-// function checkFileExists(_imgPath, callback) {
-//     var file = new File(_imgPath);
-//     var intervalID = setInterval(function() {
-//         if (file.exists) {
-//             clearInterval(intervalID);
-//             callback(_imgPath);
-//         }
-//     }, 1000); // Überprüfe alle 1 Sekunde, ob die Datei existiert
-// }
-// function checkFileExists(_imgPath, callback) {
-//     var file = new File(_imgPath);
-//     var intervalID = app.scheduleTask("checkFile", null, 1000, true);
-
-//     function checkFile() {
-//         if (file.exists) {
-//             app.cancelTask(intervalID);
-//             callback(_imgPath);
-//         }
-//     }
-// }
-// function checkFileExists(_imgPath, callback) {
-//     var file = new File(_imgPath);
-//     var timer = app.scriptPreferences.userInteractionLevel;
-//     app.scriptPreferences.userInteractionLevel = UserInteractionLevels.NEVER_INTERACT;
-
-//     function checkFile() {
-//         if (file.exists) {
-//             clearInterval(intervalID);
-//             app.scriptPreferences.userInteractionLevel = timer;
-//             callback(_imgPath);
-//         }
-//     }
-
-//     var intervalID = setInterval(checkFile, 1000); // Überprüfe alle 1 Sekunde, ob die Datei existiert
-// }
-function checkFileExists(filePath, callback) {
-    var file = new File(filePath);
-    var maxAttempts = 10; // Maximale Anzahl von Versuchen
-    var currentAttempt = 0;
-
-    var interval = setInterval(function () {
-        if (file.exists) {
-            clearInterval(interval);
-            callback(filePath);
-        } else {
-            currentAttempt++;
-            if (currentAttempt >= maxAttempts) {
-                clearInterval(interval);
-                console.error("Maximale Anzahl von Versuchen erreicht. Datei konnte nicht gefunden werden.");
-            }
-        }
-    }, 1000); // Überprüfe alle 1 Sekunde, ob die Datei vorhanden ist
-}
-
-function doSomethingWithFile(_imgPath) {
-    // Hier kannst du deine Operation mit der heruntergeladenen Datei durchführen
-    // Beispiel: Öffnen der Datei in InDesign
-    BridgeTalkMessage_openDoc(_imgPath);
-
-    function BridgeTalkMessage_openDoc(__imgPath) {
-        var bt = new BridgeTalk();
-        bt.target = 'photoshop';
-        bt.body = runPS.toSource() + "('" + __imgPath + "');";
-        bt.send(5);
-    }
-
-
-    function runPS(___imgPath) {
-        app.open(new File(___imgPath));
-        app.bringToFront();
-    }
-}
-
-// Beispielaufruf der Funktion mit dem Dateipfad
-// var filePath = "/Pfad/zur/Datei/meinBild.jpg";
-// checkFileExists(filePath, doSomethingWithFile);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if (selectedImage && selectedImage.hasOwnProperty("imageTypeName")) {
-//     var displayQuality = selectedImage.imageTypeName; // Qualitätseinstellung des Bildes
-
-//     if (displayQuality === "High Quality") {
-//         alert("Das ausgewählte Bild wird mit hoher Anzeigeleistung angezeigt.");
-//     } else {
-//         alert("Das ausgewählte Bild wird nicht mit hoher Anzeigeleistung angezeigt.");
-//     }
-// } else {
-//     alert("Es wurde kein Bild ausgewählt.");
-// }
-
-
-// alert(app.activeWindow.viewDisplaySetting)
-
-// alert("1: " + app.displayPerformancePreferences.defaultDisplaySettings)
-
-// var idx
-// if(idx == undefined) idx = 0
-// var dOptions = [ViewDisplaySettings.HIGH_QUALITY, ViewDisplaySettings.OPTIMIZED, ViewDisplaySettings.TYPICAL]
-// app.activeWindow.viewDisplaySetting = dOptions[idx++]
-// if(idx == 3) idx = 0
-
-
-// alert("2: " + app.displayPerformancePreferences.defaultDisplaySettings)
-
-
-
-
-
-// die globale Anzeigen-Qualität - brauche ich nicht 
-// $.writeln("1: " + app.displayPerformancePreferences.defaultDisplaySettings.toString())
-
-// die Doc-spezifische Anzeigen-Quali
-// $.writeln("docDisplaySetting: " + app.activeWindow.viewDisplaySetting.toString())
-
-// Objektspezifische Einstellungen zulassen
-// true = nicht zulassen
-// false = zulassen
-// $.writeln("docDisplaySetting_allowImgSetting: " + app.displayPerformancePreferences.ignoreLocalSettings)
-
-
-
-
-
-// // Open a log file
-// var myLog = new File("~/WoodWingStudio.noindex/InDesign/64663/_OA_0086__RZ.jpg");
-
-// // See if the file exists
-// if (myLog.exists) {
-//     $.writeln('3: The file exists');
-// } else {
-//     $.writeln('3: The file does not exist');
-// }
-
-
+~/WoodWingStudio.noindex/InDesign/65299/Falke_PP-3815.jpg */

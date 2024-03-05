@@ -76,4 +76,4 @@ var d=new BridgeTalk;d.target="photoshop",d.body=runPS.toSource()+"('"+e+"','"+i
         alert("_suffixRGB:" + _suffixRGB);
         alert("_isWoodwing:" + _isWoodwing);
         alert("_woodwing_mainFolder:" + _woodwing_mainFolder);
-        alert("_woodwing_imageID:" + _woodwing_imageID); */var d=new Folder(e+"/"+i),g=decodeURI(d+"/"+o+t+".psd");l?(function(e){for(var i=!1,a=0;a<app.documents.length;a++)app.documents[a].name==e&&(i=!0);return i}(n)&&app.documents.getByName(n).close(SaveOptions.DONOTSAVECHANGES),app.open(new File(g))):app.open(new File(a))}
+        alert("_woodwing_imageID:" + _woodwing_imageID); */var d=new Folder(e+"/"+i),g=decodeURI(d+"/"+o+t+".psd");l?(function(e){for(var i=!1,a=0;a<app.documents.length;a++)if(app.documents[a].name==e){i=!0;break}return i}(n)&&app.documents.getByName(n).close(SaveOptions.DONOTSAVECHANGES),app.open(new File(g))):app.open(new File(a))}

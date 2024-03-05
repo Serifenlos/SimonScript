@@ -1,34 +1,7 @@
-// import { DOMParser } from '../../_assets/node_modules/xmldom'
-// import { XMLSerializer } from '../../_assets/node_modules/xmldom'
 import {
   DOMParser,
   XMLSerializer
-} from '../../_assets/node_modules/xmldom'
-// import xmldom from '../../_assets/node_modules/xmldom'
-
-// const { DOMParser } = require('xmldom')
-
-// const doc = new DOMParser().parseFromString(
-//   '<xml xmlns="a" xmlns:c="./lite">\n' +
-//   '\t<child>test</child>\n' +
-//   '\t<child></child>\n' +
-//   '\t<child/>\n' +
-//   '</xml>',
-//   'text/xml'
-// )
-// doc.documentElement.setAttribute('x', 'y')
-// doc.documentElement.setAttributeNS('./lite', 'c:x', 'y3')
-// console.info(doc)
-
-// const nsAttr = doc.documentElement.getAttributeNS('./lite', 'x')
-// console.info(nsAttr)
-
-
-// const dom = new DOMParser()
-// const xmlSerializer = new DOMParser()
-// const domParser = new DOMParser()
-
-
+} from '../../_assets/node_modules/@xmldom/xmldom'
 
 
 

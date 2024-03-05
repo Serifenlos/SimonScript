@@ -1,6 +1,6 @@
 #!/bin/sh
 
-project=/Users/simon/Arbeit/GitHub/SimonScript
+project=/Users/adrians/Arbeit/GitHub/SimonScript
 folder=$project/source/_functions
 
 #project=/Users/simon/Arbeit/__temp
@@ -35,4 +35,4 @@ done
 # osascript $project/source/_assets/build_helper__processFunctionsPaket.scpt
 # osascript $project/source/_assets/build_helper__refreshCodekitProject.scpt
 
-osascript -e "tell application \"CodeKit\" to refresh project containing path \"/Users/simon/Arbeit/GitHub/SimonScript\""
+osascript -e "tell application \"CodeKit\" to refresh project containing path \"/Users/adrians/Arbeit/GitHub/SimonScript\""

@@ -15,21 +15,128 @@
 
 
 
-if (getMeta_2("isWoodwing")) var isWoodwing = getMeta_2("isWoodwing");
-if (getMeta_2("woodwing_imageFile_RGB")) var woodwing_imageFile_RGB = getMeta_2("woodwing_imageFile_RGB");
-if (getMeta_2("imageFile_copyRGB")) var imageFile_copyRGB = getMeta_2("imageFile_copyRGB");
-
-// $.writeln("isWoodwing: " + getMeta_2("isWoodwing"));
-// $.writeln("woodwing_imageFile_RGB: " + getMeta_2("woodwing_imageFile_RGB"));
-// $.writeln("imageFile_copyRGB: " + getMeta_2("imageFile_copyRGB"));
-
-// alert("isWoodwing: " + getMeta_2("isWoodwing"));
-// alert("woodwing_imageFile_RGB: " + getMeta_2("woodwing_imageFile_RGB"));
-// alert("imageFile_copyRGB: " + getMeta_2("imageFile_copyRGB"));
+if (getMeta_3("isWoodwing")) var isWoodwing = getMeta_3("isWoodwing");
+if (getMeta_3("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_3("arbeitsdatei_RGB");
+if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
+if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
 
 
 
+// alert("isWoodwing: " + getMeta_2("isWoodwing") + "\narbeitsdatei_RGB: " + getMeta_2("arbeitsdatei_RGB") + "\nwoodwing_RGB: " + getMeta_2("woodwing_RGB") + "\nwoodwing_file: " + getMeta_2("woodwing_file") + "\nidDocName: " + getMeta_2("idDocName"));
 
+try {
+    var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
+    var doc = app.activeDocument;
+
+} catch (e) { alert(e) }
+
+// closeDoc(woodwing_file);
+
+// alert(woodwing_file)
+if (isWoodwing) {
+
+    BridgeTalkMessage_openDocID(idDocName, woodwing_file);
+
+    // ICH BRAUCHE EINEN NOTIFYER : WIE GEHTS ?
+    // DER SOLL AUFS DOC ACHTEN - WENNS GEÖFFNET IST, WIEDER SCHIESSEN UND DEN NOTIFYER LÖSCHEN
+    // app.setTimeout = (alert("nix"), 3000);
+    // app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
+
+    // alert("woodwing_file: " + woodwing_file);
+    // alert("woodwing_RGB: " + woodwing_RGB);
+    // if (!isFileOpen(woodwing_file)) {
+    //     app.open(new File(woodwing_RGB));
+    // }
+    closeDoc(woodwing_file);
+    
+
+
+    doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+
+    // closeDoc(woodwing_file);
+    // app.documents.getByName("Falke_PP-3815.jpg").close(SaveOptions.DONOTSAVECHANGES);
+
+
+    // saveFile_PSD(new File(arbeitsdatei_RGB), f, t, f, t, t, f);
+    // saveJPG(2, 3, new File(woodwing_RGB), t, t, t);
+
+    // // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+    // if(isFileOpen(woodwing_file)) {
+    //     app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
+    // } else {
+    //     alert("nicht offen?");
+    // }
+
+
+    function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
+        var bt = new BridgeTalk();
+        bt.target = 'indesign';
+        bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "');";
+        bt.onResult = function (resObj) { }
+        bt.send(10);
+    }
+
+
+
+    function closeDoc(_file) {
+        try { _file.close(SaveOptions.DONOTSAVECHANGES) }
+        catch (e) {
+            // alert(e);
+        }
+    }
+}
+
+
+
+
+
+
+function runID(_idDocName, _woodwing_file) {
+
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var woodwing_file = app.activeDocument.links.itemByName(_woodwing_file);
+            woodwing_file.editOriginal();
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) {
+        alert(e);
+    }
+
+    return;
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name == _fileName) {
+                fileIsOpen = true;
+                /* var filePath = File(app.documents[j].fullName.fullName);
+                app.open(filePath, true); */
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
+}
+
+
+
+
+
+function save_ArbeitWood_RGB() {
+    try {
+        saveJPG(2, 3, new File(woodwing_RGB), t, t, t);
+    } catch (e) { "Error 2: " + alert(e) }
+
+    try {
+        saveFile_PSD(new File(arbeitsdatei_RGB), f, t, f, t, t, f);
+    } catch (e) { "Error 2: " + alert(e) }
+
+}
 
 
 function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
@@ -49,13 +156,13 @@ function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
     executeAction(s2t("save"), d, DialogModes.NO);
 }
 
-var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
-
-if (isWoodwing) {
-/*     $.writeln("isWoodwing: " + isWoodwing);
-    $.writeln("woodwing_imageFile_RGB: " + woodwing_imageFile_RGB);
-    $.writeln("imageFile_copyRGB: " + imageFile_copyRGB); */
-    saveJPG(2, 3, new File(imageFile_copyRGB), t, t, t);
-    saveFile_PSD(new File(woodwing_imageFile_RGB), f, t, f, t, t, f);
-
+function isFileOpen(_fileName) {
+    var fileIsOpen = false;
+    for (var j = 0; j < app.documents.length; j++) {
+        if (app.documents[j].name == _fileName) {
+            fileIsOpen = true;
+            break;
+        }
+    }
+    return fileIsOpen;
 }

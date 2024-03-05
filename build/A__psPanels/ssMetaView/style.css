@@ -1,0 +1,28 @@
+@charset "UTF-8";
+body {
+  color: white;
+  padding: 0 16px; }
+
+li:before {
+  content: '• ';
+  width: 3em; }
+
+#layers {
+  border: 1px solid #808080;
+  border-radius: 4px;
+  padding: 16px; }
+
+.block {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  margin-bottom: 8px; }
+  .block label {
+    padding: 4px 8px; }
+  .block > * {
+    flex: 1 1 auto;
+    text-align: left; }
+  .block sp-textfield {
+    width: 100%; }
+    .block sp-textfield[value="true"] {
+      color: rebeccapurple; }

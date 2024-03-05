@@ -233,7 +233,7 @@ function runPS(_docFolder, _idDocName, _imageFile, _imageName, _imageName_init, 
         for (var j = 0; j < app.documents.length; j++) {
             if (app.documents[j].name == _fileName) {
                 fileIsOpen = true;
-                /* break; */
+                break;
             }
         }
         return fileIsOpen;

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="main.js"></script> 
+    <link rel="stylesheet" href="style.css">   
+</head>
+
+<body>
+    <div class="wrapper">
+      <div class="sp-tabs">
+        <div class="sp-tab selected" id="mfcPaper-tab"><sp-label>1<span>MFC Paper</span></sp-label></div>
+        <div class="sp-tab" id="isoCoated300-tab"><sp-label>2<span>iso Coated v2 300%</span></sp-label></div>
+        <div class="sp-tab" id="isoCoated-tab"><sp-label>3<span>iso Coated v2</span></sp-label></div>
+        <div class="sp-tab" id="psoUncoated-tab"><sp-label>4<span>PSO Uncoated</span></sp-label></div>
+        <div class="sp-tab" id="psoUncoated_v3-tab"><sp-label>5<span>PSO Uncoated v3</span></sp-label></div>
+        <div class="sp-tab" id="psoLWCimproved-tab"><sp-label>6<span>PSO LWC Improved</span></sp-label></div>
+        <div class="sp-tab" id="psoCoated_v3-tab"><sp-label>7<span>PSO Coated v3</span></sp-label></div>
+        <div class="sp-tab" id="RGB-tab"><sp-label>8<span>RGB</span></sp-label></div>
+        <div class="sp-tab" id="Custom-tab"><sp-label>9<span>Custom</span></sp-label></div>
+      </div>
+  
+      <div class="sp-tab-page visible" id="mfcPaper-tab-page">
+          <sp-radio-group selected="first" name="example">
+            
+              <sp-radio invalid
+                class="noSoftproof"
+                value="first">
+              </sp-radio>
+  
+              <sp-radio 
+                data-proofProfil="PSO MFC Paper (ECI)"
+                data-proofIntent="colorimetric"
+                data-proofTK="true"
+                data-proofGroup="mfcPaper"
+                value="first">
+              </sp-radio>
+  
+              <sp-radio
+                data-proofProfil="PSO MFC Paper (ECI)"
+                data-proofIntent="image"
+                data-proofTK="true"
+                data-proofGroup="mfcPaper"
+                value="first">
+              </sp-radio>
+  
+              <sp-radio 
+                data-proofProfil="PSO MFC Paper (basICColor)"
+                data-proofIntent="colorimetric"
+                data-proofTK="true"
+                data-proofGroup="mfcPaper"
+                value="first">
+              </sp-radio>
+  
+              <sp-radio 
+                data-proofProfil="PSO MFC Paper (basICColor)"
+                data-proofIntent="image"
+                data-proofTK="true"
+                data-proofGroup="mfcPaper"
+                value="first">
+              </sp-radio> 
+  
+              <sp-radio 
+                data-proofProfil="Web_SC_FOGRA40_GCR_bas.icc"
+                data-proofIntent="colorimetric"
+                data-proofTK="true"
+                data-proofGroup="mfcPaper"
+                value="first">
+              </sp-radio>
+  
+          </sp-radio-group>
+        </div>
+            
+  
+          <!-- <div class="sp-action-button-row">
+            <sp-action-button id="ding" data-proofProfil="PSO MFC Paper (ECI)" data-proofIntent="colorimetric" data-proofTK="true">Gr</sp-action-button>
+            <sp-action-button id="levels">Ton</sp-action-button>
+            <sp-action-button id="brightnessEvent">H+K</sp-action-button>
+            <sp-action-button id="selectiveColor">Sel</sp-action-button>
+            <sp-action-button id="colorBalance">Fa</sp-action-button>
+            <sp-action-button id="hueSaturation">Sä</sp-action-button>
+            <sp-action-button id="blackAndWhite">SW</sp-action-button>
+            <sp-action-button id="vibrance">Dy</sp-action-button>
+          </div> -->
+  
+  
+  
+      <div class="sp-tab-page" id="isoCoated300-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="ISO Coated v2 300% (ECI)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="isoCoated300"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="ISO Coated v2 300% (ECI)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="isoCoated300"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="ISO Coated v2 300% (basICColor)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="isoCoated300"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="ISO Coated v2 300% (basICColor)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="isoCoated300"
+            value="first">
+          </sp-radio> 
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="isoCoated-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="ISO Coated v2 (ECI)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="isoCoated"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="ISO Coated v2 (ECI)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="isoCoated"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="ISO Coated v2 (basICColor)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="isoCoated"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="ISO Coated v2 (basICColor)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="isoCoated"
+            value="first">
+          </sp-radio> 
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="psoUncoated-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO Uncoated ISO12647 (ECI)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="psoUncoated"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="PSO Uncoated ISO12647 (ECI)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="psoUncoated"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO Uncoated ISO12647 (basICColor)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="psoUncoated"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO Uncoated ISO12647 (basICColor)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="psoUncoated"
+            value="first">
+          </sp-radio> 
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="psoUncoated_v3-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO Uncoated v3 (FOGRA52)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="psoUncoated_v3"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="PSO Uncoated v3 (FOGRA52)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="psoUncoated_v3"
+            value="first">
+          </sp-radio>
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="psoLWCimproved-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO LWC Improved (ECI)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="psoLWCimproved"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="PSO LWC Improved (ECI)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="psoLWCimproved"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO LWC Improved (basICColor)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="psoLWCimproved"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO LWC Improved (basICColor)"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="psoLWCimproved"
+            value="first">
+          </sp-radio> 
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="psoCoated_v3-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="PSO Coated v3"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="psoCoated_v3"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="PSO Coated v3"
+            data-proofIntent="image"
+            data-proofTK="true"
+            data-proofGroup="psoCoated_v3"
+            value="first">
+          </sp-radio>
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="RGB-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="Adobe RGB (1998)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="RGB"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="eciRGB v2"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="RGB"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="image P3"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="RGB"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="sRGB IEC61966-2.1"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="RGB"
+            value="first">
+          </sp-radio>
+  
+  
+  
+        </sp-radio-group>
+      </div>
+  
+      <div class="sp-tab-page" id="Custom-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+  
+          <sp-radio
+            data-proofProfil="SaalDigital_Fotobuch_Matt.icc"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Custom"
+            value="first">
+          </sp-radio>
+  
+        </sp-radio-group>
+      </div>
+      
+  
+    </div>
+    
+    <div class="wrapper">
+        <!-- <sp-divider size="medium"></sp-divider> -->
+        <sp-body size="XS" id="proofinfo"></sp-body>
+    </div>
+    
+  </body>
+  </html>
