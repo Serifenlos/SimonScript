@@ -1,0 +1,1 @@
+function editXMP_3(e,s){null==ExternalObject.AdobeXMPScript&&(ExternalObject.AdobeXMPScript=new ExternalObject("lib:AdobeXMPScript")),xmpMeta=new XMPMeta(app.activeDocument.xmpMetadata.rawData),ns_ss=e?ns_ss:"http://ns.simonadrian.de/simonscript/1.0/",ns_ssPrefix=s?ns_ssPrefix:"ss:",XMPMeta.registerNamespace(ns_ss,ns_ssPrefix)}

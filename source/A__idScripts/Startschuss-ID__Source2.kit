@@ -78,7 +78,7 @@ function startschuss() {
     }
 
     var idDoc = app.activeDocument;
-    var idDocName = GetFileNameOnly(decodeURI(idDoc.name));
+    var idDocName = decodeURI(idDoc.name);
     // $.writeln("idDocName: " + idDocName)
 
 
@@ -88,8 +88,7 @@ function startschuss() {
     for (var i = 0; i < app.selection.length; i++) {
 
         /** Variablen  **************************************************************/
-        var doc, myLivePath, myFolder, myFile, myImage, ZielAufloesung, hScale, vScale, hPPI, vPPI, myImage, myImagePath, myImageFile, myNewImageFile, myNewPath, unter300
-        var woodwing_id;
+        var selection, image, imageLink, isWoodwing, woodwing_imageID, hScale, hPPI, imagePath, imageFile, imageName_only, docFolder;
 
         // Kann doch raus ??
         // var doc = app.activeDocument;           // TODO wenn noch nie gespeichert dann Abbruch
@@ -104,9 +103,9 @@ function startschuss() {
             var selection = app.selection[i];
         }
 
-        app.selection[i].images[0]
         var image = selection.images[0];
         var imageLink = selection.graphics[0].itemLink;
+        
 
         try {
             if (imageLink.wwoi) {
@@ -117,13 +116,13 @@ function startschuss() {
             var isWoodwing = false;
         }
 
-        // var hScale = image.horizontalScale;
+        var hScale = image.horizontalScale;
         // var vScale = image.verticalScale;
         var hPPI = image.effectivePpi[0];
         // var vPPI = image.effectivePpi[1];
 
 
-        var image = imageLink.parent;            // was ist das?
+        // var image = imageLink.parent;            // was ist das?
 
         if (!isWoodwing) {
             var imagePath = imageLink.filePath;
@@ -132,30 +131,32 @@ function startschuss() {
         }
 
         var imageFile = new File(imagePath);
-        var imageName_init = GetFileNameOnly(decodeURI(imageFile.name));
+        var imageName_only = GetFileNameOnly(decodeURI(imageFile.name));
 
-        if (typeof getRubrik(getRubrik_array) !== 'undefined') {
-            var indd_rubrik = getRubrik(getRubrik_array);
-        }
-        else { var indd_rubrik = "" }
-
+        // if (typeof getRubrik(getRubrik_array) !== 'undefined') {
+        //     var indd_rubrik = getRubrik(getRubrik_array);
+        // }
+        // else { var indd_rubrik = "" }
         // var docFolder = new Folder(mainFolder + subFolder + indd_rubrik);
+
         var docFolder = new Folder(mainFolder + subFolder);
         if (!docFolder.exists) docFolder.create();
 
         /*TODO ob tif oder psd // hier muss variabl */
-        // var new_imagePath = docFolder + "/" + imageName_init + suffixRGB + ".psd";
+        // var new_imagePath = docFolder + "/" + imageName_only + suffixRGB + ".psd";
 
 
 
         /** run Main-function **************************************************************/
-        run_ID(imageName_init, docFolder, idDocName, selection, hPPI, imageLink, isWoodwing, woodwing_imageID);
+        run_ID(image, docFolder, idDocName, imageName_only, selection, hPPI, hScale, imageLink, isWoodwing, woodwing_imageID);
+
+        // set_img2hq(image);
 
     }
 
 /*     $.writeln("image: " + image)
     $.writeln("hPPI: " + hPPI);
-    $.writeln("imageName_init: " + imageName_init);
+    $.writeln("imageName_only: " + imageName_only);
     $.writeln("imagePath: " + imagePath)
     $.writeln("imageFile: " + imageFile)
     $.writeln("woodwing_imageID: " + woodwing_imageID) */
@@ -194,8 +195,8 @@ function getRubrik(_array) {
     } catch (e) { }
 }
 
-function run_ID(_imageName_init, _docFolder, _idDocName, _selection, _hPPI, _imageLink, _isWoodwing, _woodwing_imageID) {
-    if (!checkRGBFile(_imageName_init)) {
+function run_ID(_image, _docFolder, _idDocName, _imageName_only, _selection, _hPPI, hScale, _imageLink, _isWoodwing, _woodwing_imageID) {
+    if (!checkRGBFile(_imageName_only)) {
         return;
     }
 
@@ -211,11 +212,11 @@ function run_ID(_imageName_init, _docFolder, _idDocName, _selection, _hPPI, _ima
     }
 
     // openAndRelinkImage(interpolieren, _imageLink, _isWoodwing);
-    OpenImage(_docFolder, _idDocName, interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID);
+    OpenImage(_image, _docFolder, _idDocName, _imageName_only, _hPPI, hScale, interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID);
 }
 
-function checkRGBFile(_imageName_init) {
-    if (new RegExp("__RGB").test(_imageName_init)) {
+function checkRGBFile(_imageName_only) {
+    if (new RegExp("__RGB").test(_imageName_only)) {
         var alreadyRGB_dialog = createDialog("schon vorbereitet?", "ist das bild schon vorbereitet?", "weiter", "stopp");
         return alreadyRGB_dialog.show() ? 0 : 1;
     }
@@ -232,6 +233,7 @@ function chooseInterpolationMethod(_hPPI) {
         return interpolation_dialog.show();
     }
     // return 1;
+    return "keineInterpolation";
 }
 
 function createDialog(_title, _message) {
@@ -256,11 +258,45 @@ function createDialog(_title, _message) {
 }
 
 
+function set_docDisplaySetting() {
+    var docDisplaySetting = app.activeWindow.viewDisplaySetting.toString();
+    var docDisplaySetting_allowImgSetting = app.displayPerformancePreferences.ignoreLocalSettings;
+
+    if (docDisplaySetting != "HIGH_QUALITY" && docDisplaySetting_allowImgSetting) {
+        try {
+            app.displayPerformancePreferences.ignoreLocalSettings = false;
+        } catch (e) {
+            alert("Error: set_docDisplaySetting() \n" + e);
+        }
+    }
+}
+
+function set_img2hq(_image) {
+    set_docDisplaySetting();
+    if (_image.localDisplaySetting.toString() != "HIGH_QUALITY") {
+        _image.localDisplaySetting = DisplaySettingOptions.HIGH_QUALITY;
+    }
+}
+
+function relink(_imageLink, _arbeitsdatei_RGB) {
+    var newFile = new File(_arbeitsdatei_RGB);
+    if (newFile.exists) {
+        _imageLink.relink(newFile);
+        try {
+            if (_imageLink.status == LinkStatus.linkOutOfDate) {
+                _imageLink.update();
+            }
+        } catch (e) {
+            alert(e)
+        }
+    }
+}
+
 
 
 
 /*=================================================================================*/
-function OpenImage(_docFolder, _idDocName, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID) {
+function OpenImage(_image, _docFolder, _idDocName, _imageName_only, _hPPI, hScale, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID) {
     // try {
     //     if (_imageLink.isValid == true && _imageLink.constructor.name == "Rectangle") {
     //     }
@@ -270,37 +306,36 @@ function OpenImage(_docFolder, _idDocName, _interpolationMethod, _imageLink, _is
 
     try {
         _imageLink.editOriginal();
-        BridgeTalk_processDoc(_docFolder, _idDocName, suffixRGB, _interpolationMethod, _imageLink, _isWoodwing, woodwing_mainFolder, _woodwing_imageID);
+        BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageName_only, suffixRGB, _hPPI, hScale, minAufloesung, ZielAufloesung, _interpolationMethod, _imageLink, _isWoodwing, woodwing_mainFolder, _woodwing_imageID);
     } catch (e) {
         alert(e)
     }
 }
 
 
-// function CreateBridgeTalkMessage(__interpolMethod) {
-//     var bt = new BridgeTalk();
-//     bt.target = "photoshop"; //call for cc2020 -> "photoshop-140" //cc2021 -> "photoshop-150"
-//     // bt.body = ResaveInPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + "," + option_convert_8bit + "," + papier + ");";
-//     bt.body = runPS.toSource() + "('" + myImagePath + "','" + myNewPath + "'," + hScale + "," + vScale + "," + ZielAufloesung + "," + minAufloesung + "," + hPPI + ",'" + __interpolMethod + "');";
-//     bt.onResult = function(resObj) {}
-//     bt.send(100);
-// }
 
-
-
-
-
-function BridgeTalk_processDoc(_docFolder, _idDocName, _suffixRGB, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
+function BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageName_only, _suffixRGB, _hPPI, hScale, _minAufloesung, _ZielAufloesung, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
     // $.writeln("__interpolationMethod: " + _interpolationMethod);
     // $.writeln("____imageLink.name2: " + _imageLink.name);
+    // alert("ID _suffixRGB: " + _suffixRGB);
+    // alert("ID _hPPI: " + _hPPI);
     var imageName = decodeURI(_imageLink.name);
+    // var imageName_only = GetFileNameOnly(imageName);
     var bt = new BridgeTalk();
     bt.target = 'photoshop';
-    bt.body = runPS.toSource() + "('" + _imageLink + "','" + _docFolder + "','" + _idDocName + "','" + _suffixRGB + "','" + _interpolationMethod + "','" + imageName + "','" + _isWoodwing + "','" + _woodwing_mainFolder + "','" + _woodwing_imageID + "');";
-    bt.send(5);
+    bt.body = runPS.toSource() + "('" + _imageLink + "','" + _docFolder + "','" + _idDocName + "','" + _imageName_only + "','" + _suffixRGB + "','" + _hPPI + "','" + hScale + "','" + _minAufloesung + "','" + _ZielAufloesung + "','" + _interpolationMethod + "','" + imageName + "','" + _isWoodwing + "','" + _woodwing_mainFolder + "','" + _woodwing_imageID + "');";
+    bt.onResult = function(resObj) {
+        set_img2hq(_image);
+        if(!_isWoodwing) {
+            var imageFolder_RGB = new Folder(_docFolder + "/" + _idDocName);
+            var arbeitsdatei_RGB =  decodeURI(imageFolder_RGB + "/" + _imageName_only + _suffixRGB + ".psd");
+            relink(_imageLink, arbeitsdatei_RGB);
+        }
+    };
+    bt.send(30);
 }
 
-function runPS(_imageLink, _docFolder, _idDocName, _suffixRGB, _interpolationMethod, _imageName, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
+function runPS(_imageLink, _docFolder, _idDocName, _imageName_only, _suffixRGB, _hPPI, hScale, _minAufloesung, _ZielAufloesung, _interpolationMethod, _imageName, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
     <!-- @import "../../build/A__psScripts/functions/basic.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/utils.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/view.jsx"; -->
@@ -311,58 +346,138 @@ function runPS(_imageLink, _docFolder, _idDocName, _suffixRGB, _interpolationMet
     <!-- @import "../../build/A__psScripts/functions/meta.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/save.jsx"; -->
     
-    app.bringToFront();
-    var _isWoodwing = (_isWoodwing === 'true');
-    var imageName_init = GetFileNameOnly(decodeURI(_imageName));
+    /* app.bringToFront(); */
+    prefSave();
+    prefSet(DialogModes.NO, Units.MM);
 
-    /*alert("__interpolationMethod: " + _interpolationMethod);
-    alert("_____imageLink: " + _imageLink);
-    alert("isWoodwing: " + _isWoodwing);
-    alert("_imageLink´: " + _imageName);
-    alert("imageName_init: " + imageName_init);
-    alert("_woodwing_mainFolder: " + _woodwing_mainFolder);
-    alert("_woodwing_imageID: " + _woodwing_imageID);
-    alert("new_imagePath: " + new_imagePath);
+    var _isWoodwing = (_isWoodwing === 'true');
+    var _hPPI = parseFloat(_hPPI);
+    var _minAufloesung = parseFloat(_minAufloesung);
+    var _ZielAufloesung = parseFloat(_ZielAufloesung);
+    var hScale = parseFloat(hScale);
+    var idDocName_only = GetFileNameOnly(decodeURI(_idDocName));
+
+    
+/*     alert("_imageLink: " + _imageLink);
     alert("_docFolder: " + _docFolder);
     alert("_idDocName: " + _idDocName);
-    alert("_suffixRGB: " + _suffixRGB) */; 
+    alert("idDocName_only: " + idDocName_only);
+    alert("_suffixRGB: " + _suffixRGB);
+    alert("_hPPI: " + _hPPI);
+    alert("_interpolationMethod: " + _interpolationMethod);
+    alert("isWoodwing: " + _isWoodwing);
+    alert("_imageName: " + _imageName);
+    alert("_imageName_only: " + _imageName_only);
+    alert("_woodwing_mainFolder: " + _woodwing_mainFolder);
+    alert("_woodwing_imageID: " + _woodwing_imageID); */
+    
 
-    var imageFolder_RGB = new Folder(_docFolder + "/" + _idDocName);
+    var imageFolder_RGB = new Folder(_docFolder + "/" + idDocName_only);
     /* var docFolder = new Folder(mainFolder + subFolder); */
     if (!imageFolder_RGB.exists) imageFolder_RGB.create();
 
-    var imageFile_RGB =  decodeURI(imageFolder_RGB + "/" + imageName_init + _suffixRGB + ".psd");
-    var imageFile_copyRGB =  decodeURI(_woodwing_mainFolder + _woodwing_imageID + "/" + imageName_init + ".jpg");
-    alert("imageFile_RGB: " + imageFile_RGB);
-    alert("imageFile_copyRGB: " + imageFile_copyRGB);
+    var arbeitsdatei_RGB =  decodeURI(imageFolder_RGB + "/" + _imageName_only + _suffixRGB + ".psd");
+    var woodwing_RGB =  decodeURI(_woodwing_mainFolder + _woodwing_imageID + "/" + _imageName_only + ".jpg");
+
+    /* alert("_isWoodwing: " + _isWoodwing);
+    alert("arbeitsdatei_RGB: " + arbeitsdatei_RGB);
+    alert("woodwing_RGB: " + woodwing_RGB); */
+    /* alert("_interpolationMethod: " + _interpolationMethod);
+    alert(typeof _interpolationMethod); */
     
 
-    var psDoc = app.documents.getByName(_imageName);
-    if (psDoc) {
-        app.activeDocument = psDoc;
+    var myPsDoc = app.documents.getByName(_imageName);
+    if (myPsDoc) {
+        app.activeDocument = myPsDoc;
     } else {
         alert("Kann das Bild nicht öffnen - Abbruch!");
         return;
     }
 
+/*     function prefSave(_hier) {
+        var obj = {};
+        obj[_hier + "_RulerUnits"] = app.preferences.rulerUnits;
+        return obj;
+    }
     
+    var result = prefSave("HIER");
+    for (var key in result) {
+        if (result.hasOwnProperty(key)) {
+            alert(key + ": " + result[key]);
+        }
+    } */
+    
+
+/*     function temp_prefSave() {
+        temp_saveRulerUnits = app.preferences.rulerUnits;
+    }
+    alert("0: " + app.preferences.rulerUnits);
+    temp_prefSave();
+    prefSet(startDisplayDialogs, Units.PIXELS);
+    alert("1: " + app.preferences.rulerUnits);
+    prefSet(startDisplayDialogs, temp_saveRulerUnits);
+    alert("2: " + app.preferences.rulerUnits); */
+    
+
+    
+    
+
+
+    function chooseMethod(_interpolationMethod) {
+        switch (_interpolationMethod) {
+            case "0":
+            case "keineInterpolation":
+                myPsDoc.suspendHistory("Startschuss", "startschuss()");
+                try {
+                    myPsDoc.suspendHistory("Bildgröße Photoshop", "interpolation_PS(" + _hPPI + "," + _minAufloesung + "," + _ZielAufloesung + ")");
+                } catch (e) {alert(e)}
+                
+                break;
+            case "1":
+                myPsDoc.suspendHistory("Bildgröße GigaPixel", "interpolation_GigaPixel(" + _hPPI + "," + _minAufloesung + ")");
+                myPsDoc.suspendHistory("Startschuss", "startschuss()");
+                break;
+            case "2":
+                myPsDoc.suspendHistory("Bildgröße PhotoAI", "interpolation_PhotoAI(" + _hPPI + "," + _minAufloesung + ")");
+                myPsDoc.suspendHistory("Startschuss", "startschuss()");
+                break;
+            case "3":
+                /* alert("Methode 3 ausgewählt"); */
+                break;
+            default:
+                alert("Ungültiger Wert für _interpolationMethod");
+        }
+    }
+    
+
+    chooseMethod(_interpolationMethod);
+
+    /* myPsDoc.suspendHistory("Startschuss", "startschuss()"); */
+
+
 
     if(!_isWoodwing) {
         alert("wird konventionell gespeichert");
         try {
-            saveFile_PSD(new File(imageFile_RGB), f, t, f, t, t, f);
+            saveFile_PSD(new File(arbeitsdatei_RGB), f, t, f, t, t, f);
             /* saveJPG(1, 3, new File(imageFile_copyRGB), t, t, t); */
         } catch(e){alert(e)};
     } else {
-        setMeta_2("isWoodwing", "true");
-        setMeta_2("woodwing_imageFile_RGB", imageFile_RGB);
-        setMeta_2("imageFile_copyRGB", imageFile_copyRGB);
+        setMeta_3("isWoodwing", "true");
+        setMeta_3("arbeitsdatei_RGB", arbeitsdatei_RGB);
+        setMeta_3("woodwing_RGB", woodwing_RGB);
+        setMeta_3("woodwing_file", _imageName);
+        setMeta_3("idDocName", _idDocName);
 
-        invert();
         alert("wird Woodwing gespeichert");
-        saveFile_PSD(new File(imageFile_RGB), f, t, f, t, t, f);
-        saveJPG(2, 3, new File(imageFile_copyRGB), t, t, t);
+
+        try {
+            doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+        } catch (e) {alert(e)}
+        
     }
+
+    startschuss_end();
 
 
    /* saveJPG(11, 3, new File("/Users/adrians/Arbeit/__temp/RGB/ohneProfil.jpg"), true, true, true); */
@@ -383,9 +498,23 @@ function runPS(_imageLink, _docFolder, _idDocName, _suffixRGB, _interpolationMet
         executeAction(s2t("save"), d, DialogModes.NO);
     }
 
+    function save_ArbeitWood_RGB () {
+        saveJPG(2, 3, new File(woodwing_RGB), t, t, t);
+        saveFile_PSD(new File(arbeitsdatei_RGB), f, t, f, t, t, f);
+    }
+
+
+    function startschuss_end() {
+        fitScreen();
+        if (getZoomLevel() >= 100) {
+            zoom100();
+        } else {
+            zoomOut();
+        }
+        prefReset();
+    }
+
     
 }
-
-
 
 

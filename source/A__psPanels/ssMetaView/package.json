@@ -1,0 +1,7 @@
+{
+  "name": "ssMetaView",
+  "version": "1.0.0",
+  "description": "Check the XMP-Metatags for my workflow",
+  "author": "Simon Adrian",
+  "license": "Apache-2.0"
+}

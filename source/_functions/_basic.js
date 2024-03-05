@@ -47,6 +47,9 @@
 // @codekit-prepend './basic/hasBackground.js';
 // @codekit-prepend './basic/img_resize.js';
 // @codekit-prepend './basic/indexcolor2rgb.js';
+// @codekit-prepend './basic/interpolation_GigaPixel.js';
+// @codekit-prepend './basic/interpolation_PS.js';
+// @codekit-prepend './basic/interpolation_PhotoAI.js';
 // @codekit-prepend './basic/invert.js';
 // @codekit-prepend './basic/isSelectionActive.js';
 // @codekit-prepend './basic/logger.js';
@@ -77,6 +80,7 @@
 // @codekit-prepend './basic/smartObject.js';
 // @codekit-prepend './basic/smartObjectTransparencyIssue.js';
 // @codekit-prepend './basic/startScriptFile.js';
+// @codekit-prepend './basic/text2Clipboard.js';
 // @codekit-prepend './basic/time_start.js';
 // @codekit-prepend './basic/time_stop.js';
 // @codekit-prepend './basic/transformLayer.js';

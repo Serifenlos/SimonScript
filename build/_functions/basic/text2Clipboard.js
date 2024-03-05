@@ -1,0 +1,1 @@
+function text2Clipboard(t){var e=new ActionDescriptor;e.putString(stringIDToTypeID("textData"),t),executeAction(stringIDToTypeID("textToClipboard"),e,DialogModes.NO)}

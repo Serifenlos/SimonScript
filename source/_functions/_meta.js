@@ -1,11 +1,15 @@
 // @codekit-prepend './meta/delMeta.js';
 // @codekit-prepend './meta/delMeta_2.js';
+// @codekit-prepend './meta/delMeta_3.js';
 // @codekit-prepend './meta/editXMP.js';
 // @codekit-prepend './meta/editXMP_2.js';
+// @codekit-prepend './meta/editXMP_3.js';
 // @codekit-prepend './meta/getMeta.js';
 // @codekit-prepend './meta/getMeta_2.js';
+// @codekit-prepend './meta/getMeta_3.js';
 // @codekit-prepend './meta/getMeta_softproof.js';
 // @codekit-prepend './meta/getSoftProof.js';
 // @codekit-prepend './meta/set.js';
 // @codekit-prepend './meta/setMeta.js';
 // @codekit-prepend './meta/setMeta_2.js';
+// @codekit-prepend './meta/setMeta_3.js';
