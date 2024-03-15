@@ -14,7 +14,7 @@
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getActiveLayerIndex.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getActiveLayerIndex.js)
 
 ### closeGroup
 ***action*** 
@@ -131,7 +131,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/closeGroup.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/closeGroup.js)
 
 ### ungroup
 ***action*** ungroup selected group
@@ -153,7 +153,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/ungroup.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/ungroup.js)
 
 ### addLayer
 ***action*** add new LayerSet/empty group
@@ -172,7 +172,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/addLayer.js)
 
 ### isVisible
 ***boolean*** return state of Visibility of Layer/Group
@@ -190,7 +190,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVisible.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isVisible.js)
 
 ### isVisibleIDX 
 
@@ -208,7 +208,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVisibleIDX.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isVisibleIDX.js)
 
 ### makeVisible
 ***action*** show Layer/Group
@@ -262,7 +262,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/makeVisible.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/makeVisible.js)
 
 ### hide
 ***action*** hide Layer/Group
@@ -325,7 +325,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hide.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/hide.js)
 
 ### hasLayerMask
 ***boolean*** return if Layer/Group has a mask
@@ -343,7 +343,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hasLayerMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/hasLayerMask.js)
 
 ### deselectPath
 ***action*** deselect all Paths
@@ -362,7 +362,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deselectPath.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/deselectPath.js)
 
 ### duplicateLayerMaskAsAlpha
 ***action*** create a Alpha-Channel based on LayerMask and name it **mbTemp_alpha** ==uniquify the name? on multiple use all the channels have the same name==
@@ -484,7 +484,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/duplicateLayerMaskAsAlpha.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/duplicateLayerMaskAsAlpha.js)
 
 ### setBackTheLayerMask
 ***action*** create a LayerMask based on the Alpha-Channel named **mbTemp_alpha**
@@ -590,7 +590,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setBackTheLayerMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setBackTheLayerMask.js)
 
 ### getMaskDensity
 ***number 0-255*** returns Density of Layer/Group-Mask in 0-255 ==warum 0-255 ?== ==TODO                                                  isSetOpened1                                       
@@ -608,7 +608,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getMaskDensity.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getMaskDensity.js)
 
 ### getMaskFeather
 ***number px*** return Feather of Layer/Group-Mask in px ==TODO                                                  isSetOpened1                                       
@@ -626,7 +626,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getMaskFeather.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getMaskFeather.js)
 
 ### isLayerMaskEnabled
 ***boolean*** is Layer/Group-Mask active? ==ToDo wirft einen Fehler wenn es keine Maske gibt==
@@ -644,7 +644,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerMaskEnabled.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerMaskEnabled.js)
 
 ### isLayerMaskLinked
 ***boolean*** is Layer/Group-Mask linked?  ==ToDo wirft einen Fehler wenn es keine Maske gibt==
@@ -662,7 +662,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerMaskLinked.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerMaskLinked.js)
 
 ### setMaskDensityTo
 ***action*** set density in percent
@@ -703,7 +703,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskDensityTo.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskDensityTo.js)
 
 ### setMaskFeatherTo
 ***action*** set feather in pixel
@@ -734,7 +734,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskFeatherTo.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskFeatherTo.js)
 
 ### setMaskEnabled
 ==Was macht die Funktion, ausser Errors zu produzieren==
@@ -764,7 +764,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskEnabled.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskEnabled.js)
 
 ### setMaskLinked
 ==Was macht die Funktion, ausser Errors zu produzieren==
@@ -794,7 +794,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskLinked.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setMaskLinked.js)
 
 ### isLayerFXVisible
 ***boolean*** 
@@ -812,7 +812,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerFXVisible.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerFXVisible.js)
 
 ### copyLayerStyle
 ***action*** 
@@ -828,7 +828,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/copyLayerStyle.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/copyLayerStyle.js)
 
 ### pasteLayerStyle
 ***action*** 
@@ -847,7 +847,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/pasteLayerStyle.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/pasteLayerStyle.js)
 
 ### hasVectorMask
 ***boolean*** 
@@ -865,7 +865,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hasVectorMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/hasVectorMask.js)
 
 ### getVectorMaskDensity
 ***number (0-255)*** 
@@ -883,7 +883,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVectorMaskDensity.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getVectorMaskDensity.js)
 
 ### getVectorMaskFeather
 ***number (Pixel)*** 
@@ -901,7 +901,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVectorMaskFeather.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getVectorMaskFeather.js)
 
 ### isVectorMaskEnabled
 ==auskommentiert==
@@ -923,7 +923,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVectorMaskEnabled.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isVectorMaskEnabled.js)
 
 ### isVectorMaskLinked
 ==auskommentiert==
@@ -944,7 +944,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isVectorMaskLinked.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isVectorMaskLinked.js)
 
 ### setVectorMaskDensityTo
 ***action*** set density in percent
@@ -975,7 +975,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskDensityTo.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskDensityTo.js)
 
 ### setVectorMaskFeatherTo
 ***action*** set feather in pixel
@@ -1006,7 +1006,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskFeatherTo.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskFeatherTo.js)
 
 ### setVectorMaskEnabled
 ==auskommentiert==
@@ -1036,7 +1036,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskEnabled.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskEnabled.js)
 
 ### setVectorMaskLinked
 ==auskommentiert==
@@ -1066,7 +1066,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskLinked.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setVectorMaskLinked.js)
 
 ### isLocked
 ***boolean*** check if the Layer/Group is totally locked
@@ -1085,7 +1085,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLocked.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isLocked.js)
 
 ### unlock
 ***action*** unlock even specific locking methods
@@ -1119,7 +1119,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/unlock.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/unlock.js)
 
 ### lock
 ***action*** totally lock Layer/Group
@@ -1153,7 +1153,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/lock.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/lock.js)
 
 ### getColor
 ***string*** get Color of the Layer/Group 
@@ -1172,7 +1172,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getColor.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getColor.js)
 
 ### setColorTo
 ***action*** color the Layer/Group in the panel 
@@ -1204,7 +1204,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/setColorTo.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/setColorTo.js)
 
 * col `None` <code>Rd  </code> <code>Orng</code> <code>Ylw </code> <code>Grn </code> <code>Bl  </code> <code>Vlt </code> <code>Gry </code>
 
@@ -1235,7 +1235,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/activateLayerMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/activateLayerMask.js)
 
 ### deleteMask
 ***action*** works only when the LayerMask is selected
@@ -1261,7 +1261,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteMask.js)
 
 ### selectLayerMask
 ***action*** 
@@ -1285,7 +1285,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/selectLayerMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/selectLayerMask.js)
 
 ### loadSelectionOfMask
 ***action*** 
@@ -1366,7 +1366,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/loadSelectionOfMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/loadSelectionOfMask.js)
 
 ### maskFromSelection
 ***action*** 
@@ -1400,7 +1400,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/maskFromSelection.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/maskFromSelection.js)
 
 ### duplicateVectorMask
 ***action*** duplicate VektorMask and name it "mbTemp_path"
@@ -1471,7 +1471,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/duplicateVectorMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/duplicateVectorMask.js)
 
 ### recreateVectorMask
 ***action*** get path called "mbTemp_path", create VektorMask on Layer/Group and delete "mbTemp_path"
@@ -1524,7 +1524,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/recreateVectorMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/recreateVectorMask.js)
 
 ### groupSelected
 ***action*** group active Layer/Group and name it
@@ -1551,7 +1551,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/groupSelected.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/groupSelected.js)
 
 ### addToSelection
 ***action*** add Layer/Group to active Selection
@@ -1575,7 +1575,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addToSelection.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/addToSelection.js)
 
 ### TemporaryAlpha
 ***action*** create selection into Alpha-Channel and activate it
@@ -1596,7 +1596,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/TemporaryAlpha.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/TemporaryAlpha.js)
 
 ### makeActiveByIndex
 
@@ -1624,7 +1624,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/makeActiveByIndex.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/makeActiveByIndex.js)
 
 ### deleteActiveLayer
 
@@ -1647,7 +1647,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteActiveLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteActiveLayer.js)
 
 ### isLayerSet
 
@@ -1668,7 +1668,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerSet.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerSet.js)
 
 ### openGroup1
 
@@ -1688,7 +1688,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/openGroup1.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/openGroup1.js)
 
 ### openGroup1byIDX
 
@@ -1705,7 +1705,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/openGroup1byIDX.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/openGroup1byIDX.js)
 
 ### getNamesPlusIDsOfLayerSet
 ==geht das? die Formatierung ist kommisch==
@@ -1753,7 +1753,7 @@
      }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getNamesPlusIDsOfLayerSet.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getNamesPlusIDsOfLayerSet.js)
 
 ### getLayersNb
 
@@ -1773,7 +1773,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getLayersNb.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getLayersNb.js)
 
 ### toogleOpenCloseSet
 
@@ -1818,7 +1818,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet.js)
 
 ### getFristLayerSetChildVisible
 
@@ -1873,7 +1873,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getFristLayerSetChildVisible.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getFristLayerSetChildVisible.js)
 
 ### getLastChildIdx
 
@@ -1921,7 +1921,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getLastChildIdx.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getLastChildIdx.js)
 
 ### getNbOfChilds
 
@@ -1969,7 +1969,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getNbOfChilds.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getNbOfChilds.js)
 
 ### isSetOpened2
 
@@ -2003,7 +2003,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isSetOpened2.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isSetOpened2.js)
 
 ### addTempLayerSetIn
 ==idxx ?==
@@ -2063,7 +2063,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addTempLayerSetIn.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/addTempLayerSetIn.js)
 
 ### deleteTempLayerSetbyIdx
 
@@ -2084,7 +2084,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteTempLayerSetbyIdx.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/deleteTempLayerSetbyIdx.js)
 
 ### myselectNext
 
@@ -2134,7 +2134,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectNext.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectNext.js)
 
 ### addNext
 
@@ -2152,7 +2152,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addNext.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/addNext.js)
 
 ### isEndOfSet
 
@@ -2183,7 +2183,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/isEndOfSet.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isEndOfSet.js)
 
 ### getStartIDXfor
 
@@ -2230,7 +2230,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getStartIDXfor.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getStartIDXfor.js)
 
 ### myselectPrevious
 
@@ -2267,7 +2267,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectPrevious.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectPrevious.js)
 
 ### addPrevious
 
@@ -2285,7 +2285,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addPrevious.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/addPrevious.js)
 
 ### myselectNextFor
 
@@ -2301,7 +2301,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectNextFor.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/myselectNextFor.js)
 
 ### getVisible
 
@@ -2338,7 +2338,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisible.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisible.js)
 
 ### getVisibleforIDX
 
@@ -2355,7 +2355,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisibleforIDX.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getVisibleforIDX.js)
 
 ### toogleVisibility
 
@@ -2428,7 +2428,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleVisibility.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleVisibility.js)
 
 ### showOnlyThis
 
@@ -2523,7 +2523,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/showOnlyThis.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/showOnlyThis.js)
 
 ### removeFromSel
 
@@ -2544,7 +2544,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/removeFromSel.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/removeFromSel.js)
 
 ### makeVisByIndex
 
@@ -2568,7 +2568,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/makeVisByIndex.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/makeVisByIndex.js)
 
 ### getSelectedLayersIdx
 
@@ -2602,7 +2602,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getSelectedLayersIdx.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getSelectedLayersIdx.js)
 
 ### selectParent
 
@@ -2616,7 +2616,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/selectParent.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/selectParent.js)
 
 ### getParentIDXfor
 
@@ -2662,7 +2662,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getParentIDXfor.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getParentIDXfor.js)
 
 ### loopParentsIDXfor
 
@@ -2687,7 +2687,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/loopParentsIDXfor.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/loopParentsIDXfor.js)
 
 ### hasBackground
 
@@ -2709,7 +2709,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/hasBackground.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/hasBackground.js)
 
 ### getLayerName
 
@@ -2726,7 +2726,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getLayerName.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getLayerName.js)
 
 ### getSibilings
 
@@ -2786,7 +2786,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getSibilings.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getSibilings.js)
 
 ### getSibilings1
 
@@ -2856,7 +2856,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getSibilings1.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getSibilings1.js)
 
 ### addSibilings
 
@@ -2873,7 +2873,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/addSibilings.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/addSibilings.js)
 
 ### selectOnlySibilings
 
@@ -2888,7 +2888,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/selectOnlySibilings.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/selectOnlySibilings.js)
 
 ### getParentIndex1
 
@@ -2907,7 +2907,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/getParentIndex1.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getParentIndex1.js)
 
 ### eliminateDuplicates
 
@@ -2932,7 +2932,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/eliminateDuplicates.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/eliminateDuplicates.js)
 
 ### eliminateTheSame
 
@@ -2963,7 +2963,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/eliminateTheSame.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/eliminateTheSame.js)
 
 ### testSelectMultiple
 
@@ -2999,7 +2999,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/utils/testSelectMultiple.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/testSelectMultiple.js)
 
 ???+ a
     ```js

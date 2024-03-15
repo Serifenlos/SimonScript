@@ -14,7 +14,7 @@
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/fitScreen.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/fitScreen.js)
 
 ### zoomOut
 
@@ -28,7 +28,7 @@
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOut.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOut.js)
 
 ### zoomIn
 
@@ -42,7 +42,7 @@
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomIn.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomIn.js)
 
 ### apfel0
 hier stimmt was nicht, gleiche Funktion wie zoom100()
@@ -57,7 +57,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/apfel0.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/apfel0.js)
 
 ### zoom100
 
@@ -71,7 +71,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoom100.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoom100.js)
 
 ### zoomOutSteps
 
@@ -87,7 +87,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOutSteps.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOutSteps.js)
 
 * _steps `number`
 
@@ -107,7 +107,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/getZoomLevel.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/getZoomLevel.js)
 
 ### setDocResolution
 ==Ist doch auch iregndwo anders?==
@@ -124,7 +124,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/setDocResolution.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/setDocResolution.js)
 
 * dpi `number`
 
@@ -153,7 +153,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/setZoomLevel.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/setZoomLevel.js)
 
 * zomm `number` ==glaube ich==
 
@@ -171,7 +171,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/standardmodus.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/standardmodus.js)
 
 ### vollbildmodus_menu
 
@@ -185,7 +185,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/vollbildmodus_menu.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/vollbildmodus_menu.js)
 
 ### vollbildmodus
 
@@ -199,7 +199,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/vollbildmodus.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/vollbildmodus.js)
 
 ### anordung_kachel
 
@@ -213,7 +213,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_kachel.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_kachel.js)
 
 ### anordung_1
 
@@ -227,7 +227,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_1.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_1.js)
 
 ### anordung_2vertical
 
@@ -241,7 +241,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_2vertical.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_2vertical.js)
 
 ### anordung_2horizontal
 
@@ -255,7 +255,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_2horizontal.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_2horizontal.js)
 
 ### anordung_3
 
@@ -269,7 +269,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3.js)
 
 ### anordung_3vertical
 
@@ -283,7 +283,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3vertical.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3vertical.js)
 
 ### anordung_3horizontal
 
@@ -297,7 +297,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3horizontal.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_3horizontal.js)
 
 ### anordung_4
 
@@ -311,7 +311,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_4.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_4.js)
 
 ### anordung_6
 
@@ -325,7 +325,7 @@ hier stimmt was nicht, gleiche Funktion wie zoom100()
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_6.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_6.js)
 
 ### zoomIn + zoomOut + zoomOutSteps
 ==this is the old way. Needs to prozess the "print size" – so it’s not acceptable. But the zoomLevel-Steps are a great idea==
@@ -351,7 +351,7 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomIn_zoomLevels.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomIn_zoomLevels.js)
 
 <button class="btn" data-clipboard-text="zoomOut_zoomLevels();"></button>
 {: .btn_p }
@@ -369,7 +369,7 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOut_zoomLevels.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOut_zoomLevels.js)
 
 <button class="btn" data-clipboard-text="zoomOutSteps_zoomLevels(steps);"></button>
 {: .btn_p }
@@ -387,7 +387,7 @@ var zoomLevels=[5, 6.25, 8.33, 12.5, 16.67, 25, 33.33, 50, 66.67, 100, 150, 200,
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOutSteps_zoomLevels.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomOutSteps_zoomLevels.js)
 
 ### setZoom 
 Thanks: https://community.adobe.com/t5/photoshop/scripting-for-zoom-and-scroll-in-cc2018/m-p/10048762#M191468
@@ -413,7 +413,7 @@ Thanks: https://community.adobe.com/t5/photoshop/scripting-for-zoom-and-scroll-i
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/setZoom.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/setZoom.js)
 
 ```js
 setZoom(100)
@@ -461,7 +461,7 @@ setZoom(100)
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/set_doc_position.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/set_doc_position.js)
 
 ```js
 set_doc_position(50, 50)
@@ -489,7 +489,7 @@ set_doc_position(50, 50)
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/zoomSteps.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/zoomSteps.js)
 
 ???+ a
     ```js
@@ -586,7 +586,7 @@ set_doc_position(50, 50)
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/scrollPage.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/scrollPage.js)
 
 ???+ a
     ```js
@@ -632,7 +632,7 @@ set_doc_position(50, 50)
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_zoom.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/anordung_zoom.js)
 
 ### app_panelsVisible
 
@@ -677,7 +677,7 @@ set_doc_position(50, 50)
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/app_panelsVisible.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/app_panelsVisible.js)
 
 ### rulersVisibility
 
@@ -694,7 +694,7 @@ set_doc_position(50, 50)
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/view/rulersVisibility.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/view/rulersVisibility.js)
 
         
 

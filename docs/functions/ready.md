@@ -70,7 +70,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/startschuss.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/startschuss.js)
 
 ### Dodge & Burn with Blendif
 
@@ -112,7 +112,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/DodgeBurn_highlow.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/DodgeBurn_highlow.js)
 
 ### Dodge
 
@@ -127,7 +127,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodge.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/dodge.js)
 
 ### Burn
 
@@ -142,7 +142,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/burn.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/burn.js)
 
 ### Dodge & Burn
 
@@ -160,7 +160,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn.js)
 
 ### freisteller_button
 
@@ -191,7 +191,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_button.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_button.js)
 
 ### freisteller_createGroup
 
@@ -220,7 +220,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_createGroup.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_createGroup.js)
 
 ### freisteller_saveRGB
 
@@ -258,7 +258,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_saveRGB.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_saveRGB.js)
 
 ### motivmaske
 
@@ -295,7 +295,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/motivmaske.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/motivmaske.js)
 
 ### himmelmaske
 
@@ -338,7 +338,7 @@
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/himmelmaske.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/himmelmaske.js)
 
 ### DodgeBurn_highmidlow
 
@@ -384,7 +384,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/DodgeBurn_highmidlow.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/DodgeBurn_highmidlow.js)
 
 ### dodgeburn_mid
 
@@ -404,7 +404,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn_mid.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn_mid.js)
 
 ### dodgeburn_toggle
 
@@ -445,7 +445,7 @@
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn_toggle.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/dodgeburn_toggle.js)
 
 ### freisteller_allHG
 
@@ -493,7 +493,7 @@
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_allHG.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_allHG.js)
 
 ### tiefenmaske
 
@@ -573,8 +573,90 @@
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/ready/tiefenmaske.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/tiefenmaske.js)
 
-!!! warning show "not documented functions"
-    - tiefenmaske_part1
-     - tiefenmaske_part2
+### tiefenmaske_part1
+
+<button class="btn" data-clipboard-text="tiefenmakse_part1(_merge);"></button>
+{: .btn_p }
+
+??? "tiefenmakse_part1(_merge);"
+    ``` js linenums="1"
+    function tiefenmakse_part1(_merge) {
+        var startIDXs = layer_selectedIDX_get();
+    
+    
+        if (_merge || layer_selectedIDX_get().length > 1) {
+            if (_merge) {
+                layer_mergeVisible(_merge);
+            } else {
+                layer_copyLayers(); //Ebenen kopieren (Apfel J)
+                layer_mergeLayers(); //auf eine Ebene reduzieren (Apfel E)
+            }
+    
+            nameLayer("helper__depthMask_image");
+    
+            // move to TOP
+            var i = hasBackground() ? 0 : 1;
+            while (layer_checkExistence(i)) {
+                i++;
+            };
+            moveLayer("helper__depthMask_image", parseInt(i - 1), "up");
+            gotoLayer("helper__depthMask_image");
+    
+        } else {
+            if (layer_checkExistence(layer_getIDXbyString("Original")[0])) {
+                // alert("Ori existiert")
+                gotoLayer("Original");
+            } else {
+                gotoLayer(layer_selectedIDX_get()[layer_selectedIDX_get().length - 1])
+            }
+    
+            while (doc.activeLayer.kind != LayerKind.NORMAL) {
+                gotoLayer(getActiveLayerIndex() - 1)
+            };
+    
+            if (doc.activeLayer.kind != LayerKind.SmartObject) {
+                executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
+                nameLayer("helper__depthMask_image");
+            }
+        }
+    }
+    
+    
+    
+    
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/tiefenmaske_part1.js)
+
+### tiefenmaske_part2
+
+<button class="btn" data-clipboard-text="tiefenmakse_part2(_merge);"></button>
+{: .btn_p }
+
+??? "tiefenmakse_part2(_merge);"
+    ``` js linenums="1"
+    function tiefenmakse_part2(_merge) {
+        nameLayer("layer__depthMask_map");
+        select_luminance();
+    
+        layer_delete();
+        gotoLayer("helper__depthMask_image");
+        layer_delete();
+        createGroup("Tiefe", "passThrough", "none", 100, f);
+    
+        maskFromSelection();
+    
+        if (layer_checkExistence(layer_getIDXbyString("Dodge & Burn △◊▽")[0])) {
+            moveLayer("Tiefe", "Dodge & Burn △◊▽", "up");
+        }
+        
+        gotoLayer("Tiefe");
+        
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/tiefenmaske_part2.js)
+
+!!! warning hide "not documented functions"

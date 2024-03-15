@@ -209,6 +209,6 @@
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/A__psScripts/helper__resize.jsx)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/A__psScripts/helper__resize.jsx)
 
 

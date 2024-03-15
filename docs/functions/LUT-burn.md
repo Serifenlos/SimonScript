@@ -22,7 +22,7 @@
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/_LUT-burn.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/_LUT-burn.js)
 
 
 !!! warning hide "not documented functions"

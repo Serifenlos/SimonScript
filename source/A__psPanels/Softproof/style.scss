@@ -1,27 +1,3 @@
-body {
-    color: white;
-    padding: 0 16px;
-  }
-  li:before {
-    content: '• ';
-    width: 3em;
-  }
-
-  #layers {
-    border: 1px solid #808080;
-    border-radius: 4px;
-    padding: 16px;
-  }
-
-
-
-
-
-  
-
-
-
-
 @import "../../_assets/node_modules/@csstools/normalize.css/normalize";
 
 @media (prefers-color-scheme: dark),

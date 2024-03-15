@@ -78,9 +78,9 @@ if (app.books.length < 1) {
     errorExit('Fehler\rMindestens ein InDesign-Buch muß geöffnet sein.');
 };
 
-if (app.documents.length > 0) {
-    errorExit('Fehler\rBitte vorher alle InDesign-Dokumente schließen.');
-};
+// if (app.documents.length > 0) {
+//     errorExit('Fehler\rBitte vorher alle InDesign-Dokumente schließen.');
+// };
 
 
 

@@ -840,8 +840,9 @@ function adjustLayer_sat_get() {
 
 
 function writeln(_ding) {
-    return $.writeln('' + _ding + ': ' + _ding)
-
+    try {
+        return $.writeln('' + _ding + ': ' + _ding)
+    } catch (e) { }
 }
 
 
@@ -850,6 +851,8 @@ function writeln(_ding) {
 
 //photoAI
 // executeAction(sTID('a40009fc-f5fc-4a09-86ec-5a0ed56c5668'), undefined, DialogModes.ALL);
+
+
 
 
 
@@ -882,6 +885,9 @@ function deFrei() {
     layer_selectedID_set(startLayerID);
 }
 // END
+
+
+
 
 
 
@@ -944,21 +950,20 @@ var ding = "dong";
 // var bing = getLayersNb();
 
 
-if (getMeta_2("isWoodwing")) var isWoodwing = getMeta_2("isWoodwing");
-if (getMeta_2("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_2("arbeitsdatei_RGB");
-if (getMeta_2("woodwing_RGB")) var woodwing_RGB = getMeta_2("woodwing_RGB");
-if (getMeta_2("woodwing_file")) var woodwing_file = getMeta_2("woodwing_file");
-if (getMeta_2("idDocName")) var idDocName = getMeta_2("idDocName");
+// if (getMeta_2("isWoodwing")) var isWoodwing = getMeta_2("isWoodwing");
+// if (getMeta_2("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_2("arbeitsdatei_RGB");
+// if (getMeta_2("woodwing_RGB")) var woodwing_RGB = getMeta_2("woodwing_RGB");
+// if (getMeta_2("woodwing_file")) var woodwing_file = getMeta_2("woodwing_file");
+// if (getMeta_2("idDocName")) var idDocName = getMeta_2("idDocName");
 
 // alert("isWoodwing: " + isWoodwing + "\narbeitsdatei_RGB: " + arbeitsdatei_RGB + "\nwoodwing_RGB: " + woodwing_RGB + "\nidDocName: " + idDocName + "\n")
 
-var doc = app.activeDocument;
-alert(doc.name);
+// var doc = app.activeDocument;
+// alert(doc.name);
 
-var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
-
-// BridgeTalkMessage_openDocID(idDocName, woodwing_file);
-app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
+// var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
+// ´
+// app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
 
 
 function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
@@ -1015,3 +1020,119 @@ alert(GetFileNameOnly(woodwing_RGB))
 
 
 ~/WoodWingStudio.noindex/InDesign/65299/Falke_PP-3815.jpg */
+
+
+
+
+/*//// OPTIONS ////*/
+/*=================================================================================*/
+//@include "./assets/json2.js"
+var jsonFilePath = "~/ss_var.json";
+var jsonData = loadJSON(jsonFilePath);
+
+
+// Funktion zum Laden und Parsen der JSON-Datei
+function loadJSON(filePath) {
+    var file = new File(filePath);
+    var content;
+
+    if (file.exists) {
+        file.open("r");
+        content = file.read();
+        file.close();
+
+        // Parse JSON-Inhalt
+        try {
+            return JSON.parse(content);
+        } catch (e) {
+            alert("Fehler beim Parsen der JSON-Datei:\n" + e);
+            return null;
+        }
+    } else {
+        alert("Die JSON-Datei konnte nicht gefunden werden.");
+        return null;
+    }
+}
+
+
+saveFolder = jsonData.saveFolder;
+var Suffix_RZ = jsonData.RZ_suffix;
+var saveFormat = jsonData.RZ_saveFormat;
+var delPath = jsonData.RZ_delPath;
+var sharp_dialog = jsonData.RZ_sharpDialog;
+
+
+
+var doc = app.activeDocument;
+// var RGBname = GetFileNameOnly(doc.name);
+// writeln(RGBname);
+// var RZname = RGBname.replace(/(__RGB.*)$/g, Suffix_RZ);
+// writeln(RZname);
+
+
+saveRZ_ding(saveFolder);
+
+
+/*=================================================================================*/
+function GetFileNameOnly(myFileName) {
+    var myString = "";
+    var myResult = myFileName.lastIndexOf(".");
+    if (myResult == -1) {
+        myString = myFileName;
+    } else {
+        myString = myFileName.substr(0, myResult);
+    }
+    return myString;
+}
+
+function replace_RGB_to_RZ() {
+    var RGBname = GetFileNameOnly(doc.name);
+    var RZname = RGBname.replace(/(__RGB.*)$/g, Suffix_RZ);
+    return RZname;
+}
+
+
+
+/*=================================================================================*/
+function saveRZ_ding(saveFolder) {
+    // Location + Name
+    writeln(saveFolder)
+    var saveFolder = new Folder(saveFolder);
+    
+    if (!saveFolder.exists) saveFolder.create();
+    var savePath = saveFolder + "/" + replace_RGB_to_RZ() + "." + saveFormat;
+    writeln(savePath)
+
+    // if (saveFormat == "tif") {
+    //     var saveOptions = new TiffSaveOptions();
+    //     saveOptions.alphaChannels = true;
+    //     saveOptions.byteOrder = ByteOrder.IBM;
+    //     saveOptions.embedColorProfile = true;
+    //     saveOptions.imageCompression = TIFFEncoding.TIFFLZW;
+    //     saveOptions.layers = true;
+    //     saveOptions.spotColors = false;
+    //     saveOptions.transparency = true;
+    //     saveOptions.annotations = false;
+
+    // } else if (saveFormat == "jpg") {
+    //     var saveOptions = new JPEGSaveOptions();
+    //     saveOptions.embedColorProfile = true;
+    //     saveOptions.formatOptions = FormatOptions.STANDARDBASELINE;
+    //     saveOptions.matte = MatteType.WHITE;
+    //     saveOptions.quality = 11;
+
+    // } else if (saveFormat == "psd") {
+    //     var saveOptions = new PhotoshopSaveOptions();
+    //     saveOptions.alphaChannels = false;
+    //     saveOptions.annotations = false;
+    //     saveOptions.embedColorProfile = true;
+    //     saveOptions.layers = true;
+    //     saveOptions.spotColors = false;
+    // }
+
+    // doc.saveAs(new File(savePath), saveOptions, false, Extension.LOWERCASE);
+
+    // writeln(savePath);
+    // writeln(saveOptions);
+
+}

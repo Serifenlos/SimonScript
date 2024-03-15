@@ -18,7 +18,7 @@
     debug = false; /* Wenn debug auf 'false' steht, wird das Skript in einem einzigen Protokoll-Schritt ausgeführt. */
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_a.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/_a.js)
 
 ### emptyProtocoll
 ***action***
@@ -44,7 +44,7 @@ das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. 
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/emptyProtocoll.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/emptyProtocoll.js)
 
 ### deleteHistory
 ***action***
@@ -63,7 +63,7 @@ das Protokoll komplett zurücksetzten und den Arbeitsspeicher wieder freigeben. 
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteHistory.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteHistory.js)
 
 ### prefSave
 ***action***
@@ -80,7 +80,7 @@ store the dialog- and unit-settings in variables ==warum nicht alle Prefs speich
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSave.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSave.js)
 
 ### prefSet
 ***action***
@@ -105,7 +105,7 @@ set the dialog- and unit-settings ==TODO hätte ja gerne eine einfachere Syntax 
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSet.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/prefSet.js)
 
 ???+ a
     ```js
@@ -134,7 +134,7 @@ reset the dialog- and unit-settings to the previous state
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/prefReset.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/prefReset.js)
 
 ### startScriptFile
 
@@ -150,7 +150,7 @@ reset the dialog- and unit-settings to the previous state
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/startScriptFile.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/startScriptFile.js)
 
 ### copy
 
@@ -166,7 +166,7 @@ reset the dialog- and unit-settings to the previous state
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/copy.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/copy.js)
 
 ### paste_into
 
@@ -184,7 +184,7 @@ reset the dialog- and unit-settings to the previous state
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/paste_into.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/paste_into.js)
 
 ### app_getForegroundColor
 
@@ -203,7 +203,7 @@ reset the dialog- and unit-settings to the previous state
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/app_getForegroundColor.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/app_getForegroundColor.js)
 
 ## document
 
@@ -223,7 +223,7 @@ schrittweise
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/undoSteps.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/undoSteps.js)
 
 ???+ a
     ```js
@@ -245,7 +245,7 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/resetImage.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/resetImage.js)
 
 ## debugging
 ### time_start
@@ -261,7 +261,7 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/time_start.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/time_start.js)
 
 ### time_stop
 ***action***
@@ -279,7 +279,7 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/time_stop.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/time_stop.js)
 
 ### logger
 ***action***
@@ -338,7 +338,7 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/logger.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/logger.js)
 
 ## Layer
 ### createLayer
@@ -397,7 +397,7 @@ zurück zur letzten Version ==TODO würde gerne einen anderen Namen haben==
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/createLayer.js)
 
 ???+ a
     ```js
@@ -463,7 +463,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/createColorLayer.js)
 
 ???+ a
     ```js
@@ -500,7 +500,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/createMask.js)
 
 ### gotoMask
 ***action***
@@ -521,7 +521,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoMask.js)
 
 ### gotoFill
 ***action***
@@ -541,7 +541,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoFill.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoFill.js)
 
 ### invert
 
@@ -556,7 +556,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/invert.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/invert.js)
 
 ### moveLayer
 ***action***
@@ -591,7 +591,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/moveLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/moveLayer.js)
 
 ???+ a
     ```js
@@ -637,7 +637,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/moveLayer3.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/moveLayer3.js)
 
 ???+ a
     ```js
@@ -669,7 +669,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteMask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/deleteMask.js)
 
 ### createGroup
 ***action***
@@ -706,7 +706,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/createGroup.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/createGroup.js)
 
 ???+ a
     ```js
@@ -749,7 +749,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/fill.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/fill.js)
 
 ???+ a
     ```js
@@ -781,7 +781,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObject.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObject.js)
 
 ### rasterSmartObject
 
@@ -803,7 +803,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/rasterSmartObject.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/rasterSmartObject.js)
 
 ### nameLayer
 
@@ -821,7 +821,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/nameLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/nameLayer.js)
 
 * _name
 
@@ -843,7 +843,7 @@ erstelle eine Farbfläche
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/dublicate.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/dublicate.js)
 
 * _name
 
@@ -868,7 +868,7 @@ TODO ist das noch in Verwendung, oder kann das weg
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayerUp.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayerUp.js)
 
 ### selectLayer
 
@@ -896,7 +896,7 @@ TODO ist das noch in Verwendung, oder kann das weg
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayer.js)
 
 * _direction
 * _times
@@ -918,7 +918,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAll.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAll.js)
 
 ### selectLayers 
 
@@ -938,7 +938,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayers.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/selectLayers.js)
 
 ???+ a
     ```js
@@ -965,7 +965,7 @@ TODO mit unterer Funktion ersetzt
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/hasBackground.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/hasBackground.js)
 
 ### clearAllGuides
 
@@ -979,7 +979,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/clearAllGuides.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/clearAllGuides.js)
 
 ### gotoLayer
 
@@ -1004,7 +1004,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoLayer.js)
 
 ???+ a
     ```js
@@ -1065,7 +1065,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels.js)
 
 ???+ a
     ```js
@@ -1103,7 +1103,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels_wrapper.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_autoLevels_wrapper.js)
 
 ### adjustLayer_levels_edit
 
@@ -1209,7 +1209,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_edit.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_levels_edit.js)
 
 ???+ a
     ```js
@@ -1235,7 +1235,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/SmartObject_edit.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/SmartObject_edit.js)
 
 ### SmartOject_placeItem
 
@@ -1251,7 +1251,7 @@ TODO mit unterer Funktion ersetzt
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/SmartOject_placeItem.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/SmartOject_placeItem.js)
 
 ### getBitDepth
 ***returns 8, 6 or 32***
@@ -1275,7 +1275,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/getBitDepth.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/getBitDepth.js)
 
 ### setBitDepth
 
@@ -1293,7 +1293,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setBitDepth.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/setBitDepth.js)
 
 * _bitdepth
 
@@ -1327,7 +1327,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/img_resize.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/img_resize.js)
 
 ???+ a
     ```js
@@ -1371,7 +1371,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setMegaPixel.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/setMegaPixel.js)
 
 ???+ a
     ```js
@@ -1399,7 +1399,7 @@ TODO mit unterer Funktion ersetzt
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/getScale.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/getScale.js)
 
 ???+ a
     ```js
@@ -1422,7 +1422,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/cm2pt.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/cm2pt.js)
 
 ### mm2pt
 
@@ -1436,7 +1436,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/mm2pt.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/mm2pt.js)
 
 ### setDpi
 
@@ -1452,7 +1452,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setDpi.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/setDpi.js)
 
 ???+ a
     ```js
@@ -1476,7 +1476,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/setSize.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/setSize.js)
 
 ???+ a
     ```js
@@ -1510,7 +1510,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/noProfile.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/noProfile.js)
 
 ### assignProfile
 
@@ -1529,7 +1529,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/assignProfile.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/assignProfile.js)
 
 * _profile `string`
 
@@ -1547,7 +1547,7 @@ Convert cm to Point, imageSize needs Points
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/gray2rgb.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/gray2rgb.js)
 
 ### cmyk2rgb
 
@@ -1563,7 +1563,7 @@ Convert cm to Point, imageSize needs Points
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/cmyk2rgb.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/cmyk2rgb.js)
 
 ### sRGB2eciRGB
 
@@ -1581,7 +1581,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/sRGB2eciRGB.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/sRGB2eciRGB.js)
 
 ### indexcolor2rgb
 
@@ -1597,7 +1597,7 @@ Convert cm to Point, imageSize needs Points
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/indexcolor2rgb.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/indexcolor2rgb.js)
 
 ## WEB-Output
 ### GetFileNameOnly
@@ -1619,7 +1619,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/GetFileNameOnly.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/GetFileNameOnly.js)
 
 ### replace__RGB_RZ
 
@@ -1640,7 +1640,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/replace__RGB_RZ.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/replace__RGB_RZ.js)
 
 ### saveRZ
 
@@ -1697,7 +1697,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/saveRZ.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/saveRZ.js)
 
 ### selectAllLayers
 
@@ -1715,7 +1715,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAllLayers.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/selectAllLayers.js)
 
 ### mergeLayers
 
@@ -1730,7 +1730,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/mergeLayers.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/mergeLayers.js)
 
 ### flattenImage
 
@@ -1744,7 +1744,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/flattenImage.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/flattenImage.js)
 
 ### blendif
 
@@ -1812,7 +1812,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/blendif.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/blendif.js)
 
 * _blackMin
 * _blackMax
@@ -1835,7 +1835,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency.js)
 
 ### checkTransparency_inner
 
@@ -1886,7 +1886,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency_inner.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/checkTransparency_inner.js)
 
 ### transformLayer
 
@@ -1928,7 +1928,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/transformLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/transformLayer.js)
 
 ### smartObjectTransparencyIssue
 
@@ -1971,7 +1971,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObjectTransparencyIssue.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/smartObjectTransparencyIssue.js)
 
 ### isSelectionActive
 
@@ -1989,7 +1989,7 @@ Convert cm to Point, imageSize needs Points
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/isSelectionActive.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/isSelectionActive.js)
 
 ## shortener
 
@@ -2006,7 +2006,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_c2t.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/_c2t.js)
 
 ### cTID
 
@@ -2021,7 +2021,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_cTID.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/_cTID.js)
 
 ### s2t
 
@@ -2036,7 +2036,7 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_s2t.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/_s2t.js)
 
 ### sTID
 
@@ -2051,7 +2051,7 @@ Convert cm to Point, imageSize needs Points
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_sTID.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/_sTID.js)
 
 ### t2s
 
@@ -2066,14 +2066,366 @@ Convert cm to Point, imageSize needs Points
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/basic/_t2s.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/_t2s.js)
 
-!!! warning show "not documented functions"
-    - adjustHue
-     - adjustLayer_curves_set
-     - adjustLayer_sat_set
-     - app_getColor
-     - arrayCorrect
-     - gotoLayer_byID
-     - workingProfile_get
-     - workingProfile_set
+### adjustHue
+
+<button class="btn" data-clipboard-text="adjustHue(hue, amount);"></button>
+{: .btn_p }
+
+??? "adjustHue(hue, amount);"
+    ``` js linenums="1"
+    function adjustHue(hue, amount) {
+        return (hue + amount + 360) % 360;
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustHue.js)
+
+### adjustLayer_curves_set
+
+<button class="btn" data-clipboard-text="adjustLayer_curves_set(horizontal, vertical, horizontal2, vertical2);"></button>
+{: .btn_p }
+
+??? "adjustLayer_curves_set(horizontal, vertical, horizontal2, vertical2);"
+    ``` js linenums="1"
+    function adjustLayer_curves_set(horizontal, vertical, horizontal2, vertical2) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var d4 = new ActionDescriptor();
+        var d5 = new ActionDescriptor();
+        var l = new ActionList();
+        var l2 = new ActionList();
+        var r = new ActionReference();
+        var r2 = new ActionReference();
+    
+        r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindCustom"));
+        r2.putEnumerated(s2t("channel"), s2t("channel"), s2t("composite"));
+        d3.putReference(s2t("channel"), r2);
+        d4.putDouble(s2t("horizontal"), horizontal);
+        d4.putDouble(s2t("vertical"), vertical);
+        l2.putObject(s2t("paint"), d4);
+        d5.putDouble(s2t("horizontal"), horizontal2);
+        d5.putDouble(s2t("vertical"), vertical2);
+        l2.putObject(s2t("paint"), d5);
+        d3.putList(s2t("curve"), l2);
+        l.putObject(s2t("curvesAdjustment"), d3);
+        d2.putList(s2t("adjustment"), l);
+        d.putObject(s2t("to"), s2t("curves"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_curves_set.js)
+
+### adjustLayer_sat_eyedropper
+
+<button class="btn" data-clipboard-text="adjustLayer_sat_eyedropper();"></button>
+{: .btn_p }
+
+??? "adjustLayer_sat_eyedropper();"
+    ``` js linenums="1"
+    function adjustLayer_sat_eyedropper() {
+        var d = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        r.putClass(s2t("eyedropper2Tool"));
+        d.putReference(s2t("null"), r);
+        try {
+            executeAction(s2t("select"), d, DialogModes.NO);
+            // return;
+        }
+        catch (e) {
+            alert("Error: " + e)
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_sat_eyedropper.js)
+
+### adjustLayer_sat_set
+
+<button class="btn" data-clipboard-text="adjustLayer_sat_set(_range, _beginRamp, _beginSustain, _endSustain, _endRamp, _hue, _saturation, _lightness);"></button>
+{: .btn_p }
+
+??? "adjustLayer_sat_set(_range, _beginRamp, _beginSustain, _endSustain, _endRamp, _hue, _saturation, _lightness);"
+    ``` js linenums="1"
+    function adjustLayer_sat_set(_range, _beginRamp, _beginSustain, _endSustain, _endRamp, _hue, _saturation, _lightness) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var l = new ActionList();
+        var r = new ActionReference();
+    
+        var _hue = _hue ? _hue : 0;
+        var _saturation = _saturation ? _saturation : 0;
+        var _lightness = _lightness ? _lightness : 0;
+    
+        r.putEnumerated(s2t("adjustmentLayer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        d2.putEnumerated(s2t("presetKind"), s2t("presetKindType"), s2t("presetKindCustom"));
+        d3.putInteger(s2t("localRange"), _range); // red=1 || yellow=2 …
+        d3.putInteger(s2t("beginRamp"), _beginRamp);
+        d3.putInteger(s2t("beginSustain"), _beginSustain);
+        d3.putInteger(s2t("endSustain"), _endSustain);
+        d3.putInteger(s2t("endRamp"), _endRamp);
+        d3.putInteger(s2t("hue"), _hue);
+        d3.putInteger(s2t("saturation"), _saturation);
+        d3.putInteger(s2t("lightness"), _lightness);
+        l.putObject(s2t("hueSatAdjustmentV2"), d3);
+        d2.putList(s2t("adjustment"), l);
+        d.putObject(s2t("to"), s2t("hueSaturation"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/adjustLayer_sat_set.js)
+
+### app_getColor
+
+<button class="btn" data-clipboard-text="app_getColor(_model, _fokus);"></button>
+{: .btn_p }
+
+??? "app_getColor(_model, _fokus);"
+    ``` js linenums="1"
+    function app_getColor(_model, _fokus) {
+        var colors = [];
+    
+        if (_fokus == "vordergrund" || _fokus == "foreground") {
+            var color = app.foregroundColor;
+        } else {
+            var color = app.backgroundColor;
+        }
+    
+        if (_model == "rgb") {
+            var model = color.rgb;
+            colors.push(Math.round(model.red));
+            colors.push(Math.round(model.green));
+            colors.push(Math.round(model.blue));
+        } else {
+            if (_model == "hsb" || _model == "hsl") {
+                var model = color.hsb;
+                colors.push(Math.round(model.hue));
+                colors.push(Math.round(model.saturation));
+                colors.push(Math.round(model.brightness));
+            }
+        }
+    
+        return colors;
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/app_getColor.js)
+
+### app_simulateKeyPress_alt3
+
+<button class="btn" data-clipboard-text="app_simulateKeyPress_alt3();"></button>
+{: .btn_p }
+
+??? "app_simulateKeyPress_alt3();"
+    ``` js linenums="1"
+    function app_simulateKeyPress_alt3() {
+        try {
+            app.bringToFront();
+            var appleScript = "tell application 'System Events' to keystroke '3' using {option down}";
+            app.system("osascript -e '" + appleScript + "'");
+            // app.bringToFront();
+        } catch (e) {
+            // alert(e)
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/app_simulateKeyPress_alt3.js)
+
+### arrayCorrect
+
+<button class="btn" data-clipboard-text="arrayCorrect(_array);"></button>
+{: .btn_p }
+
+??? "arrayCorrect(_array);"
+    ``` js linenums="1"
+    function arrayCorrect(_array) {
+        if (typeof Array.isArray != "function") {
+            Array.isArray = function (arr) {
+                return arr != undefined && arr.constructor == Array
+            }
+        }
+    
+        if (!Array.isArray(_array)) {
+            var arr2str = _array.toString();
+            var _array = [];
+            var _array = arr2str.split(',');
+        }
+        return _array;
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/arrayCorrect.js)
+
+### array_contains
+
+<button class="btn" data-clipboard-text="array_contains(_array, _value);"></button>
+{: .btn_p }
+
+??? "array_contains(_array, _value);"
+    ``` js linenums="1"
+    function array_contains(_array, _value) {
+        for (var c = 0; c < _array.length; c++) {
+            if (_array[c] === _value) {
+                return true;
+            }
+        }
+        return false;
+    };
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/array_contains.js)
+
+### gotoLayer_byID
+
+<button class="btn" data-clipboard-text="gotoLayer_byID(_id);"></button>
+{: .btn_p }
+
+??? "gotoLayer_byID(_id);"
+    ``` js linenums="1"
+    function gotoLayer_byID(_id) {
+        var d = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        r.putIdentifier(s2t('layer'), _id);
+        d.putReference(sTID('null'), r);
+        d.putBoolean(sTID('makeVisible'), false);
+        executeAction(sTID('select'), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoLayer_byID.js)
+
+### interpolation_GigaPixel
+
+<button class="btn" data-clipboard-text="interpolation_GigaPixel(_horizontalPPI, _minAufloesung,);"></button>
+{: .btn_p }
+
+??? "interpolation_GigaPixel(_horizontalPPI, _minAufloesung,);"
+    ``` js linenums="1"
+    function interpolation_GigaPixel(_horizontalPPI, _minAufloesung,) {
+        var scale = (_minAufloesung / _horizontalPPI).toFixed(2).replace('.', ',');
+        text2Clipboard(scale);
+        executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
+        setDpi(_minAufloesung);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/interpolation_GigaPixel.js)
+
+### interpolation_PS
+
+<button class="btn" data-clipboard-text="interpolation_PS(_horizontalPPI, _minAufloesung, _ZielAufloesung);"></button>
+{: .btn_p }
+
+??? "interpolation_PS(_horizontalPPI, _minAufloesung, _ZielAufloesung);"
+    ``` js linenums="1"
+    function interpolation_PS(_horizontalPPI, _minAufloesung, _ZielAufloesung) {
+        try {
+            if (_horizontalPPI < _minAufloesung) {
+                /* alert("hoch rechnen: hPPI: " + _horizontalPPI + "; minAuflösung: " + _minAufloesung); */
+                app.activeDocument.resizeImage(undefined, undefined, _minAufloesung, ResampleMethod.PRESERVEDETAILS);
+            } else if (_horizontalPPI > _ZielAufloesung) {
+                /* alert("runter rechnen: hPPI: " + _horizontalPPI + "; ZielAufloesung: " + _ZielAufloesung); */
+                app.activeDocument.resizeImage(undefined, undefined, _ZielAufloesung, ResampleMethod.PRESERVEDETAILS);
+            } else {
+                /* alert("wedernoch rechnen: hPPI: " + _horizontalPPI + "; ZielAufloesung: " + _ZielAufloesung + "; minAuflösung: " + _minAufloesung); */
+                /* myPsDoc.resizeImage(undefined, undefined, _horizontalPPI, ResampleMethod.NONE); */
+                setDpi(_horizontalPPI);
+            }
+        } catch (e) { alert(e) }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/interpolation_PS.js)
+
+### interpolation_PhotoAI
+
+<button class="btn" data-clipboard-text="interpolation_PhotoAI(_horizontalPPI, _minAufloesung,);"></button>
+{: .btn_p }
+
+??? "interpolation_PhotoAI(_horizontalPPI, _minAufloesung,);"
+    ``` js linenums="1"
+    function interpolation_PhotoAI(_horizontalPPI, _minAufloesung,) {
+        var scale = (_minAufloesung / _horizontalPPI).toFixed(2).replace('.', ',');
+        text2Clipboard(scale);
+        executeAction(sTID('a40009fc-f5fc-4a09-86ec-5a0ed56c5668'), undefined, DialogModes.ALL);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/interpolation_PhotoAI.js)
+
+### text2Clipboard
+
+<button class="btn" data-clipboard-text="text2Clipboard(_text);"></button>
+{: .btn_p }
+
+??? "text2Clipboard(_text);"
+    ``` js linenums="1"
+    function text2Clipboard(_text) {
+        var d = new ActionDescriptor();
+        d.putString(stringIDToTypeID("textData"), _text);
+        executeAction(stringIDToTypeID("textToClipboard"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/text2Clipboard.js)
+
+### workingProfile_get
+
+<button class="btn" data-clipboard-text="workingProfile_get(_modus);"></button>
+{: .btn_p }
+
+??? "workingProfile_get(_modus);"
+    ``` js linenums="1"
+    function workingProfile_get(_modus) {
+        // _modus = RGB || CMYK || Gray || Spot
+    
+        var r = new ActionReference();
+        r.putProperty(s2t("property"), s2t("colorSettings"));
+        r.putEnumerated(s2t("application"), s2t("ordinal"), s2t("targetEnum"));
+        try {
+            return executeActionGet(r).getObjectValue(s2t("colorSettings")).getString(s2t("working" + _modus + ""));
+        } catch (e) { alert(e) }
+    };
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/workingProfile_get.js)
+
+### workingProfile_set
+
+<button class="btn" data-clipboard-text="workingProfile_set(_modus, _profile);"></button>
+{: .btn_p }
+
+??? "workingProfile_set(_modus, _profile);"
+    ``` js linenums="1"
+    function workingProfile_set(_modus, _profile) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        r.putProperty(s2t("property"), s2t("colorSettings"));
+        r.putEnumerated(s2t("application"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        d2.putString(s2t("working" + _modus + ""), _profile);
+        d.putObject(s2t("to"), s2t("colorSettings"), d2);
+        try {
+            executeAction(s2t("set"), d, DialogModes.NO);
+        } catch (e) {
+            alert("kann Arbeitsfarbraum nicht ändern")
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/workingProfile_set.js)
+
+!!! warning hide "not documented functions"

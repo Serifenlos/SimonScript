@@ -20,12 +20,12 @@
       "type": "panel",
       "id": "vanilla",
       "minimumSize": {
-        "width": 230,
-        "height": 200
+        "width": 1,
+        "height": 1
       },
       "maximumSize": {
         "width": 2000,
-        "height": 2000
+        "height": 110
       },
       "preferredDockedSize": {
         "width": 230,
@@ -35,50 +35,35 @@
         "width": 230,
         "height": 300
       },
-      "icons": [
-        {
-          "width": 32,
-          "height": 32,
-          "path": "icons/icon_D.png",
-          "scale": [
-            1,
-            2
-          ],
-          "theme": [
-            "dark",
-            "darkest"
-          ],
-          "species": [
-            "generic"
-          ]
-        },
-        {
-          "width": 32,
-          "height": 32,
-          "path": "icons/icon_N.png",
-          "scale": [
-            1,
-            2
-          ],
-          "theme": [
-            "lightest",
-            "light"
-          ],
-          "species": [
-            "generic"
-          ]
-        }
-      ],
       "label": {
         "default": "[ss] Softproof"
-      }
+      },
+      "icons": [
+        {
+          "width": 23,
+          "height": 23,
+          "path": "./icons/ss_logo.png",
+          "scale": [
+            1,
+            2
+          ],
+          "theme": [
+            "darkest",
+            "dark",
+            "medium",
+            "light",
+            "lightest",
+            "all"
+          ]
+        }
+      ]
     }
   ],
   "icons": [
     {
-      "width": 23,
-      "height": 23,
-      "path": "icons/SS_logo.png",
+      "width": 48,
+      "height": 48,
+      "path": "./icons/ss_plugin.png",
       "scale": [
         1,
         2
@@ -86,20 +71,13 @@
       "theme": [
         "darkest",
         "dark",
-        "medium"
-      ]
-    },
-    {
-      "width": 23,
-      "height": 23,
-      "path": "icons/SS_logo.png",
-      "scale": [
-        1,
-        2
-      ],
-      "theme": [
+        "medium",
         "lightest",
-        "light"
+        "light",
+        "all"
+      ],
+      "species": [
+        "pluginList"
       ]
     }
   ]
