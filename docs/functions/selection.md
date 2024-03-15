@@ -19,7 +19,7 @@ cmd a
     // Apfel a
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_all.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_all.js)
 
 ### select_invert
 cmd i  
@@ -35,7 +35,7 @@ oder activeDocument.selection.deselect();
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_invert.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_invert.js)
 
 ### select_luminance
 cmd alt 2
@@ -133,7 +133,7 @@ cmd alt 2
     
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_luminance.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_luminance.js)
 
 ### select_motiv
 
@@ -150,7 +150,7 @@ cmd alt 2
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_motiv.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_motiv.js)
 
 ### select_saturation
 
@@ -187,7 +187,7 @@ cmd alt 2
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_saturation.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_saturation.js)
 
 ???+ a
     ```js
@@ -218,7 +218,7 @@ cmd alt 2
     // select_sky(false);
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_sky.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_sky.js)
 
 ???+ a
     ```js
@@ -244,7 +244,7 @@ cmd alt 2
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/select_Farbbereich.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_Farbbereich.js)
 
 ???+ a
     ```js
@@ -277,7 +277,7 @@ cmd alt 2
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/selection2mask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/selection2mask.js)
 
 ### selection_check
 
@@ -298,7 +298,7 @@ cmd alt 2
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_check.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_check.js)
 
 ### selection_deselect
 cmd d
@@ -319,7 +319,7 @@ cmd d
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_deselect.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_deselect.js)
 
 ### selection_loop
 * für die Selection-Scripts
@@ -365,7 +365,7 @@ cmd d
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_loop.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/selection_loop.js)
 
 ???+ a
     ```js
@@ -394,13 +394,59 @@ cmd d
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/selection/mask2image.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/mask2image.js)
 
 ???+ a
     ```js
-    doc.suspendHistory("Mask2Image", "mask2image('Mask2Image')");
+    doc.suspendHistory("Mask2Image", "mask2image("Mask2Image")");
     ```
 
+### select_outOfGamut
+
+<button class="btn" data-clipboard-text="select_outOfGamut(_kind, _get);"></button>
+{: .btn_p }
+
+??? "select_outOfGamut(_kind, _get);"
+    ``` js linenums="1"
+    function select_outOfGamut(_kind, _get) {
+        // _get = 'Selection' || 'Folder'
     
-!!! warning show "not documented functions"
-    - select_outOfGamut
+        var startIDXs = layer_selectedIDX_get();
+        cancel = false;
+    
+        const getMet_softproof_profile = getMeta_softproof()[0];
+        const workingProfile_get1 = workingProfile_get("CMYK");
+    
+        if (typeof getMet_softproof_profile !== 'undefined') {
+            if (workingProfile_get1 != getMet_softproof_profile) {
+                workingProfile_set("CMYK", getMet_softproof_profile);
+            }
+    
+            gotoFill();
+            selection_loop(function () {
+                select_Farbbereich("outOfGamut")
+            });
+    
+            if (workingProfile_get1 != getMet_softproof_profile) {
+                workingProfile_set("CMYK", workingProfile_get1);
+            }
+    
+            if (!cancel) {
+                if (_get == "Selection") {
+                    layer_selectedIDX_set(startIDXs);
+                } else {
+                    gotoLayer(startIDXs[startIDXs.length - 1])
+                    selection2mask(_kind);
+                }
+            }
+    
+        } else {
+            alert("kein Softproof eingestellt")
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/selection/select_outOfGamut.js)
+
+    
+!!! warning hide "not documented functions"

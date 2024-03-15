@@ -1,1 +1,0 @@
-function array_contains(r,n){for(var t=0;t<r.length;t++)if(r[t]===n)return!0;return!1}

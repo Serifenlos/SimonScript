@@ -48,7 +48,7 @@ part of Startschuss
     };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_chooseLayer.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_chooseLayer.js)
 
 ### dialog_bitDepth
 
@@ -78,6 +78,6 @@ part of Startschuss
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_bitDepth.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_bitDepth.js)
 
 !!! warning hide "not documented functions"

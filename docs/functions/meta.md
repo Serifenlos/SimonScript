@@ -19,7 +19,7 @@
       };
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/set.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/set.js)
 
 ### editXMP_2
 universal
@@ -40,7 +40,7 @@ universal
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP_2.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP_2.js)
 
 ### getMeta_2
 universal
@@ -63,7 +63,7 @@ universal
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_2.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_2.js)
 
 ### setMeta_2
 universal
@@ -89,7 +89,7 @@ universal
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta_2.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta_2.js)
 
 ### delMeta_2
 universal
@@ -112,7 +112,7 @@ universal
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta_2.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta_2.js)
 
 ### getSoftProof
 
@@ -147,7 +147,7 @@ universal
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getSoftProof.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/getSoftProof.js)
 
 ### editXMP
 
@@ -165,7 +165,7 @@ universal
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP.js)
 
 ### setMeta
 
@@ -190,7 +190,7 @@ universal
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta.js)
 
 ### delMeta
 
@@ -214,7 +214,7 @@ universal
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta.js)
 
 ### getMeta
 
@@ -240,7 +240,7 @@ universal
       }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta.js)
 
 ### getMeta_softproof
 ***array***
@@ -271,6 +271,95 @@ universal
     }
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_softproof.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_softproof.js)
+
+### delMeta_3
+
+<button class="btn" data-clipboard-text="delMeta_3(_key);"></button>
+{: .btn_p }
+
+??? "delMeta_3(_key);"
+    ``` js linenums="1"
+    function delMeta_3(_key) {
+        editXMP_3();
+    
+        // deleteProperty
+        if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
+            xmpMeta.deleteProperty(ns_ss, _key);
+        }
+    
+        // Fix the xmpMeta
+        app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/delMeta_3.js)
+
+### editXMP_3
+
+<button class="btn" data-clipboard-text="editXMP_3(_namespace, _prefix);"></button>
+{: .btn_p }
+
+??? "editXMP_3(_namespace, _prefix);"
+    ``` js linenums="1"
+    function editXMP_3(_namespace, _prefix) {
+        if (ExternalObject.AdobeXMPScript == undefined) {
+            ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript');
+        }
+        xmpMeta = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
+        ns_ss = _namespace ? ns_ss : "http://ns.simonadrian.de/simonscript/1.0/";
+        ns_ssPrefix = _prefix ? ns_ssPrefix : "ss:";
+        XMPMeta.registerNamespace(ns_ss, ns_ssPrefix);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/editXMP_3.js)
+
+### getMeta_3
+
+<button class="btn" data-clipboard-text="getMeta_3(_key);"></button>
+{: .btn_p }
+
+??? "getMeta_3(_key);"
+    ``` js linenums="1"
+    function getMeta_3(_key) {
+        editXMP_3();
+    
+        if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
+            var value = xmpMeta.getProperty(ns_ss, _key);
+        }
+    
+        if (typeof value !== 'undefined') {
+            return value;
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/getMeta_3.js)
+
+### setMeta_3
+
+<button class="btn" data-clipboard-text="setMeta_3(_key, _value);"></button>
+{: .btn_p }
+
+??? "setMeta_3(_key, _value);"
+    ``` js linenums="1"
+    function setMeta_3(_key, _value) {
+        editXMP_3();
+    
+        // deleteProperty
+        if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
+            xmpMeta.deleteProperty(ns_ss, _key);
+        }
+    
+        // setProperty
+        xmpMeta.setProperty(ns_ss, _key, _value);
+    
+        // Fix the xmpMeta
+        app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta_3.js)
 
 !!! warning hide "not documented functions"

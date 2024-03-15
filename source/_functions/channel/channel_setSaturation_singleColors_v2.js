@@ -1,4 +1,6 @@
-// 21.714 secs
+function channel_setSaturation_singleColors_v2(_source, __foldername) {
+
+    // 21.714 secs
 //********************************* */
 // 11.133 secs
 
@@ -12,9 +14,6 @@
 // 77	127
 // 51	90
 // 26	49
-
-
-function channel_setSaturation_singleColors_v2(_source, __foldername) {
 
     if (!layer_checkExistence(_source)) {
         if (layer_count() > 1) {

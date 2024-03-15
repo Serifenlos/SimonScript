@@ -1,1 +1,0 @@
-function interpolation_GigaPixel(e,i){var a=(i/e).toFixed(2).replace(".",",");text2Clipboard(a),executeAction(sTID("913d412a-534a-5224-a25d-213434343434"),void 0,DialogModes.ALL),setDpi(i)}

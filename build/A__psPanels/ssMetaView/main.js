@@ -242,6 +242,10 @@ async function getXML_2() {
   getMeta_woodwing(NS, xml, "woodwing_RGB");
   getMeta_woodwing(NS, xml, "woodwing_file");
   getMeta_woodwing(NS, xml, "idDocName");
+  getMeta_woodwing(NS, xml, "softproofProfil");
+  getMeta_woodwing(NS, xml, "softproofIntent");
+  getMeta_woodwing(NS, xml, "softproofTK");
+  getMeta_woodwing(NS, xml, "softprooGroup");
 
   // var isWoodwing = xml.getProperty(NS, "isWoodwing").value;
   // document.getElementById('isWoodwing').value = isWoodwing;
@@ -279,8 +283,8 @@ async function getXML_2() {
 // }
 
 function getMeta_woodwing(_ns, _xml, _property) {
-  var isWoodwing = _xml.doesPropertyExist(_ns, _property) ? _xml.getProperty(_ns, _property).value : "";
-  document.getElementById(_property).value = isWoodwing;
+  var value = _xml.doesPropertyExist(_ns, _property) ? _xml.getProperty(_ns, _property).value : "";
+  document.getElementById(_property).value = value;
 }
 
 

@@ -33,7 +33,7 @@
 # done
 
 
-project=/Users/simon/Arbeit/GitHub/SimonScript
+project=~/Arbeit/GitHub/SimonScript
 count=1
 for file in $project/docs/kit_helper/*; do
     kit=${file##*/}

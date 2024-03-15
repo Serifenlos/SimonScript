@@ -1,1 +1,0 @@
-function getMeta_3(t){if(editXMP_3(),xmpMeta.doesPropertyExist(ns_ss,t))var e=xmpMeta.getProperty(ns_ss,t);if(void 0!==e)return e}

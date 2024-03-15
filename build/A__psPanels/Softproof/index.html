@@ -9,14 +9,15 @@
     <div class="wrapper">
       <div class="sp-tabs">
         <div class="sp-tab selected" id="mfcPaper-tab"><sp-label>1<span>MFC Paper</span></sp-label></div>
-        <div class="sp-tab" id="isoCoated300-tab"><sp-label>2<span>iso Coated v2 300%</span></sp-label></div>
+        <div class="sp-tab" id="psoCoated_v3-tab"><sp-label>2<span>PSO Coated v3</span></sp-label></div>
         <div class="sp-tab" id="isoCoated-tab"><sp-label>3<span>iso Coated v2</span></sp-label></div>
-        <div class="sp-tab" id="psoUncoated-tab"><sp-label>4<span>PSO Uncoated</span></sp-label></div>
+        <div class="sp-tab" id="isoCoated300-tab"><sp-label>4<span>iso Coated v2 300%</span></sp-label></div>
         <div class="sp-tab" id="psoUncoated_v3-tab"><sp-label>5<span>PSO Uncoated v3</span></sp-label></div>
-        <div class="sp-tab" id="psoLWCimproved-tab"><sp-label>6<span>PSO LWC Improved</span></sp-label></div>
-        <div class="sp-tab" id="psoCoated_v3-tab"><sp-label>7<span>PSO Coated v3</span></sp-label></div>
-        <div class="sp-tab" id="RGB-tab"><sp-label>8<span>RGB</span></sp-label></div>
-        <div class="sp-tab" id="Custom-tab"><sp-label>9<span>Custom</span></sp-label></div>
+        <div class="sp-tab" id="psoUncoated-tab"><sp-label>6<span>PSO Uncoated</span></sp-label></div>
+        <div class="sp-tab" id="psoLWCimproved-tab"><sp-label>7<span>PSO LWC Improved</span></sp-label></div>
+        <div class="sp-tab" id="Gray-tab"><sp-label>8<span>Gray</span></sp-label></div>
+        
+        <div class="sp-tab" id="RGB-tab"><sp-label>9<span>RGB</span></sp-label></div>
       </div>
   
       <div class="sp-tab-page visible" id="mfcPaper-tab-page">
@@ -70,20 +71,6 @@
           </sp-radio-group>
         </div>
             
-  
-          <!-- <div class="sp-action-button-row">
-            <sp-action-button id="ding" data-proofProfil="PSO MFC Paper (ECI)" data-proofIntent="colorimetric" data-proofTK="true">Gr</sp-action-button>
-            <sp-action-button id="levels">Ton</sp-action-button>
-            <sp-action-button id="brightnessEvent">H+K</sp-action-button>
-            <sp-action-button id="selectiveColor">Sel</sp-action-button>
-            <sp-action-button id="colorBalance">Fa</sp-action-button>
-            <sp-action-button id="hueSaturation">Sä</sp-action-button>
-            <sp-action-button id="blackAndWhite">SW</sp-action-button>
-            <sp-action-button id="vibrance">Dy</sp-action-button>
-          </div> -->
-  
-  
-  
       <div class="sp-tab-page" id="isoCoated300-tab-page">
         <sp-radio-group selected="first" name="example">
             
@@ -309,6 +296,73 @@
   
         </sp-radio-group>
       </div>
+
+      <div class="sp-tab-page" id="Gray-tab-page">
+        <sp-radio-group selected="first" name="example">
+            
+          <sp-radio invalid
+            class="noSoftproof"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio 
+            data-proofProfil="Gray Gamma 1.8"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+  
+          <sp-radio
+            data-proofProfil="Gray Gamma 2.2"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+
+          <sp-radio
+            data-proofProfil="Dot Gain 10%"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+
+          <sp-radio
+            data-proofProfil="Dot Gain 15%"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+
+          <sp-radio
+            data-proofProfil="Dot Gain 20%"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+
+          <sp-radio
+            data-proofProfil="Dot Gain 25%"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+
+          <sp-radio
+            data-proofProfil="ISO Coated v2 - GREY 1c - (basICColor)"
+            data-proofIntent="colorimetric"
+            data-proofTK="true"
+            data-proofGroup="Gray"
+            value="first">
+          </sp-radio>
+  
+        </sp-radio-group>
+      </div>
   
       <div class="sp-tab-page" id="RGB-tab-page">
         <sp-radio-group selected="first" name="example">
@@ -351,29 +405,10 @@
           </sp-radio>
   
   
-  
         </sp-radio-group>
       </div>
   
-      <div class="sp-tab-page" id="Custom-tab-page">
-        <sp-radio-group selected="first" name="example">
-            
-          <sp-radio invalid
-            class="noSoftproof"
-            value="first">
-          </sp-radio>
-  
-  
-          <sp-radio
-            data-proofProfil="SaalDigital_Fotobuch_Matt.icc"
-            data-proofIntent="colorimetric"
-            data-proofTK="true"
-            data-proofGroup="Custom"
-            value="first">
-          </sp-radio>
-  
-        </sp-radio-group>
-      </div>
+
       
   
     </div>
@@ -382,6 +417,8 @@
         <!-- <sp-divider size="medium"></sp-divider> -->
         <sp-body size="XS" id="proofinfo"></sp-body>
     </div>
+
+    <!-- <sp-button size="s" id="checkButton">checkit</sp-button> -->
     
   </body>
   </html>

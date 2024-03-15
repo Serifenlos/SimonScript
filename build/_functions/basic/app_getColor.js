@@ -1,1 +1,0 @@
-function app_getColor(r,u){var o=[];if("vordergrund"==u||"foreground"==u)var h=app.foregroundColor;else h=app.backgroundColor;if("rgb"==r){var n=h.rgb;o.push(Math.round(n.red)),o.push(Math.round(n.green)),o.push(Math.round(n.blue))}else if("hsb"==r||"hsl"==r){n=h.hsb;o.push(Math.round(n.hue)),o.push(Math.round(n.saturation)),o.push(Math.round(n.brightness))}return o}

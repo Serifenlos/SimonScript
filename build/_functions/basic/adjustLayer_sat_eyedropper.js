@@ -1,1 +1,0 @@
-function adjustLayer_sat_eyedropper(){var e=new ActionDescriptor,t=new ActionReference;t.putClass(s2t("eyedropper2Tool")),e.putReference(s2t("null"),t),executeAction(s2t("select"),e,DialogModes.NO)}

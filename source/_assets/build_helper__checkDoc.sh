@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-project=/Users/simon/Arbeit/GitHub/SimonScript
+project=~/Arbeit/GitHub/SimonScript
 folder=$project/source/_functions
 
 for file in $project/docs/kit_helper/*; do

@@ -8,7 +8,7 @@
     <!-- @import "../../source/_functions/channel/channel2mask.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2mask.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2mask.js)
 
 ### channel2selection
 
@@ -20,7 +20,7 @@
     <!-- @import "../../source/_functions/channel/channel2selection.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2selection.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2selection.js)
 
 ### channel_delete
 
@@ -32,7 +32,7 @@
     <!-- @import "../../source/_functions/channel/channel_delete.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_delete.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_delete.js)
 
 ### channel_name
 
@@ -44,7 +44,7 @@
     <!-- @import "../../source/_functions/channel/channel_name.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_name.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_name.js)
 
 ### channel_select
 
@@ -56,7 +56,7 @@
     <!-- @import "../../source/_functions/channel/channel_select.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_select.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_select.js)
 
 ### channel_setSaturation
 
@@ -68,7 +68,7 @@
     <!-- @import "../../source/_functions/channel/channel_setSaturation.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_setSaturation.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_setSaturation.js)
 
 ### kanalberechnung
 
@@ -80,7 +80,7 @@
     <!-- @import "../../source/_functions/channel/kanalberechnung.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/kanalberechnung.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/kanalberechnung.js)
 
 ### channel2image
 
@@ -92,11 +92,11 @@
     <!-- @import "../../source/_functions/channel/channel2image.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2image.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel2image.js)
 
 ???+ a
     ```js
-    doc.suspendHistory("channel2image", "channel2image('Alpha 1', 'channel2image')");
+    doc.suspendHistory("channel2image", "channel2image("Alpha 1", "channel2image")");
     ```
 
     ??? b
@@ -113,11 +113,11 @@
     <!-- @import "../../source/_functions/channel/bildberechnung.js" -->
     ```
 
-[](file:///Users/simon/Arbeit/GitHub/SimonScript/source/_functions/channel/bildberechnung.js)
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/bildberechnung.js)
 
 ???+ a
     ```js
-    bildberechnung('Alpha 1', "normal", f, f);
+    bildberechnung("Alpha 1", "normal", f, f);
     ```
 
     ??? b
@@ -126,8 +126,64 @@
         * _invert `boolean`
         * _preserveTransparency `boolean`
 
-!!! warning show "not documented functions"
-    - channel_setSaturation_singleColors
-     - channel_setSaturation_singleColors_v2
-     - mask_setSaturation_singleColors
-     - mask_setSaturation_singleColors_create
+### channel_setSaturation_singleColors
+
+<button class="btn" data-clipboard-text="channel_setSaturation_singleColors(_source, _calculation);"></button>
+{: .btn_p }
+
+??? "channel_setSaturation_singleColors(_source, _calculation);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/channel_setSaturation_singleColors.js" -->
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_setSaturation_singleColors.js)
+
+### mask_farbmaske_viaSaturation
+
+<button class="btn" data-clipboard-text="mask_farbmaske_viaSaturation(_folder, _toleranz);"></button>
+{: .btn_p }
+
+??? "mask_farbmaske_viaSaturation(_folder, _toleranz);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/mask_farbmaske_viaSaturation.js" -->
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/mask_farbmaske_viaSaturation.js)
+
+### mask_setSaturation_singleColors
+
+<button class="btn" data-clipboard-text="mask_setSaturation_singleColors(__foldername);"></button>
+{: .btn_p }
+
+??? "mask_setSaturation_singleColors(__foldername);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/mask_setSaturation_singleColors.js" -->
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/mask_setSaturation_singleColors.js)
+
+### mask_setSaturation_singleColors_create
+
+<button class="btn" data-clipboard-text="mask_setSaturation_singleColors_create(_foldername, _version);"></button>
+{: .btn_p }
+
+??? "mask_setSaturation_singleColors_create(_foldername, _version);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/mask_setSaturation_singleColors_create.js" -->
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/mask_setSaturation_singleColors_create.js)
+
+### channel_setSaturation_singleColors_v2
+
+<button class="btn" data-clipboard-text="channel_setSaturation_singleColors_v2(_source, __foldername);"></button>
+{: .btn_p }
+
+??? "channel_setSaturation_singleColors_v2(_source, __foldername);"
+    ``` js linenums="1"
+    <!-- @import "../../source/_functions/channel/channel_setSaturation_singleColors_v2.js" -->
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_setSaturation_singleColors_v2.js)
+
+!!! warning hide "not documented functions"
