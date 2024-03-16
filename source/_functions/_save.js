@@ -4,4 +4,6 @@
 // @codekit-prepend './save/saveFile_JPG.js';
 // @codekit-prepend './save/saveFile_PSD.js';
 // @codekit-prepend './save/saveFile_TIF.js';
+// @codekit-prepend './save/saveFile_v2.js';
+// @codekit-prepend './save/saveMultiformat.js';
 // @codekit-prepend './save/savePSD_v2.js';

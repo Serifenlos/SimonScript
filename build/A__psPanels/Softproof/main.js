@@ -1,5 +1,5 @@
 const nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
-const ns = "ss";
+const nsPrefix = "ss";
 
 const nsURI_old = "http://ns.simonadrian.de/proofsetup/1.0";
 
@@ -14,11 +14,13 @@ const bp = require("photoshop").action.batchPlay;
 // document.getElementById("checkButton").addEventListener("click", checkFunction);
 
 // async function checkFunction() {
-//   console.log(XMPMeta.dumpNamespaces());
-//   // const { XMPMeta, XMPConst } = require("uxp").xmp;
-//   // const bp = require("photoshop").action.batchPlay;
-//   // try {await XMPMeta.deleteNamespace(nsURI_old)} catch(e){console.log(e);}
-//   // console.log(XMPMeta.dumpNamespaces());
+//   // showAlert(XMPMeta.dumpNamespaces());
+//   console.log("1: " + XMPMeta.dumpNamespaces());
+
+//   if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
+//     XMPMeta.registerNamespace(nsURI,nsPrefix);
+//   }
+//   console.log("2: " + XMPMeta.dumpNamespaces());
 // }
 
 
@@ -69,12 +71,11 @@ for (const button of buttons) {
       let dataproofTK = Boolean(this.getAttribute('data-proofTK'));
       let dataProofGroup = this.getAttribute('data-proofGroup');
 
-      console.log("button clicked \n\
-      dataProofProfil: " + dataProofProfil + "\n\
-      dataProofIntent: " + dataProofIntent + "\n\
-      dataproofTK: " + dataproofTK + "\n\
-      dataProofGroup: " + dataProofGroup);
-
+      // console.log("button clicked \n\
+      // dataProofProfil: " + dataProofProfil + "\n\
+      // dataProofIntent: " + dataProofIntent + "\n\
+      // dataproofTK: " + dataproofTK + "\n\
+      // dataProofGroup: " + dataProofGroup);
 
       try {
         await setMeta(dataProofProfil, dataProofIntent, dataproofTK, dataProofGroup);       // loadScript("[panel] softproof2meta");
@@ -83,7 +84,7 @@ for (const button of buttons) {
         });
         await setUI();
       } catch (e) {
-        console.log(e);
+        alert(e);
       }
     }
   });
@@ -100,23 +101,23 @@ for (const noSoftproof of noSoftproofs) {
       var xmpData = await getDocumentXMP();
       let xmp = new XMPMeta(xmpData);
 
-      if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softprooGroup")) {
+      if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softproofGroup")) {
 
         try {
           await delMeta();
-        } catch (e) { console.log(e) }
+        } catch(e) {alert(e)}
 
         try {
           await executeAsModal(toggleProofColors);
-        } catch (e) { console.log(e) }
+        } catch(e) {alert(e)}
 
         try {
           await setUI();
-        } catch (e) { console.log(e) }
+        } catch(e) {alert(e)}
 
       }
 
-      console.log("button clicked - sp-radio.noSoftproof");
+      // console.log("button clicked - sp-radio.noSoftproof");
     }
   })
 }
@@ -134,7 +135,7 @@ async function isSoftProof() {
   let xmp = new XMPMeta(xmpData);
 
   try {
-    if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softprooGroup")) {
+    if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softproofGroup")) {
       var isSoftProof = true;
     } else {
       var isSoftProof = false;
@@ -285,80 +286,80 @@ const setDocumentXMP = async (xmpString) => {
 };
 
 
-async function setMeta(_softproofProfil, _softproofIntent, _softproofTK, _softprooGroup) {
+async function setMeta(_softproofProfil, _softproofIntent, _softproofTK, _softproofGroup) {
   var xmpData = await getDocumentXMP();
   let xmp = new XMPMeta(xmpData);
 
-  console.log("setMeta \n\
-  _softproofProfil: " + _softproofProfil + "\n\
-  _softproofIntent: " + _softproofIntent + "\n\
-  _softproofTK: " + _softproofTK + "\n\
-  _softprooGroup: " + _softprooGroup);
+  // console.log("setMeta \n\
+  // _softproofProfil: " + _softproofProfil + "\n\
+  // _softproofIntent: " + _softproofIntent + "\n\
+  // _softproofTK: " + _softproofTK + "\n\
+  // _softproofGroup: " + _softproofGroup);
 
   if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
-    XMPMeta.registerNamespace(nsURI, ns);
+    XMPMeta.registerNamespace(nsURI, nsPrefix);
   }
 
-  try { xmp.setProperty(nsURI, "softproofProfil", _softproofProfil); } catch (e) { console.log(e); }
-  try { xmp.setProperty(nsURI, "softproofIntent", _softproofIntent); } catch (e) { console.log(e); }
-  try { xmp.setProperty(nsURI, "softproofTK", Boolean(_softproofTK)); } catch (e) { console.log(e); }
+  try { xmp.setProperty(nsURI, "softproofProfil", _softproofProfil); } catch(e) {alert(e)}
+  try { xmp.setProperty(nsURI, "softproofIntent", _softproofIntent); } catch(e) {alert(e)}
+  try { xmp.setProperty(nsURI, "softproofTK", Boolean(_softproofTK)); } catch(e) {alert(e)}
   try {
-    if (_softprooGroup != null) {
-      xmp.setProperty(nsURI, "softprooGroup", _softprooGroup);
-    } else { xmp.setProperty(nsURI, "softprooGroup", "undefined"); }
-  } catch (e) { console.log(e); }
+    if (_softproofGroup != null) {
+      xmp.setProperty(nsURI, "softproofGroup", _softproofGroup);
+    } else { xmp.setProperty(nsURI, "softproofGroup", "undefined"); }
+  } catch(e) {alert(e)}
 
   await setDocumentXMP(xmp.serialize());
 }
 
 
-async function getMeta() {
-  console.log("start getMeta");
-  var xmpData = await getDocumentXMP();
-  let xmp = new XMPMeta(xmpData);
+// async function getMeta() {
+//   // console.log("start getMeta");
+//   var xmpData = await getDocumentXMP();
+//   let xmp = new XMPMeta(xmpData);
 
-  if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softprooGroup")) {
-    var metaProofProfil = xmp.getProperty(nsURI, "softproofProfil").value;
-    var metaProofIntent = xmp.getProperty(nsURI, "softproofIntent").value;
-    var metaProofTK = Boolean(xmp.getProperty(nsURI, "softproofTK").value);
-    var metaProofGroup = xmp.getProperty(nsURI, "softprooGroup").value;
+//   if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softproofGroup")) {
+//     var metaProofProfil = xmp.getProperty(nsURI, "softproofProfil").value;
+//     var metaProofIntent = xmp.getProperty(nsURI, "softproofIntent").value;
+//     var metaProofTK = Boolean(xmp.getProperty(nsURI, "softproofTK").value);
+//     var metaProofGroup = xmp.getProperty(nsURI, "softproofGroup").value;
 
-    console.log("von getMeta: \n\
-    metaProofProfil: " + metaProofProfil + "\n\
-    metaProofIntent: " + metaProofIntent + "\n\
-    metaProofTK: " + metaProofTK + "\n\
-    metaProofGroup: " + metaProofGroup);
-
-
-
-    // proofinfo.innerHTML = metaProofProfil + " – " + metaProofIntent;
-
-
-    // var j;
-    // for (j = 0; j < buttons.length; j++) {                          // uncheck all other radios
-    //   buttons[j].checked = false;
-    // }
-
-    // document.querySelectorAll('sp-radio[data-proofProfil="' + metaProofProfil + '"][data-proofIntent="' + metaProofIntent + '"][data-proofTK="' + metaProofTK + '"]')[0].checked = true;
-    // console.log("getMeta-> " + metaProofProfil + " - " + metaProofIntent + " - " + metaProofTK + " - " + metaProofGroup);
+//     // console.log("von getMeta: \n\
+//     // metaProofProfil: " + metaProofProfil + "\n\
+//     // metaProofIntent: " + metaProofIntent + "\n\
+//     // metaProofTK: " + metaProofTK + "\n\
+//     // metaProofGroup: " + metaProofGroup);
 
 
 
+//     // proofinfo.innerHTML = metaProofProfil + " – " + metaProofIntent;
 
-  } else {
-    // // showAlert("nix da")
-    // var element = document.getElementById("proofinfo");
-    // element.innerHTML = "no Softproof";
 
-    // var k;
-    // for (k = 0; k < buttons.length; k++) {                          // uncheck all other radios
-    //   buttons[k].checked = false;
-    // }
-    // document.querySelectorAll('sp-radio')[0].checked = true;
-    console.log("no Softproof");
-  }
-  console.log("end getMeta");
-}
+//     // var j;
+//     // for (j = 0; j < buttons.length; j++) {                          // uncheck all other radios
+//     //   buttons[j].checked = false;
+//     // }
+
+//     // document.querySelectorAll('sp-radio[data-proofProfil="' + metaProofProfil + '"][data-proofIntent="' + metaProofIntent + '"][data-proofTK="' + metaProofTK + '"]')[0].checked = true;
+//     // console.log("getMeta-> " + metaProofProfil + " - " + metaProofIntent + " - " + metaProofTK + " - " + metaProofGroup);
+
+
+
+
+//   } else {
+//     // // showAlert("nix da")
+//     // var element = document.getElementById("proofinfo");
+//     // element.innerHTML = "no Softproof";
+
+//     // var k;
+//     // for (k = 0; k < buttons.length; k++) {                          // uncheck all other radios
+//     //   buttons[k].checked = false;
+//     // }
+//     // document.querySelectorAll('sp-radio')[0].checked = true;
+//     console.log("no Softproof");
+//   }
+//   console.log("end getMeta");
+// }
 
 
 async function delMeta() {
@@ -370,12 +371,12 @@ async function delMeta() {
   // _softproofProfil: " + _softproofProfil + "\n\
   // _softproofIntent: " + _softproofIntent + "\n\
   // _softproofTK: " + _softproofTK + "\n\
-  // _softprooGroup: " + _softprooGroup);
+  // _softproofGroup: " + _softproofGroup);
 
   xmp.deleteProperty(nsURI, "softproofProfil");
   xmp.deleteProperty(nsURI, "softproofIntent");
   xmp.deleteProperty(nsURI, "softproofTK");
-  xmp.deleteProperty(nsURI, "softprooGroup");
+  xmp.deleteProperty(nsURI, "softproofGroup");
 
   await setDocumentXMP(xmp.serialize());
 }
@@ -387,27 +388,27 @@ async function setUI() {
   var xmpData = await getDocumentXMP();
   let xmp = new XMPMeta(xmpData);
 
-  if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softprooGroup")) {
+  if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softproofGroup")) {
 
     var metaProofProfil = xmp.getProperty(nsURI, "softproofProfil").value;
     var metaProofIntent = xmp.getProperty(nsURI, "softproofIntent").value;
     var metaProofTK = Boolean(xmp.getProperty(nsURI, "softproofTK").value);
-    var metaProofGroup = xmp.getProperty(nsURI, "softprooGroup").value;
+    var metaProofGroup = xmp.getProperty(nsURI, "softproofGroup").value;
 
     proofinfo.innerHTML = metaProofProfil + " – " + metaProofIntent;
 
-    console.log("von setUI: \n\
-      metaProofProfil: " + metaProofProfil + "\n\
-      metaProofIntent: " + metaProofIntent + "\n\
-      metaProofTK: " + metaProofTK + "\n\
-      metaProofGroup: " + metaProofGroup);
+    // console.log("von setUI: \n\
+    //   metaProofProfil: " + metaProofProfil + "\n\
+    //   metaProofIntent: " + metaProofIntent + "\n\
+    //   metaProofTK: " + metaProofTK + "\n\
+    //   metaProofGroup: " + metaProofGroup);
 
     var j;
     for (j = 0; j < buttons.length; j++) {                          // uncheck all other radios
       buttons[j].checked = false;
     }
     try { document.querySelectorAll('sp-radio[data-proofProfil="' + metaProofProfil + '"][data-proofIntent="' + metaProofIntent + '"][data-proofTK="' + metaProofTK + '"]')[0].checked = true }
-    catch (e) { console.log(e) }
+    catch (e) { /* console.log(e) */ }
 
     var f = document.getElementsByClassName("sp-tab");              // uncheck all tabs
     var g;
@@ -415,7 +416,7 @@ async function setUI() {
       f[g].classList.remove("active", "selected");
     }
     try { document.getElementById(metaProofGroup + "-tab").classList.add("active", "selected") } // check spezific tab
-    catch (e) { console.log(e) }
+    catch (e) { /* console.log(e) */ }
 
     var f = document.getElementsByClassName("sp-tab-page");         // uncheck all tab-pages
     var g;
@@ -423,14 +424,13 @@ async function setUI() {
       f[g].classList.remove("active", "visible");
     }
     try { document.getElementById(metaProofGroup + "-tab-page").classList.add("active", "visible") } // check spezific tab-page
-    catch (e) { console.log(e) }
-    // console.log("setUI-> " + metaProofProfil + " - " + metaProofIntent + " - " + metaProofTK + " - " + metaProofGroup);
+    catch (e) { /* console.log(e) */ }
 
 
     await core.executeAsModal(() => {
       setSoftproof(metaProofProfil, metaProofIntent, metaProofTK)  // set SoftProof
     });
-    console.log("ding - kommt von setUI");
+    // console.log("ding - kommt von setUI");
   }
 
 
@@ -438,7 +438,7 @@ async function setUI() {
   else {
     await setUI_noSoftproof();
 
-    console.log("no Softproof - kommt von setUI");
+    // console.log("no Softproof - kommt von setUI");
   }
 
 }
@@ -481,7 +481,7 @@ async function convert_old2new() {
   try {
 
     if (xmp.doesPropertyExist(nsURI_old, "proof_profil") && xmp.doesPropertyExist(nsURI_old, "proof_intent") && xmp.doesPropertyExist(nsURI_old, "proof_tk") && xmp.doesPropertyExist(nsURI_old, "proof_group")) {
-      console.log("convert old2new");
+      // console.log("convert old2new");
 
       var metaProofProfil = xmp.getProperty(nsURI_old, "proof_profil").value;
       var metaProofIntent = xmp.getProperty(nsURI_old, "proof_intent").value;
@@ -489,11 +489,11 @@ async function convert_old2new() {
       var metaProofGroup = xmp.getProperty(nsURI_old, "proof_group").value;
 
 
-      console.log("convert_old2new \n\
-    metaProofProfil: " + metaProofProfil + "\n\
-    metaProofIntent: " + metaProofIntent + "\n\
-    metaProofTK: " + metaProofTK + "\n\
-    metaProofGroup: " + metaProofGroup);
+    //   console.log("convert_old2new \n\
+    // metaProofProfil: " + metaProofProfil + "\n\
+    // metaProofIntent: " + metaProofIntent + "\n\
+    // metaProofTK: " + metaProofTK + "\n\
+    // metaProofGroup: " + metaProofGroup);
 
       xmp.deleteProperty(nsURI_old, "proof_profil");
       xmp.deleteProperty(nsURI_old, "proof_intent");
@@ -506,7 +506,7 @@ async function convert_old2new() {
       await setMeta(metaProofProfil, metaProofIntent, metaProofTK, metaProofGroup);
     }
   } catch (e) {
-    console.log("nix zum Konvertieren: " + e);
+    // console.log("nix zum Konvertieren: " + e);
   }
   // console.log(XMPMeta.dumpNamespaces());
 }
@@ -559,3 +559,11 @@ require('photoshop').action.addNotificationListener([
 
 
 
+var listener_appStart = async function () {
+  if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
+    XMPMeta.registerNamespace(nsURI, nsPrefix);
+  }
+}
+require('photoshop').action.addNotificationListener([
+  { event: "notify" }       // launch Photoshop
+], listener_appStart);

@@ -376,4 +376,64 @@ thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
     savePSD_v2(file_RGB, f, t, t, t);
     ```
 
-!!! warning hide "not documented functions"
+
+### saveFile_v2
+
+<button class="btn" data-clipboard-text="saveFile_v2(_file, _saveOptions, _asCopy);"></button>
+{: .btn_p }
+
+??? "saveFile_v2(_file, _saveOptions, _asCopy);"
+    ``` js linenums="1"
+    function saveFile_v2(_file, _saveOptions, _asCopy) {
+        doc.saveAs(_file, _saveOptions, _asCopy, Extension.LOWERCASE);
+    }
+    
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile_v2.js)
+
+
+### saveMultiformat
+
+<button class="btn" data-clipboard-text="saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannels, _withLayers);"></button>
+{: .btn_p }
+
+??? "saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannels, _withLayers);"
+    ``` js linenums="1"
+    function saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannels, _withLayers) {
+        if (_saveFormat == "tif") {
+            var saveOptions = new TiffSaveOptions();
+            saveOptions.alphaChannels = _alphaChannels;
+            saveOptions.byteOrder = ByteOrder.IBM;
+            saveOptions.embedColorProfile = true;
+            saveOptions.imageCompression = TIFFEncoding.TIFFLZW;
+            saveOptions.layers = _withLayers;
+            saveOptions.spotColors = false;
+            saveOptions.transparency = true;
+            saveOptions.annotations = false;
+    
+        } else if (_saveFormat == "jpg") {
+            var saveOptions = new JPEGSaveOptions();
+            saveOptions.embedColorProfile = true;
+            saveOptions.formatOptions = FormatOptions.STANDARDBASELINE;
+            saveOptions.matte = MatteType.WHITE;
+            saveOptions.quality = _qualityJPG;
+    
+        } else if (_saveFormat == "psd") {
+            var saveOptions = new PhotoshopSaveOptions();
+            saveOptions.alphaChannels = _alphaChannels;
+            saveOptions.annotations = false;
+            saveOptions.embedColorProfile = true;
+            saveOptions.layers = _withLayers;
+            saveOptions.spotColors = false;
+        }
+        saveFile_v2(_file, saveOptions, _asCopy);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/save/saveMultiformat.js)
+
+
+!!! warning show "not documented functions"
+    - saveFile_v2
+     - saveMultiformat

@@ -129,7 +129,8 @@ function runID(_idDocName, _woodwing_file) {
 
 function save_ArbeitWood_RGB() {
     try {
-        saveJPG(2, 3, new File(woodwing_RGB), t, t, t);
+        /* saveJPG(2, 3, new File(woodwing_RGB), t, t, t); */
+        saveJPG_v2(new File(woodwing_RGB), 12, t)
     } catch (e) { "Error 2: " + alert(e) }
 
     try {
@@ -139,7 +140,7 @@ function save_ArbeitWood_RGB() {
 }
 
 
-function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
+/* function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
     var d = new ActionDescriptor();
     var d2 = new ActionDescriptor();
 
@@ -148,12 +149,25 @@ function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
     d2.putEnumerated(s2t("matteColor"), s2t("matteColor"), s2t("none"));
     d.putObject(s2t("as"), s2t("JPEG"), d2);
     d.putPath(s2t("in"), _file);
-    /* d.putInteger(s2t("documentID"), 65); */
     d.putBoolean(s2t("copy"), _asCopy);
     d.putBoolean(s2t("lowerCase"), _lowerCase);
     d.putBoolean(s2t("embedProfiles"), _embedProfiles);
     d.putEnumerated(s2t("saveStage"), s2t("saveStageType"), s2t("saveBegin"));
     executeAction(s2t("save"), d, DialogModes.NO);
+} */
+
+
+function saveJPG_v2(_file, _quality, _asCopy) {
+    saveOptions = new JPEGSaveOptions();
+    saveOptions.quality = _quality;
+    saveOptions.embedColorProfile = true;
+    saveOptions.formatOptions = FormatOptions.OPTIMIZEDBASELINE;
+    saveOptions.matte = MatteType.WHITE;
+    saveFile_v2(_file, saveOptions, _asCopy);
+}
+
+function saveFile_v2(_file, _saveOptions, _asCopy) {
+    doc.saveAs(_file, _saveOptions, _asCopy, Extension.LOWERCASE);
 }
 
 function isFileOpen(_fileName) {

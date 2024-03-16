@@ -469,13 +469,13 @@ var jsonFilePath="~/ss_var.json",jsonData=loadJSON(jsonFilePath);
 function loadJSON(e){var r,a=new File(e);if(!a.exists)return alert("Die JSON-Datei konnte nicht gefunden werden."),null;a.open("r"),r=a.read(),a.close();
 // Parse JSON-Inhalt
 try{return JSON.parse(r)}catch(e){return alert("Fehler beim Parsen der JSON-Datei:\n"+e),null}}saveFolder=jsonData.saveFolder;var Suffix_RZ=jsonData.RZ_suffix,saveFormat=jsonData.RZ_saveFormat,delPath=jsonData.RZ_delPath,sharp_dialog=jsonData.RZ_sharpDialog,doc=app.activeDocument;
-/*=================================================================================*/
-function GetFileNameOnly(e){var r=e.lastIndexOf(".");return-1==r?e:e.substr(0,r)}function replace_RGB_to_RZ(){return GetFileNameOnly(doc.name).replace(/(__RGB.*)$/g,Suffix_RZ)}
-/*=================================================================================*/function saveRZ_ding(e){
-// Location + Name
-writeln(e),(e=new Folder(e)).exists||e.create(),writeln(e+"/"+replace_RGB_to_RZ()+"."+saveFormat)}
 // var RGBname = GetFileNameOnly(doc.name);
 // writeln(RGBname);
 // var RZname = RGBname.replace(/(__RGB.*)$/g, Suffix_RZ);
 // writeln(RZname);
-saveRZ_ding(saveFolder);
+// saveRZ_ding(saveFolder);
+/*=================================================================================*/
+function GetFileNameOnly(e){var r=e.lastIndexOf(".");return-1==r?e:e.substr(0,r)}function replace_RGB_to_RZ(){return GetFileNameOnly(doc.name).replace(/(__RGB.*)$/g,Suffix_RZ)}
+/*=================================================================================*/function saveRZ_ding(e){
+// Location + Name
+writeln(e),(e=new Folder(e)).exists||e.create(),writeln(e+"/"+replace_RGB_to_RZ()+"."+saveFormat)}const nsURI="http://ns.simonadrian.de/simonscript/1.0/",nsPrefix="ss:";try{""===XMPMeta.getNamespacePrefix(nsURI)||void 0===XMPMeta.getNamespacePrefix(nsURI)?(XMPMeta.registerNamespace(nsURI,nsPrefix),alert("yes")):alert("no")}catch(e){alert(e)}xmpMeta=new XMPMeta(app.activeDocument.xmpMetadata.rawData),xmpMeta.doesPropertyExist(nsURI,"softproofProfil")&&xmpMeta.doesPropertyExist(nsURI,"softproofIntent")&&xmpMeta.doesPropertyExist(nsURI,"softproofTK")?alert("check ja"):alert("check nein");

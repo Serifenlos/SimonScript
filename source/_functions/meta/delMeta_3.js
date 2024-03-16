@@ -2,8 +2,8 @@ function delMeta_3(_key) {
     editXMP_3();
 
     // deleteProperty
-    if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
-        xmpMeta.deleteProperty(ns_ss, _key);
+    if (xmpMeta.doesPropertyExist(nsURI, _key)) {
+        xmpMeta.deleteProperty(nsURI, _key);
     }
 
     // Fix the xmpMeta

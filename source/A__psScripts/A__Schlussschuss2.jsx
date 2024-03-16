@@ -12,6 +12,7 @@
 /*//// FUNCTIONS ////*/
 /*=================================================================================*/
 //@include "functions/basic.jsx";
+//@include "functions/channel.jsx";
 //@include "functions/view.jsx";
 //@include "functions/layer.jsx";
 //@include "functions/save.jsx";
@@ -30,86 +31,16 @@ var jsonFilePath = "~/ss_var.json";
 var jsonData = loadJSON(jsonFilePath);
 
 
-// Funktion zum Laden und Parsen der JSON-Datei
-function loadJSON(filePath) {
-    var file = new File(filePath);
-    var content;
-
-    if (file.exists) {
-        file.open("r");
-        content = file.read();
-        file.close();
-
-        // Parse JSON-Inhalt
-        try {
-            return JSON.parse(content);
-        } catch (e) {
-            alert("Fehler beim Parsen der JSON-Datei:\n" + e);
-            return null;
-        }
-    } else {
-        alert("Die JSON-Datei konnte nicht gefunden werden.");
-        return null;
-    }
-}
-
-
-saveFolder = jsonData.saveFolder;
+var saveFolder = jsonData.RZ_saveFolder;
 var Suffix_RZ = jsonData.RZ_suffix;
 var saveFormat = jsonData.RZ_saveFormat;
 var delPath = jsonData.RZ_delPath;
 var sharp_dialog = jsonData.RZ_sharpDialog;
+var RZ_qualityJPG = jsonData.RZ_qualityJPG;
+var RZ_alphaChannels = jsonData.RZ_alphaChannels;
+var RZ_withLayers = jsonData.RZ_withLayers;
 
 
-
-function prefSave() {
-    startDisplayDialogs = app.displayDialogs;
-    startRulerUnits = app.preferences.rulerUnits;
-}
-
-function prefSet() {
-    app.displayDialogs = DialogModes.NO;
-    app.preferences.rulerUnits = Units.PIXELS;
-}
-
-function prefReset() {
-    app.preferences.rulerUnits = startRulerUnits;
-    app.displayDialogs = startDisplayDialogs;
-}
-
-
-var doc = app.activeDocument;
-
-/*=================================================================================*/
-// RemoveAlphaChannels
-function RemoveAlphaChannels() {
-    if (app.documents.length == 0) {
-        return;
-    }
-    var doc = app.activeDocument;
-
-    var channels = doc.channels;
-    var alphas = [];
-    for (var i = 0; i < channels.length; i++) {
-        var channel = channels[i];
-        if (channel.kind == ChannelType.COMPONENT) {
-            continue;
-        }
-        alphas.push(channel);
-    }
-    while (alphas.length) {
-        var channel = alphas.pop();
-        channel.remove();
-    }
-};
-
-
-
-/*=================================================================================*/
-// Flatten the Image
-function flattenImage() {
-    doc.flatten();
-}
 
 
 /*=================================================================================*/
@@ -128,9 +59,6 @@ function sharp(_dialog) {
     if (!app_panelsVisible()) togglePalettes();
     setZoom(safeZoom);
 }
-
-
-
 /*=================================================================================*/
 //FUNCTION convertProfil
 function convertProfile_bySimon() {
@@ -138,10 +66,11 @@ function convertProfile_bySimon() {
         editXMP_3();
         var checkMeta = "";
 
-        if (xmpMeta.doesPropertyExist(ns_ss, "softproofProfil") && xmpMeta.doesPropertyExist(ns_ss, "softproofIntent") && xmpMeta.doesPropertyExist(ns_ss, "softproofTK")) {
-            var proof_profil = xmpMeta.getProperty(ns_ss, "softproofProfil");
-            var proof_intent = xmpMeta.getProperty(ns_ss, "softproofIntent");
-            var proof_tk = xmpMeta.getProperty(ns_ss, "softproofTK");
+        if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
+            var proof_profil = xmpMeta.getProperty(nsURI, "softproofProfil");
+            var proof_intent = xmpMeta.getProperty(nsURI, "softproofIntent");
+            var proof_tk = xmpMeta.getProperty(nsURI, "softproofTK");
+
             var checkMeta = "positiv";
             return [checkMeta, proof_profil.value, proof_intent.value, proof_tk.value];
         } else {
@@ -165,8 +94,7 @@ function convertProfile_bySimon() {
             var proof_intent = Intent.ABSOLUTECOLORIMETRIC
         }
 
-        var proof_tk = getMeta()[3];
-        var proof_tk = String(proof_tk).toLowerCase() === 'true'; // was passiert wenn proof_tk false ist?
+        var proof_tk = Boolean(getMeta()[3]);
 
         // convertProfile(destinationProfile,intent[, blackPointCompensation][, dither])
         doc.convertProfile(proof_profil, proof_intent, proof_tk, true);
@@ -179,102 +107,17 @@ function convertProfile_bySimon() {
     }
 }
 
-/*=================================================================================*/
-//FUNCTION check8bit
-function convertBitDepth(bitdepth) {
-    var id1 = charIDToTypeID("CnvM");
-    var desc1 = new ActionDescriptor();
-    var id2 = charIDToTypeID("Dpth");
-    desc1.putInteger(id2, bitdepth);
-    executeAction(id1, desc1, DialogModes.NO);
-}
-
-function check8bit() {
-    if (doc.bitsPerChannel != BitsPerChannelType.EIGHT) {
-        convertBitDepth(8);
-    }
-}
-
-
-/*=================================================================================*/
-//FUNCTION clearAllGuides
-function clearAllGuides() {
-    executeAction(sTID('clearAllGuides'), undefined, DialogModes.NO);
-}
-
-
-
-/*=================================================================================*/
-function GetFileNameOnly(myFileName) {
-    var myString = "";
-    var myResult = myFileName.lastIndexOf(".");
-    if (myResult == -1) {
-        myString = myFileName;
-    } else {
-        myString = myFileName.substr(0, myResult);
-    }
-    return myString;
-}
-
 function replace_RGB_to_RZ() {
     var RGBname = GetFileNameOnly(doc.name);
     var RZname = RGBname.replace(/(__RGB.*)$/g, Suffix_RZ);
     return RZname;
 }
 
-
-
 /*=================================================================================*/
-function saveRZ_ding(saveFolder) {
-    // Location + Name
-    writeln(saveFolder)
-    var saveFolder = new Folder(saveFolder);
-    
-    if (!saveFolder.exists) saveFolder.create();
-    var savePath = saveFolder + "/" + replace_RGB_to_RZ() + "." + saveFormat;
-    writeln(savePath)
-
-    if (saveFormat == "tif") {
-        var saveOptions = new TiffSaveOptions();
-        saveOptions.alphaChannels = true;
-        saveOptions.byteOrder = ByteOrder.IBM;
-        saveOptions.embedColorProfile = true;
-        saveOptions.imageCompression = TIFFEncoding.TIFFLZW;
-        saveOptions.layers = true;
-        saveOptions.spotColors = false;
-        saveOptions.transparency = true;
-        saveOptions.annotations = false;
-
-    } else if (saveFormat == "jpg") {
-        var saveOptions = new JPEGSaveOptions();
-        saveOptions.embedColorProfile = true;
-        saveOptions.formatOptions = FormatOptions.STANDARDBASELINE;
-        saveOptions.matte = MatteType.WHITE;
-        saveOptions.quality = 11;
-
-    } else if (saveFormat == "psd") {
-        var saveOptions = new PhotoshopSaveOptions();
-        saveOptions.alphaChannels = false;
-        saveOptions.annotations = false;
-        saveOptions.embedColorProfile = true;
-        saveOptions.layers = true;
-        saveOptions.spotColors = false;
-    }
-
-    doc.saveAs(new File(savePath), saveOptions, false, Extension.LOWERCASE);
-}
-
-
-
-/*=================================================================================*/
-var checkSettings;
 editXMP_3();
 
-if (xmpMeta.doesPropertyExist(ns_ss, "softproofProfil") && xmpMeta.doesPropertyExist(ns_ss, "softproofIntent") && xmpMeta.doesPropertyExist(ns_ss, "softproofTK")) {
-    checkSettings = "positiv";
-}
-if (checkSettings == "positiv") {
-    run();
+if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
+    run(saveFolder);
 } else {
     var dialogSoftproof = new Window("dialog", "Schlussschuss");
     var stxt = dialogSoftproof.add("group");
@@ -286,7 +129,7 @@ if (checkSettings == "positiv") {
 
     ok.onClick = function () {
         dialogSoftproof.close();
-        run();
+        run(saveFolder);
     }
     cancel.onClick = function () {
         dialogSoftproof.close();
@@ -296,12 +139,8 @@ if (checkSettings == "positiv") {
 }
 
 
-
-
-
-
 /*=================================================================================*/
-function run() {
+function run(_saveFolder) {
     var doc = app.activeDocument;
 
     if (doc.saved == false) {
@@ -325,6 +164,27 @@ function run() {
     }
 
 
+    if (getMeta_3("isWoodwing")) var isWoodwing = getMeta_3("isWoodwing");
+    if (getMeta_3("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_3("arbeitsdatei_RGB");
+    if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
+    if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+    if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
+
+    try {
+        var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
+    } catch (e) { alert(e) }
+
+
+
+    var saveFolder = new Folder(_saveFolder);
+    if (!saveFolder.exists) saveFolder.create();
+    var savePath = saveFolder + "/" + replace_RGB_to_RZ() + "." + saveFormat;
+    writeln("savePath: " + savePath)
+
+    if (isWoodwing) {
+        var savePath = woodwing_RGB;
+    }
+
 
     try {
         if (doc.layerSets.getByName("Freisteller")) {
@@ -341,22 +201,22 @@ function run() {
         flattenImage();
     }
 
-    try {
-        RemoveAlphaChannels();
-        convertProfile_bySimon();
-        if(sharp_dialog){sharp(DialogModes.ALL)}
-        else {sharp(DialogModes.NO)}
+    RemoveAlphaChannels();
+    convertProfile_bySimon();
+    if (sharp_dialog) { sharp(DialogModes.ALL) }
+    else { sharp(DialogModes.NO) }
 
-        check8bit();
-        clearAllGuides();
-        delMeta_3("softproofProfil");
-        delMeta_3("softproofIntent");
-        delMeta_3("softproofTK");
-        delMeta_3("softprooGroup");
+    if (doc.bitsPerChannel != BitsPerChannelType.EIGHT) {
+        setBitDepth(8);
+    }
+    clearAllGuides();
+    delMeta_3("softproofProfil");
+    delMeta_3("softproofIntent");
+    delMeta_3("softproofTK");
+    delMeta_3("softproofGroup");
 
+    if (delPath) { activeDocument.pathItems.removeAll() }
 
-        if(delPath) {activeDocument.pathItems.removeAll()}
-    } catch (e) { $.writeln("1: " + e) };
 
     try {
         if (doc.artLayers.getByName("Freisteller")) {
@@ -365,12 +225,12 @@ function run() {
             savePSD_v2(new File(docNameCopy), t, t, t, f);
             setMaskVisibility(false);
         }
-    } catch (e) {$.writeln("2: " + e)}
+    } catch (e) { $.writeln("2: " + e) }
 
-    try {
-        flattenImage();
-        saveRZ_ding(saveFolder);
-    } catch (e) { $.writeln("3: " + e) }
+
+    flattenImage();
+    // saveRZ_ding(saveFolder);
+    saveMultiformat(new File(savePath), saveFormat, true, RZ_qualityJPG, RZ_alphaChannels, RZ_withLayers)
 }
 
 
@@ -379,3 +239,4 @@ function writeln(_ding) {
         return $.writeln('' + _ding + ': ' + _ding)
     } catch (e) { }
 }
+

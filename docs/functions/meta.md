@@ -284,8 +284,8 @@ universal
         editXMP_3();
     
         // deleteProperty
-        if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
-            xmpMeta.deleteProperty(ns_ss, _key);
+        if (xmpMeta.doesPropertyExist(nsURI, _key)) {
+            xmpMeta.deleteProperty(nsURI, _key);
         }
     
         // Fix the xmpMeta
@@ -307,9 +307,11 @@ universal
             ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript');
         }
         xmpMeta = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
-        ns_ss = _namespace ? ns_ss : "http://ns.simonadrian.de/simonscript/1.0/";
-        ns_ssPrefix = _prefix ? ns_ssPrefix : "ss:";
-        XMPMeta.registerNamespace(ns_ss, ns_ssPrefix);
+        nsURI = _namespace ? nsURI : "http://ns.simonadrian.de/simonscript/1.0/";
+        nsPrefix = _prefix ? nsPrefix : "ss:";
+        if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
+            XMPMeta.registerNamespace(nsURI, nsPrefix);
+        }
     }
     ```
 
@@ -325,8 +327,8 @@ universal
     function getMeta_3(_key) {
         editXMP_3();
     
-        if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
-            var value = xmpMeta.getProperty(ns_ss, _key);
+        if (xmpMeta.doesPropertyExist(nsURI, _key)) {
+            var value = xmpMeta.getProperty(nsURI, _key);
         }
     
         if (typeof value !== 'undefined') {
@@ -348,12 +350,12 @@ universal
         editXMP_3();
     
         // deleteProperty
-        if (xmpMeta.doesPropertyExist(ns_ss, _key)) {
-            xmpMeta.deleteProperty(ns_ss, _key);
+        if (xmpMeta.doesPropertyExist(nsURI, _key)) {
+            xmpMeta.deleteProperty(nsURI, _key);
         }
     
         // setProperty
-        xmpMeta.setProperty(ns_ss, _key, _value);
+        xmpMeta.setProperty(nsURI, _key, _value);
     
         // Fix the xmpMeta
         app.activeDocument.xmpMetadata.rawData = xmpMeta.serialize();
