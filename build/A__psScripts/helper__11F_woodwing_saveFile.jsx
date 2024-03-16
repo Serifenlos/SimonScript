@@ -26,7 +26,7 @@ if(isWoodwing){
 // } else {
 //     alert("nicht offen?");
 // }
-function BridgeTalkMessage_openDocID(e,t){var o=new BridgeTalk;o.target="indesign",o.body=runID.toSource()+"('"+e+"','"+t+"');",o.onResult=function(e){},o.send(10)}function closeDoc(e){try{e.close(SaveOptions.DONOTSAVECHANGES)}catch(e){
+function BridgeTalkMessage_openDocID(e,t){var i=new BridgeTalk;i.target="indesign",i.body=runID.toSource()+"('"+e+"','"+t+"');",i.onResult=function(e){},i.send(10)}function closeDoc(e){try{e.close(SaveOptions.DONOTSAVECHANGES)}catch(e){
 // alert(e);
 }}BridgeTalkMessage_openDocID(idDocName,woodwing_file),
 // ICH BRAUCHE EINEN NOTIFYER : WIE GEHTS ?
@@ -38,9 +38,24 @@ function BridgeTalkMessage_openDocID(e,t){var o=new BridgeTalk;o.target="indesig
 // if (!isFileOpen(woodwing_file)) {
 //     app.open(new File(woodwing_RGB));
 // }
-closeDoc(woodwing_file),doc.suspendHistory("save Arbeitsdatei + Woodwing","save_ArbeitWood_RGB()")}function runID(e,t){try{if(function(e){for(var t=!1,o=0;o<app.documents.length;o++)if(app.documents[o].name==e){t=!0,
+closeDoc(woodwing_file),doc.suspendHistory("save Arbeitsdatei + Woodwing","save_ArbeitWood_RGB()")}function runID(e,t){try{if(function(e){for(var t=!1,i=0;i<app.documents.length;i++)if(app.documents[i].name==e){t=!0,
 /* var filePath = File(app.documents[j].fullName.fullName);
                 app.open(filePath, true); */
-app.activeDocument=app.documents[o];break}return t}(e))app.activeDocument.links.itemByName(t).editOriginal();else alert("kein Focus auf der Datei?")}catch(e){alert(e)}return}function save_ArbeitWood_RGB(){try{saveJPG(2,3,new File(woodwing_RGB),t,t,t)}catch(e){alert(e)}try{saveFile_PSD(new File(arbeitsdatei_RGB),f,t,f,t,t,f)}catch(e){alert(e)}}function saveJPG(e,t,o,a,i,n){var s=new ActionDescriptor,r=new ActionDescriptor;r.putInteger(s2t("extendedQuality"),e),r.putInteger(s2t("scans"),t),r.putEnumerated(s2t("matteColor"),s2t("matteColor"),s2t("none")),s.putObject(s2t("as"),s2t("JPEG"),r),s.putPath(s2t("in"),o),
-/* d.putInteger(s2t("documentID"), 65); */
-s.putBoolean(s2t("copy"),a),s.putBoolean(s2t("lowerCase"),i),s.putBoolean(s2t("embedProfiles"),n),s.putEnumerated(s2t("saveStage"),s2t("saveStageType"),s2t("saveBegin")),executeAction(s2t("save"),s,DialogModes.NO)}function isFileOpen(e){for(var t=!1,o=0;o<app.documents.length;o++)if(app.documents[o].name==e){t=!0;break}return t}
+app.activeDocument=app.documents[i];break}return t}(e))app.activeDocument.links.itemByName(t).editOriginal();else alert("kein Focus auf der Datei?")}catch(e){alert(e)}return}function save_ArbeitWood_RGB(){try{
+/* saveJPG(2, 3, new File(woodwing_RGB), t, t, t); */
+saveJPG_v2(new File(woodwing_RGB),12,t)}catch(e){alert(e)}try{saveFile_PSD(new File(arbeitsdatei_RGB),f,t,f,t,t,f)}catch(e){alert(e)}}
+/* function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
+    var d = new ActionDescriptor();
+    var d2 = new ActionDescriptor();
+
+    d2.putInteger(s2t("extendedQuality"), _quality);
+    d2.putInteger(s2t("scans"), _scans);
+    d2.putEnumerated(s2t("matteColor"), s2t("matteColor"), s2t("none"));
+    d.putObject(s2t("as"), s2t("JPEG"), d2);
+    d.putPath(s2t("in"), _file);
+    d.putBoolean(s2t("copy"), _asCopy);
+    d.putBoolean(s2t("lowerCase"), _lowerCase);
+    d.putBoolean(s2t("embedProfiles"), _embedProfiles);
+    d.putEnumerated(s2t("saveStage"), s2t("saveStageType"), s2t("saveBegin"));
+    executeAction(s2t("save"), d, DialogModes.NO);
+} */function saveJPG_v2(e,t,i){saveOptions=new JPEGSaveOptions,saveOptions.quality=t,saveOptions.embedColorProfile=!0,saveOptions.formatOptions=FormatOptions.OPTIMIZEDBASELINE,saveOptions.matte=MatteType.WHITE,saveFile_v2(e,saveOptions,i)}function saveFile_v2(e,t,i){doc.saveAs(e,t,i,Extension.LOWERCASE)}function isFileOpen(e){for(var t=!1,i=0;i<app.documents.length;i++)if(app.documents[i].name==e){t=!0;break}return t}

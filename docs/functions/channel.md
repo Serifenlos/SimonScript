@@ -915,4 +915,33 @@
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_setSaturation_singleColors_v2.js)
 
-!!! warning hide "not documented functions"
+
+### removeAlphaChannels
+
+<button class="btn" data-clipboard-text="RemoveAlphaChannels();"></button>
+{: .btn_p }
+
+??? "RemoveAlphaChannels();"
+    ``` js linenums="1"
+    function RemoveAlphaChannels() {
+        var channels = doc.channels;
+        var alphas = [];
+        for (var i = 0; i < channels.length; i++) {
+            var channel = channels[i];
+            if (channel.kind == ChannelType.COMPONENT) {
+                continue;
+            }
+            alphas.push(channel);
+        }
+        while (alphas.length) {
+            var channel = alphas.pop();
+            channel.remove();
+        }
+    };
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/removeAlphaChannels.js)
+
+
+!!! warning show "not documented functions"
+    - removeAlphaChannels

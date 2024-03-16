@@ -1,6 +1,6 @@
 #!/bin/sh
 
-project=~s/Arbeit/GitHub/SimonScript
+project=~/Arbeit/GitHub/SimonScript
 folder=$project/source/_functions
 
 #project=/Users/simon/Arbeit/__temp

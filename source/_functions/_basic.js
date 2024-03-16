@@ -52,6 +52,7 @@
 // @codekit-prepend './basic/interpolation_PhotoAI.js';
 // @codekit-prepend './basic/invert.js';
 // @codekit-prepend './basic/isSelectionActive.js';
+// @codekit-prepend './basic/loadJSON.js';
 // @codekit-prepend './basic/logger.js';
 // @codekit-prepend './basic/mergeLayers.js';
 // @codekit-prepend './basic/mm2pt.js';

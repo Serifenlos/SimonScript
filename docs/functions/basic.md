@@ -2428,4 +2428,39 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/workingProfile_set.js)
 
-!!! warning hide "not documented functions"
+
+### loadJSON
+
+<button class="btn" data-clipboard-text="loadJSON(filePath);"></button>
+{: .btn_p }
+
+??? "loadJSON(filePath);"
+    ``` js linenums="1"
+    function loadJSON(filePath) {
+        var file = new File(filePath);
+        var content;
+    
+        if (file.exists) {
+            file.open("r");
+            content = file.read();
+            file.close();
+    
+            // Parse JSON-Inhalt
+            try {
+                return JSON.parse(content);
+            } catch (e) {
+                alert("Fehler beim Parsen der JSON-Datei:\n" + e);
+                return null;
+            }
+        } else {
+            alert("Die JSON-Datei konnte nicht gefunden werden.");
+            return null;
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/loadJSON.js)
+
+
+!!! warning show "not documented functions"
+    - loadJSON

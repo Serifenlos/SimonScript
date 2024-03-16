@@ -130,7 +130,7 @@ function modifyXMP(xmp, meta) {
     }
     console.log(meta.dumpNamespaces());*/
 
-  const ns_ss = "http://ns.simonadrian.de/simonscript/1.0/";
+  const nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
   var ns_ssPrefix = "ss";
   // try {
   //   var NS_ssPrefix = meta.getNamespacePrefix(NS_ss);
@@ -140,17 +140,17 @@ function modifyXMP(xmp, meta) {
   //   console.log("2");
   // }
 
-  if (meta.getNamespacePrefix(ns_ss) === "" || typeof meta.getNamespacePrefix(ns_ss) === 'undefined') {
-    var ns_ssPrefix = meta.registerNamespace(ns_ss, ns_ssPrefix);
+  if (meta.getNamespacePrefix(nsURI) === "" || typeof meta.getNamespacePrefix(nsURI) === 'undefined') {
+    var ns_ssPrefix = meta.registerNamespace(nsURI, ns_ssPrefix);
     console.log("1");
   } else {
-    var ns_ssPrefix = meta.getNamespacePrefix(ns_ss);
+    var ns_ssPrefix = meta.getNamespacePrefix(nsURI);
     console.log("2");
   }
 
   console.log("ns_ssPrefix: " + ns_ssPrefix);
-  console.log(meta.getNamespacePrefix(ns_ss));
-  xmp.setProperty(ns_ss, "ding2", "dong2");
+  console.log(meta.getNamespacePrefix(nsURI));
+  xmp.setProperty(nsURI, "ding2", "dong2");
   console.log(meta.dumpNamespaces());
 
 
@@ -235,17 +235,17 @@ async function getXML_2() {
   // console.log(XMPMeta.dumpNamespaces());
   // console.log(xmpData);
 
-  var NS = "http://ns.simonadrian.de/simonscript/1.0/";
+  var nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
 
-  getMeta_woodwing(NS, xml, "isWoodwing");
-  getMeta_woodwing(NS, xml, "arbeitsdatei_RGB");
-  getMeta_woodwing(NS, xml, "woodwing_RGB");
-  getMeta_woodwing(NS, xml, "woodwing_file");
-  getMeta_woodwing(NS, xml, "idDocName");
-  getMeta_woodwing(NS, xml, "softproofProfil");
-  getMeta_woodwing(NS, xml, "softproofIntent");
-  getMeta_woodwing(NS, xml, "softproofTK");
-  getMeta_woodwing(NS, xml, "softprooGroup");
+  getMeta_woodwing(nsURI, xml, "isWoodwing");
+  getMeta_woodwing(nsURI, xml, "arbeitsdatei_RGB");
+  getMeta_woodwing(nsURI, xml, "woodwing_RGB");
+  getMeta_woodwing(nsURI, xml, "woodwing_file");
+  getMeta_woodwing(nsURI, xml, "idDocName");
+  getMeta_woodwing(nsURI, xml, "softproofProfil");
+  getMeta_woodwing(nsURI, xml, "softproofIntent");
+  getMeta_woodwing(nsURI, xml, "softproofTK");
+  getMeta_woodwing(nsURI, xml, "softproofGroup");
 
   // var isWoodwing = xml.getProperty(NS, "isWoodwing").value;
   // document.getElementById('isWoodwing').value = isWoodwing;
@@ -289,15 +289,15 @@ function getMeta_woodwing(_ns, _xml, _property) {
 
 
 function check_NS(_input) {
-  var NS_SS = "http://ns.simonadrian.de/simonscript/1.0/";
+  var nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
   var NS_SSprefix = "ss";
 
   var NS_exsists = false;
-  if (_input.getNamespacePrefix(NS_SS) === "" || typeof _input.getNamespacePrefix(NS_SS) === 'undefined') {
-    var NS_SSprefix = _input.registerNamespace(NS_SS, NS_SSprefix);
+  if (_input.getNamespacePrefix(nsURI) === "" || typeof _input.getNamespacePrefix(nsURI) === 'undefined') {
+    var NS_SSprefix = _input.registerNamespace(nsURI, NS_SSprefix);
     console.log("1");
   } else {
-    var NS_SSprefix = _input.getNamespacePrefix(NS_SS);
+    var NS_SSprefix = _input.getNamespacePrefix(nsURI);
     console.log("2");
   }
 

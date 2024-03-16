@@ -970,7 +970,7 @@ function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
     var bt = new BridgeTalk();
     bt.target = 'indesign';
     bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "');";
-    bt.onResult = function(resObj) {
+    bt.onResult = function (resObj) {
         app.documents.getByName(_woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
     }
     bt.send(5);
@@ -1023,7 +1023,6 @@ alert(GetFileNameOnly(woodwing_RGB))
 
 
 
-
 /*//// OPTIONS ////*/
 /*=================================================================================*/
 //@include "./assets/json2.js"
@@ -1070,7 +1069,7 @@ var doc = app.activeDocument;
 // writeln(RZname);
 
 
-saveRZ_ding(saveFolder);
+// saveRZ_ding(saveFolder);
 
 
 /*=================================================================================*/
@@ -1098,7 +1097,7 @@ function saveRZ_ding(saveFolder) {
     // Location + Name
     writeln(saveFolder)
     var saveFolder = new Folder(saveFolder);
-    
+
     if (!saveFolder.exists) saveFolder.create();
     var savePath = saveFolder + "/" + replace_RGB_to_RZ() + "." + saveFormat;
     writeln(savePath)
@@ -1135,4 +1134,25 @@ function saveRZ_ding(saveFolder) {
     // writeln(savePath);
     // writeln(saveOptions);
 
+}
+
+const nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
+const nsPrefix = "ss:";
+
+
+try {
+    if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
+        XMPMeta.registerNamespace(nsURI, nsPrefix);
+        alert("yes")
+    } else {
+        alert("no");
+
+    }
+} catch (e) { alert(e) }
+xmpMeta = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
+
+if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
+    alert("check ja") 
+} else {
+    alert("check nein")
 }

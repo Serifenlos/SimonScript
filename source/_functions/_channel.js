@@ -12,3 +12,4 @@
 // @codekit-prepend './channel/mask_farbmaske_viaSaturation.js';
 // @codekit-prepend './channel/mask_setSaturation_singleColors.js';
 // @codekit-prepend './channel/mask_setSaturation_singleColors_create.js';
+// @codekit-prepend './channel/removeAlphaChannels.js';
