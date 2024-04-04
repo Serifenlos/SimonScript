@@ -14,14 +14,19 @@ const bp = require("photoshop").action.batchPlay;
 // document.getElementById("checkButton").addEventListener("click", checkFunction);
 
 // async function checkFunction() {
-//   // showAlert(XMPMeta.dumpNamespaces());
-//   console.log("1: " + XMPMeta.dumpNamespaces());
-
-//   if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
-//     XMPMeta.registerNamespace(nsURI,nsPrefix);
+//   function menuCommand(id) {
+//     require('photoshop').core.performMenuCommand({
+//       commandID: id,
+//       kcanDispatchWhileModal: true,
+//       _isCommand: false
+//     });
 //   }
-//   console.log("2: " + XMPMeta.dumpNamespaces());
+//   menuCommand(1105);
+
 // }
+
+
+
 
 
 
@@ -105,15 +110,15 @@ for (const noSoftproof of noSoftproofs) {
 
         try {
           await delMeta();
-        } catch(e) {alert(e)}
+        } catch (e) { alert(e) }
 
         try {
           await executeAsModal(toggleProofColors);
-        } catch(e) {alert(e)}
+        } catch (e) { alert(e) }
 
         try {
           await setUI();
-        } catch(e) {alert(e)}
+        } catch (e) { alert(e) }
 
       }
 
@@ -194,7 +199,9 @@ async function getSoftProof() {
     var proofSetup = await executeAsModal(getSoftProof_inner);
     return proofSetup;
 
-  } catch (e) { }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 async function toggleProofColors() {
@@ -300,66 +307,51 @@ async function setMeta(_softproofProfil, _softproofIntent, _softproofTK, _softpr
     XMPMeta.registerNamespace(nsURI, nsPrefix);
   }
 
-  try { xmp.setProperty(nsURI, "softproofProfil", _softproofProfil); } catch(e) {alert(e)}
-  try { xmp.setProperty(nsURI, "softproofIntent", _softproofIntent); } catch(e) {alert(e)}
-  try { xmp.setProperty(nsURI, "softproofTK", Boolean(_softproofTK)); } catch(e) {alert(e)}
+  try { xmp.setProperty(nsURI, "softproofProfil", _softproofProfil); } catch (e) { alert(e) }
+  try { xmp.setProperty(nsURI, "softproofIntent", _softproofIntent); } catch (e) { alert(e) }
+  try { xmp.setProperty(nsURI, "softproofTK", Boolean(_softproofTK)); } catch (e) { alert(e) }
   try {
     if (_softproofGroup != null) {
       xmp.setProperty(nsURI, "softproofGroup", _softproofGroup);
     } else { xmp.setProperty(nsURI, "softproofGroup", "undefined"); }
-  } catch(e) {alert(e)}
+  } catch (e) { alert(e) }
 
   await setDocumentXMP(xmp.serialize());
 }
 
 
-// async function getMeta() {
-//   // console.log("start getMeta");
-//   var xmpData = await getDocumentXMP();
-//   let xmp = new XMPMeta(xmpData);
+async function getMeta() {
+  // console.log("start getMeta");
+  var xmpData = await getDocumentXMP();
+  let xmp = new XMPMeta(xmpData);
 
-//   if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softproofGroup")) {
-//     var metaProofProfil = xmp.getProperty(nsURI, "softproofProfil").value;
-//     var metaProofIntent = xmp.getProperty(nsURI, "softproofIntent").value;
-//     var metaProofTK = Boolean(xmp.getProperty(nsURI, "softproofTK").value);
-//     var metaProofGroup = xmp.getProperty(nsURI, "softproofGroup").value;
+  if (xmp.doesPropertyExist(nsURI, "softproofProfil") && xmp.doesPropertyExist(nsURI, "softproofIntent") && xmp.doesPropertyExist(nsURI, "softproofTK") && xmp.doesPropertyExist(nsURI, "softproofGroup")) {
+    var metaProofProfil = xmp.getProperty(nsURI, "softproofProfil").value;
+    var metaProofIntent = xmp.getProperty(nsURI, "softproofIntent").value;
+    var metaProofTK = Boolean(xmp.getProperty(nsURI, "softproofTK").value);
+    var metaProofGroup = xmp.getProperty(nsURI, "softproofGroup").value;
 
-//     // console.log("von getMeta: \n\
-//     // metaProofProfil: " + metaProofProfil + "\n\
-//     // metaProofIntent: " + metaProofIntent + "\n\
-//     // metaProofTK: " + metaProofTK + "\n\
-//     // metaProofGroup: " + metaProofGroup);
+    console.log("von getMeta: \n\
+    metaProofProfil: " + metaProofProfil + "\n\
+    metaProofIntent: " + metaProofIntent + "\n\
+    metaProofTK: " + metaProofTK + "\n\
+    metaProofGroup: " + metaProofGroup);
 
+  } else {
+    // // showAlert("nix da")
+    // var element = document.getElementById("proofinfo");
+    // element.innerHTML = "no Softproof";
 
-
-//     // proofinfo.innerHTML = metaProofProfil + " – " + metaProofIntent;
-
-
-//     // var j;
-//     // for (j = 0; j < buttons.length; j++) {                          // uncheck all other radios
-//     //   buttons[j].checked = false;
-//     // }
-
-//     // document.querySelectorAll('sp-radio[data-proofProfil="' + metaProofProfil + '"][data-proofIntent="' + metaProofIntent + '"][data-proofTK="' + metaProofTK + '"]')[0].checked = true;
-//     // console.log("getMeta-> " + metaProofProfil + " - " + metaProofIntent + " - " + metaProofTK + " - " + metaProofGroup);
-
-
-
-
-//   } else {
-//     // // showAlert("nix da")
-//     // var element = document.getElementById("proofinfo");
-//     // element.innerHTML = "no Softproof";
-
-//     // var k;
-//     // for (k = 0; k < buttons.length; k++) {                          // uncheck all other radios
-//     //   buttons[k].checked = false;
-//     // }
-//     // document.querySelectorAll('sp-radio')[0].checked = true;
-//     console.log("no Softproof");
-//   }
-//   console.log("end getMeta");
-// }
+    // var k;
+    // for (k = 0; k < buttons.length; k++) {                          // uncheck all other radios
+    //   buttons[k].checked = false;
+    // }
+    // document.querySelectorAll('sp-radio')[0].checked = true;
+    console.log("no Softproof");
+    return false;
+  }
+  return (metaProofProfil, metaProofIntent, metaProofTK, metaProofGroup);
+}
 
 
 async function delMeta() {
@@ -397,11 +389,11 @@ async function setUI() {
 
     proofinfo.innerHTML = metaProofProfil + " – " + metaProofIntent;
 
-    // console.log("von setUI: \n\
-    //   metaProofProfil: " + metaProofProfil + "\n\
-    //   metaProofIntent: " + metaProofIntent + "\n\
-    //   metaProofTK: " + metaProofTK + "\n\
-    //   metaProofGroup: " + metaProofGroup);
+    console.log("von setUI: \n\
+      metaProofProfil: " + metaProofProfil + "\n\
+      metaProofIntent: " + metaProofIntent + "\n\
+      metaProofTK: " + metaProofTK + "\n\
+      metaProofGroup: " + metaProofGroup);
 
     var j;
     for (j = 0; j < buttons.length; j++) {                          // uncheck all other radios
@@ -489,18 +481,18 @@ async function convert_old2new() {
       var metaProofGroup = xmp.getProperty(nsURI_old, "proof_group").value;
 
 
-    //   console.log("convert_old2new \n\
-    // metaProofProfil: " + metaProofProfil + "\n\
-    // metaProofIntent: " + metaProofIntent + "\n\
-    // metaProofTK: " + metaProofTK + "\n\
-    // metaProofGroup: " + metaProofGroup);
+      //   console.log("convert_old2new \n\
+      // metaProofProfil: " + metaProofProfil + "\n\
+      // metaProofIntent: " + metaProofIntent + "\n\
+      // metaProofTK: " + metaProofTK + "\n\
+      // metaProofGroup: " + metaProofGroup);
 
       xmp.deleteProperty(nsURI_old, "proof_profil");
       xmp.deleteProperty(nsURI_old, "proof_intent");
       xmp.deleteProperty(nsURI_old, "proof_tk");
       xmp.deleteProperty(nsURI_old, "proof_group");
 
-      
+
 
       await setDocumentXMP(xmp.serialize());
       await setMeta(metaProofProfil, metaProofIntent, metaProofTK, metaProofGroup);
@@ -567,3 +559,50 @@ var listener_appStart = async function () {
 require('photoshop').action.addNotificationListener([
   { event: "notify" }       // launch Photoshop
 ], listener_appStart);
+
+
+
+//// TO LISTEN FOR EVENTS // GOLD
+// const eventHandler = (event, descriptor) => console.log(event, descriptor)
+// require("photoshop").action.addNotificationListener(["all"], eventHandler);
+////
+
+
+
+//// GEHT LEIDER NICHT 
+//// TODO das save-Event wird nicht mit den Schlussschuss-Script ausgelöst
+// var listener_save2 = async function (event, descriptor) {
+//   if (descriptor.saveStage._value === "saveSucceeded") {
+//     await setUI();
+//   }
+// }
+// require("photoshop").action.addNotificationListener(["save"], listener_save2);
+
+
+
+
+
+//// SEHR TRÄGE
+
+var listener_ding = async function (event, descriptor) {
+  if (descriptor.commandID === 1105) {
+
+    var getProofSetup = await getMeta()
+    if (getProofSetup) {
+      await delMeta();
+      await setUI();
+      console.log("if" + getProofSetup[0] + getProofSetup[1] + getProofSetup[2]);
+    } else {
+      console.log("esle" + getProofSetup[0] + getProofSetup[1] + getProofSetup[2]);
+      var getProofSetup = await getSoftProof()
+      if (getProofSetup != null) {
+        await setMeta(getProofSetup[0], getProofSetup[1], getProofSetup[2], "mfcPaper");
+        await setUI();
+      }
+      // await showAlert("else");
+      // await delMeta();
+      // await setUI();
+    }
+  }
+}
+require("photoshop").action.addNotificationListener(["invokeCommand"], listener_ding);

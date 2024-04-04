@@ -19,35 +19,9 @@ function loadJSON(e){var i,a=new File(e);if(!a.exists)return alert("Die JSON-Dat
 // Parse JSON-Inhalt
 try{return JSON.parse(i)}catch(e){return alert("Fehler beim Parsen der JSON-Datei:\n"+e),null}}
 /** Optionen  **************************************************************/const ZielAufloesung=jsonData.ZielAufloesung,minAufloesung=jsonData.minAufloesung,suffixRGB=jsonData.suffixRGB;var mainFolder=jsonData.mainFolder,subFolder=jsonData.subFolder,woodwing_mainFolder=jsonData.woodwing_mainFolder,check_trailingSlash=/\/$/;if(// Prüft, ob der String mit "/" endet
-check_trailingSlash.test(mainFolder)||(mainFolder+="/"),!app.selection.length>0)alert("Wähle das zubearbeitende Bild aus");else
-// $.writeln("idDocName: " + idDocName)
-for(var idDoc=app.activeDocument,idDocName=GetFileNameOnly(decodeURI(idDoc.name)),i=0;i<app.selection.length;i++){
-// var image, imageFile_frei_string, imageFile, imagePath;
-// var selection = app.selection[i];
-// try {
-//     if (imageLink.wwoi) {
-//         var isWoodwing = true;
-//         var woodwing_imageID = imageLink.wwoi;
-//     }
-// } catch (e) {
-//     var isWoodwing = false;
-// }
-// // ist der interne Rahmen vom Bild gewählt
-// if (selection instanceof Image && selection.parent.graphics.length > 0) {
-//     var image = selection.parent.graphics[0].itemLink;
-// }
-// // ist der äussere Rahmen vom Bild gewählt
-// else if ((selection instanceof Rectangle || selection instanceof Oval || selection instanceof Polygon) && selection.graphics.length > 0) {
-//     // if (!selection instanceof TextFrame && selection.graphics.length > 0) {
-//     var image = selection.graphics[0].itemLink;
-//     var imageName = image.name;
-//     $.writeln("imageName: " + imageName);
-// }
-// else {
-//     // um alle anderen im Original-Programm zu öffnen braucht man den Link der Selection und dann wird einfach… Aber ich weiß nicht woher den Link bekommen.
-//     // link.editOriginal();
-// }
-if(app.selection[i]instanceof Image&&app.selection[i].parent.graphics.length>0)var selection=app.selection[i].parent;else selection=app.selection[i];var image=selection.images[0],imageLink=selection.graphics[0].itemLink;try{if(imageLink.wwoi)var isWoodwing=!0,woodwing_imageID=imageLink.wwoi}catch(e){isWoodwing=!1}if(void 0!==imageLink){if(isWoodwing)imagePath=imageLink.elvisFilePath;else var imagePath=imageLink.filePath;var imageFile=new File(imagePath),imageName=decodeURI(imageLink.name),imageName_init=GetFileNameOnly(imageName),docFolder=new Folder(mainFolder+subFolder);
+check_trailingSlash.test(mainFolder)||(mainFolder+="/"),!app.selection.length>0)alert("Wähle das zubearbeitende Bild aus");else for(var idDoc=app.activeDocument,idDocName=GetFileNameOnly(decodeURI(idDoc.name)),i=0;i<app.selection.length;i++){
+// Weiche: interne oder äussere Rahmen des Bildes gewählt
+if(app.selection[i]instanceof Image&&app.selection[i].parent.graphics.length>0)var selection=app.selection[i].parent;else selection=app.selection[i];var image=selection.images[0],imageLink=selection.graphics[0].itemLink;try{if(imageLink.wwoi){var isWoodwing=!0,woodwing_imageID=imageLink.wwoi;idDocName=idDocName.replace(/^(.+)((-|_)\d{3})$/gm,"$1")}}catch(e){isWoodwing=!1}if(void 0!==imageLink){if(isWoodwing)imagePath=imageLink.elvisFilePath;else var imagePath=imageLink.filePath;var imageFile=new File(imagePath),imageName=decodeURI(imageLink.name),imageName_init=GetFileNameOnly(imageName),docFolder=new Folder(mainFolder+subFolder);
 // var frei = "-frei";
 // var checkName = new RegExp(frei);
 // if (checkName.test(imageFile)) {
@@ -76,4 +50,12 @@ var d=new BridgeTalk;d.target="photoshop",d.body=runPS.toSource()+"('"+e+"','"+i
         alert("_suffixRGB:" + _suffixRGB);
         alert("_isWoodwing:" + _isWoodwing);
         alert("_woodwing_mainFolder:" + _woodwing_mainFolder);
-        alert("_woodwing_imageID:" + _woodwing_imageID); */var d=new Folder(e+"/"+i),g=decodeURI(d+"/"+o+t+".psd");l?(function(e){for(var i=!1,a=0;a<app.documents.length;a++)if(app.documents[a].name==e){i=!0;break}return i}(n)&&app.documents.getByName(n).close(SaveOptions.DONOTSAVECHANGES),app.open(new File(g))):app.open(new File(a))}
+        alert("_woodwing_imageID:" + _woodwing_imageID); */var d=new Folder(e+"/"+i),g=new File(decodeURI(d+"/"+o+t+".psd"));
+/* var imageFile_RGB = new File(imageFile_RGB); */
+g.exists&&(
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* HIER BIN ICH STEHEN GEBLIEBEN: WENN RGB NICHT EXISTIERT: ABBRUCH */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+l?(function(e){for(var i=!1,a=0;a<app.documents.length;a++)if(app.documents[a].name==e){i=!0;break}return i}(n)&&app.documents.getByName(n).close(SaveOptions.DONOTSAVECHANGES),app.open(g)):app.open(new File(a)))}

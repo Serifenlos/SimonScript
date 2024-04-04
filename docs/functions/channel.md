@@ -915,7 +915,6 @@
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_setSaturation_singleColors_v2.js)
 
-
 ### removeAlphaChannels
 
 <button class="btn" data-clipboard-text="RemoveAlphaChannels();"></button>
@@ -942,6 +941,4 @@
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/removeAlphaChannels.js)
 
-
-!!! warning show "not documented functions"
-    - removeAlphaChannels
+!!! warning hide "not documented functions"

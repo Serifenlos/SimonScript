@@ -61,53 +61,20 @@ if (!check_trailingSlash.test(mainFolder)) {
 
 
 
-
 if (!app.selection.length > 0) {
     alert("Wähle das zubearbeitende Bild aus");
-
 
 } else {
 
     var idDoc = app.activeDocument;
     var idDocName = GetFileNameOnly(decodeURI(idDoc.name));
-    // $.writeln("idDocName: " + idDocName)
-
+    
 
     for (var i = 0; i < app.selection.length; i++) {
-
         var selection, image, imageLink, isWoodwing, woodwing_imageID, imagePath, imageFile, imageName_init, docFolder
 
-        // var image, imageFile_frei_string, imageFile, imagePath;
-        // var selection = app.selection[i];
 
-        // try {
-        //     if (imageLink.wwoi) {
-        //         var isWoodwing = true;
-        //         var woodwing_imageID = imageLink.wwoi;
-        //     }
-        // } catch (e) {
-        //     var isWoodwing = false;
-        // }
-
-
-        // // ist der interne Rahmen vom Bild gewählt
-        // if (selection instanceof Image && selection.parent.graphics.length > 0) {
-        //     var image = selection.parent.graphics[0].itemLink;
-        // }
-
-        // // ist der äussere Rahmen vom Bild gewählt
-        // else if ((selection instanceof Rectangle || selection instanceof Oval || selection instanceof Polygon) && selection.graphics.length > 0) {
-        //     // if (!selection instanceof TextFrame && selection.graphics.length > 0) {
-        //     var image = selection.graphics[0].itemLink;
-        //     var imageName = image.name;
-        //     $.writeln("imageName: " + imageName);
-        // }
-        // else {
-        //     // um alle anderen im Original-Programm zu öffnen braucht man den Link der Selection und dann wird einfach… Aber ich weiß nicht woher den Link bekommen.
-        //     // link.editOriginal();
-
-        // }
-
+        // Weiche: interne oder äussere Rahmen des Bildes gewählt
         if (app.selection[i] instanceof Image && app.selection[i].parent.graphics.length > 0) {
             var selection = app.selection[i].parent;
         } else {
@@ -118,10 +85,12 @@ if (!app.selection.length > 0) {
         var image = selection.images[0];
         var imageLink = selection.graphics[0].itemLink;
 
+
         try {
             if (imageLink.wwoi) {
                 var isWoodwing = true;
                 var woodwing_imageID = imageLink.wwoi;
+                var idDocName = idDocName.replace(/^(.+)((-|_)\d{3})$/gm, "$1");
             }
         } catch (e) {
             var isWoodwing = false;
@@ -215,8 +184,20 @@ function runPS(_docFolder, _idDocName, _imageFile, _imageName, _imageName_init, 
         alert("_isWoodwing:" + _isWoodwing);
         alert("_woodwing_mainFolder:" + _woodwing_mainFolder);
         alert("_woodwing_imageID:" + _woodwing_imageID); */
+        
     var imageFolder_RGB = new Folder(_docFolder + "/" + _idDocName);
-    var imageFile_RGB = decodeURI(imageFolder_RGB + "/" + _imageName_init + _suffixRGB + ".psd");
+    var imageFile_RGB = new File(decodeURI(imageFolder_RGB + "/" + _imageName_init + _suffixRGB + ".psd"));
+
+    /* var imageFile_RGB = new File(imageFile_RGB); */
+    if (!imageFile_RGB.exists) {
+        return;
+    }
+    
+    /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    /* HIER BIN ICH STEHEN GEBLIEBEN: WENN RGB NICHT EXISTIERT: ABBRUCH */
+    /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
     if (!_isWoodwing) {
         app.open(new File(_imageFile));
@@ -224,7 +205,7 @@ function runPS(_docFolder, _idDocName, _imageFile, _imageName, _imageName_init, 
         if (isFileOpen(_imageName)) {
             app.documents.getByName(_imageName).close(SaveOptions.DONOTSAVECHANGES);
         }
-        app.open(new File(imageFile_RGB));
+        app.open(imageFile_RGB);
     }
 
 

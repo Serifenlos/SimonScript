@@ -376,7 +376,6 @@ thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
     savePSD_v2(file_RGB, f, t, t, t);
     ```
 
-
 ### saveFile_v2
 
 <button class="btn" data-clipboard-text="saveFile_v2(_file, _saveOptions, _asCopy);"></button>
@@ -391,7 +390,6 @@ thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/save/saveFile_v2.js)
-
 
 ### saveMultiformat
 
@@ -427,13 +425,11 @@ thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
             saveOptions.layers = _withLayers;
             saveOptions.spotColors = false;
         }
-        saveFile_v2(_file, saveOptions, _asCopy);
+        try { saveFile_v2(_file, saveOptions, _asCopy); }
+        catch (e) { alert("Error saveMultiformat: " + e)}
     }
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/save/saveMultiformat.js)
 
-
-!!! warning show "not documented functions"
-    - saveFile_v2
-     - saveMultiformat
+!!! warning hide "not documented functions"

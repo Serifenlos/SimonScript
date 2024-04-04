@@ -434,48 +434,10 @@ function isFileOpen(e){for(var r=!1,a=0;a<app.documents.length;a++)if(app.docume
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
-// alert(getMeta_2("isWoodwing"))
-// alert(getMeta_2("woodwing_imageFile_RGB"))
-// alert(getMeta_2("imageFile_copyRGB"))
-// hoch rechnen: hPPI: 2101; minAuflösung: 300
-// alert(getLayersNb())
-var ding="dong";
-// var bing = getLayersNb();
-// if (getMeta_2("isWoodwing")) var isWoodwing = getMeta_2("isWoodwing");
-// if (getMeta_2("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_2("arbeitsdatei_RGB");
-// if (getMeta_2("woodwing_RGB")) var woodwing_RGB = getMeta_2("woodwing_RGB");
-// if (getMeta_2("woodwing_file")) var woodwing_file = getMeta_2("woodwing_file");
-// if (getMeta_2("idDocName")) var idDocName = getMeta_2("idDocName");
-// alert("isWoodwing: " + isWoodwing + "\narbeitsdatei_RGB: " + arbeitsdatei_RGB + "\nwoodwing_RGB: " + woodwing_RGB + "\nidDocName: " + idDocName + "\n")
 // var doc = app.activeDocument;
-// alert(doc.name);
-// var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
-// ´
-// app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
-function BridgeTalkMessage_openDocID(e,r){var a=new BridgeTalk;a.target="indesign",a.body=runID.toSource()+"('"+e+"','"+r+"');",a.onResult=function(e){app.documents.getByName(r).close(SaveOptions.DONOTSAVECHANGES)},a.send(5)}function runID(e,r){alert("hallo?");try{if(function(e){for(var r=!1,a=0;a<app.documents.length;a++)if(app.documents[a].name==e){r=!0,
-/* var filePath = File(app.documents[j].fullName.fullName);
-                app.open(filePath, true); */
-app.activeDocument=app.documents[a];break}return r}(e))app.activeDocument.links.itemByName(r).editOriginal()}catch(r){alert("Die Datei ist nicht offen: "+e+"\n"+r)}return"dingdong"}
-/* alert("woodwing_RGB: " + woodwing_RGB);
-alert(GetFileNameOnly(woodwing_RGB))
-
-
-~/WoodWingStudio.noindex/InDesign/65299/Falke_PP-3815.jpg */
-/*//// OPTIONS ////*/
-/*=================================================================================*/
-//@include "./assets/json2.js"
-var jsonFilePath="~/ss_var.json",jsonData=loadJSON(jsonFilePath);
-// Funktion zum Laden und Parsen der JSON-Datei
-function loadJSON(e){var r,a=new File(e);if(!a.exists)return alert("Die JSON-Datei konnte nicht gefunden werden."),null;a.open("r"),r=a.read(),a.close();
-// Parse JSON-Inhalt
-try{return JSON.parse(r)}catch(e){return alert("Fehler beim Parsen der JSON-Datei:\n"+e),null}}saveFolder=jsonData.saveFolder;var Suffix_RZ=jsonData.RZ_suffix,saveFormat=jsonData.RZ_saveFormat,delPath=jsonData.RZ_delPath,sharp_dialog=jsonData.RZ_sharpDialog,doc=app.activeDocument;
-// var RGBname = GetFileNameOnly(doc.name);
-// writeln(RGBname);
-// var RZname = RGBname.replace(/(__RGB.*)$/g, Suffix_RZ);
-// writeln(RZname);
-// saveRZ_ding(saveFolder);
-/*=================================================================================*/
-function GetFileNameOnly(e){var r=e.lastIndexOf(".");return-1==r?e:e.substr(0,r)}function replace_RGB_to_RZ(){return GetFileNameOnly(doc.name).replace(/(__RGB.*)$/g,Suffix_RZ)}
-/*=================================================================================*/function saveRZ_ding(e){
-// Location + Name
-writeln(e),(e=new Folder(e)).exists||e.create(),writeln(e+"/"+replace_RGB_to_RZ()+"."+saveFormat)}const nsURI="http://ns.simonadrian.de/simonscript/1.0/",nsPrefix="ss:";try{""===XMPMeta.getNamespacePrefix(nsURI)||void 0===XMPMeta.getNamespacePrefix(nsURI)?(XMPMeta.registerNamespace(nsURI,nsPrefix),alert("yes")):alert("no")}catch(e){alert(e)}xmpMeta=new XMPMeta(app.activeDocument.xmpMetadata.rawData),xmpMeta.doesPropertyExist(nsURI,"softproofProfil")&&xmpMeta.doesPropertyExist(nsURI,"softproofIntent")&&xmpMeta.doesPropertyExist(nsURI,"softproofTK")?alert("check ja"):alert("check nein");
+function closeDoc(e){try{
+// _file.close(SaveOptions.DONOTSAVECHANGES)
+app.documents.getByName(decodeURI(e)).close(SaveOptions.DONOTSAVECHANGES)}catch(e){alert(e)}}
+// decodeURI(doc_file.name);
+// app.documents.getByName(docFileName_decode).close(SaveOptions.DONOTSAVECHANGES);
+closeDoc("Falke_PP-3843__RGB.psd");

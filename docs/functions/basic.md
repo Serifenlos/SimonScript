@@ -2428,7 +2428,6 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/workingProfile_set.js)
 
-
 ### loadJSON
 
 <button class="btn" data-clipboard-text="loadJSON(filePath);"></button>
@@ -2461,6 +2460,4 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/loadJSON.js)
 
-
-!!! warning show "not documented functions"
-    - loadJSON
+!!! warning hide "not documented functions"

@@ -13,6 +13,7 @@
 /*=================================================================================*/
 //@include "functions/basic.jsx";
 //@include "functions/channel.jsx";
+//@include "functions/dialog.jsx";
 //@include "functions/view.jsx";
 //@include "functions/layer.jsx";
 //@include "functions/save.jsx";
@@ -40,11 +41,10 @@ var RZ_qualityJPG = jsonData.RZ_qualityJPG;
 var RZ_alphaChannels = jsonData.RZ_alphaChannels;
 var RZ_withLayers = jsonData.RZ_withLayers;
 
-
+var ssDebug = false;
 
 
 /*=================================================================================*/
-//FUNCTION schärfen
 function sharp(_dialog) {
     var safeZoom = getZoomLevel();
     // vollbildmodus();
@@ -60,29 +60,21 @@ function sharp(_dialog) {
     setZoom(safeZoom);
 }
 /*=================================================================================*/
-//FUNCTION convertProfil
-function convertProfile_bySimon() {
-    function getMeta() {
-        editXMP_3();
-        var checkMeta = "";
+function convertToProfil_menu() {
+    var d = new ActionDescriptor();
+    var r = new ActionReference();
+    r.putEnumerated(s2t("document"), s2t("ordinal"), s2t("targetEnum"));
+    d.putReference(s2t("null"), r);
+    executeAction(s2t('convertToProfile'), d, DialogModes.ALL);
+};
 
-        if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
-            var proof_profil = xmpMeta.getProperty(nsURI, "softproofProfil");
-            var proof_intent = xmpMeta.getProperty(nsURI, "softproofIntent");
-            var proof_tk = xmpMeta.getProperty(nsURI, "softproofTK");
-
-            var checkMeta = "positiv";
-            return [checkMeta, proof_profil.value, proof_intent.value, proof_tk.value];
-        } else {
-            var checkMeta = "negativ";
-            return [checkMeta];
-        }
-    }
-
-
-    if (getMeta()[0] == "positiv") { //convert by Meta
-        var proof_profil = getMeta()[1];
-        var proof_intent = getMeta()[2];
+/*=================================================================================*/
+function convertProfile_metaSoftproof() {
+    editXMP_3();
+    if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
+        var proof_profil = xmpMeta.getProperty(nsURI, "softproofProfil");
+        var proof_intent = xmpMeta.getProperty(nsURI, "softproofIntent");
+        var proof_tk = Boolean(xmpMeta.getProperty(nsURI, "softproofTK"));
 
         if (proof_intent == "image") {
             var proof_intent = Intent.PERCEPTUAL
@@ -94,17 +86,17 @@ function convertProfile_bySimon() {
             var proof_intent = Intent.ABSOLUTECOLORIMETRIC
         }
 
-        var proof_tk = Boolean(getMeta()[3]);
-
         // convertProfile(destinationProfile,intent[, blackPointCompensation][, dither])
         doc.convertProfile(proof_profil, proof_intent, proof_tk, true);
 
     } else { //convert by Hand
-        var appleScript = new File('/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/assets/appelscript_f6.app');
-        if (appleScript.exists) {
-            appleScript.execute(); //dauert zu lang, wird von der nächsten function überholt
-        }
+        // var appleScript = new File('/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/assets/appelscript_f6.app');
+        // if (appleScript.exists) {
+        //     appleScript.execute(); //dauert zu lang, wird von der nächsten function überholt
+        // }
+        convertToProfil_menu();
     }
+
 }
 
 function replace_RGB_to_RZ() {
@@ -114,75 +106,87 @@ function replace_RGB_to_RZ() {
 }
 
 /*=================================================================================*/
-editXMP_3();
+function dialog_missingSoftproof() {
+    var dialog_missingSoftproof = dialog_createDialog("Schlussschuss", "Du hast den Softproof vergessen", "Egal -> weiter", "Oh nein -> stopp");
+    return dialog_missingSoftproof.show() ? 0 : 1;
+}
 
-if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
-    run(saveFolder);
-} else {
-    var dialogSoftproof = new Window("dialog", "Schlussschuss");
-    var stxt = dialogSoftproof.add("group");
-    stxt.add("statictext", undefined, "Du hast den Softproof vergessen");
+function dialog_saveWorkingfile() {
+    var dialog_saveWorkingfile = dialog_createDialog("Schlussschuss", "vorher speichern?", "Ja", "Nein");
+    return dialog_saveWorkingfile.show() ? 0 : 1;
+}
 
-    var dialogSoftproofButton = dialogSoftproof.add("group");
-    var ok = dialogSoftproofButton.add("button", undefined, "Egal -> weiter");
-    var cancel = dialogSoftproofButton.add("button", undefined, "Oh nein -> stopp");
+/*=================================================================================*/
+function checkBeforeRun() {
+    editXMP_3();
 
-    ok.onClick = function () {
-        dialogSoftproof.close();
+    if (xmpMeta.doesPropertyExist(nsURI, "softproofProfil") && xmpMeta.doesPropertyExist(nsURI, "softproofIntent") && xmpMeta.doesPropertyExist(nsURI, "softproofTK")) {
         run(saveFolder);
+    } else {
+
+        if (dialog_missingSoftproof()) {
+            run(saveFolder);
+        } else {
+            return;
+        }
     }
-    cancel.onClick = function () {
-        dialogSoftproof.close();
-        return;
-    }
-    dialogSoftproof.show();
 }
 
 
+checkBeforeRun();
 /*=================================================================================*/
 function run(_saveFolder) {
     var doc = app.activeDocument;
 
     if (doc.saved == false) {
-        var dialogSave = new Window("dialog", "Schlussschuss");
-        var stxt = dialogSave.add("group");
-        stxt.add("statictext", undefined, "vorher speichern?");
-
-        var dialogSaveButton = dialogSave.add("group");
-        var ok = dialogSaveButton.add("button", undefined, "Ja");
-        var cancel = dialogSaveButton.add("button", undefined, "Nein");
-
-        ok.onClick = function () {
-            dialogSave.close();
+        if (dialog_saveWorkingfile()) {
             doc.save();
         }
-        cancel.onClick = function () {
-            dialogSave.close();
-            return;
-        }
-        dialogSave.show();
     }
 
 
-    if (getMeta_3("isWoodwing")) var isWoodwing = getMeta_3("isWoodwing");
+
+    var isWoodwing = false;
+    if (getMeta_3("isWoodwing")) var isWoodwing = Boolean(getMeta_3("isWoodwing"));
     if (getMeta_3("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_3("arbeitsdatei_RGB");
     if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
     if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+    if (getMeta_3("woodwing_imageID")) var woodwing_imageID = getMeta_3("woodwing_imageID");
     if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
 
+    /*     $.writeln(isWoodwing);
+        $.writeln(arbeitsdatei_RGB);
+        $.writeln(woodwing_RGB);
+        $.writeln(woodwing_file);
+        $.writeln(woodwing_imageID);
+        $.writeln(idDocName); */
     try {
-        var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
-    } catch (e) { alert(e) }
+        BridgeTalkMessage_openDocID(idDocName, woodwing_file, ssDebug);          // v2
+    } catch (e) { if (ssDebug) { alert("bt: " + e) } }
+    try {
+        closeDoc(woodwing_file);                                        // v2
+    } catch (e) { if (ssDebug) { alert("closeDoc+: " + e) } }
 
+    // v3
+    // BridgeTalkMessage_checkOutImage(idDocName, woodwing_imageID);
+    // $.setTimeout = function (func, time) {
+    //     $.sleep(time);
+    //     func();
+    // };
+    // $.setTimeout(function () { $.writeln("Zeitschinden") }, 3000);
 
-
-    var saveFolder = new Folder(_saveFolder);
-    if (!saveFolder.exists) saveFolder.create();
-    var savePath = saveFolder + "/" + replace_RGB_to_RZ() + "." + saveFormat;
-    writeln("savePath: " + savePath)
 
     if (isWoodwing) {
+        // if (woodwing_RGB.exists) {
         var savePath = woodwing_RGB;
+        // } else {
+        //     alert("Abbruch! Die Woodwing-Zieldatei existiert nicht \n" + woodwing_RGB);
+        //     return;
+        // }
+    } else {
+        var saveFolder = new Folder(_saveFolder);
+        if (!saveFolder.exists) saveFolder.create();
+        var savePath = saveFolder + "/" + replace_RGB_to_RZ() + "." + saveFormat;
     }
 
 
@@ -202,7 +206,7 @@ function run(_saveFolder) {
     }
 
     RemoveAlphaChannels();
-    convertProfile_bySimon();
+    convertProfile_metaSoftproof();
     if (sharp_dialog) { sharp(DialogModes.ALL) }
     else { sharp(DialogModes.NO) }
 
@@ -210,10 +214,7 @@ function run(_saveFolder) {
         setBitDepth(8);
     }
     clearAllGuides();
-    delMeta_3("softproofProfil");
-    delMeta_3("softproofIntent");
-    delMeta_3("softproofTK");
-    delMeta_3("softproofGroup");
+    delMeta_3(["softproofProfil", "softproofIntent", "softproofTK", "softproofGroup"]);
 
     if (delPath) { activeDocument.pathItems.removeAll() }
 
@@ -227,16 +228,196 @@ function run(_saveFolder) {
         }
     } catch (e) { $.writeln("2: " + e) }
 
+    try {
+        flattenImage();
+        saveMultiformat(new File(savePath), saveFormat, false, RZ_qualityJPG, RZ_alphaChannels, RZ_withLayers);
 
-    flattenImage();
-    // saveRZ_ding(saveFolder);
-    saveMultiformat(new File(savePath), saveFormat, true, RZ_qualityJPG, RZ_alphaChannels, RZ_withLayers)
+        // BridgeTalkMessage_checkInImage(idDocName, woodwing_imageID);             // v3
+    } catch (e) { if (ssDebug) { alert("save: " + e) } }
+    closeDoc(woodwing_file);
 }
 
 
-function writeln(_ding) {
+
+
+function closeDoc(_file) {
     try {
-        return $.writeln('' + _ding + ': ' + _ding)
-    } catch (e) { }
+        app.documents.getByName(decodeURI(_file)).close(SaveOptions.DONOTSAVECHANGES);
+    }
+    catch (e) { if (ssDebug) { alert("closeDoc: " + _file + " :--: " + e) } }
+}
+
+
+
+function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file, _ssDebug) {
+    var bt = new BridgeTalk();
+    bt.target = 'indesign';
+    bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "','" + _ssDebug + "');";
+    bt.onResult = function (resObj) {}
+    bt.send(10);
+}
+
+function runID(_idDocName, _woodwing_file, _ssDebug) {
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var woodwing_file = app.activeDocument.links.itemByName(_woodwing_file);
+            woodwing_file.editOriginal();
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) {
+        /* if (_ssDebug) { alert("runID: " + e); } */
+    }
+
+    return " ";
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
+                fileIsOpen = true;
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
+}
+
+
+/* v3 */
+function BridgeTalkMessage_checkOutImage(_idDocName, _woodwing_imageID) {
+    var bt = new BridgeTalk();
+    bt.target = 'indesign';
+    bt.body = runID_checkOutImage.toSource() + "('" + _idDocName + "','" + _woodwing_imageID + "');";
+    bt.onResult = function (resObj) { }
+    bt.send(10);
+}
+
+/* v3 */
+function BridgeTalkMessage_checkInImage(_idDocName, _woodwing_imageID) {
+    var bt = new BridgeTalk();
+    bt.target = 'indesign';
+    bt.body = runID_checkInImage.toSource() + "('" + _idDocName + "','" + _woodwing_imageID + "');";
+    bt.onResult = function (resObj) { }
+    bt.send(10);
+}
+
+
+/* ################################################### */
+function runID_checkOutImage(_idDocName, _woodwing_imageID) {
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var managedImages_array = get_managedImages_array();
+            var managedImage_index = get_managedImage_index(managedImages_array, _woodwing_imageID);
+
+            app.activeDocument.managedImages[managedImage_index].checkOut();
+
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) { alert("runID_checkOutImage: " + e) }
+
+    function get_managedImages_array() {
+        var managedImages_array = [];
+        try {
+            var managedImages = app.activeDocument.managedImages;
+            for (var i = 0; i < managedImages.length; i++) {
+                var managedImage = managedImages[i];
+                var metaData_ID = managedImage.entMetaData.get("Core_ID");
+                managedImages_array.push(metaData_ID);
+            }
+            return managedImages_array;
+
+        } catch (e) { alert(e) }
+    }
+
+    function get_managedImage_index(_managedImages_array, _woodwing_imageID) {
+        try {
+            var managedImage_index = -1;
+            for (var j = 0; i < _managedImages_array.length; j++) {
+                if (_managedImages_array[j] === _woodwing_imageID) {
+                    managedImage_index = j;
+                    break;
+                }
+            }
+            return managedImage_index;
+
+
+        } catch (e) { alert(e) }
+    }
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
+                fileIsOpen = true;
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
+
+}
+
+/* ################################################### */
+function runID_checkInImage(_idDocName, _woodwing_imageID) {
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var managedImages_array = get_managedImages_array();
+            var managedImage_index = get_managedImage_index(managedImages_array, _woodwing_imageID);
+
+            app.activeDocument.managedImages[managedImage_index].pageItem[0].placeObject(managedImages_array[managedImage_index]);
+            app.activeDocument.managedImages[managedImage_index].checkIn();
+
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) { alert("runID_1: " + e) }
+
+    function get_managedImages_array() {
+        var managedImages_array = [];
+        try {
+            var managedImages = app.activeDocument.managedImages;
+            for (var i = 0; i < managedImages.length; i++) {
+                var managedImage = managedImages[i];
+                var metaData_ID = managedImage.entMetaData.get("Core_ID");
+                managedImages_array.push(metaData_ID);
+            }
+            return managedImages_array;
+
+        } catch (e) { alert(e) }
+    }
+
+    function get_managedImage_index(_managedImages_array, _woodwing_imageID) {
+        try {
+            var managedImage_index = -1;
+            for (var j = 0; i < _managedImages_array.length; j++) {
+                if (_managedImages_array[j] === _woodwing_imageID) {
+                    managedImage_index = j;
+                    break;
+                }
+            }
+            return managedImage_index;
+
+
+        } catch (e) { alert(e) }
+    }
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
+                fileIsOpen = true;
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
 }
 
