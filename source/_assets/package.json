@@ -1,34 +1,22 @@
 {
-  "scripts" : {
-
+  "scripts": {},
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@csstools/normalize.css": "^12.1.1",
+    "@spectrum-css/accordion": "^3.0.3",
+    "@spectrum-css/button": "^3.0.3",
+    "@spectrum-css/icon": "^3.0.3",
+    "@spectrum-css/page": "^3.0.2",
+    "@spectrum-css/typography": "^3.0.2",
+    "@spectrum-css/vars": "^3.0.2",
+    "@spectrum-web-components/accordion": "^0.4.6",
+    "clipboard": "^2.0.8",
+    "normalize.css": "^8.0.1",
+    "prismjs": "^1.23.0"
   },
-  "license" : "UNLICENSED",
-  "dependencies" : {
-    "@spectrum-css\/page" : "^3.0.2",
-    "@xmldom\/xmldom" : "^0.8.10",
-    "xmldom" : "^0.6.0",
-    "@spectrum-css\/accordion" : "^3.0.3",
-    "normalize.css" : "^8.0.1",
-    "clipboard" : "^2.0.8",
-    "@spectrum-css\/vars" : "^3.0.2",
-    "@csstools\/normalize.css" : "^12.1.1",
-    "@spectrum-css\/button" : "^3.0.3",
-    "@spectrum-css\/icon" : "^3.0.3",
-    "prismjs" : "^1.23.0",
-    "@spectrum-css\/typography" : "^3.0.2",
-    "@spectrum-web-components\/accordion" : "^0.4.6"
-  },
-  "version" : "1.0.0",
-  "author" : "",
-  "repository" : {
-
-  },
-  "description" : "CodeKit created this starter package.json file. You should customize it appropriately.",
-  "devDependencies" : {
-
-  },
-  "optionalDependencies" : {
-
-  },
-  "name" : "codekit-project"
+  "version": "1.0.0",
+  "author": "",
+  "repository": {},
+  "description": "CodeKit created this starter package.json file. You should customize it appropriately.",
+  "name": "codekit-project"
 }
