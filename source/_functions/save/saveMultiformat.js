@@ -25,5 +25,6 @@ function saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannel
         saveOptions.layers = _withLayers;
         saveOptions.spotColors = false;
     }
-    saveFile_v2(_file, saveOptions, _asCopy);
+    try { saveFile_v2(_file, saveOptions, _asCopy); }
+    catch (e) { alert("Error saveMultiformat: " + e)}
 }

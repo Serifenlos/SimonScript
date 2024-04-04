@@ -15,60 +15,31 @@
 
 
 
-if (getMeta_3("isWoodwing")) var isWoodwing = getMeta_3("isWoodwing");
+if (getMeta_3("isWoodwing")) var isWoodwing = Boolean(getMeta_3("isWoodwing"));
 if (getMeta_3("arbeitsdatei_RGB")) var arbeitsdatei_RGB = getMeta_3("arbeitsdatei_RGB");
 if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
 if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+if (getMeta_3("woodwing_imageID")) var woodwing_imageID = getMeta_3("woodwing_imageID");
 if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
+var doc = app.activeDocument;
 
 
-
-// alert("isWoodwing: " + getMeta_2("isWoodwing") + "\narbeitsdatei_RGB: " + getMeta_2("arbeitsdatei_RGB") + "\nwoodwing_RGB: " + getMeta_2("woodwing_RGB") + "\nwoodwing_file: " + getMeta_2("woodwing_file") + "\nidDocName: " + getMeta_2("idDocName"));
-
-try {
-    var isWoodwing = (String(isWoodwing).toLowerCase() === 'true');
-    var doc = app.activeDocument;
-
-} catch (e) { alert(e) }
-
-// closeDoc(woodwing_file);
-
-// alert(woodwing_file)
 if (isWoodwing) {
 
-    BridgeTalkMessage_openDocID(idDocName, woodwing_file);
-
-    // ICH BRAUCHE EINEN NOTIFYER : WIE GEHTS ?
-    // DER SOLL AUFS DOC ACHTEN - WENNS GEÖFFNET IST, WIEDER SCHIESSEN UND DEN NOTIFYER LÖSCHEN
-    // app.setTimeout = (alert("nix"), 3000);
-    // app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
-
-    // alert("woodwing_file: " + woodwing_file);
-    // alert("woodwing_RGB: " + woodwing_RGB);
-    // if (!isFileOpen(woodwing_file)) {
-    //     app.open(new File(woodwing_RGB));
-    // }
-    closeDoc(woodwing_file);
-    
-
-
-    doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
-
+    /* v2 */
+    // BridgeTalkMessage_openDocID(idDocName, woodwing_file);
     // closeDoc(woodwing_file);
-    // app.documents.getByName("Falke_PP-3815.jpg").close(SaveOptions.DONOTSAVECHANGES);
+    // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+
+    /* v3 */
+    BridgeTalkMessage_checkOutImage(idDocName, woodwing_imageID);
+    doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+    BridgeTalkMessage_checkInImage(idDocName, woodwing_imageID);
 
 
-    // saveFile_PSD(new File(arbeitsdatei_RGB), f, t, f, t, t, f);
-    // saveJPG(2, 3, new File(woodwing_RGB), t, t, t);
-
-    // // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
-    // if(isFileOpen(woodwing_file)) {
-    //     app.documents.getByName(woodwing_file).close(SaveOptions.DONOTSAVECHANGES);
-    // } else {
-    //     alert("nicht offen?");
-    // }
 
 
+    /* v2 */
     function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
         var bt = new BridgeTalk();
         bt.target = 'indesign';
@@ -77,18 +48,36 @@ if (isWoodwing) {
         bt.send(10);
     }
 
+    /* v3 */
+    function BridgeTalkMessage_checkOutImage(_idDocName, _woodwing_imageID) {
+        var bt = new BridgeTalk();
+        bt.target = 'indesign';
+        bt.body = runID_checkOutImage.toSource() + "('" + _idDocName + "','" + _woodwing_imageID + "');";
+        bt.onResult = function (resObj) { }
+        bt.send(10);
+    }
+
+    /* v3 */
+    function BridgeTalkMessage_checkInImage(_idDocName, _woodwing_imageID) {
+        var bt = new BridgeTalk();
+        bt.target = 'indesign';
+        bt.body = runID_checkInImage.toSource() + "('" + _idDocName + "','" + _woodwing_imageID + "');";
+        bt.onResult = function (resObj) { }
+        bt.send(10);
+    }
+
 
 
     function closeDoc(_file) {
-        try { _file.close(SaveOptions.DONOTSAVECHANGES) }
+        try { 
+            /* _file.close(SaveOptions.DONOTSAVECHANGES); */ 
+            app.documents.getByName(decodeURI(_file)).close(SaveOptions.DONOTSAVECHANGES);
+        }
         catch (e) {
             // alert(e);
         }
     }
 }
-
-
-
 
 
 
@@ -102,7 +91,7 @@ function runID(_idDocName, _woodwing_file) {
             alert("kein Focus auf der Datei?");
         }
     } catch (e) {
-        alert(e);
+        /* alert(e); */
     }
 
     return;
@@ -111,10 +100,8 @@ function runID(_idDocName, _woodwing_file) {
     function focusOpenedFile(_fileName) {
         var fileIsOpen = false;
         for (var j = 0; j < app.documents.length; j++) {
-            if (app.documents[j].name == _fileName) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
                 fileIsOpen = true;
-                /* var filePath = File(app.documents[j].fullName.fullName);
-                app.open(filePath, true); */
                 app.activeDocument = app.documents[j];
                 break;
             }
@@ -127,48 +114,142 @@ function runID(_idDocName, _woodwing_file) {
 
 
 
+/* ################################################### */
+function runID_checkOutImage(_idDocName, _woodwing_imageID) {
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var managedImages_array = get_managedImages_array();
+            var managedImage_index = get_managedImage_index(managedImages_array, _woodwing_imageID)
+
+            app.activeDocument.managedImages[managedImage_index].checkOut();
+
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) { /* alert("runID_1: " + e) */ }
+
+
+
+
+    function get_managedImages_array() {
+        var managedImages_array = []
+        try {
+            var managedImages = app.activeDocument.managedImages;
+            for (var i = 0; i < managedImages.length; i++) {
+                var managedImage = managedImages[i];
+                var metaData_ID = managedImage.entMetaData.get("Core_ID");
+                managedImages_array.push(metaData_ID);
+            }
+            return managedImages_array;
+
+        } catch (e) { alert(e) }
+    }
+
+    function get_managedImage_index(_managedImages_array, _woodwing_imageID) {
+        try {
+            var managedImage_index = -1;
+            for (var j = 0; i < _managedImages_array.length; j++) {
+                if (_managedImages_array[j] === _woodwing_imageID) {
+                    managedImage_index = j;
+                    break;
+                }
+            }
+            return managedImage_index;
+
+
+        } catch (e) { alert(e) }
+    }
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
+                fileIsOpen = true;
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
+}
+
+/* ################################################### */
+function runID_checkInImage(_idDocName, _woodwing_imageID) {
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var managedImages_array = get_managedImages_array();
+            var managedImage_index = get_managedImage_index(managedImages_array, _woodwing_imageID);
+
+            app.activeDocument.managedImages[managedImage_index].pageItem[0].placeObject(managedImages_array[managedImage_index]);
+            app.activeDocument.managedImages[managedImage_index].checkIn();
+
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) { /* alert("runID_1: " + e) */ }
+
+
+
+
+    function get_managedImages_array() {
+        var managedImages_array = []
+        try {
+            var managedImages = app.activeDocument.managedImages;
+            for (var i = 0; i < managedImages.length; i++) {
+                var managedImage = managedImages[i];
+                var metaData_ID = managedImage.entMetaData.get("Core_ID");
+                managedImages_array.push(metaData_ID);
+            }
+            return managedImages_array;
+
+        } catch (e) { alert(e) }
+    }
+
+    function get_managedImage_index(_managedImages_array, _woodwing_imageID) {
+        try {
+            var managedImage_index = -1;
+            for (var j = 0; i < _managedImages_array.length; j++) {
+                if (_managedImages_array[j] === _woodwing_imageID) {
+                    managedImage_index = j;
+                    break;
+                }
+            }
+            return managedImage_index;
+
+
+        } catch (e) { alert(e) }
+    }
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
+                fileIsOpen = true;
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
+}
+
+
+
+
 function save_ArbeitWood_RGB() {
     try {
-        /* saveJPG(2, 3, new File(woodwing_RGB), t, t, t); */
-        saveJPG_v2(new File(woodwing_RGB), 12, t)
+        saveMultiformat(new File(woodwing_RGB), "jpg", t, 12, f, f);
     } catch (e) { "Error 2: " + alert(e) }
 
     try {
-        saveFile_PSD(new File(arbeitsdatei_RGB), f, t, f, t, t, f);
-    } catch (e) { "Error 2: " + alert(e) }
+        saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
+    } catch (e) { "Error 3: " + alert(e) }
 
 }
 
 
-/* function saveJPG(_quality, _scans, _file, _asCopy, _lowerCase, _embedProfiles) {
-    var d = new ActionDescriptor();
-    var d2 = new ActionDescriptor();
-
-    d2.putInteger(s2t("extendedQuality"), _quality);
-    d2.putInteger(s2t("scans"), _scans);
-    d2.putEnumerated(s2t("matteColor"), s2t("matteColor"), s2t("none"));
-    d.putObject(s2t("as"), s2t("JPEG"), d2);
-    d.putPath(s2t("in"), _file);
-    d.putBoolean(s2t("copy"), _asCopy);
-    d.putBoolean(s2t("lowerCase"), _lowerCase);
-    d.putBoolean(s2t("embedProfiles"), _embedProfiles);
-    d.putEnumerated(s2t("saveStage"), s2t("saveStageType"), s2t("saveBegin"));
-    executeAction(s2t("save"), d, DialogModes.NO);
-} */
-
-
-function saveJPG_v2(_file, _quality, _asCopy) {
-    saveOptions = new JPEGSaveOptions();
-    saveOptions.quality = _quality;
-    saveOptions.embedColorProfile = true;
-    saveOptions.formatOptions = FormatOptions.OPTIMIZEDBASELINE;
-    saveOptions.matte = MatteType.WHITE;
-    saveFile_v2(_file, saveOptions, _asCopy);
-}
-
-function saveFile_v2(_file, _saveOptions, _asCopy) {
-    doc.saveAs(_file, _saveOptions, _asCopy, Extension.LOWERCASE);
-}
 
 function isFileOpen(_fileName) {
     var fileIsOpen = false;
@@ -180,3 +261,5 @@ function isFileOpen(_fileName) {
     }
     return fileIsOpen;
 }
+
+
