@@ -918,7 +918,8 @@ function deFrei() {
 function isFileOpen(_fileName) {
     var fileIsOpen = false;
     for (var i = 0; i < app.documents.length; i++) {
-        if (app.documents[i].name == _fileName) {
+        // if (app.documents[i].name == _fileName) {
+        if (app.documents[j].name.indexOf(_fileName) !== -1) {
             fileIsOpen = true;
             break;
         }
