@@ -3,6 +3,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@csstools/normalize.css": "^12.1.1",
+    "@leodeslf/vec.js": "^3.0.0",
     "@spectrum-css/accordion": "^3.0.3",
     "@spectrum-css/button": "^3.0.3",
     "@spectrum-css/icon": "^3.0.3",

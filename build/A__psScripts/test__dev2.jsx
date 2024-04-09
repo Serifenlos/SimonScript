@@ -425,7 +425,9 @@ var r=new Folder(doc.path),a=GetFileNameOnly(doc.name),t=/(?:\.([^.]+))?$/.exec(
 /////////////////////////////
 /////////////////////////////
 //// Einordnen in SimonScript 
-function isFileOpen(e){for(var r=!1,a=0;a<app.documents.length;a++)if(app.documents[a].name==e){r=!0;break}return r}
+function isFileOpen(e){for(var r=!1,a=0;a<app.documents.length;a++)
+// if (app.documents[i].name == _fileName) {
+if(-1!==app.documents[j].name.indexOf(e)){r=!0;break}return r}
 // if (isFileOpen("_OA_0086__RZ__RGB.psd")) {
 //     alert("Die Datei ist geöffnet.");
 // } else {
