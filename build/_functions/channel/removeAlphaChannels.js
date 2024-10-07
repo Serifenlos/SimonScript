@@ -1,1 +1,0 @@
-function RemoveAlphaChannels(){for(var n=doc.channels,e=[],h=0;h<n.length;h++){(o=n[h]).kind!=ChannelType.COMPONENT&&e.push(o)}for(;e.length;){var o;(o=e.pop()).remove()}}

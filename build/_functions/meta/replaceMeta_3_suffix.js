@@ -1,1 +1,0 @@
-function replaceMeta_3_suffix(e,t,a){var n=getMeta_3(e);n&&(n=n.toString()).substring(n.length-4)==="."+t&&(n=n.replace("."+t,"."+a),setMeta_3(e,n))}
