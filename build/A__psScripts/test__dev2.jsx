@@ -402,14 +402,6 @@ function adjustLayer_sat_get(){var e=new ActionReference;return e.putEnumerated(
 // executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
 //photoAI
 // executeAction(sTID('a40009fc-f5fc-4a09-86ec-5a0ed56c5668'), undefined, DialogModes.ALL);
-// BEGIN deFreisteller QUICK
-// deFrei();
-function deFrei(){var e=layer_selectedID_get();
-// DELETE the layers
-try{gotoLayer("Freisteller"),ungroup(),gotoLayer("Freisteller helper"),deleteActiveLayer()}catch(e){}
-// DELETE the file
-var r=new Folder(doc.path),a=GetFileNameOnly(doc.name),t=/(?:\.([^.]+))?$/.exec(doc.name)[1],n=new File(r+"/"+a+"-frei."+t);n.exists&&n.remove(),layer_selectedID_set(e)}
-// END
 //////////////////////////////////
 //////////////////////////////////
 //////////////////////////////////
@@ -419,8 +411,6 @@ var r=new Folder(doc.path),a=GetFileNameOnly(doc.name),t=/(?:\.([^.]+))?$/.exec(
 // TYPICAL
 // HIGH_QUALITY
 // DEFAULT_VALUE
-// alert("ding");
-// $.writeln(app.documents.getByName("_OA_0086__RZ__RGB.psd"));
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
@@ -436,10 +426,118 @@ if(-1!==app.documents[j].name.indexOf(e)){r=!0;break}return r}
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
-// var doc = app.activeDocument;
-function closeDoc(e){try{
-// _file.close(SaveOptions.DONOTSAVECHANGES)
-app.documents.getByName(decodeURI(e)).close(SaveOptions.DONOTSAVECHANGES)}catch(e){alert(e)}}
-// decodeURI(doc_file.name);
-// app.documents.getByName(docFileName_decode).close(SaveOptions.DONOTSAVECHANGES);
-closeDoc("Falke_PP-3843__RGB.psd");
+//*************************************************************
+//******************* Freisteller in Woodwing *****************
+//*************************************************************
+// if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
+// if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+// replaceMeta_3_suffix("woodwing_file", "jpg", "psd");
+// replaceMeta_3_suffix("woodwing_RGB", "jpg", "psd");
+// app.activeDocument.suspendHistory('Freisteller: 2 Ebenen', 'freisteller_reduce2layers()');
+// saveMultiformat(new File("/Users/adrians/Arbeit/__temp/imago1043022766h__RGB+.psd"), "psd", t, null, f, t);
+// undoSteps(1);
+/* 
+    Schreibe einen Loop um die Ordner zu checken ob sie offen sind und speichere es im Array
+
+    $.writeln(isSetOpened1(app.activeDocument.activeLayer))
+
+    isSetOpened2( grIDX );
+    $.writeln(isSetOpened2(getActiveLayerIndex()))
+*/
+// function getClosedSets() {
+//     var closedSets_array = [];
+//     var i = 1;
+//     while (layer_checkExistence(i)) {
+//         if (isLayerSet(i)) {
+//             if (!isSetOpened2(i)) {
+//                 $.writeln(i);
+//                 closedSets_array.push(i);
+//             }
+//         }
+//         i++;
+//     }
+//     return closedSets_array;
+// }
+// toogleOpenCloseSet_byIDX_byArray(getClosedSets());
+// // $.writeln(layer_selectedIDX_get());
+// var start_closedSets = [5,25];
+// // app.activeDocument.suspendHistory("toogleOpenCloseSet_byIDX_byArray", "toogleOpenCloseSet_byIDX_byArray(start_closedSets)");
+// // $.writeln(app.activeDocument.suspendHistory("ding", "isSetOpened2(25)"))
+// // undoSteps(1);
+// // historyState_deleteSteps(1);
+// var start_closedSetsx = isSetOpened2(25);
+// undoSteps(4);
+// historyState_deleteSteps(4);
+// $.writeln(start_closedSetsx);
+// =======================================================
+// function historyState_delete() {
+//     var d = new ActionDescriptor();
+//     var r = new ActionReference();
+//     r.putEnumerated(s2t("historyState"), s2t("ordinal"), s2t("last"));
+//     d.putReference(s2t("null"), r);
+//     executeAction(s2t("delete"), d, DialogModes.NO);
+// }
+// BEGIN deFreisteller QUICK
+// deFrei();
+function deFrei(){
+//@include "./assets/json2.js"
+loadJSON("~/.ss_settings.json");const e=jsonValue("RZ_qualityJPG");//TODO kommt noch nicht in PS an
+try{if(app.activeDocument.layerSets.getByName("Freisteller")){var r=layer_selectedID_get();try{var a=!1;if(getMeta_3("isWoodwing"))a=Boolean(getMeta_3("isWoodwing"));
+// DELETE the layers
+try{gotoLayer("Freisteller"),ungroup(),gotoLayer("Freisteller helper"),deleteActiveLayer()}catch(e){}if(a){if(getMeta_3("woodwing_RGB"))var n=getMeta_3("woodwing_RGB");if(getMeta_3("woodwing_file"))var o=getMeta_3("woodwing_file");if(getMeta_3("idDocName"))var i=getMeta_3("idDocName");BridgeTalkMessage_openDocID(i,o,!1),replaceMeta_3_suffix("woodwing_file","psd","jpg"),replaceMeta_3_suffix("woodwing_RGB","psd","jpg"),saveMultiformat(new File(n),"jpg",t,e,f,f)}else{
+// DELETE the file
+var c=new Folder(doc.path),l=GetFileNameOnly(doc.name),s=/(?:\.([^.]+))?$/.exec(doc.name)[1],g=new File(c+"/"+l+"-frei."+s);g.exists&&g.remove()}}catch(e){alert(e)}layer_selectedID_set(r)}}catch(e){return alert("Abbruch!\nkeine Ebene names 'Freisteller' gefunden\n"+e),!1}}function BridgeTalkMessage_openDocID(e,r,a){var t=new BridgeTalk;t.target="indesign",t.body=runID.toSource()+"('"+e+"','"+r+"','"+a+"');",t.onResult=function(e){},t.send(10)}function runID(e,r,a){try{if(function(e){for(var r=!1,a=0;a<app.documents.length;a++)if(-1!==app.documents[a].name.indexOf(e)){r=!0,app.activeDocument=app.documents[a];break}return r}(e))app.activeDocument.links.itemByName(r).editOriginal();else alert("kein Focus auf der Datei?")}catch(e){
+/* if (_ssDebug) { alert("runID: " + e); } */}return" "}
+// =======================================================
+// canvasSize(true, 5.6664);
+function canvasSize(e,r){var a=new ActionDescriptor;a.putBoolean(s2t("relative"),e),a.putUnitDouble(s2t("height"),s2t("distanceUnit"),r),a.putEnumerated(s2t("vertical"),s2t("verticalLocation"),s2t("bottomEnum")),executeAction(s2t("canvasSize"),a,DialogModes.NO)}
+// $.writeln("mm2pt: " + mm2pt(20));
+// $.writeln("cm2pt: " + cm2pt(2));
+var enlargeCanvas_mm=[0,0,2.967,0],enlargeCanvas_pt=[0,0,8.40951201110995,0],outer_width_mm=152.333,outer_height_mm=89.958,inner_width_mm=168.032,inner_height_mm=112.021,outer_width_pt=431.811023622047,outer_height_pt=255,inner_width_pt=476.31,inner_height_pt=317.539892359025;//mm
+// setSize_pt("width", inner_width_pt);
+// function setSize_pt(_side, _size) {
+//     var d = new ActionDescriptor();
+//     d.putUnitDouble(sTID(_side), sTID('distanceUnit'), _size);
+//     executeAction(sTID('imageSize'), d, DialogModes.NO);
+// }
+// resizeCanvas(enlargeCanvas_mm[3], enlargeCanvas_mm[0], Units.MM, AnchorPosition.BOTTOMRIGHT)
+// resizeCanvas(enlargeCanvas_pt[3], enlargeCanvas_pt[0], Units.POINTS, AnchorPosition.BOTTOMRIGHT);
+// resizeCanvas(enlargeCanvas_pt[1], enlargeCanvas_pt[2], Units.POINTS, AnchorPosition.TOPLEFT);
+function resizeCanvas(e,r,a,t){
+// doc.resizeCanvas(10, undefined, AnchorPosition.BOTTOMRIGHT)
+startRulerUnits=app.preferences.rulerUnits,app.preferences.rulerUnits=a;var n=doc.width.value,o=doc.height.value,i=n+e,c=o+r;$.writeln("docWidth: "+n),$.writeln("docHeight: "+o),$.writeln("canvasWidth: "+i),$.writeln("canvasHeight: "+c),doc.resizeCanvas(i,c,t),app.preferences.rulerUnits=startRulerUnits}
+// BOTTOMCENTER
+// BOTTOMLEFT
+// BOTTOMRIGHT
+// MIDDLECENTER
+// MIDDLELEFT
+// MIDDLERIGHT
+// TOPCENTER
+// TOPLEFT
+// TOPRIGHT
+//*************************************************************
+//******************* 3D *****************
+//*************************************************************
+// gotoLayer(0);
+// nameLayer("Schatten");
+// selectLayers("selectAllLayers");
+// selectLayerBySelector("Schatten", "remove");
+// mergeLayers();
+// nameLayer("frei");
+// saveMultiformat(new File("/Users/adrians/Arbeit/11Freunde/271/rück/jpeg_check/3D/check.psd"), "psd", true, null, false, true);
+// alert("ding");
+// resetImage();
+// =======================================================
+// var idselect = stringIDToTypeID("select");
+// var desc3 = new ActionDescriptor();
+// var idnull = stringIDToTypeID("null");
+// var ref1 = new ActionReference();
+// var idrotateTool = stringIDToTypeID("rotateTool");
+// ref1.putClass(idrotateTool);
+// desc3.putReference(idnull, ref1);
+// var iddontRecord = stringIDToTypeID("dontRecord");
+// desc3.putBoolean(iddontRecord, true);
+// var idforceNotify = stringIDToTypeID("forceNotify");
+// desc3.putBoolean(idforceNotify, true);
+// executeAction(idselect, desc3, DialogModes.NO);
+function RemoveAlphaChannels(){if(0!=app.documents.length){for(var e=app.activeDocument.channels,r=[],a=0;a<e.length;a++){(t=e[a]).kind!=ChannelType.COMPONENT&&r.push(t)}for(;r.length;){var t;(t=r.pop()).remove()}}}function channel_checkExistenceByName(e){for(var r=doc.channels,a=!1,t=0;t<r.length;t++){var n=r[t];if(n.name==e&&n.kind==ChannelType.MASKEDAREA){a=!0;break}}return a}function channel_deleteX(e){for(;channel_checkExistenceByName(e);)channel_delete(e)}$.writeln("1: "+channel_checkExistenceByName("rg")),$.writeln("2: "+channel_checkExistenceByName("rgdff")),channel_deleteX("rg");

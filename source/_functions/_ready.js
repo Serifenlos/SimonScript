@@ -8,6 +8,8 @@
 // @codekit-prepend './ready/freisteller_allHG.js';
 // @codekit-prepend './ready/freisteller_button.js';
 // @codekit-prepend './ready/freisteller_createGroup.js';
+// @codekit-prepend './ready/freisteller_deFrei.js';
+// @codekit-prepend './ready/freisteller_reduce2layers.js';
 // @codekit-prepend './ready/freisteller_saveRGB.js';
 // @codekit-prepend './ready/himmelmaske.js';
 // @codekit-prepend './ready/motivmaske.js';

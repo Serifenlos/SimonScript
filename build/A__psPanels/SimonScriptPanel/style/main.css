@@ -15,7 +15,7 @@ sp-action-group {
 sp-action-button {
   border-radius: 0;
   min-width: 14px;
-  background: #555;
+  background: #4a4a4a;
   margin-right: 2px;
   padding: 0 4px;
 }
@@ -26,4 +26,81 @@ sp-action-button:active {
 
 #checkTL_create {
   padding-top: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  sp-action-button {
+    background: #6a6a6a;
+  }
+  sp-action-button:active {
+    background: #555;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  sp-action-button {
+    background: #a3a3a3;
+  }
+  sp-action-button:active {
+    background: #bbb;
+  }
+}
+
+@media (prefers-color-scheme: lightest) {
+  sp-action-button {
+    background: #c5c5c5;
+  }
+  sp-action-button:active {
+    background: #eee;
+  }
+}
+
+sp-body {
+  margin: 0;
+}
+
+sp-button-group {
+  margin: 0;
+}
+
+sp-textfield,
+sp-dropdown,
+sp-radio-group,
+sp-field-group,
+sp-slider {
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+  margin: .5em 0;
+  padding-bottom: .5em;
+  border-bottom: 0.5px solid rgba(128, 128, 128, 0.5);
+}
+
+sp-body > *:last-child
+, sp-body > *.no_border {
+  border-bottom: none;
+  margin-bottom: 30px;
+}
+
+sp-body > *:last-child {
+  margin-bottom: unset;
+}
+
+sp-label {
+  padding-right: 1em;
+  width: 120px;
+}
+
+.input-error {
+  outline: 1px solid red;
+}
+
+sp-radio-group > * {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+sp-slider {
+  display: inline;
 }

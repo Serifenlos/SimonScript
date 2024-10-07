@@ -243,6 +243,9 @@ async function getXML_2() {
   getMeta_woodwing(nsURI, xml, "woodwing_file");
   getMeta_woodwing(nsURI, xml, "woodwing_imageID");
   getMeta_woodwing(nsURI, xml, "idDocName");
+  getMeta_woodwing(nsURI, xml, "assetsID");
+  getMeta_woodwing(nsURI, xml, "studioPublikation");
+  getMeta_woodwing(nsURI, xml, "studioAusgabe");
   getMeta_woodwing(nsURI, xml, "softproofProfil");
   getMeta_woodwing(nsURI, xml, "softproofIntent");
   getMeta_woodwing(nsURI, xml, "softproofTK");

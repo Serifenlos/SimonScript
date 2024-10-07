@@ -45,6 +45,7 @@
 // @codekit-prepend './basic/gotoMask.js';
 // @codekit-prepend './basic/gray2rgb.js';
 // @codekit-prepend './basic/hasBackground.js';
+// @codekit-prepend './basic/historyState_deleteSteps.js';
 // @codekit-prepend './basic/img_resize.js';
 // @codekit-prepend './basic/indexcolor2rgb.js';
 // @codekit-prepend './basic/interpolation_GigaPixel.js';
@@ -64,6 +65,7 @@
 // @codekit-prepend './basic/prefReset.js';
 // @codekit-prepend './basic/prefSave.js';
 // @codekit-prepend './basic/prefSet.js';
+// @codekit-prepend './basic/pt2mm.js';
 // @codekit-prepend './basic/rasterSmartObject.js';
 // @codekit-prepend './basic/replace__RGB_RZ.js';
 // @codekit-prepend './basic/resetImage.js';

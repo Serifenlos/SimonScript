@@ -7,6 +7,7 @@
 // @codekit-prepend './layer/fixMaskFeather.js';
 // @codekit-prepend './layer/fixMask_loop.js';
 // @codekit-prepend './layer/getMaskVisibility.js';
+// @codekit-prepend './layer/getMaskVisibility_bySelector.js';
 // @codekit-prepend './layer/layer_blendif_edit.js';
 // @codekit-prepend './layer/layer_blendif_get.js';
 // @codekit-prepend './layer/layer_checkExistence.js';
@@ -18,6 +19,7 @@
 // @codekit-prepend './layer/layer_getIDXbyString.js';
 // @codekit-prepend './layer/layer_getName.js';
 // @codekit-prepend './layer/layer_getSolidFillColor.js';
+// @codekit-prepend './layer/layer_makeBackground.js';
 // @codekit-prepend './layer/layer_mergeLayers.js';
 // @codekit-prepend './layer/layer_mergeVisible.js';
 // @codekit-prepend './layer/layer_renameByIDX.js';
@@ -33,3 +35,4 @@
 // @codekit-prepend './layer/select_nextLayer_simple.js';
 // @codekit-prepend './layer/setLayerOpacity.js';
 // @codekit-prepend './layer/setMaskVisibility.js';
+// @codekit-prepend './layer/setMaskVisibility_bySelector.js';

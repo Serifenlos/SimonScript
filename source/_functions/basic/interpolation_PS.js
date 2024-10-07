@@ -3,6 +3,7 @@ function interpolation_PS(_horizontalPPI, _minAufloesung, _ZielAufloesung) {
         if (_horizontalPPI < _minAufloesung) {
             /* alert("hoch rechnen: hPPI: " + _horizontalPPI + "; minAuflösung: " + _minAufloesung); */
             app.activeDocument.resizeImage(undefined, undefined, _minAufloesung, ResampleMethod.PRESERVEDETAILS);
+            return;
         } else if (_horizontalPPI > _ZielAufloesung) {
             /* alert("runter rechnen: hPPI: " + _horizontalPPI + "; ZielAufloesung: " + _ZielAufloesung); */
             app.activeDocument.resizeImage(undefined, undefined, _ZielAufloesung, ResampleMethod.PRESERVEDETAILS);

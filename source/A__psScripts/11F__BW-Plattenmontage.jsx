@@ -30,6 +30,7 @@ var doCrop = true;
 function cTID(s) { return app.charIDToTypeID(s); };
 function sTID(s) { return app.stringIDToTypeID(s); };
 
+time_start();
 prefSave();
 prefSet();
 
@@ -39,12 +40,13 @@ var fileList = inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i);
 
 // var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
 // var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER_maximal");
-var masterFolder = new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
+// var masterFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
+var masterFolder = new Folder("/Volumes/Archiv LOTUS/11Freunde_Auslagerung/Bilderwelt_Plattenmontage/MAIN");
 
 if (!masterFolder.exists) { errorExit("kein Master-Folder!") };
 
-var tempFolder = new Folder(masterFolder + "/.temp");
-// var tempFolder = new Folder("~/11F <-> Simon/Shop/2019-09/material/_test");
+// var tempFolder = new Folder(masterFolder + "/.temp");
+var tempFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/_OUTPUT/.temp");
 if (!tempFolder.exists) { tempFolder.create() };
 
 // var outputFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/material/_output");
@@ -52,7 +54,8 @@ if (!tempFolder.exists) { tempFolder.create() };
 // var outputFolder = new Folder("~/Desktop/Simon/Plattenmontage/test_output");
 // var outputFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Bilderwelt/Plattenmontage+");
 // var outputFolder = new Folder("/Volumes/homes/pixoprint/11F_BW_2021-03__moods");
-var outputFolder = new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/Mood_Output");
+// var outputFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/Mood_Output");
+var outputFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/_OUTPUT/Plattenmontage");
 if (!outputFolder.exists) { outputFolder.create() };
 
 if (run_all || run_3x2quer) {
@@ -410,6 +413,7 @@ if (run_all || run_pano) {
 }
 
 prefReset();
+time_stop(start);
 
 ///////////////////////////////////////////////////////
 //// FUNCTIONS ////////////////////////////////////////
@@ -429,6 +433,16 @@ function prefSet() {
 function prefReset() {
     app.preferences.rulerUnits = startRulerUnits;
     app.displayDialogs = startDisplayDialogs;
+}
+
+function time_start() {
+    start = new Date().getTime();
+}
+function time_stop(_time_start) {
+    var stop = new Date().getTime();
+    var elapsed = (stop - _time_start) / 1000;
+    var msg = ("Done (" + Number(elapsed).toFixed(3) + " secs).");
+    alert(msg);
 }
 
 function emptyProtocoll() {
@@ -589,7 +603,7 @@ function savePlattenmontage(_originalName, _material, _ansicht, _outputFileForma
 }
 
 function activePlatte(_format, _seitenverhältnis, _material, _ansicht) {
-    return new File(masterFolder + "/" + _format + seitenverhältnis + "_" + _material + "_" + _ansicht + "__MASTER.tif");
+    return new File(masterFolder + "/" + _format + seitenverhältnis + "_" + _material + "_" + _ansicht + "__MAIN.tif");
 }
 
 

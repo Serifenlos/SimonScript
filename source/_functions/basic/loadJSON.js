@@ -19,3 +19,13 @@ function loadJSON(filePath) {
         return null;
     }
 }
+
+// Funktion zum Finden eines Wertes in einem Array von Objekten
+function jsonValue(key) {
+    for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData[i][key] !== undefined) {
+            return jsonData[i][key];
+        }
+    }
+    return null;
+}

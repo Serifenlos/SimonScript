@@ -75,17 +75,51 @@ sp-action-button {
     // margin: 0;
     border-radius: 0;
     min-width: 14px;
-    background: #555;
+    background: #4a4a4a;
     margin-right: 2px;
     padding: 0 4px;
     // text-shadow: 1px 1px black;
-    
+
     &:active {
         background: #333;
     }
 }
+
 #checkTL_create {
     padding-top: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    sp-action-button {
+        background: #6a6a6a;
+
+        &:active {
+            background: #555;
+        }
+    }
+}
+
+@media (prefers-color-scheme: light) {
+
+    sp-action-button {
+        background: #a3a3a3;
+
+        &:active {
+            background: #bbb;
+        }
+    }
+}
+
+@media (prefers-color-scheme: lightest) {
+
+    sp-action-button {
+        background: #c5c5c5;
+
+        &:active {
+            background: #eee;
+        }
+    }
 }
 
 // :root {
@@ -103,3 +137,5 @@ sp-action-button {
 //     --uxp-host-link-hover-text-color: #FFFFFF;
 //     --uxp-host-label-text-color: #FFFFFF;
 // }
+
+@import "../../_assets/_ss_settings.scss"

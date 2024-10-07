@@ -24,6 +24,10 @@ function saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannel
         saveOptions.embedColorProfile = true;
         saveOptions.layers = _withLayers;
         saveOptions.spotColors = false;
+    } else if (_saveFormat == "png") {
+        var saveOptions = new PNGSaveOptions();
+        saveOptions.compression = 0;
+        saveOptions.interlaced = false;
     }
     try { saveFile_v2(_file, saveOptions, _asCopy); }
     catch (e) { alert("Error saveMultiformat: " + e)}

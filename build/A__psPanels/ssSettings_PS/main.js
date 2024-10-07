@@ -1,0 +1,5 @@
+const{entrypoints:entrypoints}=require("uxp"),os=require("os"),fs=require("fs");entrypoints.setup({panels:{vanilla:{show(e){}}}});
+// Erhalten Sie den Pfad zum Home-Verzeichnis
+let homeDir=os.homedir(),filePath=homeDir+"/ss_var2.json";async function write_json(){let e=[];e.push({id:1e3}),e.push({square:!0}),e.push({data:!1});
+// let data = { "id": 1, "square": 3 };
+var t=JSON.stringify(e);try{await fs.writeFile(filePath,t,"utf8")}catch(e){console.log(e)}}async function read_json(){try{var e=(e=await fs.readFile(filePath,"utf8")).split(",");console.log(e),console.log(e.length),console.log(e[0])}catch(e){console.log(e)}}document.querySelector("#write").addEventListener("click",(async e=>{await write_json()})),document.querySelector("#read").addEventListener("click",(async e=>{await read_json()}));

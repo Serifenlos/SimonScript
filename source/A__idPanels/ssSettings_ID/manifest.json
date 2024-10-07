@@ -1,0 +1,92 @@
+{
+  "id": "189f454c",
+  "name": "ss Panel ID",
+  "version": "1.0.0",
+  "main": "index.html",
+  "host": [
+    {
+      "app": "ID",
+      "minVersion": "18.5.0"
+    }
+  ],
+  "manifestVersion": 5,
+  "requiredPermissions": {
+    "localFileSystem": "fullAccess"
+  },
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "vanilla",
+      "minimumSize": {
+        "width": 1,
+        "height": 1
+      },
+      "maximumSize": {
+        "width": 2000,
+        "height": 210
+      },
+      "preferredDockedSize": {
+        "width": 200,
+        "height": 400
+      },
+      "preferredFloatingSize": {
+        "width": 200,
+        "height": 400
+      },
+      "label": {
+        "default": "[ss] Panel ID"
+      },
+      "icons": [
+        {
+          "width": 23,
+          "height": 23,
+          "path": "icons/dark.png",
+          "scale": [
+            1,
+            2
+          ],
+          "theme": [
+            "darkest",
+            "dark",
+            "medium"
+          ]
+        },
+        {
+          "width": 23,
+          "height": 23,
+          "path": "icons/light.png",
+          "scale": [
+            1,
+            2
+          ],
+          "theme": [
+            "lightest",
+            "light"
+          ]
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "width": 48,
+      "height": 48,
+      "path": "icons/plugin.png",
+      "scale": [
+        1,
+        2
+      ],
+      "theme": [
+        "darkest",
+        "dark",
+        "medium",
+        "lightest",
+        "light",
+        "all"
+      ],
+      "species": [
+        "pluginList"
+      ]
+    }
+  ]
+}

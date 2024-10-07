@@ -1,3 +1,49 @@
+/** Variablen  **************************************************************/
+//@include "./assets/json2.js"
+var jsonFilePath = "~/.ss_settings.json";
+var jsonData = loadJSON(jsonFilePath);
+
+// Funktion zum Laden und Parsen der JSON-Datei
+function loadJSON(filePath) {
+    var file = new File(filePath);
+    var content;
+
+    if (file.exists) {
+        file.open("r");
+        content = file.read();
+        file.close();
+
+        // Parse JSON-Inhalt
+        try {
+            return JSON.parse(content);
+        } catch (e) {
+            alert("Fehler beim Parsen der JSON-Datei:\n" + e);
+            return null;
+        }
+    } else {
+        alert("Die JSON-Datei konnte nicht gefunden werden.");
+        return null;
+    }
+}
+
+// Funktion zum Finden eines Wertes in einem Array von Objekten
+function jsonValue(key) {
+    for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData[i][key] !== undefined) {
+            return jsonData[i][key];
+        }
+    }
+    return null;
+}
+
+/** Optionen  **************************************************************/
+const debug = Boolean(jsonValue("Debug"));
+
+
+/***************************************************************************/
+
+
+// const { func } = require("prop-types");
 
 
 function checkOut(index) {
@@ -65,7 +111,7 @@ function testDossier() {
 
 //////////////////////////////////////////////////////////////////////////////
 
-getDimension_1();
+// getDimension_1();
 
 function getDimension_1() {
     if (app.selection[0] instanceof Image && app.selection[0].parent.graphics.length > 0) {
@@ -151,10 +197,10 @@ function naive_getDims(/*PageItem*/obj, /*bool*/visible)
 }
 
 // sample code
-var pItem = app.selection[0]; // get the selected object
-$.writeln("---\n");
-$.writeln('Geometric Dims: ' + naive_getDims(pItem));
-$.writeln('Visible Dims: ' + naive_getDims(pItem, true));
+// var pItem = app.selection[0]; // get the selected object
+// $.writeln("---\n");
+// $.writeln('Geometric Dims: ' + naive_getDims(pItem));
+// $.writeln('Visible Dims: ' + naive_getDims(pItem, true));
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -183,9 +229,9 @@ function improved_getDims(/*PageItem*/obj, /*bool*/visible)
     return [b[3] - b[1], b[2] - b[0]];
 }
 
-$.writeln("---\n");
-$.writeln('Geometric Dims: ' + improved_getDims(pItem));
-$.writeln('Visible Dims: ' + improved_getDims(pItem, true));
+// $.writeln("---\n");
+// $.writeln('Geometric Dims: ' + improved_getDims(pItem));
+// $.writeln('Visible Dims: ' + improved_getDims(pItem, true));
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -219,9 +265,9 @@ function adjusted_getDims(/*PageItem*/obj, /*bool*/visible)
     return [w, h];
 }
 
-$.writeln("---\n");
-$.writeln('Geometric Dims: ' + adjusted_getDims(pItem));
-$.writeln('Visible Dims: ' + adjusted_getDims(pItem, true));
+// $.writeln("---\n");
+// $.writeln('Geometric Dims: ' + adjusted_getDims(pItem));
+// $.writeln('Visible Dims: ' + adjusted_getDims(pItem, true));
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -244,39 +290,40 @@ $.writeln('Visible Dims: ' + adjusted_getDims(pItem, true));
 // alert(mx.matrixValues);
 
 
+function nextTest() {
 
-var doc = app.activeDocument;
-// Aktuelle Einheiten speichern
-var startHorizontalUnits = doc.viewPreferences.horizontalMeasurementUnits;
-var startVerticalUnits = doc.viewPreferences.verticalMeasurementUnits;
+    var doc = app.activeDocument;
+    // Aktuelle Einheiten speichern
+    var startHorizontalUnits = doc.viewPreferences.horizontalMeasurementUnits;
+    var startVerticalUnits = doc.viewPreferences.verticalMeasurementUnits;
 
-// Einheiten auf Millimeter setzen
-doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
-doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
-
-
-// app.transformPreferences.whenScaling = WhenScalingOptions.applyToContent;
-// var mySpread = app.activeDocument.spreads[0];
-var myObj = app.selection[0];
-// $.writeln(myObj.transformValuesOf(CoordinateSpaces.pasteboardCoordinates)[0].matrixValues)
-$.writeln("---\n");
-$.writeln(myObj.resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.spreadCoordinates)[0])
-$.writeln(myObj.resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.parentCoordinates, true)[0])
-$.writeln(myObj.resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.INNER_COORDINATES));
-$.writeln(myObj.resolve([AnchorPoint.TOP_LEFT_ANCHOR, BoundingBoxLimits.OUTER_STROKE_BOUNDS, CoordinateSpaces.INNER_COORDINATES], CoordinateSpaces.INNER_COORDINATES));
+    // Einheiten auf Millimeter setzen
+    doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
+    doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
 
 
-// Rescale mySpread by (200%,50%)
-// mySpread.transform(CoordinateSpaces.pasteboardCoordinates, [0, 0], [1, 0, 0, 1, 0, 0]);
-// alert(mySpread.transformValuesOf(CoordinateSpaces.pasteboardCoordinates)[0].matrixValues);
-// => 2, 0, 0, 0.5, 0, 0
+    // app.transformPreferences.whenScaling = WhenScalingOptions.applyToContent;
+    // var mySpread = app.activeDocument.spreads[0];
+    var myObj = app.selection[0];
+    // $.writeln(myObj.transformValuesOf(CoordinateSpaces.pasteboardCoordinates)[0].matrixValues)
+    $.writeln("---\n");
+    $.writeln(myObj.resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.spreadCoordinates)[0])
+    $.writeln(myObj.resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.parentCoordinates, true)[0])
+    $.writeln(myObj.resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.INNER_COORDINATES));
+    $.writeln(myObj.resolve([AnchorPoint.TOP_LEFT_ANCHOR, BoundingBoxLimits.OUTER_STROKE_BOUNDS, CoordinateSpaces.INNER_COORDINATES], CoordinateSpaces.INNER_COORDINATES));
 
-// 134.9375, 89.9583333333333
 
-doc.viewPreferences.horizontalMeasurementUnits = startHorizontalUnits;
-doc.viewPreferences.verticalMeasurementUnits = startVerticalUnits;
+    // Rescale mySpread by (200%,50%)
+    // mySpread.transform(CoordinateSpaces.pasteboardCoordinates, [0, 0], [1, 0, 0, 1, 0, 0]);
+    // alert(mySpread.transformValuesOf(CoordinateSpaces.pasteboardCoordinates)[0].matrixValues);
+    // => 2, 0, 0, 0.5, 0, 0
 
+    // 134.9375, 89.9583333333333
 
+    doc.viewPreferences.horizontalMeasurementUnits = startHorizontalUnits;
+    doc.viewPreferences.verticalMeasurementUnits = startVerticalUnits;
+
+}
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -289,13 +336,13 @@ function WidthAndHeight(myRectangle) { // Returns an array [width,height]
     var myRectangleTopRight = myRectangle.resolve(AnchorPoint.TOP_RIGHT_ANCHOR, CoordinateSpaces.pasteboardCoordinates, true);
     var myRectangleBottomRight = myRectangle.resolve(AnchorPoint.BOTTOM_RIGHT_ANCHOR, CoordinateSpaces.pasteboardCoordinates, true);
     var myRectangleBottomLeft = myRectangle.resolve(AnchorPoint.BOTTOM_LEFT_ANCHOR, CoordinateSpaces.pasteboardCoordinates, true);
-    
+
     $.writeln("---\n");
     $.writeln(myRectangleTopLeft)
     $.writeln(myRectangleTopRight)
     $.writeln(myRectangleBottomRight)
     $.writeln(myRectangleBottomLeft)
-    
+
     $.writeln("---\n");
 
     var d1x = (myRectangleTopRight[0][0] - myRectangleTopLeft[0][0]);
@@ -389,14 +436,16 @@ function shortestDistance_2(x1, y1, x2, y2, x3, y3) {
 // -10.0902325317535, 273,873 p2
 // 462.869008308809, -203.468882759475 p3
 
+// 0, 0, 25.4522336244627, 6.4523673524931e-16, 476.31, 342.992125983488, 476.31, 317.539892359025
 
+// 0, 0, 25.45223362, 0, 476.31, 342.99212598, 476.31, 317.53989236
 
 
 //////////////////////////////////////////////////////////////////////////////
 
-shortestDistance();
+// getDimension();
 
-function shortestDistance() {
+function getDimension() {
     var doc = app.activeDocument;
     const cs = CoordinateSpaces, ap = AnchorPoint;
 
@@ -445,16 +494,56 @@ function shortestDistance() {
         return formatted;
     }
 
-    var distance_top = distanceMath(outer_TL[0], outer_TL[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
-    var distance_right = distanceMath(outer_TR[0], outer_TR[1], inner_TR[0], inner_TR[1], inner_BR[0], inner_BR[1]);
-    var distance_bottom = distanceMath(outer_BR[0], outer_BR[1], inner_BR[0], inner_BR[1], inner_BL[0], inner_BL[1]);
-    var distance_left = distanceMath(outer_BL[0], outer_BL[1], inner_BL[0], inner_BL[1], inner_TL[0], inner_TL[1]);
+    var distance_topL = distanceMath(outer_TL[0], outer_TL[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
+    var distance_topR = distanceMath(outer_TR[0], outer_TR[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
+    var distance_rightT = distanceMath(outer_TR[0], outer_TR[1], inner_TR[0], inner_TR[1], inner_BR[0], inner_BR[1]);
+    var distance_rightB = distanceMath(outer_BR[0], outer_BR[1], inner_TR[0], inner_TR[1], inner_BR[0], inner_BR[1]);
+    var distance_bottomR = distanceMath(outer_BR[0], outer_BR[1], inner_BR[0], inner_BR[1], inner_BL[0], inner_BL[1]);
+    var distance_bottomL = distanceMath(outer_BL[0], outer_BL[1], inner_BR[0], inner_BR[1], inner_BL[0], inner_BL[1]);
+    var distance_leftB = distanceMath(outer_BL[0], outer_BL[1], inner_BL[0], inner_BL[1], inner_TL[0], inner_TL[1]);
+    var distance_leftT = distanceMath(outer_TL[0], outer_TL[1], inner_BL[0], inner_BL[1], inner_TL[0], inner_TL[1]);
 
-    $.writeln("distance_top: " + rund(pt2mm(distance_top)));
-    $.writeln("distance_right: " + rund(pt2mm(distance_right)));
-    $.writeln("distance_bottom: " + rund(pt2mm(distance_bottom)));
-    $.writeln("distance_left: " + rund(pt2mm(distance_left)));
+    // $.writeln("distance_topL: " + rund(pt2mm(distance_topL)));
+    // $.writeln("distance_topR: " + rund(pt2mm(distance_topR)));
+    // $.writeln("distance_rightT: " + rund(pt2mm(distance_rightT)));
+    // $.writeln("distance_rightB: " + rund(pt2mm(distance_rightB)));
+    // $.writeln("distance_bottomR: " + rund(pt2mm(distance_bottomR)));
+    // $.writeln("distance_bottomL: " + pt2mm(distance_bottomL));
+    // $.writeln("distance_leftB: " + rund(pt2mm(distance_leftB)));
+    // $.writeln("distance_leftT: " + rund(pt2mm(distance_leftT)));
 
+    function getDistance(_zahl1, _zahl2) {
+        // Vergleiche die beiden Zahlen und finde die größere
+        var distance = Math.max(_zahl1, _zahl2);
+        if (distance <= 0) {
+            distance = 0;
+        }
+        return distance;
+    }
+
+
+    var top_distance = getDistance(distance_topL, distance_topR);
+    var right_distance = getDistance(distance_rightT, distance_rightB);
+    var bottom_distance = getDistance(distance_bottomR, distance_bottomL);
+    var left_distance = getDistance(distance_leftB, distance_leftT);
+
+    var enlargeCanvas_mm = [];
+    enlargeCanvas_mm.push(rund(pt2mm(top_distance)));
+    enlargeCanvas_mm.push(rund(pt2mm(right_distance)));
+    enlargeCanvas_mm.push(rund(pt2mm(bottom_distance)));
+    enlargeCanvas_mm.push(rund(pt2mm(left_distance)));
+
+    var enlargeCanvas_pt = [];
+    enlargeCanvas_pt.push((top_distance));
+    enlargeCanvas_pt.push((right_distance));
+    enlargeCanvas_pt.push((bottom_distance));
+    enlargeCanvas_pt.push((left_distance));
+
+    $.writeln("enlargeCanvas_mm: " + enlargeCanvas_mm);
+    $.writeln("enlargeCanvas_pt: " + enlargeCanvas_pt);
+
+
+    // enlargeCanvas: 14.14, 0, 0, 3.426
 
     function distanceMath(p1x, p1y, p2x, p2y, p3x, p3y) {
         var A = p3y - p2y;
@@ -474,10 +563,16 @@ function shortestDistance() {
     var outer_height = hypotenuse2(outer_TL, outer_BL);
     var inner_width = hypotenuse2(inner_TL, inner_TR);
     var inner_height = hypotenuse2(inner_TL, inner_BL);
-    $.writeln("outer_width: " + rund(pt2mm(outer_width)));
-    $.writeln("outer_height: " + rund(pt2mm(outer_height)));
-    $.writeln("inner_width: " + rund(pt2mm(inner_width)));
-    $.writeln("inner_height: " + rund(pt2mm(inner_height)));
+    // $.writeln("outer_width_mm: " + rund(pt2mm(outer_width)));
+    // $.writeln("outer_height_mm: " + rund(pt2mm(outer_height)));
+    // $.writeln("inner_width_mm: " + rund(pt2mm(inner_width)));
+    // $.writeln("inner_height_mm: " + rund(pt2mm(inner_height)));
+    $.writeln("outer_width_pt: " + outer_width);
+    $.writeln("outer_height_pt: " + outer_height);
+    $.writeln("inner_width_pt: " + inner_width);
+    $.writeln("inner_height_pt: " + inner_height);
+
+
     function hypotenuse2(_p1, _p2) {
         var x = _p1[0] - _p2[0];
         var y = _p1[1] - _p2[1];
@@ -535,4 +630,453 @@ function distanceToLine_old(x, y, p2, p3) {
 
     var distance = A * x + B * y + C;
     return distance / Math.sqrt(A * A + B * B);
+}
+
+
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+// var scale = 1/(77.07867983815595/100);
+// $.writeln("scale: " + scale)
+
+// setBounds();
+
+function setBounds() {
+    var doc = app.activeDocument;
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+
+    // Aktuelle Einheiten speichern
+    var startHorizontalUnits = doc.viewPreferences.horizontalMeasurementUnits;
+    var startVerticalUnits = doc.viewPreferences.verticalMeasurementUnits;
+    // Einheiten auf Millimeter setzen
+    doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
+    doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
+
+
+    if (app.selection[0] instanceof Image && app.selection[0].parent.graphics.length > 0) {
+        var selection = app.selection[0].parent;
+    } else {
+        var selection = app.selection[0];
+    }
+
+    selection_inner = selection.allPageItems[0];
+
+    function mm2pt(mm) {
+        return mm * 2.83464566929;
+    }
+
+    var outer_TL = selection.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+    var outer_TR = selection.resolve(ap.TOP_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var outer_BR = selection.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var outer_BL = selection.resolve(ap.BOTTOM_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+
+    var inner_TL = selection_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+    var inner_TR = selection_inner.resolve(ap.TOP_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var inner_BR = selection_inner.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var inner_BL = selection_inner.resolve(ap.BOTTOM_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+
+
+
+
+    // selection.images[0].horizontalScale = 100;
+    // selection.images[0].verticalScale = 100;
+    // selection_inner.move([-1, 0]);
+
+
+
+    var hScale = selection.images[0].horizontalScale;
+    var hScaleFactor = 1 / (hScale / 100);
+    $.writeln("hScaleFactor: " + hScaleFactor);
+
+    // selection_inner.transform(cs.pageCoordinates, [0, 0], [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-1), mm2pt(-2)]);
+    selection_inner.transform(cs.pasteboardCoordinates, ap.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-50), mm2pt(-10)], undefined, true);
+
+
+    var inner_TL2 = selection_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, false)[0];
+
+    $.writeln("outer---");
+    $.writeln(rund(pt2mm(outer_TL[0])) + ", " + rund(pt2mm(outer_TL[1])));
+    $.writeln(rund(pt2mm(outer_TR[0])) + ", " + rund(pt2mm(outer_TR[1])));
+    $.writeln(rund(pt2mm(outer_BR[0])) + ", " + rund(pt2mm(outer_BR[1])));
+    $.writeln(rund(pt2mm(outer_BL[0])) + ", " + rund(pt2mm(outer_BL[1])));
+    $.writeln("inner---");
+    $.writeln(rund(pt2mm(inner_TL[0])) + ", " + rund(pt2mm(inner_TL[1])));
+    $.writeln(rund(pt2mm(inner_TL2[0])) + ", " + rund(pt2mm(inner_TL2[1])));
+    $.writeln(rund(pt2mm(inner_TR[0])) + ", " + rund(pt2mm(inner_TR[1])));
+    $.writeln(rund(pt2mm(inner_BR[0])) + ", " + rund(pt2mm(inner_BR[1])));
+    $.writeln(rund(pt2mm(inner_BL[0])) + ", " + rund(pt2mm(inner_BL[1])));
+    $.writeln("---\n");
+    function rund(num) {
+        var formatted = num.toFixed(3); // Auf drei Dezimalstellen runden
+        formatted = formatted.replace(/\.?0+$/, ""); // Führende Nullen entfernen
+        return formatted;
+    }
+    function pt2mm(_input) {
+        var myHorizontalUnits = unitsEnumToString(app.documents[0].viewPreferences.horizontalMeasurementUnits);
+        return new UnitValue(_input, "points").as(myHorizontalUnits)
+    }
+    function unitsEnumToString(myUnitsEnum) {
+        switch (myUnitsEnum) {
+            case 2054188905:
+                return "points";
+            case 2054187363:
+                return "picas";
+            case 2053729891:
+                return "inches";
+            case 2053729892:
+                return "inches decimal";
+            case 2053991795:
+                return "millimeters";
+            case 2053336435:
+                return "centimeters";
+            case 2053335395:
+                return "ciceros";
+            default:
+                alert("Cannot convert to the current ruler units. Sorry.");
+                exit();
+
+        }
+    }
+    // Einheiten zurücksetzen
+    doc.viewPreferences.horizontalMeasurementUnits = startHorizontalUnits;
+    doc.viewPreferences.verticalMeasurementUnits = startVerticalUnits;
+}
+
+
+// repositionImage(28.34645669, 141.73228346);
+
+function repositionImage(_top, _left) {
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+
+    if (app.selection[0] instanceof Image && app.selection[0].parent.graphics.length > 0) {
+        var selection = app.selection[0].parent;
+    } else {
+        var selection = app.selection[0];
+    }
+
+    selection_inner = selection.allPageItems[0];
+
+    var hScale = selection.images[0].horizontalScale;
+    var hScaleFactor = 1 / (hScale / 100);
+    $.writeln("hScaleFactor: " + hScaleFactor);
+
+    // selection_inner.transform(cs.pageCoordinates, [0, 0], [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-1), mm2pt(-2)]);
+    selection_inner.transform(cs.pasteboardCoordinates, ap.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, -1 * _left, -1 * _top], undefined, true);
+}
+
+
+
+// top: 28.34645669
+// left: 0
+// bottom: 0
+// right: 141.73228346
+
+
+// _hScale: 89
+// __hScale: 26.9677650429799
+// ppi: 300
+// hScaleFactor: 3.70813079395437
+// top: 52.65464567
+// left: 0
+
+
+// repositionImage_2(0, 44.18667787)
+
+function repositionImage_2(_top, _left) {
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+
+    if (app.selection[0] instanceof Image && app.selection[0].parent.graphics.length > 0) {
+        var selection = app.selection[0].parent;
+    } else {
+        var selection = app.selection[0];
+    }
+
+    selection_inner = selection.allPageItems[0];
+
+    var hScale = selection.images[0].horizontalScale;
+    var hScaleFactor = 1 / (hScale / 100);
+    // $.writeln("hScaleFactor: " + hScaleFactor);
+
+    // selection_inner.transform(cs.pageCoordinates, [0, 0], [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-1), mm2pt(-2)]);
+    // selection_inner.transform(cs.pasteboardCoordinates, ap.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, -1 * _left, -1 * _top], undefined, true);
+
+    // selection_inner.transform(cs.pasteboardCoordinates, ap.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, -1 * _left, -1 * _top], undefined, true);
+    selection_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, -1 * _left, -1 * _top], undefined, true);
+}
+
+
+// repositionImage_3(26.66015748, 0)
+
+function repositionImage_3(_top, _left) {
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+
+    if (app.selection[0] instanceof Image && app.selection[0].parent.graphics.length > 0) {
+        var selection = app.selection[0].parent;
+    } else {
+        var selection = app.selection[0];
+    }
+
+    selection_inner = selection.allPageItems[0];
+
+    selection.images[0].horizontalScale = 100;
+    selection.images[0].verticalScale = 100;
+
+    // selection_inner.transform(CoordinateSpaces.pageCoordinates, AnchorPoint.TOP_LEFT_ANCHOR, [1.63414638353613, 0, 0, 1.63414638353613, 0, 0], undefined, true);
+    // selection_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [1.26219515, 0, 0, 1.26219515, 0, 0], undefined, true);
+    selection_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [1, 0, 0, 1, -1 * _left, -1 * _top], undefined, true);
+}
+
+
+
+
+////////////////////////////////////////////////////////////
+///////////// Objektebenenoptionen 
+////////////////////////////////////////////////////////////
+// $.writeln("updateLinkOption: " + app.selection[0].graphics[0].graphicLayerOptions.updateLinkOption);
+// // app.selection[0].graphics[0].graphicLayerOptions.updateLinkOption =  UpdateLinkOptions.KEEP_OVERRIDES;
+// app.selection[0].graphics[0].graphicLayerOptions.updateLinkOption =  UpdateLinkOptions.APPLICATION_SETTINGS;
+// $.writeln("updateLinkOption: " + app.selection[0].graphics[0].graphicLayerOptions.updateLinkOption);
+
+
+// if (app.selection[0].graphics[0].hasOwnProperty('graphicLayerOptions') ) {
+// var layersOptions = [];
+// if (app.selection[0].graphics[0].graphicLayerOptions.graphicLayers.length > 0) {
+
+//     const layers = app.selection[0].graphics[0].graphicLayerOptions.graphicLayers;
+//     for (var n = 0; n < layers.length; n++) {
+//         var layer = layers[n];
+//         layersOptions.push({
+//             'name': layer.name,
+//             'id': layer.id,
+//             'originalVisibility': layer.originalVisibility,
+//             'currentVisibility': layer.currentVisibility
+//         });
+//     }
+
+
+//     // Auslesen der Werte aus dem Array
+//     for (var i = 0; i < layersOptions.length; i++) {
+//         var layerOption = layersOptions[i];
+//         $.writeln("name: " + layerOption.name);
+//         $.writeln("id: " + layerOption.id);
+//         $.writeln("originalVisibility: " + layerOption.originalVisibility);
+//         $.writeln("currentVisibilityy: " + layerOption.currentVisibility);
+//     }
+// } else {
+//     if (debug) {
+//         alert("Bild ohne Ebenen - kein VisibilityCheck")
+//     }
+// }
+
+// var ding = app.selection[0].graphics[0].graphicLayerOptions.graphicLayers[0].currentVisibility;
+// var dong = app.selection[0].allPageItems[0].graphicLayerOptions.graphicLayers.length;
+
+// $.writeln("graphicLayerOptions: " + ding)
+// $.writeln("graphicLayerOptions: " + dong)
+// $.writeln(app.selection[0].graphics[0].graphicLayerOptions.graphicLayers[0].id);
+
+
+$.writeln(app.selection[0].graphics[0].profile)
+
+
+var myDoc = app.activeDocument;
+var myLink = app.selection[0].graphics[0];
+
+var avaiLangs = new Array("DE", "GB");
+//var avaiLangs = app.activeDocument.layers.everyItem().name;  
+var newLang = (avaiLangs.join(', '), "FR");
+
+if (myLink.getElements()[0].constructor.name == "Image") {
+}
+if (myLink.parent.hasOwnProperty('graphicLayerOptions')) {
+    // myLink.parent.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.KEEP_OVERRIDES;
+    // checkLayers(myLink, newLang);
+}
+
+function checkLayers(oneLink, newLang) {
+    for (var n = 0; n < avaiLangs.length; n++) {
+        var myObjectLayers = oneLink.parent.graphicLayerOptions.graphicLayers;
+        if (myObjectLayers.itemByName(avaiLangs[n]).isValid) {
+            myObjectLayers.itemByName(avaiLangs[n]).currentVisibility = false;
+        }
+    }
+    if (myObjectLayers.itemByName(newLang).isValid) {
+        myObjectLayers.itemByName(newLang).currentVisibility = true;
+    }
+}
+
+
+
+
+////////////////////////////////////////////////////////////
+///////////// get Exif-orientation
+////////////////////////////////////////////////////////////
+
+// metaDataOfLinks.jsx  
+//DESCRIPTION: Ermittelt Metadaten von verknüpften Bildern und erstellt eine Übersicht auf dem Schreibtisch.  
+// Martin Fischer 10/2008  
+
+// var myLinkXmpArray = ["author", "copyrightInfoURL", "copyrightNotice", "copyrightStatus ", "creationDate", "creator", "description", "documentTitle", "format", "jobName", "keywords", "modificationDate", "serverURL"];
+// var myIPTCArray = ["CiAdrCity", "CiAdrCtry", "CiAdrExtadr", "CiAdrPcode", "CiAdrRegion", "CiEmailWork", "CiTelWork", "City", "CiUrlWork", "CopyrightNotice", "Country", "CountryCode", "Creator", "CreatorContactInfo", "CreatorJobtitle", "DateCreated", "Description", "DescriptionWriter", "Headline", "Instructions", "IntellectualGenre", "JobID", "Keywords", "Location", "Provider", "Province-State", "RightsUsageTerms", "Scene", "Source", "SubjectCode", "Title"];
+// var myPSArray = ["photoshop:AuthorsPosition", "photoshop:CaptionWriter", "photoshop:Category", "photoshop:City", "photoshop:Country", "photoshop:Credit", "photoshop:DateCreated", "photoshop:Headline", "photoshop:Instructions", "photoshop:Source", "photoshop:State", "photoshop:SupplementalCategories", "photoshop:TransmissionReference", "photoshop:Urgency"];//var myPSArray = ["photoshop:AuthorsPosition", "CaptionWriter", "Category", "City", "Country", "Credit", "DateCreated", "Headline", "Instructions", "Source", "State", "SupplementalCategories", "TransmissionReference", "Urgency"];  
+// var myTiffArray = ["tiff:ImageWidth", "tiff:ImageLength", "tiff:BitsPerSample", "tiff:Compression", "tiff:PhotometricInterpretation", "tiff:Orientation", "tiff:SamplesPerPixel", "tiff:PlanarConfiguration", "tiff:YCbCrSubSampling", "tiff:YCbCrPositioning", "tiff:XResolution", "tiff:YResolution", "tiff:ResolutionUnit", "tiff:TransferFunction", "tiff:WhitePoint", "tiff:PrimaryChromaticities", "tiff:YCbCrCoefficients", "tiff:ReferenceBlackWhite", "tiff:DateTime", "tiff:ImageDescription", "tiff:MakeProperName", "tiff:Model", "tiff:Software", "tiff:Artist", "tiff:Copyright"];
+// var myExifArray = ["exif:ExifVersion", "exif:FlashpixVersion", "exif:ColorSpace", "exif:ComponentsConfiguration", "exif:CompressedBitsPerPixel", "exif:PixelXDimension", "exif:PixelYDimension", "exif:UserComment", "exif:RelatedSoundFile", "exif:DateTimeOriginal", "exif:DateTimeDigitized", "exif:ExposureTime", "exif:FNumber", "exif:ExposureProgram", "exif:SpectralSensitivity", "exif:ISOSpeedRatings", "exif:OECF", "exif:ShutterSpeedValue", "exif:ApertureValue", "exif:BrightnessValue", "exif:ExposureBiasValue", "exif:MaxApertureValue", "exif:SubjectDistance", "exif:MeteringMode", "exif:LightSource", "exif:Flash", "exif:FocalLength", "exif:SubjectArea", "exif:FlashEnergy", "exif:SpatialFrequencyResponse", "exif:FocalPlaneXResolution", "exif:FocalPlaneYResolution", "exif:FocalPlaneResolutionUnit", "exif:SubjectLocation", "exif:ExposureIndex", "exif:SensingMethod", "exif:FileSource", "exif:SceneType", "exif:CFAPattern", "exif:CustomRendered", "exif:ExposureMode", "exif:WhiteBalance", "exif:DigitalZoomRatio", "exif:FocalLengthIn35mmFilm", "exif:SceneCaptureType", "exif:GainControl", "exif:Contrast", "exif:Saturation", "exif:Sharpness", "exif:DeviceSettingDescription", "exif:SubjectDistanceRange", "exif:ImageUniqueID", "exif:GPSVersionID", "exif:GPSLatitude", "exif:GPSLongitude", "exif:GPSAltitudeRef", "exif:GPSAltitude", "exif:GPSTimeStamp", "exif:DateTimeOriginal,", "exif:DateTimeDigitized.", "exif:GPSTimeStamp", "exif:GPSSatellites", "exif:GPSStatus", "exif:GPSMeasureMode", "exif:GPSDOP", "exif:GPSSpeedRef", "exif:GPSSpeed", "exif:GPSTrackRef", "exif:GPSTrack", "exif:GPSImgDirectionRef", "exif:GPSImgDirection", "exif:GPSMapDatum", "exif:GPSDestLatitude", "exif:GPSDestLongitude", "exif:GPSDestBearingRef", "exif:GPSDestBearing", "exif:GPSDestDistanceRef", "exif:GPSDestDistance", "exif:GPSProcessingMethod", "exif:GPSAreaInformation"];
+// var myCameraRawArray = ["crs:AutoBrightness", "crs:AutoContrast", "crs:AutoExposure", "crs:AutoShadows", "crs:BlueHue", "crs:BlueSaturation", "crs:Brightness", "crs:CameraProfile", "crs:ChromaticAberrationB", "crs:ChromaticAberrationR", "crs:ColorNoiseReduction", "crs:Contrast", "crs:CropTop", "crs:CropLeft", "crs:CropBottom", "crs:CropRight", "crs:CropAngle", "crs:CropWidth", "crs:CropHeight", "crs:CropUnits", "crs:Exposure", "crs:GreenHue", "crs:GreenSaturation", "crs:HasCrop", "crs:HasSettings", "crs:LuminanceSmoothing", "crs:RawFileName", "crs:RedHue", "crs:RedSaturation", "crs:Saturation", "crs:Shadows", "crs:ShadowTint", "crs:Sharpness", "crs:Temperature", "crs:Tint", "crs:ToneCurve", "crs:ToneCurveName", "crs:Version", "crs:VignetteAmount", "crs:VignetteMidpoint", "crs:WhiteBalance"];
+
+// var myInfo = new Array;
+// var myDoc = app.activeDocument;
+// var myLinks = app.documents[0].links;
+
+// for (i = 0; i < myLinks.length; i++)
+//     getMetaData(myLinks[i]);
+
+// writeData('Metadaten zu ' + myDoc.name + '\r-----------\r\r' + myInfo.join('\r\r'), File('~/Desktop/Metadaten_' + myDoc.name.replace(/.indd$/, '') + '.txt'));
+
+// // ===============================================================  
+// //                                              Funktionen  
+// // ===============================================================  
+// function getMetaData(aLink) {
+//     var myLinkXmp = aLink.linkXmp.properties.toSource().replace(/^\(\{/, '').replace(/\)\}$/, '').replace(/parent.+$/, '').replace(/:/g, ':\t').split(', ');
+//     var myString = aLink.name;
+//     myString += loopLinkXmp(aLink, myLinkXmpArray);
+//     myString += loopArray(aLink, "http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/", "Iptc4xmpCore:CreatorContactInfo/Iptc4xmpCore:", myIPTCArray);
+//     myString += loopArray(aLink, "http://ns.adobe.com/photoshop/1.0/", "", myPSArray);
+//     myString += loopArray(aLink, "http://ns.adobe.com/tiff/1.0/", "", myTiffArray);
+//     myString += loopArray(aLink, "http://ns.adobe.com/exif/1.0/", "", myExifArray);
+//     myString += loopArray(aLink, "http://ns.adobe.com/camera-raw-settings/1.0/", "", myCameraRawArray);
+//     myInfo.push(myString.replace(/, $/, ''));
+// }
+
+// function loopArray(aLink, s1, s2, anArray) {
+//     var temp = '\r\t--- ' + s1 + ' ---\r\t';
+//     for (var a = 0; a < anArray.length; a++) {
+//         try {
+//             var theEvalString = 'aLink.linkXmp.getProperty(\"' + s1 + '\", \"' + s2 + anArray[a] + '\")';
+//             var myCode = eval(theEvalString);
+//             if (myCode != '')
+//                 temp += '[' + anArray[a] + ']\t' + myCode + '\r\t';
+//         } catch (e) { //temp +=e + '\r'  
+//         }
+//     }
+//     return temp;
+// }
+
+// function loopLinkXmp(aLink, anArray) {
+//     var temp = '\r\t--- LinkMetadata ---\r\t';
+//     for (var a = 0; a < anArray.length; a++) {
+//         try {
+//             var theEvalString = 'aLink.linkXmp.' + anArray[a];
+//             var myCode = eval(theEvalString);
+//             if (myCode != '')
+//                 temp += '[' + anArray[a] + ']\t' + myCode + '\r\t';
+//         } catch (e) { //temp +=e + '\r'  
+//         }
+//     }
+//     return temp;
+// }
+
+// function writeData(aData, theFile) {
+//     theFile.open('w', 'Text', 'R*ch');
+//     theFile.encoding = 'UTF-8';
+//     theFile.write(aData);
+//     theFile.close();
+// } 
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////
+///////////// get Orientierung Image
+////////////////////////////////////////////////////////////
+
+
+// function loadXMPLibrary() {
+//     if (!ExternalObject.AdobeXMPScript) {
+//         try { ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript'); }
+//         catch (e) { alert('Unable to load the AdobeXMPScript library!'); return false; }
+//     }
+//     return true;
+// }
+
+
+
+// function unloadXMPLibrary() {
+//     if (ExternalObject.AdobeXMPScript) {
+//         try { ExternalObject.AdobeXMPScript.unload(); ExternalObject.AdobeXMPScript = undefined; }
+//         catch (e) { alert('Unable to unload the AdobeXMPScript library!'); }
+//     }
+// }
+
+
+
+
+// if (loadXMPLibrary() && app.selection.length == 1 && app.selection[0].contentType == ContentType.GRAPHIC_TYPE) {
+//     var myFile = File(app.selection[0].graphics[0].itemLink.filePath);
+//     xmpFile = new XMPFile(myFile.fsName, XMPConst.UNKNOWN, XMPConst.OPEN_FOR_READ);
+//     var myXmp = xmpFile.getXMP();
+//     xmpFile.closeFile(XMPConst.CLOSE_UPDATE_SAFELY);
+//     unloadXMPLibrary();
+// }
+
+// if (myXmp) {
+//     var xmp_orientation = myXmp.getProperty(XMPConst.NS_TIFF, "Orientation");
+//     $.writeln(xmp_orientation)
+
+//     $.writeln(typeof xmp_orientation);
+// }
+
+
+
+
+////////////////////////////////////////////////////////////
+///////////// get autoRotete und Replace - Korrektur
+////////////////////////////////////////////////////////////
+
+// automatisch()
+
+function automatisch() {
+
+
+    var hScaleFactor = 1.0991264408356;
+    var _top = 299.54783134;
+    var _left = 52.07432852;
+    var _inner_width = 1066.11938032;
+    var _top_factor = _top * hScaleFactor;
+    var _left_factor = _left * hScaleFactor;
+
+    try {
+
+        if (app.selection[0] instanceof Image && app.selection[0].parent.graphics.length > 0) {
+            var selection = app.selection[0].parent;
+        } else {
+            var selection = app.selection[0];
+        }
+
+    } catch (e) {
+        alert(e)
+    }
+
+    var image = selection.images[0];
+    var imageLink = selection.graphics[0].itemLink;
+
+    var imageRGB = imageLink.parent.parent;
+    var imageRGB_inner = imageRGB.allPageItems[0];
+
+    var zoomScaleFactor = (_left + _inner_width) / _inner_width;
+
+
+    // imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, 0, 0], undefined, true);
+    // imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [1, 0, 0, 1, -1 * _left, -1 * _top], undefined, true);
+
+
+    imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [1, 0, 0, 1, -1 * _left_factor, -1 * _top_factor], undefined, true);
+    imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, 0, 0], undefined, true);
+
+    // alert("ding")
+
 }
