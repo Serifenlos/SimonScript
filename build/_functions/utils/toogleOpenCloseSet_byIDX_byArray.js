@@ -1,1 +1,0 @@
-function toogleOpenCloseSet_byIDX_byArray(e){for(var o=0;o<e.length;o++)toogleOpenCloseSet_byIDX(e[o])}

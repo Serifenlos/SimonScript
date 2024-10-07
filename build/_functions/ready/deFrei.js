@@ -1,8 +1,0 @@
-function deFrei(){
-//@include "./assets/json2.js"
-var e=loadJSON("~/ss_var.json").RZ_qualityJPG;try{if(app.activeDocument.layerSets.getByName("Freisteller")){var a=layer_selectedID_get();try{var i=!1;if(getMeta_3("isWoodwing"))i=Boolean(getMeta_3("isWoodwing"));
-// DELETE the layers
-try{gotoLayer("Freisteller"),ungroup(),gotoLayer("Freisteller helper"),deleteActiveLayer()}catch(e){}if(i){if(getMeta_3("woodwing_RGB"))var n=getMeta_3("woodwing_RGB");if(getMeta_3("woodwing_file"))var r=getMeta_3("woodwing_file");if(getMeta_3("idDocName"))var o=getMeta_3("idDocName");BridgeTalkMessage_openDocID(o,r,!1),replaceMeta_3_suffix("woodwing_file","psd","jpg"),replaceMeta_3_suffix("woodwing_RGB","psd","jpg"),saveMultiformat(new File(n),"jpg",t,e,f,f)}else{
-// DELETE the file
-var l=new Folder(doc.path),c=GetFileNameOnly(doc.name),s=/(?:\.([^.]+))?$/.exec(doc.name)[1],d=new File(l+"/"+c+"-frei."+s);d.exists&&d.remove()}}catch(e){alert(e)}layer_selectedID_set(a)}}catch(e){return alert("Abbruch!\nkeine Ebene names 'Freisteller' gefunden\n"+e),!1}}function BridgeTalkMessage_openDocID(e,t,a){var i=new BridgeTalk;i.target="indesign",i.body=runID.toSource()+"('"+e+"','"+t+"','"+a+"');",i.onResult=function(e){},i.send(10)}function runID(e,t,a){try{if(function(e){for(var t=!1,a=0;a<app.documents.length;a++)if(-1!==app.documents[a].name.indexOf(e)){t=!0,app.activeDocument=app.documents[a];break}return t}(e))app.activeDocument.links.itemByName(t).editOriginal();else alert("kein Focus auf der Datei?")}catch(e){
-/* if (_ssDebug) { alert("runID: " + e); } */}return" "}

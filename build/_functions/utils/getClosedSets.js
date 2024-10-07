@@ -1,1 +1,0 @@
-function getClosedSets(){for(var e=[],t=1;layer_checkExistence(t);)isLayerSet(t)&&(isSetOpened2(t)||($.writeln(t),e.push(t))),t++;return e}
