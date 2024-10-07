@@ -1,5 +1,7 @@
 {
-  "name": "uxp-template-default-starter",
-  "version": "1.0.0",
-  "description": "Default template for creating Adobe UXP based photoshop plugin."
+  "name": "simonscript_panel",
+  "version": "2.0.0",
+  "description": "basic Panel to control SimonScript",
+  "author": "Simon Adrian",
+  "license": "Apache-2.0"
 }

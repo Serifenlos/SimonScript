@@ -60,15 +60,47 @@ function resize() {
         app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
         doc.resizeImage(width_new, undefined, undefined, ResampleMethod.PRESERVEDETAILS, 0);
 
-        getSmartFilterArray();
-        for (var i = 0; i < filterArray.length; i++) {
-            if (filterArray[i][1] == "adaptCorrect") {
-                try {
-                    adjust_filter_TiefenLichter(width_faktor, filterArray[i][0] + 1, filterArray[i][5], filterArray[i][6], filterArray[i][7], filterArray[i][8], filterArray[i][9], filterArray[i][10], filterArray[i][11], filterArray[i][12], filterArray[i][16], filterArray[i][17], filterArray[i][18], filterArray[i][19], filterArray[i][20], filterArray[i][21], filterArray[i][22], filterArray[i][23], filterArray[i][24], filterArray[i][25], filterArray[i][26], filterArray[i][27], filterArray[i][28], filterArray[i][29], filterArray[i][30], filterArray[i][31]);
-                } catch (e) {}
+        maskFix_all2();
+        // getSmartFilterArray();
+
+        
+        var i = 1;
+        while (layer_checkExistence(i)) {
+            // fixMask(i, 1);
+
+            gotoLayer(i)
+
+            try {
+                var filterArray = getSmartFilterArray();
+            } catch (e) {
+                var filterArray = [];
+            };
+
+            for (var fa = 0; fa < filterArray.length; fa++) {
+                if (filterArray[fa][1] == "adaptCorrect") {
+                    try {
+                        adjust_filter_TiefenLichter(width_faktor, filterArray[fa][0] + 1, filterArray[fa][5], filterArray[fa][6], filterArray[fa][7], filterArray[fa][8], filterArray[fa][9], filterArray[fa][10], filterArray[fa][11], filterArray[fa][12], filterArray[fa][16], filterArray[fa][17], filterArray[fa][18], filterArray[fa][19], filterArray[fa][20], filterArray[fa][21], filterArray[fa][22], filterArray[fa][23], filterArray[fa][24], filterArray[fa][25], filterArray[fa][26], filterArray[fa][27], filterArray[fa][28], filterArray[fa][29], filterArray[fa][30], filterArray[fa][31]);
+                    } catch (e) { }
+                }
+            };
+
+            i++;
+        };
+
+
+        // fixMaskLoop(width_faktor);
+        
+        function maskFix_all2() {
+            try {
+                var i = 1;
+                while (layer_checkExistence(i)) {
+                    fixMask(i, 1);
+                    i++;
+                };
+            } catch (e) {
+                alert("error " + e)
             }
         }
-        fixMaskLoop(width_faktor);
         fitScreen();
 
 

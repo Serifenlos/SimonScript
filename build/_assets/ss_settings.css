@@ -1,0 +1,40 @@
+sp-body {
+  margin: 0; }
+
+sp-button-group {
+  margin: 0; }
+
+sp-textfield,
+sp-dropdown,
+sp-radio-group,
+sp-field-group,
+sp-slider {
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+  margin: .5em 0;
+  padding-bottom: .5em;
+  border-bottom: 0.5px solid rgba(128, 128, 128, 0.5); }
+
+sp-body > *:last-child
+, sp-body > *.no_border {
+  border-bottom: none;
+  margin-bottom: 30px; }
+
+sp-body > *:last-child {
+  margin-bottom: unset; }
+
+sp-label {
+  padding-right: 1em;
+  width: 100px; }
+
+.input-error {
+  outline: 1px solid red; }
+
+sp-radio-group > * {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline; }
+
+sp-slider {
+  display: inline; }

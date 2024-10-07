@@ -7,18 +7,20 @@
 </javascriptresource>
 // END__HARVEST_EXCEPTION_ZSTRING
 */
-var run_all=!0,run_3x2quer=!1,run_3x2hoch=!1,run_4x3quer=!1,run_4x3hoch=!1,run_1x1=!1,run_DinAquer=!1,run_DinAhoch=!1,run_pano=!0,outputFileFormat="JPG",outputResize=2400,outputDesination="web",doCrop=!0;function cTID(e){return app.charIDToTypeID(e)}function sTID(e){return app.stringIDToTypeID(e)}prefSave(),prefSet(),inputFolder=Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");var fileList=inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i),masterFolder=new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
+var run_all=!0,run_3x2quer=!1,run_3x2hoch=!1,run_4x3quer=!1,run_4x3hoch=!1,run_1x1=!1,run_DinAquer=!1,run_DinAhoch=!1,run_pano=!0,outputFileFormat="JPG",outputResize=2400,outputDesination="web",doCrop=!0;function cTID(e){return app.charIDToTypeID(e)}function sTID(e){return app.stringIDToTypeID(e)}time_start(),prefSave(),prefSet(),inputFolder=Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");var fileList=inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i),masterFolder=new Folder("/Volumes/Archiv LOTUS/11Freunde_Auslagerung/Bilderwelt_Plattenmontage/MAIN");
 // var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
 // var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER_maximal");
-masterFolder.exists||errorExit("kein Master-Folder!");var tempFolder=new Folder(masterFolder+"/.temp");
-// var tempFolder = new Folder("~/11F <-> Simon/Shop/2019-09/material/_test");
-tempFolder.exists||tempFolder.create();
+// var masterFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
+masterFolder.exists||errorExit("kein Master-Folder!");
+// var tempFolder = new Folder(masterFolder + "/.temp");
+var tempFolder=new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/_OUTPUT/.temp");tempFolder.exists||tempFolder.create();
 // var outputFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/material/_output");
 // var outputFolder = new Folder("~/11F <-> Simon/Shop/2019-09/material/_output");
 // var outputFolder = new Folder("~/Desktop/Simon/Plattenmontage/test_output");
 // var outputFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Bilderwelt/Plattenmontage+");
 // var outputFolder = new Folder("/Volumes/homes/pixoprint/11F_BW_2021-03__moods");
-var outputFolder=new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/Mood_Output");if(outputFolder.exists||outputFolder.create(),run_all||run_3x2quer)for(var i=0;i<fileList.length;i++){if((thisFileName=GetFileNameOnly((thisFile=fileList[i]).name)).match(/__45x30/g)){/* 3x2 */
+// var outputFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/Mood_Output");
+var outputFolder=new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/_OUTPUT/Plattenmontage");if(outputFolder.exists||outputFolder.create(),run_all||run_3x2quer)for(var i=0;i<fileList.length;i++){if((thisFileName=GetFileNameOnly((thisFile=fileList[i]).name)).match(/__45x30/g)){/* 3x2 */
 var doc_file=new File(thisFile);if(app.open(doc_file),(doc=app.activeDocument).width>doc.height){/* QUER */
 var docFileName_decode=decodeURI(doc_file.name);app.documents.getByName(docFileName_decode).close(SaveOptions.DONOTSAVECHANGES),format="3x2",seitenverhältnis="quer",originalName=thisFileName.replace("__45x30","").replace("__RGB",""),createBlanko(),placeTemp(doc_file,0,0,100,100,0);var spezial="";saveTempFile(temp_1=new File(tempFolder+"/"+format+"-"+seitenverhältnis+spezial)),app.documents.getByName("blanko").close(SaveOptions.DONOTSAVECHANGES),processItem("Acryl","detail",temp_1),processItem("Acryl","full",temp_1),processItem("Alu","detail",temp_1),processItem("Alu","full",temp_1),processItem("FineArt","detail",temp_1),processItem("Leinwand","detail",temp_1),processItem("Leinwand","full",temp_1),processItem("Poster","detail",temp_1)}}closeAll()}if(run_all||run_3x2hoch)for(i=0;i<fileList.length;i++){if((thisFileName=GetFileNameOnly((thisFile=fileList[i]).name)).match(/__45x30/g)){/* 3x2 */
 doc_file=new File(thisFile);if(app.open(doc_file),(doc=app.activeDocument).width<doc.height){/* HOCH */
@@ -67,7 +69,7 @@ createBlanko(),placeTemp(doc_file,0,709,100,100,0);var temp_3;spezial="_unten";s
 //// FUNCTIONS ////////////////////////////////////////
 ///////////////////////////////////////////////////////
 //// global //////////////////////////////////////////
-function prefSave(){startDisplayDialogs=app.displayDialogs,startRulerUnits=app.preferences.rulerUnits}function prefSet(){app.displayDialogs=DialogModes.NO,app.preferences.rulerUnits=Units.PIXELS}function prefReset(){app.preferences.rulerUnits=startRulerUnits,app.displayDialogs=startDisplayDialogs}function emptyProtocoll(){var e=new ActionDescriptor;e.putEnumerated(cTID("null"),cTID("PrgI"),cTID("Al  ")),executeAction(cTID("Prge"),e,DialogModes.NO);for(var t=app.activeDocument.historyStates,i=t.length-1;i>=0;--i)t[i].snapshot&&(app.activeDocument.activeHistoryState=t[i],deleteHistory())}function deleteHistory(){var e=new ActionDescriptor,t=new ActionReference;t.putProperty(charIDToTypeID("HstS"),charIDToTypeID("CrnH")),e.putReference(charIDToTypeID("null"),t),executeAction(charIDToTypeID("Dlt "),e,DialogModes.NO)}
+function prefSave(){startDisplayDialogs=app.displayDialogs,startRulerUnits=app.preferences.rulerUnits}function prefSet(){app.displayDialogs=DialogModes.NO,app.preferences.rulerUnits=Units.PIXELS}function prefReset(){app.preferences.rulerUnits=startRulerUnits,app.displayDialogs=startDisplayDialogs}function time_start(){start=(new Date).getTime()}function time_stop(e){var t=(new Date).getTime(),i="Done ("+Number((t-e)/1e3).toFixed(3)+" secs).";alert(i)}function emptyProtocoll(){var e=new ActionDescriptor;e.putEnumerated(cTID("null"),cTID("PrgI"),cTID("Al  ")),executeAction(cTID("Prge"),e,DialogModes.NO);for(var t=app.activeDocument.historyStates,i=t.length-1;i>=0;--i)t[i].snapshot&&(app.activeDocument.activeHistoryState=t[i],deleteHistory())}function deleteHistory(){var e=new ActionDescriptor,t=new ActionReference;t.putProperty(charIDToTypeID("HstS"),charIDToTypeID("CrnH")),e.putReference(charIDToTypeID("null"),t),executeAction(charIDToTypeID("Dlt "),e,DialogModes.NO)}
 //// fileList /////////////////////////////////////////
 function GetFileNameOnly(e){var t=e.lastIndexOf(".");return(-1==t?e:e.substr(0,t)).replace(/^(\d{3}(-|_{2}))(.+)/g,"$3")}
 // just kopiert
@@ -81,7 +83,7 @@ function placeTemp(e,t,i,l,o,n){var a=new ActionDescriptor;a.putInteger(cTID("Id
 //jpgSaveOptions.formatOptions = FormatOptions.PROGRESSIVE;
 n.formatOptions=FormatOptions.OPTIMIZEDBASELINE,n.formatOptions==FormatOptions.PROGRESSIVE&&(n.scans=3),
 // jpgSaveOptions.matte = MatteType.NONE;
-n.matte=MatteType.WHITE,app.activeDocument.saveAs(o,n,!0,Extension.LOWERCASE)}}function activePlatte(e,t,i,l){return new File(masterFolder+"/"+e+seitenverhältnis+"_"+i+"_"+l+"__MASTER.tif")}function changeMaterial(e){if("Acryl"==e)var t="DHA";if("Alu"==e)t="AKF";if("FineArt"==e)t="FAP";if("Leinwand"==e)t="LWD";if("Poster"==e)t="POS";return t}function processItem(e,t,i){
+n.matte=MatteType.WHITE,app.activeDocument.saveAs(o,n,!0,Extension.LOWERCASE)}}function activePlatte(e,t,i,l){return new File(masterFolder+"/"+e+seitenverhältnis+"_"+i+"_"+l+"__MAIN.tif")}function changeMaterial(e){if("Acryl"==e)var t="DHA";if("Alu"==e)t="AKF";if("FineArt"==e)t="FAP";if("Leinwand"==e)t="LWD";if("Poster"==e)t="POS";return t}function processItem(e,t,i){
 // var material = _material;
 // var ansicht = _ansicht;
 var l=activePlatte(format,seitenverhältnis,e,t);open(l),placeItem(i+".tif");var o=app.documents.getByName(l.name);(o.flatten(),doCrop)&&this["crop_"+(format+seitenverhältnis+"_"+e+"_"+t)](o);"print"!=outputDesination&&o.resizeImage(outputResize,void 0,72,ResampleMethod.PRESERVEDETAILS,void 0),
@@ -105,4 +107,4 @@ function crop_1x1_Acryl_detail(e){crop_AcyrlAlu_detail(e)}function crop_1x1_Acry
 //// DinA ////////////////////////////////////
 function crop_DinAquer_Poster_detail(e){e.crop([4,125,6100,4189],0)}function crop_DinAhoch_Poster_detail(e){e.crop([4,127.050718,6100.123778,4191.133237],0)}
 //// Pano ////////////////////////////////////
-function crop_Pano_Acryl_detail(e){crop_AcyrlAlu_detail(e)}function crop_Pano_Acryl_full(e){e.crop([493.342209,1242.361125,6586.58681,4468],0)}function crop_Pano_Alu_detail(e){crop_AcyrlAlu_detail(e)}function crop_Pano_Alu_full(e){e.crop([493.342209,1242.361125,6586.58681,4468],0)}function crop_Pano_FineArt_detail(e){crop_FineartPoster_detail(e)}function crop_Pano_Leinwand_detail(e){crop_Leinwand_detail(e)}function crop_Pano_Leinwand_full(e){e.crop([493.342209,1242.361125,6586.58681,4468],0)}function crop_Pano_Poster_detail(e){crop_FineartPoster_detail(e)}prefReset();
+function crop_Pano_Acryl_detail(e){crop_AcyrlAlu_detail(e)}function crop_Pano_Acryl_full(e){e.crop([493.342209,1242.361125,6586.58681,4468],0)}function crop_Pano_Alu_detail(e){crop_AcyrlAlu_detail(e)}function crop_Pano_Alu_full(e){e.crop([493.342209,1242.361125,6586.58681,4468],0)}function crop_Pano_FineArt_detail(e){crop_FineartPoster_detail(e)}function crop_Pano_Leinwand_detail(e){crop_Leinwand_detail(e)}function crop_Pano_Leinwand_full(e){e.crop([493.342209,1242.361125,6586.58681,4468],0)}function crop_Pano_Poster_detail(e){crop_FineartPoster_detail(e)}prefReset(),time_stop(start);

@@ -12,6 +12,15 @@
 //@include "./functions/basic.jsx";
 //@include "./functions/meta.jsx";
 //@include "./functions/save.jsx";
+//@include "./functions/utils.jsx";
+//@include "./functions/layer.jsx";
+//@include "./functions/ready.jsx";
+
+
+//@include "./assets/json2.js"
+var jsonFilePath = "~/.ss_settings.json";
+var jsonData = loadJSON(jsonFilePath);
+const RZ_qualityJPG = jsonValue("RZ_qualityJPG"); //TODO kommt noch nicht in PS an
 
 
 
@@ -22,7 +31,8 @@ if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
 if (getMeta_3("woodwing_imageID")) var woodwing_imageID = getMeta_3("woodwing_imageID");
 if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
 var doc = app.activeDocument;
-
+var startLayer = layer_selectedIDX_get();
+var start_closedSets = [];
 
 if (isWoodwing) {
 
@@ -33,8 +43,61 @@ if (isWoodwing) {
 
     /* v3 */
     BridgeTalkMessage_checkOutImage(idDocName, woodwing_imageID);
-    doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+    // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+
+    try {
+        if (app.activeDocument.layerSets.getByName("Freisteller")) {
+            if (hasLayerMask("Freisteller")) {
+                app.activeDocument.suspendHistory("getClosedSets", "var start_closedSets = getClosedSets()");
+                undoSteps(1);
+                historyState_deleteSteps(1);
+                var startMaskVisibility = getMaskVisibility_bySelector("Freisteller");
+                // var startMaskVisibility_helper = getMaskVisibility_bySelector("Freisteller helper")
+
+
+                if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
+                if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+                replaceMeta_3_suffix("woodwing_file", "jpg", "psd");
+                replaceMeta_3_suffix("woodwing_RGB", "jpg", "psd");
+
+                app.activeDocument.suspendHistory('Freisteller: 2 Ebenen', 'freisteller_reduce2layers()');
+                saveMultiformat(new File(woodwing_RGB), "psd", t, null, f, t);
+                undoSteps(1);
+                replaceMeta_3_suffix("woodwing_file", "jpg", "psd");
+                replaceMeta_3_suffix("woodwing_RGB", "jpg", "psd");
+
+                // saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
+
+                setMaskVisibility_bySelector(startMaskVisibility, "Freisteller");
+                // setMaskVisibility_bySelector(startMaskVisibility_helper, "Freisteller helper")
+
+
+                // app.activeDocument.suspendHistory("toogleOpenCloseSet_byIDX_byArray+", "toogleOpenCloseSet_byIDX_byArray(start_closedSets)");
+                // undoSteps(1);
+                // historyState_deleteSteps(1);
+
+            }
+        }
+    } catch (e) {
+        // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
+        saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);
+        // saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
+        // app.activeDocument.save();
+    }
+
+
     BridgeTalkMessage_checkInImage(idDocName, woodwing_imageID);
+
+
+    for (var i = 0; i < start_closedSets.length; i++) {
+        // if (isSetOpened2(start_closedSets[i])) {
+            app.activeDocument.suspendHistory("toogleOpenCloseSet_byIDX", "toogleOpenCloseSet_byIDX_inner(start_closedSets[i])");
+        // }
+    }
+
+
+    layer_selectedIDX_set(startLayer);
+    saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
 
 
 
@@ -69,8 +132,8 @@ if (isWoodwing) {
 
 
     function closeDoc(_file) {
-        try { 
-            /* _file.close(SaveOptions.DONOTSAVECHANGES); */ 
+        try {
+            /* _file.close(SaveOptions.DONOTSAVECHANGES); */
             app.documents.getByName(decodeURI(_file)).close(SaveOptions.DONOTSAVECHANGES);
         }
         catch (e) {
@@ -128,9 +191,6 @@ function runID_checkOutImage(_idDocName, _woodwing_imageID) {
         }
     } catch (e) { /* alert("runID_1: " + e) */ }
 
-
-
-
     function get_managedImages_array() {
         var managedImages_array = []
         try {
@@ -159,7 +219,6 @@ function runID_checkOutImage(_idDocName, _woodwing_imageID) {
 
         } catch (e) { alert(e) }
     }
-
 
     function focusOpenedFile(_fileName) {
         var fileIsOpen = false;
@@ -189,9 +248,6 @@ function runID_checkInImage(_idDocName, _woodwing_imageID) {
         }
     } catch (e) { /* alert("runID_1: " + e) */ }
 
-
-
-
     function get_managedImages_array() {
         var managedImages_array = []
         try {
@@ -221,7 +277,6 @@ function runID_checkInImage(_idDocName, _woodwing_imageID) {
         } catch (e) { alert(e) }
     }
 
-
     function focusOpenedFile(_fileName) {
         var fileIsOpen = false;
         for (var j = 0; j < app.documents.length; j++) {
@@ -240,7 +295,7 @@ function runID_checkInImage(_idDocName, _woodwing_imageID) {
 
 function save_ArbeitWood_RGB() {
     try {
-        saveMultiformat(new File(woodwing_RGB), "jpg", t, 12, f, f);
+        saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);
     } catch (e) { "Error 2: " + alert(e) }
 
     try {

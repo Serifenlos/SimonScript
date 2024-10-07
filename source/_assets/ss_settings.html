@@ -1,0 +1,69 @@
+<sp-dialog id="ss_setting_dialog">
+    <sp-heading slot="title" style="margin: 0">SimonScript Settings</sp-heading>
+    <!-- <sp-icon slot="icon" style="color: #ec5b62" size="m" name="ui:AlertSmall"></sp-icon> -->
+    <sp-body slot="description">
+
+      <sp-field-group id="Debug" class="input no_border" data-default="false" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      <sp-textfield id="ZielAufloesung" class="input" type="text" size="s" data-default="355.6"></sp-textfield>
+      <sp-textfield id="minAufloesung" class="input"  type="number" size="s" data-default="300"></sp-textfield>
+      <sp-textfield id="suffixRGB" class="input" size="s" data-default="__RGB"></sp-textfield>
+
+      <sp-field-group id="autoAnbau" class="input no_border" data-default="true" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+
+
+      <sp-textfield id="mainFolder" class="input" size="s" data-default="~/Arbeit"></sp-textfield>
+      <sp-textfield id="subFolder" class="input" size="s" data-default="_RGB"></sp-textfield>
+      <sp-textfield id="woodwing_mainFolder" class="input no_border" size="s" data-default="~/WoodWingStudio.noindex/InDesign/" quiet></sp-textfield>
+
+
+      <sp-textfield id="RZ_saveFolder" class="input" size="s" data-default="~/Arbeit/_RZ"></sp-textfield>
+
+      <sp-radio-group id="RZ_saveFormat" class="input" data-default="jpg" data-init="true">
+        <sp-radio size="s" value="jpg">jpg</sp-radio>
+        <sp-radio size="s" value="psd">psd</sp-radio>
+        <sp-radio size="s" value="tif">tif</sp-radio>
+      </sp-radio-group>
+
+      <sp-slider id="RZ_qualityJPG" class="input" min="1" max="12" data-default="11" data-init="true"></sp-slider>
+
+      <sp-field-group id="RZ_alphaChannels" class="input" data-default="false" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      <sp-field-group id="RZ_withLayers" class="input" data-default="false" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      <sp-textfield id="RZ_suffix" class="input" size="s" data-default="__RZ"></sp-textfield>
+
+      <sp-field-group id="RZ_delPath" class="input" data-default="false" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      <sp-field-group id="RZ_sharpDialog" class="input no_border" data-default="true" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      <sp-field-group id="finish_jumpBack2id" class="input" data-default="false" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      
+
+
+
+    </sp-body>
+
+
+
+    <sp-button-group slot="buttongroup">
+      <sp-button id="buttonCancel" variant="primary">Cancel</sp-button>
+      <sp-button id="buttonOK" variant="primary">Ok</sp-button>
+    </sp-button-group>
+  </sp-dialog>

@@ -16,7 +16,7 @@
 /** Variablen  **************************************************************/
 
 //@include "./assets/json2.js"
-var jsonFilePath = "~/ss_var.json";
+var jsonFilePath = "~/.ss_settings.json";
 var jsonData = loadJSON(jsonFilePath);
 
 
@@ -43,14 +43,25 @@ function loadJSON(filePath) {
     }
 }
 
-/** Optionen  **************************************************************/
-const ZielAufloesung = jsonData.ZielAufloesung;
-const minAufloesung = jsonData.minAufloesung;
-const suffixRGB = jsonData.suffixRGB;
+// Funktion zum Finden eines Wertes in einem Array von Objekten
+function jsonValue(key) {
+    for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData[i][key] !== undefined) {
+            return jsonData[i][key];
+        }
+    }
+    return null;
+}
 
-var mainFolder = jsonData.mainFolder;
-var subFolder = jsonData.subFolder;
-var woodwing_mainFolder = jsonData.woodwing_mainFolder;
+/** Optionen  **************************************************************/
+const debug = Boolean(jsonValue("Debug"));
+const ZielAufloesung = jsonValue("ZielAufloesung");
+const minAufloesung = jsonValue("minAufloesung");
+const suffixRGB = jsonValue("suffixRGB");
+
+var mainFolder = jsonValue("mainFolder");
+var subFolder = jsonValue("subFolder");
+const woodwing_mainFolder = jsonValue("woodwing_mainFolder");
 
 var check_trailingSlash = /\/$/; // Prüft, ob der String mit "/" endet
 if (!check_trailingSlash.test(mainFolder)) {
@@ -127,7 +138,7 @@ if (!app.selection.length > 0) {
                 if(isWoodwing) {
                     imageLink.editOriginal();
                 }
-                BridgeTalkMessage_openDoc(docFolder, idDocName, imageFile, imageName, imageName_init, suffixRGB, isWoodwing, woodwing_mainFolder, woodwing_imageID);
+                BridgeTalkMessage_openDoc(image, docFolder, idDocName, imageFile, imageName, imageName_init, suffixRGB, isWoodwing, woodwing_mainFolder, woodwing_imageID);
 
             } catch (e) {
                 alert(e)
@@ -153,10 +164,28 @@ function GetFileNameOnly(_fileName) {
     return myString;
 }
 
+function set_docDisplaySetting() {
+    var docDisplaySetting = app.activeWindow.viewDisplaySetting.toString();
+    var docDisplaySetting_allowImgSetting = app.displayPerformancePreferences.ignoreLocalSettings;
+
+    if (docDisplaySetting != "HIGH_QUALITY" && docDisplaySetting_allowImgSetting) {
+        try {
+            app.displayPerformancePreferences.ignoreLocalSettings = false;
+        } catch (e) {
+            alert("Error: set_docDisplaySetting() \n" + e);
+        }
+    }
+}
+
+function set_img2hq(_image) {
+    set_docDisplaySetting();
+    if (_image.localDisplaySetting.toString() != "HIGH_QUALITY") {
+        _image.localDisplaySetting = DisplaySettingOptions.HIGH_QUALITY;
+    }
+}
 
 
-
-function BridgeTalkMessage_openDoc(_docFolder, _idDocName, _imageFile, _imageName, _imageName_init, _suffixRGB, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
+function BridgeTalkMessage_openDoc(_image, _docFolder, _idDocName, _imageFile, _imageName, _imageName_init, _suffixRGB, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
 /*     $.writeln("_docFolder:" + _docFolder);
     $.writeln("_idDocName:" + _idDocName);
     $.writeln("_imageName_init:" + _imageName_init);
@@ -169,6 +198,9 @@ function BridgeTalkMessage_openDoc(_docFolder, _idDocName, _imageFile, _imageNam
     var bt = new BridgeTalk();
     bt.target = 'photoshop';
     bt.body = runPS.toSource() + "('" + _docFolder + "','" + _idDocName + "','" + _imageFile + "','" + _imageName + "','" + _imageName_init + "','" + _suffixRGB + "','" + _isWoodwing + "','" + _woodwing_mainFolder + "','" + _woodwing_imageID + "');";
+    bt.onResult = function (resObj) {
+        set_img2hq(_image);
+    }
     bt.send(5);
 }
 

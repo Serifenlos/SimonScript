@@ -1,0 +1,63 @@
+body {
+    // padding: 0;
+}
+
+sp-body {
+    margin: 0;
+}
+
+sp-button-group {
+    margin: 0;
+}
+
+// sp-checkbox,
+sp-textfield,
+sp-dropdown,
+sp-radio-group,
+// sp-radio-group >*,
+// sp-radio,
+sp-field-group,
+sp-slider {
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    margin: .5em 0;
+    padding-bottom: .5em;
+    border-bottom: 0.5px solid hsla(0, 0, 50%, .5);
+}
+
+sp-body >*:last-child
+,sp-body >*.no_border 
+// ,sp-body >*:has(+ sp-divider) 
+{
+    border-bottom: none;
+    margin-bottom: 30px;
+}
+
+sp-body >*:last-child {
+    margin-bottom: unset;
+}
+
+sp-label {
+    padding-right: 1em;
+    width: 120px;
+}
+
+.input-error {
+    outline: 1px solid red;
+}
+
+// sp-radio {
+    // outline: 1px solid red;
+// }
+
+sp-radio-group >* {
+    // outline: 1px solid green;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+sp-slider {
+    display: inline;
+}

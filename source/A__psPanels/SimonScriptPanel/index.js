@@ -1,4 +1,18 @@
-const app = require("photoshop").app;
+// @codekit-prepend '../../_assets/ss_settings.js';
+
+// const app = require("photoshop").app;
+const { core, app } = require("photoshop");
+const { batchPlay } = require("photoshop").action;
+const { executeAsModal } = require("photoshop").core;
+
+
+
+const docDepth = document.getElementById("docDepth");
+
+async function init() {
+    await ui_depth();
+}
+init();
 
 // fix bug: loose focus
 function menuCommand(id) {
@@ -13,47 +27,137 @@ function menuCommand(id) {
 
 
 
-
-
-
-
-async function creatAdjustmentLayer(_type) {
-
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "make",
-            "_target": [{
-                "_ref": "adjustmentLayer"
-            }],
-            "using": {
-                "_obj": "adjustmentLayer",
-                // "name": "dong",
-                "type": {
-                    "_obj": _type,
-                    "shadowLevels": [0, 0, 0],
-                    "midtoneLevels": [0, 0, 0],
-                    "highlightLevels": [0, 0, 0],
-                    "preserveLuminosity": true,
-                    "presetKind": {
-                        "_enum": "presetKindType",
-                        "_value": "presetKindDefault"
-                    }
+async function creatAdjustmentLayer(_type, _name) {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                "_obj": "make",
+                "_target": [{
+                    "_ref": "adjustmentLayer"
+                }],
+                "using": {
+                    "_obj": "adjustmentLayer",
+                    // "name": "dong",
+                    "type": {
+                        "_obj": _type,
+                        "shadowLevels": [0, 0, 0],
+                        "midtoneLevels": [0, 0, 0],
+                        "highlightLevels": [0, 0, 0],
+                        "preserveLuminosity": true,
+                        "presetKind": {
+                            "_enum": "presetKindType",
+                            "_value": "presetKindDefault"
+                        }
+                    },
+                    // Wenn _name definiert ist, wird "name": _name hinzugefügt, sonst wird ein leeres Objekt hinzugefügt
+                    ...(_name ? { "name": _name } : {})
+                },
+                "_isCommand": true,
+                "_options": {
+                    "dialogOptions": "dontDisplay"
                 }
-            },
-            "_isCommand": true,
-            "_options": {
-                "dialogOptions": "dontDisplay"
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
     });
-    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
 }
 
-document.getElementById("curves").addEventListener("click", function () {
-    creatAdjustmentLayer("curves");
+async function adjustLayer_curves_edit(_eins, _zwei, _drei, _vier) {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [
+                {
+                    _obj: "set",
+                    _target: [
+                        {
+                            _ref: "adjustmentLayer",
+                            _enum: "ordinal",
+                            _value: "targetEnum"
+                        }
+                    ],
+                    to: {
+                        _obj: "curves",
+                        presetKind: {
+                            _enum: "presetKindType",
+                            _value: "presetKindCustom"
+                        },
+                        adjustment: [
+                            {
+                                _obj: "curvesAdjustment",
+                                channel: {
+                                    _ref: "channel",
+                                    _enum: "channel",
+                                    _value: "composite"
+                                },
+                                curve: [
+                                    {
+                                        _obj: "paint",
+                                        horizontal: _eins,
+                                        vertical: _zwei
+                                    },
+                                    {
+                                        _obj: "paint",
+                                        horizontal: _drei,
+                                        vertical: _vier
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    _options: {
+                        dialogOptions: "dontDisplay"
+                    }
+                }
+            ],
+            {}
+        );
+    });
+}
+
+
+async function creatAdjustmentLayer_2(_type, _name, _schnittmaske, _color) {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [
+                {
+                    _obj: "make",
+                    _target: [
+                        {
+                            _ref: "adjustmentLayer"
+                        }
+                    ],
+                    using: {
+                        _obj: "adjustmentLayer",
+                        // name: "Tiefen aufhellen",
+                        // color: {
+                        //     _enum: "color",
+                        //     _value: "gray"
+                        // },
+                        group: _schnittmaske,
+                        type: {
+                            _obj: _type,
+                            presetKind: {
+                                _enum: "presetKindType",
+                                _value: "presetKindDefault"
+                            }
+                        },
+                        ...(_name ? { "name": _name } : {}),
+                        ...(_color ? { color: { _enum: "color", _value: _color } } : {})
+                    },
+                    _options: {
+                        dialogOptions: "dontDisplay"
+                    }
+                }
+            ],
+            {}
+        );
+    });
+}
+
+
+document.getElementById("curves").addEventListener("click", async function () {
+    await creatAdjustmentLayer_2("curves", undefined, false, undefined);
 });
 document.getElementById("levels").addEventListener("click", function () {
     creatAdjustmentLayer("levels");
@@ -70,8 +174,14 @@ document.getElementById("colorBalance").addEventListener("click", function () {
 document.getElementById("hueSaturation").addEventListener("click", function () {
     creatAdjustmentLayer("hueSaturation");
 });
-document.getElementById("blackAndWhite").addEventListener("click", function () {
-    creatAdjustmentLayer("blackAndWhite");
+document.getElementById("blackAndWhite").addEventListener("click", function (event) {
+    if (event.shiftKey) {
+        // creatAdjustmentLayer("blackAndWhite", "neutral");
+        neutralize("neutral", false);
+        layer_blendMode("luminosity");
+    } else {
+        creatAdjustmentLayer("blackAndWhite");
+    }
 });
 document.getElementById("vibrance").addEventListener("click", function () {
     creatAdjustmentLayer("vibrance");
@@ -79,69 +189,161 @@ document.getElementById("vibrance").addEventListener("click", function () {
 
 
 
+async function neutralize(_name, _mask = true) {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                _obj: "make",
+                _target: [
+                    {
+                        _ref: "adjustmentLayer"
+                    }
+                ],
+                using: {
+                    _obj: "adjustmentLayer",
+                    type: {
+                        _obj: "blackAndWhite",
+                        presetKind: {
+                            _enum: "presetKindType",
+                            _value: "presetKindDefault"
+                        },
+                        red: 30,
+                        yellow: 89,
+                        grain: 59,
+                        cyan: 70,
+                        blue: 11,
+                        magenta: 41,
+                        useTint: false,
+                        tintColor: {
+                            _obj: "RGBColor",
+                            red: 225.00045776367188,
+                            grain: 211.00067138671875,
+                            blue: 179.00115966796875
+                        }
+                    },
+                    ...(_name ? { "name": _name } : {})
+                },
+                _options: {
+                    dialogOptions: "dontDisplay"
+                }
+            }],
+            {}
+        );
+
+        if (!_mask) {
+            batchPlay(
+                [{
+                    _obj: 'delete',
+                    _target: [{ _ref: 'channel', _enum: 'channel', _value: 'mask' }]
+                }],
+                { synchronousExecution: true }
+            );
+        }
+    });
+}
+
+
+async function layer_blendMode(_blendMode) {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [
+                {
+                    _obj: "set",
+                    _target: [
+                        {
+                            _ref: "layer",
+                            _enum: "ordinal",
+                            _value: "targetEnum"
+                        }
+                    ],
+                    to: {
+                        _obj: "layer",
+                        mode: {
+                            _enum: "blendMode",
+                            _value: _blendMode
+                        }
+                    },
+                    _options: {
+                        dialogOptions: "dontDisplay"
+                    }
+                }
+            ],
+            {}
+        );
+    });
+}
+
+
+
+
+document.getElementById("docDepth").addEventListener("click", async function () {
+    if (await getDepth() === 8) {
+        await setDepth(16);
+        docDepth.innerHTML = "8bit";
+    } else if (await getDepth() === 16) {
+        await setDepth(8);
+        docDepth.innerHTML = "16bit";
+    }
+});
 
 async function createGrau() {
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "make",
-            "_target": [{
-                "_ref": "layer"
-            }],
-            "using": {
-                "_obj": "layer",
-                "name": "Abwedeln/Nachbelichten",
-                "mode": {
-                    "_enum": "blendMode",
-                    "_value": "overlay"
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                "_obj": "make",
+                "_target": [{
+                    "_ref": "layer"
+                }],
+                "using": {
+                    "_obj": "layer",
+                    "name": "Abwedeln/Nachbelichten",
+                    "mode": {
+                        "_enum": "blendMode",
+                        "_value": "overlay"
+                    },
+                    "fillNeutral": true
                 },
-                "fillNeutral": true
-            },
-            "layerID": 37,
-            "_isCommand": true,
-            "_options": {
-                "dialogOptions": "dontDisplay"
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+                "layerID": 37,
+                "_isCommand": true,
+                "_options": {
+                    "dialogOptions": "dontDisplay"
+                }
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
     });
-    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
 }
+
 document.getElementById("grau").addEventListener("click", function () {
     createGrau();
 });
 
 async function doAction(_set, _action) {
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "play",
-            "_target": [{
-                "_ref": "action",
-                "_name": _action
-            },
-            {
-                "_ref": "actionSet",
-                "_name": _set
-            }
-            ],
-            "_isCommand": true,
-            "_options": {
-                "dialogOptions": "dontDisplay"
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                "_obj": "play",
+                "_target": [{
+                    "_ref": "action",
+                    "_name": _action
+                },
+                {
+                    "_ref": "actionSet",
+                    "_name": _set
+                }
+                ],
+                "_isCommand": true,
+                "_options": {
+                    "dialogOptions": "dontDisplay"
+                }
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
     });
-    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
 }
-// document.getElementById("bunt_old").addEventListener("click", function() {
-//     doAction("A fängt an.", "[A] bunt ALL");
-// });
-// document.getElementById("unbunt_old").addEventListener("click", function() {
-//     doAction("A fängt an.", "[A] unbunt ALL");
-// });
+
 document.getElementById("hochpass").addEventListener("click", function () {
     doAction("A fängt an.", "[A] Highpass_Sharpening");
 });
@@ -151,77 +353,315 @@ document.getElementById("mirco").addEventListener("click", function () {
 
 
 async function saft() {
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "set",
-            "_target": [{
-                "_ref": "layer",
-                "_enum": "ordinal",
-                "_value": "targetEnum"
-            }],
-            "to": {
-                "_obj": "layer",
-                "mode": {
-                    "_enum": "blendMode",
-                    "_value": "softLight"
-                },
-                "blendRange": [{
-                    "_obj": "blendRange",
-                    "channel": {
-                        "_ref": "channel",
-                        "_enum": "channel",
-                        "_value": "gray"
-                    },
-                    "srcBlackMin": 0,
-                    "srcBlackMax": 0,
-                    "srcWhiteMin": 255,
-                    "srcWhiteMax": 255,
-                    "destBlackMin": 0,
-                    "destBlackMax": 255,
-                    "destWhiteMin": 255,
-                    "desaturate": 255
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                "_obj": "set",
+                "_target": [{
+                    "_ref": "layer",
+                    "_enum": "ordinal",
+                    "_value": "targetEnum"
                 }],
-                "layerEffects": {
-                    "_obj": "layerEffects",
-                    "scale": {
-                        "_unit": "percentUnit",
-                        "_value": 100
+                "to": {
+                    "_obj": "layer",
+                    "mode": {
+                        "_enum": "blendMode",
+                        "_value": "softLight"
+                    },
+                    "blendRange": [{
+                        "_obj": "blendRange",
+                        "channel": {
+                            "_ref": "channel",
+                            "_enum": "channel",
+                            "_value": "gray"
+                        },
+                        "srcBlackMin": 0,
+                        "srcBlackMax": 0,
+                        "srcWhiteMin": 255,
+                        "srcWhiteMax": 255,
+                        "destBlackMin": 0,
+                        "destBlackMax": 255,
+                        "destWhiteMin": 255,
+                        "desaturate": 255
+                    }],
+                    "layerEffects": {
+                        "_obj": "layerEffects",
+                        "scale": {
+                            "_unit": "percentUnit",
+                            "_value": 100
+                        }
                     }
+                },
+                "_isCommand": true,
+                "_options": {
+                    "dialogOptions": "dontDisplay"
                 }
-            },
-            "_isCommand": true,
-            "_options": {
-                "dialogOptions": "dontDisplay"
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
     });
-    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
 }
-document.getElementById("saft").addEventListener("click", function () {
-    saft();
+
+async function neg_multiplizieren() {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                _obj: "set",
+                _target: [
+                    {
+                        _ref: "layer",
+                        _enum: "ordinal",
+                        _value: "targetEnum"
+                    }
+                ],
+                to: {
+                    _obj: "layer",
+                    mode: {
+                        _enum: "blendMode",
+                        _value: "screen"
+                    },
+                    blendRange: [
+                        {
+                            _obj: "blendRange",
+                            channel: {
+                                _ref: "channel",
+                                _enum: "channel",
+                                _value: "gray"
+                            },
+                            srcBlackMin: 0,
+                            srcBlackMax: 0,
+                            srcWhiteMin: 255,
+                            srcWhiteMax: 255,
+                            destBlackMin: 0,
+                            destBlackMax: 0,
+                            destWhiteMin: 0,
+                            desaturate: 255
+                        }
+                    ],
+                    layerEffects: {
+                        _obj: "layerEffects",
+                        scale: {
+                            _unit: "percentUnit",
+                            _value: 100
+                        }
+                    }
+                },
+                _options: {
+                    dialogOptions: "dontDisplay"
+                }
+            }],
+            {}
+        );
+    });
+}
+
+
+async function set_layerstyle(_blendMode, _black_min, _black_max, _white_min, _white_max) {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                _obj: "set",
+                _target: [
+                    {
+                        _ref: "layer",
+                        _enum: "ordinal",
+                        _value: "targetEnum"
+                    }
+                ],
+                to: {
+                    _obj: "layer",
+                    mode: {
+                        _enum: "blendMode",
+                        _value: _blendMode
+                    },
+                    blendRange: [
+                        {
+                            _obj: "blendRange",
+                            channel: {
+                                _ref: "channel",
+                                _enum: "channel",
+                                _value: "gray"
+                            },
+                            srcBlackMin: 0,
+                            srcBlackMax: 0,
+                            srcWhiteMin: 255,
+                            srcWhiteMax: 255,
+                            destBlackMin: _black_min,
+                            destBlackMax: _black_max,
+                            destWhiteMin: _white_min,
+                            desaturate: _white_max
+                        }
+                    ],
+                    layerEffects: {
+                        _obj: "layerEffects",
+                        scale: {
+                            _unit: "percentUnit",
+                            _value: 100
+                        }
+                    }
+                },
+                _options: {
+                    dialogOptions: "dontDisplay"
+                }
+            }],
+            {}
+        );
+    });
+}
+
+document.getElementById("saft").addEventListener("click", function (event) {
+    if (event.shiftKey) {
+        set_layerstyle("screen", 0, 0, 0, 255);
+    } else if (event.altKey) {
+        set_layerstyle("multiply", 0, 255, 255, 255);
+    } else {
+        saft();
+    }
 });
 
 
+document.getElementById("dimmen").addEventListener("click", async function () {
+    await neutralize("neutral", false);
+    await layer_blendMode("luminosity");
+    await creatAdjustmentLayer_2("curves", "Tiefen aufhellen", true, "gray");
+    await set_layerstyle("screen", 0, 0, 0, 255);
+    await adjustLayer_curves_edit(0, 0, 255, 0)
+    await creatAdjustmentLayer_2("curves", "Lichter abdunkeln", true, "gray");
+    await set_layerstyle("multiply", 0, 255, 255, 255);
+    await adjustLayer_curves_edit(0, 255, 255, 255)
+
+});
+
+
+
+// // https://kawano-shuji.com/justdiary/2021/11/02/photoshop-uxp-2022-executeasmodal/
+// const createLayers = async() =>{
+//     const myEmptyLayer = await app.activeDocument.createLayer();
+//     const myLayer = await app.activeDocument.createLayer({name:"myLayer",opacity:80,mode:"colorDodge"});
+//     return {myEmptyLayer ,myLayer };
+//     // const a1 = await neutralize("neutral", false);
+//     // const a2 = await layer_blendMode("luminosity");
+//     // const a3 = await creatAdjustmentLayer_2("curves", "Tiefen aufhellen", true, "gray");
+//     // const a4 = await set_layerstyle("screen", 0, 0, 0, 255);
+//     // const a5 = await adjustLayer_curves_edit(0, 0, 255, 0)
+//     // const a6 = await creatAdjustmentLayer_2("curves", "Lichter abdunkeln", true, "gray");
+//     // const a7 = await set_layerstyle("multiply", 0, 255, 255, 255);
+//     // const a8 = await adjustLayer_curves_edit(0, 255, 255, 255);
+//     // return {a1,a2,a3,a4,a5,a6,a7,a8};
+
+// }
+
+// const historyStateSample = async executionControl =>{
+//     try{
+//         const hostControl = executionControl.hostControl;//hostControlオブジェクト
+//         const documentID = app.activeDocument.id;//documentのidを取得
+        
+//         const suspensionID = await hostControl.suspendHistory({//suspend history
+//             "documentID":documentID,
+//             "name":"create my layer"
+//         });//document idとヒストリーに表示される名前を渡す
+//         const { myEmptyLayer } = await createLayers();
+//         // const { a1,a2,a3,a4,a5,a6,a7,a8 } = await createLayers();
+//         console.log(suspensionID);
+//         await hostControl.resumeHistory(suspensionID);//resume history　ここまでの処理を一つのhistoryに登録
+//         // await app.activeDocument.duplicateLayers([myEmptyLayer]);//レイヤーを複製。ここだけ通常通りhistoryに登録される。
+//     }catch(e){
+//         console.log(e);
+//     }
+// }
+
+// document.getElementById("dimmen").addEventListener("click", async function () {
+//     console.log("ding");
+//     try {
+//         await core.executeAsModal(historyStateSample);    
+//     } catch (e) {
+//         console.log(e);
+        
+//     }
+//     console.log("dong");
+// });
+
+
+
+
+document.getElementById("SilverFX").addEventListener("click", async function () {    
+    async function actionCommands() {
+       const result = await batchPlay([
+             {
+                _obj: "com.dxo.nik6.sep.ps",
+                _options: {
+                    dialogOptions: "display" // Das Plugin soll angezeigt werden
+                }
+             }
+          ],
+          {
+             synchronousExecution: false,
+             modalBehavior: "execute" // Ermöglicht Interaktion
+          }
+       );
+    }
+    
+    async function runModalFunction() {
+       await executeAsModal(actionCommands, {"commandName": "Action Commands"});
+    }
+    
+    await runModalFunction();
+});
+
+
+document.getElementById("ColorFX").addEventListener("click", async function () {    
+    async function actionCommands() {
+       const result = await batchPlay([
+             {
+                _obj: 'com.dxo.nik6.cep.ps',
+                _options: {
+                    dialogOptions: "display" // Das Plugin soll angezeigt werden
+                }
+             }
+          ],
+          {
+             synchronousExecution: false,
+             modalBehavior: "execute" // Ermöglicht Interaktion
+          }
+       );
+    }
+    
+    async function runModalFunction() {
+       await executeAsModal(actionCommands, {"commandName": "Action Commands"});
+    }
+    
+    await runModalFunction();
+});
+
+
+
+
+
+
+
+
+
+
+
 async function loadScript(_name) {
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "AdobeScriptAutomation Scripts",
-            "javaScriptName": _name,
-            "javaScriptMessage": "undefined",
-            "_isCommand": true,
-            "_options": {
-                "dialogOptions": "dontDisplay"
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                "_obj": "AdobeScriptAutomation Scripts",
+                "javaScriptName": _name,
+                "javaScriptMessage": "undefined",
+                "_isCommand": true,
+                "_options": {
+                    "dialogOptions": "dontDisplay"
+                }
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
     });
-    // menuCommand(2982);menuCommand(2986);menuCommand(2986);
 }
+
 
 document.getElementById("dodge").addEventListener("click", function () {
     loadScript("[A] Dodge")
@@ -243,16 +683,48 @@ document.getElementById("db_hochmidtief").addEventListener("click", function () 
 // });
 
 document.getElementById("autoLevel").addEventListener("click", function (event) {
-    if (event.shiftKey) {
+    if (event.altKey && event.shiftKey) {
+        autoLevelMenu();   
+    }
+    else if (event.shiftKey) {
         loadScript("[panel] autoLevel1: autoContrast");
     } else if (event.altKey) {
         loadScript("[panel] autoLevel3: autoBlackWhite");
     } else if (event.metaKey) {
         loadScript("[panel] autoLevel4: autoMachineLearning");
-    } else {
+    }  else {
         loadScript("[panel] autoLevel2: auto");
     }
 });
+
+
+
+async function autoLevelMenu() {
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                _obj: "select",
+                _target: [
+                    {
+                        _enum: "menuItemType",
+                        _ref: "menuItemClass",
+                        _value: "adjustmentAutoOptions"
+                    }
+                ],
+                _options: {
+                    dialogOptions: "display" // Das Plugin soll angezeigt werden
+                }
+            }],
+            {
+                synchronousExecution: false,
+                modalBehavior: "execute" // Ermöglicht Interaktion
+             }
+        );
+    });
+}
+
+
+
 
 // document.getElementById("autoLevel1").addEventListener("click", function () {
 //     loadScript("[panel] autoLevel1: autoContrast");
@@ -313,42 +785,10 @@ document.getElementById("mask2image").addEventListener("click", function () {
 });
 
 
+
 document.getElementById("A_kachel").addEventListener("click", async function () {
     loadScript("[panel] view Kachel");
-
-    // await menuItem("tile");
-
-    // const app = require("photoshop").app;
-    // var theFirst, theDocs;
-    // if (app.documents.length > 0) {
-    //     console.clear();
-    //     console.log("app.documents.length " + app.documents.length)
-    //     var theFirst = app.activeDocument;
-    //     console.log(theFirst);
-    //     var theDocs = app.documents;
-
-    //     for (var m = 0; m < theDocs.length; m++) {
-    //         const app = require("photoshop").app;
-    //         console.log("m " + m)
-    //         // var theDoc = theDocs[m];
-    //         // app.activeDocument = theDocs[m];
-    //         app.activeDocument = app.documents[m];
-    //         console.log(app.documents[m]);
-
-    //         try {
-    //             await menuItem("fitOnScreen");
-    //             await menuItem("zoomOut");
-    //             console.log("sucess");
-    //         } catch (e) {
-    //             console.log("error " + e)
-    //             // alert('Error');
-    //         };
-    //     };
-    //     app.activeDocument = theFirst;
-    // };
 });
-
-
 document.getElementById("A_1").addEventListener("click", function () {
     loadScript("[panel] view 1")
 });
@@ -383,9 +823,8 @@ document.getElementById("A_allesAngleichen").addEventListener("click", function 
     loadScript("[panel] view MatchAll");
 });
 
-// document.getElementById("checkTL_minus").addEventListener("click", function () {
-//     loadScript("[panel] checkTiefenLichter edit-");
-// });
+
+
 document.getElementById("checkTL_minus").addEventListener("click", function (event) {
     if (event.shiftKey) {
         loadScript("[panel] checkTiefenLichter edit--");
@@ -393,12 +832,11 @@ document.getElementById("checkTL_minus").addEventListener("click", function (eve
         loadScript("[panel] checkTiefenLichter edit-");
     }
 });
+
 document.getElementById("checkTL_create").addEventListener("click", function () {
     loadScript("[panel] checkTiefenLichter create");
 });
-// document.getElementById("checkTL_plus").addEventListener("click", function () {
-//     loadScript("[panel] checkTiefenLichter edit+");
-// });
+
 document.getElementById("checkTL_plus").addEventListener("click", function (event) {
     if (event.shiftKey) {
         loadScript("[panel] checkTiefenLichter edit++");
@@ -411,25 +849,22 @@ document.getElementById("checkTL_plus").addEventListener("click", function (even
 
 
 
-
 async function menuItem(_name) {
-
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "select",
-            "_target": [{
-                "_enum": "menuItemType",
-                "_ref": "menuItemClass",
-                "_value": _name
-            }]
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+    core.executeAsModal(() => {
+        const result = batchPlay(
+            [{
+                "_obj": "select",
+                "_target": [{
+                    "_enum": "menuItemType",
+                    "_ref": "menuItemClass",
+                    "_value": _name
+                }]
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
     });
-
 };
-
 
 
 document.getElementById("depthMask").addEventListener("click", function (event) {
@@ -445,10 +880,6 @@ document.getElementById("depthMask").addEventListener("click", function (event) 
 });
 
 
-
-
-
-
 document.getElementById("bunt").addEventListener("click", function (event) {
     if (!event.altKey && event.shiftKey) {
         loadScript("[panel] Select Bunt Selection");
@@ -462,10 +893,6 @@ document.getElementById("bunt").addEventListener("click", function (event) {
 });
 
 
-// document.getElementById("farbmaske").addEventListener("click", function (event) {
-//     loadScript("[panel] Farbmaske v1");
-// });
-
 document.getElementById("farbmaske").addEventListener("click", function (event) {
     if (event.shiftKey) {
         loadScript("[panel] Farbmaske v2");
@@ -475,7 +902,6 @@ document.getElementById("farbmaske").addEventListener("click", function (event) 
         loadScript("[panel] Farbmaske v1");
     }
 });
-
 
 
 document.getElementById("unbunt").addEventListener("click", function (event) {
@@ -489,7 +915,6 @@ document.getElementById("unbunt").addEventListener("click", function (event) {
         loadScript("[panel] Select Unbunt FolderMask");
     }
 });
-
 
 
 document.getElementById("motivMask").addEventListener("click", function (event) {
@@ -541,69 +966,122 @@ async function temp() {
 }
 
 
-async function myDepth() {
-    const result = await batchPlay(
-        [{
-            "_obj": "get",
-            "_target": [{
-                "_property": "depth"
-            },
-            {
-                "_ref": "document",
-                "_enum": "ordinal",
-                "_value": "targetEnum"
-            }
-            ],
-            "_options": {
-                "dialogOptions": "dontDisplay"
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
-    });
+// document.getElementById("check").addEventListener("click", async function () {
 
-    var documentDepth = result[0].depth;
-    app.showAlert(`The Document is in ${documentDepth.toString()} bits`);
+// });
+
+
+async function getDepth() {
+    let command = [{
+        _obj: "get",
+        _target: [{
+            _property: "depth"
+        },
+        {
+            _ref: "document",
+            _enum: "ordinal",
+            _value: "targetEnum"
+        }]
+    }]
+    let bitDepth = (await batchPlay(command, {}))?.[0]?.depth;
+    return bitDepth;
 }
+
+
+async function setDepth(bitDepth) {
+    await core.executeAsModal(async () => {
+        const result = await batchPlay([{
+            _obj: "convertMode",
+            depth: bitDepth,
+            merge: false,
+            _options: {
+                dialogOptions: "dontDisplay"
+            }
+        }],
+            {}
+        );
+    });
+}
+
 
 async function colorSettings() {
-    const batchPlay = require("photoshop").action.batchPlay;
-    const result = await batchPlay(
-        [{
-            "_obj": "set",
-            "_target": [
-                {
-                    "_property": "colorSettings",
-                    "_ref": "property"
-                },
-                {
-                    "_ref": "application"
+    core.executeAsModal(() => {
+        const batchPlay = require("photoshop").action.batchPlay;
+        const result = batchPlay(
+            [{
+                "_obj": "set",
+                "_target": [
+                    {
+                        "_property": "colorSettings",
+                        "_ref": "property"
+                    },
+                    {
+                        "_ref": "application"
+                    }
+                ],
+                "to": {
+                    "_obj": "colorSettings",
+                    "askMismatchPasting": false
                 }
-            ],
-            "to": {
-                "_obj": "colorSettings",
-                "askMismatchPasting": false
-            }
-        }], {
-        "synchronousExecution": false,
-        "modalBehavior": "fail"
+            }], {
+            "synchronousExecution": false,
+            "modalBehavior": "fail"
+        });
+        app.showAlert(result);
     });
 
-    app.showAlert(result);
 }
 
 
-
-var listener2 = async function () {
-    // await myDepth();
-    await colorSettings();
-    // showAlert("ding");
+async function ui_depth() {
+    if (await getDepth() === 8) {
+        docDepth.innerHTML = "16bit";
+    } else if (await getDepth() === 16) {
+        docDepth.innerHTML = "8bit";
+    }
+    return;
 }
+
+var ui_depth_listener = async function () {
+    await ui_depth();
+}
+
 require('photoshop').action.addNotificationListener([
     { event: "open" },
+    { event: "convertMode" },
     // {event: "select"},
     { event: "layersFiltered" }       // switch Doc  
-], listener2);
+], ui_depth_listener);
+
+
+
+
+
+
+
+
+// var listener_close = function () {
+//     if (app.documents.length == 0) {
+//         // app.showAlert("noDoc"); 
+//         // console.log("noDoc");
+        
+//     } else {
+//         // app.showAlert("someDoc");
+//         // console.log("someDoc");
+//     }
+// }
+
+// require('photoshop').action.addNotificationListener([
+//     { event: "close" }
+// ], listener_close);
+
+
+
+
+// var listener2 = async function () {
+//     // await colorSettings();
+//     // showAlert("ding");
+// }
 
 
 /*

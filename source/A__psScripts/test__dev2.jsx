@@ -857,35 +857,6 @@ function writeln(_ding) {
 
 
 
-// BEGIN deFreisteller QUICK
-// deFrei();
-
-function deFrei() {
-    var startLayerID = layer_selectedID_get();
-
-    // DELETE the layers
-    try {
-        gotoLayer("Freisteller");
-        ungroup();
-        gotoLayer("Freisteller helper");
-        deleteActiveLayer();
-    } catch (e) { }
-
-
-    // DELETE the file
-    var docPath = new Folder(doc.path);
-    var docNameOnly = GetFileNameOnly(doc.name);
-    var docFileExtension_re = /(?:\.([^.]+))?$/;
-    var docFileExtension = docFileExtension_re.exec(doc.name)[1];
-    var docFile_frei = new File(docPath + "/" + docNameOnly + "-frei." + docFileExtension);
-    if (docFile_frei.exists) {
-        docFile_frei.remove();
-    }
-
-    layer_selectedID_set(startLayerID);
-}
-// END
-
 
 
 
@@ -903,11 +874,6 @@ function deFrei() {
 // TYPICAL
 // HIGH_QUALITY
 // DEFAULT_VALUE
-
-
-
-// alert("ding");
-// $.writeln(app.documents.getByName("_OA_0086__RZ__RGB.psd"));
 
 
 
@@ -936,17 +902,342 @@ function isFileOpen(_fileName) {
 /////////////////////////////
 /////////////////////////////
 
-// var doc = app.activeDocument;
 
-closeDoc("Falke_PP-3843__RGB.psd");
 
-function closeDoc(_file) {
-    try { 
-        // _file.close(SaveOptions.DONOTSAVECHANGES)
-        app.documents.getByName(decodeURI(_file)).close(SaveOptions.DONOTSAVECHANGES);
+
+
+
+
+//*************************************************************
+//******************* Freisteller in Woodwing *****************
+//*************************************************************
+
+
+// if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
+// if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+
+
+
+// replaceMeta_3_suffix("woodwing_file", "jpg", "psd");
+// replaceMeta_3_suffix("woodwing_RGB", "jpg", "psd");
+// app.activeDocument.suspendHistory('Freisteller: 2 Ebenen', 'freisteller_reduce2layers()');
+// saveMultiformat(new File("/Users/adrians/Arbeit/__temp/imago1043022766h__RGB+.psd"), "psd", t, null, f, t);
+// undoSteps(1);
+
+
+/* 
+    Schreibe einen Loop um die Ordner zu checken ob sie offen sind und speichere es im Array
+
+    $.writeln(isSetOpened1(app.activeDocument.activeLayer))
+
+    isSetOpened2( grIDX );
+    $.writeln(isSetOpened2(getActiveLayerIndex()))
+*/
+
+
+
+
+// function getClosedSets() {
+//     var closedSets_array = [];
+//     var i = 1;
+//     while (layer_checkExistence(i)) {
+//         if (isLayerSet(i)) {
+//             if (!isSetOpened2(i)) {
+//                 $.writeln(i);
+//                 closedSets_array.push(i);
+//             }
+//         }
+//         i++;
+//     }
+//     return closedSets_array;
+// }
+
+
+// toogleOpenCloseSet_byIDX_byArray(getClosedSets());
+
+
+// // $.writeln(layer_selectedIDX_get());
+// var start_closedSets = [5,25];
+// // app.activeDocument.suspendHistory("toogleOpenCloseSet_byIDX_byArray", "toogleOpenCloseSet_byIDX_byArray(start_closedSets)");
+// // $.writeln(app.activeDocument.suspendHistory("ding", "isSetOpened2(25)"))
+// // undoSteps(1);
+// // historyState_deleteSteps(1);
+// var start_closedSetsx = isSetOpened2(25);
+// undoSteps(4);
+// historyState_deleteSteps(4);
+// $.writeln(start_closedSetsx);
+
+
+
+
+
+// =======================================================
+
+// function historyState_delete() {
+//     var d = new ActionDescriptor();
+//     var r = new ActionReference();
+
+//     r.putEnumerated(s2t("historyState"), s2t("ordinal"), s2t("last"));
+//     d.putReference(s2t("null"), r);
+//     executeAction(s2t("delete"), d, DialogModes.NO);
+// }
+
+
+
+
+
+// BEGIN deFreisteller QUICK
+// deFrei();
+
+function deFrei() {
+    //@include "./assets/json2.js"
+    var jsonFilePath = "~/.ss_settings.json";
+    var jsonData = loadJSON(jsonFilePath);
+    const RZ_qualityJPG = jsonValue("RZ_qualityJPG"); //TODO kommt noch nicht in PS an
+
+    try {
+        if (app.activeDocument.layerSets.getByName("Freisteller")) {
+            var startLayerID = layer_selectedID_get();
+
+            try {
+                var ssDebug = false;
+                var isWoodwing = false;
+                if (getMeta_3("isWoodwing")) var isWoodwing = Boolean(getMeta_3("isWoodwing"));
+
+                // DELETE the layers
+                try {
+                    gotoLayer("Freisteller");
+                    ungroup();
+                    gotoLayer("Freisteller helper");
+                    deleteActiveLayer();
+                } catch (e) { }
+
+                if (!isWoodwing) {
+                    // DELETE the file
+                    var docPath = new Folder(doc.path);
+                    var docNameOnly = GetFileNameOnly(doc.name);
+                    var docFileExtension_re = /(?:\.([^.]+))?$/;
+                    var docFileExtension = docFileExtension_re.exec(doc.name)[1];
+                    var docFile_frei = new File(docPath + "/" + docNameOnly + "-frei." + docFileExtension);
+                    if (docFile_frei.exists) {
+                        docFile_frei.remove();
+                    }
+                } else {
+                    if (getMeta_3("woodwing_RGB")) var woodwing_RGB = getMeta_3("woodwing_RGB");
+                    if (getMeta_3("woodwing_file")) var woodwing_file = getMeta_3("woodwing_file");
+                    if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
+                    BridgeTalkMessage_openDocID(idDocName, woodwing_file, ssDebug);
+                    replaceMeta_3_suffix("woodwing_file", "psd", "jpg");
+                    replaceMeta_3_suffix("woodwing_RGB", "psd", "jpg");
+
+                    saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);
+                }
+
+            }
+            catch (e) { alert(e) }
+
+            layer_selectedID_set(startLayerID);
+        }
     }
-    catch (e) { alert(e) }
+    catch (e) {
+        alert("Abbruch!\nkeine Ebene names 'Freisteller' gefunden\n" + e);
+        return false;
+    }
 }
 
-// decodeURI(doc_file.name);
-// app.documents.getByName(docFileName_decode).close(SaveOptions.DONOTSAVECHANGES);
+
+
+function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file, _ssDebug) {
+    var bt = new BridgeTalk();
+    bt.target = 'indesign';
+    bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "','" + _ssDebug + "');";
+    bt.onResult = function (resObj) { }
+    bt.send(10);
+}
+
+function runID(_idDocName, _woodwing_file, _ssDebug) {
+    try {
+        if (focusOpenedFile(_idDocName)) {
+            var woodwing_file = app.activeDocument.links.itemByName(_woodwing_file);
+            woodwing_file.editOriginal();
+        } else {
+            alert("kein Focus auf der Datei?");
+        }
+    } catch (e) {
+        /* if (_ssDebug) { alert("runID: " + e); } */
+    }
+
+    return " ";
+
+
+    function focusOpenedFile(_fileName) {
+        var fileIsOpen = false;
+        for (var j = 0; j < app.documents.length; j++) {
+            if (app.documents[j].name.indexOf(_fileName) !== -1) {
+                fileIsOpen = true;
+                app.activeDocument = app.documents[j];
+                break;
+            }
+        }
+        return fileIsOpen;
+    }
+}
+
+
+// =======================================================
+// canvasSize(true, 5.6664);
+function canvasSize(relative, height) {
+    var d = new ActionDescriptor();
+
+    d.putBoolean(s2t("relative"), relative);
+    d.putUnitDouble(s2t("height"), s2t("distanceUnit"), height);
+    d.putEnumerated(s2t("vertical"), s2t("verticalLocation"), s2t("bottomEnum"));
+    executeAction(s2t("canvasSize"), d, DialogModes.NO);
+}
+
+// $.writeln("mm2pt: " + mm2pt(20));
+// $.writeln("cm2pt: " + cm2pt(2));
+
+var enlargeCanvas_mm = [0, 0, 2.967, 0] //mm
+var enlargeCanvas_pt = [0, 0, 8.40951201110995, 0] //pt
+
+var outer_width_mm = 152.333;
+var outer_height_mm = 89.958;
+var inner_width_mm = 168.032;
+var inner_height_mm = 112.021;
+
+var outer_width_pt = 431.811023622047;
+var outer_height_pt = 255;
+var inner_width_pt = 476.31;
+var inner_height_pt = 317.539892359025;
+
+
+// setSize_pt("width", inner_width_pt);
+
+// function setSize_pt(_side, _size) {
+//     var d = new ActionDescriptor();
+//     d.putUnitDouble(sTID(_side), sTID('distanceUnit'), _size);
+//     executeAction(sTID('imageSize'), d, DialogModes.NO);
+// }
+
+// resizeCanvas(enlargeCanvas_mm[3], enlargeCanvas_mm[0], Units.MM, AnchorPosition.BOTTOMRIGHT)
+// resizeCanvas(enlargeCanvas_pt[3], enlargeCanvas_pt[0], Units.POINTS, AnchorPosition.BOTTOMRIGHT);
+// resizeCanvas(enlargeCanvas_pt[1], enlargeCanvas_pt[2], Units.POINTS, AnchorPosition.TOPLEFT);
+
+function resizeCanvas(_width, _height, _unit, _position) {
+    // doc.resizeCanvas(10, undefined, AnchorPosition.BOTTOMRIGHT)
+
+    startRulerUnits = app.preferences.rulerUnits;
+    app.preferences.rulerUnits = _unit;
+
+    var docWidth = doc.width.value;
+    var docHeight = doc.height.value;
+
+    var canvasWidth = docWidth + _width;
+    var canvasHeight = docHeight + _height;
+    $.writeln("docWidth: " + docWidth);
+    $.writeln("docHeight: " + docHeight);
+    $.writeln("canvasWidth: " + canvasWidth);
+    $.writeln("canvasHeight: " + canvasHeight);
+
+    doc.resizeCanvas(canvasWidth, canvasHeight, _position);
+
+    app.preferences.rulerUnits = startRulerUnits;
+}
+
+
+
+
+// BOTTOMCENTER
+// BOTTOMLEFT
+// BOTTOMRIGHT
+// MIDDLECENTER
+// MIDDLELEFT
+// MIDDLERIGHT
+// TOPCENTER
+// TOPLEFT
+// TOPRIGHT
+
+
+
+
+
+
+
+//*************************************************************
+//******************* 3D *****************
+//*************************************************************
+
+// gotoLayer(0);
+// nameLayer("Schatten");
+// selectLayers("selectAllLayers");
+// selectLayerBySelector("Schatten", "remove");
+// mergeLayers();
+// nameLayer("frei");
+
+// saveMultiformat(new File("/Users/adrians/Arbeit/11Freunde/271/rück/jpeg_check/3D/check.psd"), "psd", true, null, false, true);
+// alert("ding");
+// resetImage();
+
+
+
+
+
+// =======================================================
+// var idselect = stringIDToTypeID("select");
+// var desc3 = new ActionDescriptor();
+// var idnull = stringIDToTypeID("null");
+// var ref1 = new ActionReference();
+// var idrotateTool = stringIDToTypeID("rotateTool");
+// ref1.putClass(idrotateTool);
+// desc3.putReference(idnull, ref1);
+// var iddontRecord = stringIDToTypeID("dontRecord");
+// desc3.putBoolean(iddontRecord, true);
+// var idforceNotify = stringIDToTypeID("forceNotify");
+// desc3.putBoolean(idforceNotify, true);
+// executeAction(idselect, desc3, DialogModes.NO);
+
+
+function RemoveAlphaChannels() {
+    if (app.documents.length == 0) {
+        return;
+    }
+    var doc = app.activeDocument;
+
+    var channels = doc.channels;
+    var alphas = [];
+    for (var i = 0; i < channels.length; i++) {
+        var channel = channels[i];
+        if (channel.kind == ChannelType.COMPONENT) {
+            continue;
+        }
+        alphas.push(channel);
+    }
+    while (alphas.length) {
+        var channel = alphas.pop();
+        channel.remove();
+    }
+};
+
+function channel_checkExistenceByName(_name) {
+    var channels = doc.channels;
+    var check = false;
+    for (var i = 0; i < channels.length; i++) {
+        var channel = channels[i];
+        if (channel.name == _name && channel.kind == ChannelType.MASKEDAREA) {
+            var check = true;
+            break;
+        }
+    }
+    return check;
+}
+
+$.writeln("1: " + channel_checkExistenceByName("rg"))
+$.writeln("2: " + channel_checkExistenceByName("rgdff"))
+
+function channel_deleteX(_name) {
+    while (channel_checkExistenceByName(_name)) {
+        channel_delete(_name);
+    }
+}
+channel_deleteX("rg")

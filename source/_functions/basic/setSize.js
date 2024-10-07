@@ -1,5 +1,8 @@
-function setSize(_side, _size) {
+function setSize(_side, _size, _inputUnit) {
     var d = new ActionDescriptor();
-    d.putUnitDouble(sTID(_side), sTID('distanceUnit'), mm2pt(_size));
+    if (_inputUnit == "mm") {
+        _size = mm2pt(_size);
+    }
+    d.putUnitDouble(sTID(_side), sTID('distanceUnit'), _size);
     executeAction(sTID('imageSize'), d, DialogModes.NO);
 }

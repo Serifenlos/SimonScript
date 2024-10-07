@@ -3,6 +3,7 @@ function mask_farbmaske_viaSaturation(_folder, _toleranz) {
     // move to TOP
     with (activeDocument) activeLayer.move(layers[0], ElementPlacement.PLACEBEFORE)
 
+    createLayer("Sattigung", "hueSaturation", "normal", "none", 100, "none", f, f);
     createLayer("Farbe maskieren", "hueSaturation", "difference", "none", 100, "none", f, f);
     createLayer("invert + gradation", "curves", "normal", "none", 100, "none", f, f);
     adjustLayer_curves_set(0, 255, 255, 0);
@@ -42,7 +43,7 @@ function mask_farbmaske_viaSaturation(_folder, _toleranz) {
 
     adjustLayer_sat_set(1, adjustHue(color1[0], -_toleranz), color1[0], color2[0], adjustHue(color2[0], _toleranz), f, f, 100);
 
-    app_simulateKeyPress_alt3();
+    // app_simulateKeyPress_alt3();
     // app.bringToFront();
     // adjustLayer_sat_eyedropper();
     

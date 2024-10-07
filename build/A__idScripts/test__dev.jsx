@@ -12,7 +12,7 @@
 /** Variablen  **************************************************************/
 
 //@include "./assets/json2.js"
-var jsonFilePath = "~/ss_var.json";
+var jsonFilePath = "~/.ss_settings.json";
 var jsonData = loadJSON(jsonFilePath);
 
 
@@ -39,6 +39,16 @@ function loadJSON(filePath) {
     }
 }
 
+// Funktion zum Finden eines Wertes in einem Array von Objekten
+function jsonValue(key) {
+    for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData[i][key] !== undefined) {
+            return jsonData[i][key];
+        }
+    }
+    return null;
+}
+
 
 
 
@@ -46,13 +56,14 @@ function loadJSON(filePath) {
 
 
 /** Optionen  **************************************************************/
-const ZielAufloesung_dpi = jsonData.ZielAufloesung_dpi;
-const minAufloesung = jsonData.minAufloesung;
-const suffixRGB = jsonData.suffixRGB;
+const ZielAufloesung = jsonValue("ZielAufloesung");
+const minAufloesung = jsonValue("minAufloesung");
+const suffixRGB = jsonValue("suffixRGB");
 
-var mainFolder = jsonData.mainFolder;
-var subFolder = jsonData.subFolder;
-var ww_mainFolder = jsonData.ww_mainFolder;
+var mainFolder = jsonValue("mainFolder");
+var subFolder = jsonValue("subFolder");
+const ww_mainFolder = jsonValue("woodwing_mainFolder");
+
 
 var check_trailingSlash = /\/$/; // Prüft, ob der String mit "/" endet
 if (!check_trailingSlash.test(mainFolder)) {

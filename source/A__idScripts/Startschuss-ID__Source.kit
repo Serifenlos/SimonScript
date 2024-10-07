@@ -33,8 +33,8 @@ getRubrik_array = [
 
 // xxx-xxx_11F_SPEZIAL-EM_
 
-var mainFolder = "/Users/adrians/Arbeit/11Freunde/269/";
-// var mainFolder = "/Users/adrians/Arbeit/11Freunde/Spezial-EM_RGB/";
+// var mainFolder = "/Users/adrians/Arbeit/11Freunde/269/";
+var mainFolder = "/Users/adrians/Arbeit/11Freunde/DFB_Reiseführer/";
 // var mainFolder = "/Users/adrians/Arbeit/Judith/Porzellannikon_Rundgang_2023-12/";
 // var mainFolder = "/Users/adrians/Arbeit/Judith/Porz_Zeitreise/";
 // var mainFolder = "/Users/adrians/Arbeit/11Freunde/_weissNicht/Eigenanzeigen/;
@@ -341,7 +341,7 @@ function runPS(myImagePath, myNewPath, hScale, vScale, ZielAufloesung, minAufloe
             sRGB2eciRGB();
             if(getBitDepth(!8)){setBitDepth(8)}
 
-            setSize("width", myPsDoc.width.value * hScale / 10);
+            setSize("width", myPsDoc.width.value * hScale / 10, "mm");
 
 
             if (hasBackground() && getActiveLayerIndex() != 0) {

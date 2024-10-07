@@ -19,6 +19,7 @@ var heft2 = "noSports";
 var heft3 = "Chronik";
 var heft4 = "Buch-innen_17x24";
 var heft5 = "Buch-innen_21x28";
+var heft6 = "Beileger_19x26";
 
 with(a_dialog) {
     with(dialogColumns.add()) {
@@ -58,6 +59,11 @@ with(a_dialog) {
                         checkedState: false,
                         minWidth: min_width_right
                     });
+                    radiobuttonControls.add({
+                        staticLabel: heft6,
+                        checkedState: false,
+                        minWidth: min_width_right
+                    });
                 }
             }
         }
@@ -84,6 +90,9 @@ if (a_dialog.show() == false) {
     } else if (heft.selectedButton == 4) {
         var heft = heft5;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_21x28__MASTER.psd");
+    } else if (heft.selectedButton == 5) {
+        var heft = heft6;
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__190x260-innen__MASTER.psd");
     }
 }
 
@@ -328,8 +337,7 @@ function id2ps_schatten() {
 
 
 function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumber) {
-
-    function cTID(s) {
+        function cTID(s) {
         return app.charIDToTypeID(s);
     };
 
@@ -373,6 +381,61 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
         desc20.putReference(charIDToTypeID('null'), ref23);
         executeAction(charIDToTypeID('Dlt '), desc20, DialogModes.NO);
     };
+
+    function gotoLayer(_input) {
+        var d = new ActionDescriptor();
+        var r = new ActionReference();
+
+        if (typeof _input == "number") {
+            r.putIndex(charIDToTypeID('Lyr '), _input);
+        } else if (typeof _input == "string") {
+            r.putName(sTID('layer'), _input);
+        }
+
+        d.putReference(sTID('null'), r);
+        d.putBoolean(sTID('makeVisible'), false);
+        executeAction(sTID('select'), d, DialogModes.NO);
+    };
+
+    function selectLayers(_all_or_nothing) {
+        var d = new ActionDescriptor();
+        var r = new ActionReference();
+        r.putEnumerated(sTID('layer'), sTID('ordinal'), sTID('targetEnum'));
+        d.putReference(sTID('null'), r);
+        try {
+            executeAction(sTID(_all_or_nothing), d, DialogModes.NO);
+        } catch (e) { }
+    };
+
+    function selectLayerBySelector(_selector, _add) {
+        try {
+            var d = new ActionDescriptor();
+            var r = new ActionReference();
+
+            if (_add == "remove" || !_add) { var addX = "removeFromSelection" } else { var addX = "addToSelection" }
+            if (isNaN(_selector)) { r.putName(sTID("layer"), _selector) }
+            else { r.putIndex(sTID("layer"), _selector) }
+            d.putReference(sTID("null"), r);
+            d.putEnumerated(sTID("selectionModifier"), sTID("selectionModifierType"), sTID(addX));
+            d.putBoolean(sTID("makeVisible"), false);
+            executeAction(sTID("select"), d, DialogModes.NO);
+        } catch (e) { }
+    };
+
+    function mergeLayers() {
+        var d = new ActionDescriptor();
+        executeAction(sTID('mergeLayersNew'), d, DialogModes.NO);
+    };
+
+    function nameLayer(_name) {
+        app.activeDocument.activeLayer.name = _name;
+    };
+
+    function resetImage() {
+        executeAction(sTID('revert'), undefined, DialogModes.NO);
+        emptyProtocoll();
+    };
+
 
     function placeItem(thisSite, thisFile) {
 
@@ -422,6 +485,39 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
         app.activeDocument.saveAs(OutputFile, tiffSaveOptions, true, Extension.LOWERCASE)
     }
 
+    function saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannels, _withLayers) {
+        if (_saveFormat == "tif") {
+            var saveOptions = new TiffSaveOptions();
+            saveOptions.alphaChannels = _alphaChannels;
+            saveOptions.byteOrder = ByteOrder.IBM;
+            saveOptions.embedColorProfile = true;
+            saveOptions.imageCompression = TIFFEncoding.TIFFLZW;
+            saveOptions.layers = _withLayers;
+            saveOptions.spotColors = false;
+            saveOptions.transparency = true;
+            saveOptions.annotations = false;
+
+        } else if (_saveFormat == "jpg") {
+            var saveOptions = new JPEGSaveOptions();
+            saveOptions.embedColorProfile = true;
+            saveOptions.formatOptions = FormatOptions.STANDARDBASELINE;
+            saveOptions.matte = MatteType.WHITE;
+            saveOptions.quality = _qualityJPG;
+
+        } else if (_saveFormat == "psd") {
+            var saveOptions = new PhotoshopSaveOptions();
+            saveOptions.alphaChannels = _alphaChannels;
+            saveOptions.annotations = false;
+            saveOptions.embedColorProfile = true;
+            saveOptions.layers = _withLayers;
+            saveOptions.spotColors = false;
+        }
+        saveFile_v2(_file, saveOptions, _asCopy);
+    }
+    function saveFile_v2(_file, _saveOptions, _asCopy) {
+        app.activeDocument.saveAs(_file, _saveOptions, _asCopy, Extension.LOWERCASE);
+    }
+
 
     prefSave();
     prefSet();
@@ -432,7 +528,19 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
         placeItem("links", thisFile)
     } else {
         placeItem("rechts", thisFile);
-        saveCopy(thisFileName);
+        try{
+            /* gotoLayer(0);
+            nameLayer("Schatten"); */
+            selectLayers("selectAllLayers");
+            selectLayerBySelector("Schatten", "remove");
+            mergeLayers();
+            nameLayer("frei");
+            /* saveMultiformat(new File(Folder_3D + "/" + thisFileName), "psd", true, null, false, false); */
+            saveMultiformat(new File(Folder_3D + "/" + thisFileName), "psd", true, null, false, true);
+            resetImage();
+        }
+        catch(e){alert(e)}
+        
     };
 
     emptyProtocoll();
@@ -481,7 +589,8 @@ function runPS_schatten(Folder_3D, master) {
         var desc14 = new ActionDescriptor();
         var list6 = new ActionList();
         var ref11 = new ActionReference();
-        ref11.putProperty(cTID('Lyr '), cTID('Bckg'));
+        /* ref11.putProperty(cTID('Lyr '), cTID('Bckg')); */
+        ref11.putName(cTID('Lyr '), "Schatten");
         list6.putReference(ref11);
         desc14.putList(cTID('null'), list6);
         executeAction(cTID('Shw '), desc14, DialogModes.NO);

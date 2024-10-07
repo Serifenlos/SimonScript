@@ -9,6 +9,7 @@
 // @codekit-prepend './meta/getMeta_3.js';
 // @codekit-prepend './meta/getMeta_softproof.js';
 // @codekit-prepend './meta/getSoftProof.js';
+// @codekit-prepend './meta/replaceMeta_3_suffix.js';
 // @codekit-prepend './meta/set.js';
 // @codekit-prepend './meta/setMeta.js';
 // @codekit-prepend './meta/setMeta_2.js';

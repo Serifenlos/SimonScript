@@ -1,3 +1,3 @@
 function mm2pt(mm) {
-    return mm * 0.283464566929;
+    return mm * 2.83464566929;
 }

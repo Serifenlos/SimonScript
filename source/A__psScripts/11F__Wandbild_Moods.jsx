@@ -8,19 +8,18 @@
 // END__HARVEST_EXCEPTION_ZSTRING
 */
 
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
-//@include "/Users/simon/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
-
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/pref.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/utils.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-dodge.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/LUT-burn.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/dialog.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/ready.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/view.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/layer.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/save.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/loopFiles.jsx";
+//@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/meta.jsx";
 
 
 
@@ -198,9 +197,15 @@ var run_A4 = false;
 var run_pano = false;
 
 const outputWidth = 2400;
+// /Volumes/Archiv\ LOTUS/11Freunde_Auslagerung/
+// /Volumes/Archiv LOTUS/11Freunde_Auslagerung/Bilderwelt_Moods/Moods
+// const moodsFolder = "/Users/adrians/Arbeit/11Freunde/Bilderwelt_Moods/Moods/";
+// const outputFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt_Moods/OUTPUT");
+const moodsFolder = "/Volumes/Archiv LOTUS/11Freunde_Auslagerung/Bilderwelt_Moods/MAIN/";
+const outputFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/_OUTPUT/Moods");
+if (!outputFolder.exists) { outputFolder.create() };
 
-const moodsFolder = "/Users/simon/Arbeit/11Freunde/Bilderwelt_Moods/Moods/";
-const outputFolder = new Folder("/Users/simon/Arbeit/11Freunde/Bilderwelt_Moods/OUTPUT");
+
 
 const moods = [
     'mood01',
@@ -492,7 +497,7 @@ function randomNumber(_min, _max, _array, _steps, _sort) {
 
 
 function bw_log(_log) {
-    var filepath = "/Users/simon/Arbeit/11Freunde/Bilderwelt_Moods/Bilderwelt_Moods.log";
+    var filepath = "/Users/adrians/Arbeit/11Freunde/Bilderwelt_Moods/Bilderwelt_Moods.log";
     var write_file = File(filepath);
     if (!write_file.exists) {
         write_file = new File(filepath);

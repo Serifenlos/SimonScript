@@ -29,29 +29,34 @@
     <sp-action-button size="S" id="selectiveColor">Sel</sp-action-button>
     <sp-action-button size="S" id="colorBalance">Fa</sp-action-button>
     <sp-action-button size="S" id="hueSaturation">Sä</sp-action-button>
-    <sp-action-button size="S" id="blackAndWhite">SW</sp-action-button>
+    <sp-action-button size="S" id="blackAndWhite" title="&emsp;&ensp;Click &#11834; SW-Einstellbene&#013;⇧&ensp;Click &#11834; neutrale Ebene">SW</sp-action-button>
     <sp-action-button size="S" id="vibrance">Dy</sp-action-button>
   </sp-action-group>
   
   <sp-action-group>
+    <sp-action-button size="S" id="docDepth">0</sp-action-button>
     <sp-action-button size="S" id="grau">Grau</sp-action-button>
     <sp-action-button size="S" id="hochpass">Hochpass</sp-action-button>
     <sp-action-button size="S" id="mirco">Mirco</sp-action-button>
-    <sp-action-button size="S" id="saft">Saft</sp-action-button>
+    <sp-action-button size="S" id="saft" title="&emsp;&ensp;Click &#11834; Saft&#013;⇧&ensp;Click &#11834; neg. mutlipizieren&#013;⌥&ensp;Click &#11834; mutlipizieren">Saft</sp-action-button>
+    <sp-action-button size="S" id="dimmen">Dimmen</sp-action-button>
   </sp-action-group>
 
+  <!-- ⇧ ⌥ ⌘ ^ -->
   <sp-action-group>
-    <sp-action-button size="S" id="motivMask">Motiv</sp-action-button>
-    <sp-action-button size="S" id="skyMask">Sky</sp-action-button>
-    <!-- <sp-action-button size="S" id="bunt_old">b</sp-action-button>
-    <sp-action-button size="S" id="unbunt_old">u</sp-action-button> -->
-    <sp-action-button size="S" id="bunt">bunt</sp-action-button>
-    <sp-action-button size="S" id="unbunt">unbunt</sp-action-button>
-    <sp-action-button size="S" id="farbmaske" title="Click -> v1 // shiftClick -> v2">Farbmaske</sp-action-button>
+    <sp-action-button size="S" id="motivMask" title="&emsp;&ensp;&emsp;&ensp;Click &#11834; Motiv → Maske&#013;&emsp;&ensp;⇧&ensp;Click &#11834; Motiv → Auswahl&#013;&emsp;&ensp;⌥&ensp;Click &#11834; nicht-Motiv → Maske&#013;⇧&ensp;⌥&ensp;Click &#11834; nicht-Motiv → Auswahl">Motiv</sp-action-button>
+
+    <sp-action-button size="S" id="skyMask" title="&emsp;&ensp;&emsp;&ensp;Click &#11834; Himmel → Maske&#013;&emsp;&ensp;⇧&ensp;Click &#11834; Himmel → Auswahl&#013;&emsp;&ensp;⌥&ensp;Click &#11834; nicht-Himmel → Maske&#013;⇧&ensp;⌥&ensp;Click &#11834; nicht-Himmel → Auswahl">Sky</sp-action-button>
+
+    <sp-action-button size="S" id="bunt" title="&emsp;&ensp;&emsp;&ensp;Click &#11834; alles → Maske&#013;&emsp;&ensp;⇧&ensp;Click &#11834; alles → Auswahl&#013;&emsp;&ensp;⌥&ensp;Click &#11834; diese Ebene → Maske&#013;⇧&ensp;⌥&ensp;Click &#11834; diese Ebene → Auswahl">bunt</sp-action-button>
+
+    <sp-action-button size="S" id="unbunt" title="&emsp;&ensp;&emsp;&ensp;Click &#11834; alles → Maske&#013;&emsp;&ensp;⇧&ensp;Click &#11834; alles → Auswahl&#013;&emsp;&ensp;⌥&ensp;Click &#11834; diese Ebene → Maske&#013;⇧&ensp;⌥&ensp;Click &#11834; diese Ebene → Auswahl">unbunt</sp-action-button>
+
+    <sp-action-button size="S" id="farbmaske" title="&emsp;&ensp;Click &#11834; v1&#013;⇧&ensp;Click &#11834; v2&#013;⌥&ensp;Click &#11834; v3">Farbmaske</sp-action-button>
+
+    <sp-action-button size="S" id="depthMask" title="&emsp;&ensp;&emsp;&ensp;Click &#11834; alles → Maske&#013;&emsp;&ensp;⇧&ensp;Click &#11834; alles → Auswahl&#013;&emsp;&ensp;⌥&ensp;Click &#11834; diese Ebene → Maske&#013;⇧&ensp;⌥&ensp;Click &#11834; diese Ebene → Auswahl">tief</sp-action-button>
     
-    <!-- <sp-action-button size="S" id="depthMask_old">t</sp-action-button> -->
-    <sp-action-button size="S" id="depthMask">tief</sp-action-button>
-    <sp-action-button size="S" id="outOfGamut">Gamut</sp-action-button>
+    <sp-action-button size="S" id="outOfGamut" title="&emsp;&ensp;Click &#11834; out-of-Gamut → Maske&#013;⇧&ensp;Click &#11834; out-of-Gamut → Auswahl">Gamut</sp-action-button>
   </sp-action-group>
 
   <sp-action-group>
@@ -61,10 +66,10 @@
     <sp-action-button size="S" id="db_mid">D+B⬨</sp-action-button>
     <!-- <sp-action-button size="S" id="db_hochtief">D+B△▽</sp-action-button> -->
     <sp-action-button size="S" id="db_hochmidtief">D+B△⬨▽</sp-action-button>
-    <sp-action-button size="S" id="checkTL_minus">–</sp-action-button>
+    <sp-action-button size="S" id="checkTL_minus" title="&emsp;&ensp;Click &#11834; -10 &#013;⇧&ensp;Click &#11834; -1">–</sp-action-button>
     <sp-action-button size="S" id="checkTL_create">◯</sp-action-button>
-    <sp-action-button size="S" id="checkTL_plus">+</sp-action-button>
-    <sp-action-button size="S" id="autoLevel">auto</sp-action-button>
+    <sp-action-button size="S" id="checkTL_plus" title="&emsp;&ensp;Click &#11834; +10 &#013;⇧&ensp;Click &#11834; +1">+</sp-action-button>
+    <sp-action-button size="S" id="autoLevel" title="&emsp;&ensp;Click &#11834; auto &#013;⇧&ensp;Click &#11834; autoContrast&#013;⌥&ensp;Click &#11834; autoBlackWhite&#013;⌘&ensp;Click &#11834; autoMachineLearning">auto</sp-action-button>
   </sp-action-group>
 
   <!-- <sp-action-group>
@@ -83,6 +88,8 @@
     <sp-action-button size="S" id="freisteller">frei</sp-action-button>
     <sp-action-button size="S" id="freistellerHG">freiHG</sp-action-button>
     <sp-action-button size="S" id="itunes">iTunes</sp-action-button>
+    <sp-action-button size="S" id="SilverFX">SilverFX</sp-action-button>
+    <sp-action-button size="S" id="ColorFX">ColorFX</sp-action-button>
   </sp-action-group>
 
   <sp-action-group>
@@ -106,7 +113,82 @@
     <sp-action-button size="S" id="startLastLogEntry">xTools</sp-action-button>
     <sp-action-button size="S" id="startCleanSL">CleanSL</sp-action-button>
     <sp-action-button size="S" id="mask2image">m2i</sp-action-button>
+    <!-- <sp-action-button size="S" id="check">check</sp-action-button> -->
+    <sp-action-button size="S" id="buttonOpenSettings">Settings</sp-action-button>
   </sp-action-group>
+
+  <!-- <div class="row" style="margin: 20px; justify-content: space-around;">
+    <sp-button id="buttonOpenSettings">sp-dialog</sp-button>
+  </div> -->
+  <sp-dialog id="ss_setting_dialog">
+      <sp-heading slot="title" style="margin: 0">SimonScript Settings</sp-heading>
+      <!-- <sp-icon slot="icon" style="color: #ec5b62" size="m" name="ui:AlertSmall"></sp-icon> -->
+      <sp-body slot="description">
+  
+        <sp-field-group id="Debug" class="input no_border" data-default="false" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+        <sp-textfield id="ZielAufloesung" class="input" type="text" size="s" data-default="355.6"></sp-textfield>
+        <sp-textfield id="minAufloesung" class="input"  type="number" size="s" data-default="300"></sp-textfield>
+        <sp-textfield id="suffixRGB" class="input" size="s" data-default="__RGB"></sp-textfield>
+  
+        <sp-field-group id="autoAnbau" class="input no_border" data-default="true" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+  
+  
+        <sp-textfield id="mainFolder" class="input" size="s" data-default="~/Arbeit"></sp-textfield>
+        <sp-textfield id="subFolder" class="input" size="s" data-default="_RGB"></sp-textfield>
+        <sp-textfield id="woodwing_mainFolder" class="input no_border" size="s" data-default="~/WoodWingStudio.noindex/InDesign/" quiet></sp-textfield>
+  
+  
+        <sp-textfield id="RZ_saveFolder" class="input" size="s" data-default="~/Arbeit/_RZ"></sp-textfield>
+  
+        <sp-radio-group id="RZ_saveFormat" class="input" data-default="jpg" data-init="true">
+          <sp-radio size="s" value="jpg">jpg</sp-radio>
+          <sp-radio size="s" value="psd">psd</sp-radio>
+          <sp-radio size="s" value="tif">tif</sp-radio>
+        </sp-radio-group>
+  
+        <sp-slider id="RZ_qualityJPG" class="input" min="1" max="12" data-default="11" data-init="true"></sp-slider>
+  
+        <sp-field-group id="RZ_alphaChannels" class="input" data-default="false" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+        <sp-field-group id="RZ_withLayers" class="input" data-default="false" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+        <sp-textfield id="RZ_suffix" class="input" size="s" data-default="__RZ"></sp-textfield>
+  
+        <sp-field-group id="RZ_delPath" class="input" data-default="false" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+        <sp-field-group id="RZ_sharpDialog" class="input no_border" data-default="true" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+        <sp-field-group id="finish_jumpBack2id" class="input" data-default="false" data-init="true">
+          <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+        </sp-field-group>
+  
+        
+  
+  
+  
+      </sp-body>
+  
+  
+  
+      <sp-button-group slot="buttongroup">
+        <sp-button id="buttonCancel" variant="primary">Cancel</sp-button>
+        <sp-button id="buttonOK" variant="primary">Ok</sp-button>
+      </sp-button-group>
+    </sp-dialog>
 
 </body>
 

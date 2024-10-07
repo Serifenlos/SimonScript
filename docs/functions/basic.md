@@ -217,9 +217,21 @@ schrittweise
 ??? "undoSteps(_steps);"
     ``` js linenums="1"
     function undoSteps(_steps) {
-        for (var i = 0; i < _steps; i++) {
-            executeAction(charIDToTypeID('undo'), undefined, DialogModes.NO);
-        };
+        try {
+            for (var i = 0; i < _steps; i++) {
+                try {
+                    executeAction(charIDToTypeID('undo'), undefined, DialogModes.NO);
+                } catch (e) {
+                    // by Michael L. Hale
+                    // For the menu item 'Step Backward' ( the same as alt-ctrl-z ) use this
+                    var d = new ActionDescriptor();
+                    var r = new ActionReference();
+                    r.putEnumerated(charIDToTypeID("HstS"), charIDToTypeID("Ordn"), charIDToTypeID("Prvs"));
+                    d.putReference(charIDToTypeID("null"), r);
+                    executeAction(charIDToTypeID("slct"), d, DialogModes.NO);
+                }
+            };
+        } catch (e) { "Error undoSteps: " + e }
     };
     ```
 
@@ -956,11 +968,21 @@ TODO mit unterer Funktion ersetzt
 ??? "hasBackground();"
     ``` js linenums="1"
     function hasBackground() {
-        var ref = new ActionReference();
-        ref.putProperty(charIDToTypeID("Prpr"), charIDToTypeID("Bckg"));
-        ref.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Back"));
-        var desc = executeActionGet(ref);
-        var res = desc.getBoolean(charIDToTypeID("Bckg"));
+        // var ref = new ActionReference();
+        // ref.putProperty(charIDToTypeID("Prpr"), charIDToTypeID("Bckg"));
+        // ref.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Back"));
+        // var desc = executeActionGet(ref);
+        // var res = desc.getBoolean(charIDToTypeID("Bckg"));
+        // return res;
+    
+        var res = undefined;
+        try {
+            var ref = new ActionReference();
+            ref.putProperty(cTID("Prpr"), cTID("Nm  "));
+            ref.putIndex(cTID("Lyr "), 0);
+            executeActionGet(ref).getString(cTID("Nm  "));
+            res = true;
+        } catch (e) { res = false }
         return res;
     };
     ```
@@ -1432,7 +1454,7 @@ Convert cm to Point, imageSize needs Points
 ??? "mm2pt(mm);"
     ``` js linenums="1"
     function mm2pt(mm) {
-        return mm * 0.283464566929;
+        return mm * 2.83464566929;
     }
     ```
 
@@ -1469,9 +1491,12 @@ Convert cm to Point, imageSize needs Points
 
 ??? "setSize(_side, _size);"
     ``` js linenums="1"
-    function setSize(_side, _size) {
+    function setSize(_side, _size, _inputUnit) {
         var d = new ActionDescriptor();
-        d.putUnitDouble(sTID(_side), sTID('distanceUnit'), mm2pt(_size));
+        if (_inputUnit == "mm") {
+            _size = mm2pt(_size);
+        }
+        d.putUnitDouble(sTID(_side), sTID('distanceUnit'), _size);
         executeAction(sTID('imageSize'), d, DialogModes.NO);
     }
     ```
@@ -1630,7 +1655,7 @@ Convert cm to Point, imageSize needs Points
     ``` js linenums="1"
     function replace__RGB_RZ(_replace) {
         var RGBname = GetFileNameOnly(doc.name);
-        var RZname = RGBname.replace(/(__RGB.*)$/g, _replace).replace(/(__RZ.*)$/g, _replace);
+        var RZname = RGBname.replace(/(__RGB.*)$/g, _replace).replace(/(__RZ.*)$/g, _replace).replace(/(__WEB.*)$/g, _replace);
     
         var checkName = new RegExp(_replace, 'g');
         if (!RZname.match(checkName)) {
@@ -2257,6 +2282,7 @@ Convert cm to Point, imageSize needs Points
     
         if (!Array.isArray(_array)) {
             var arr2str = _array.toString();
+            /* alert("arr2str: " + arr2str); */
             var _array = [];
             var _array = arr2str.split(',');
         }
@@ -2274,9 +2300,11 @@ Convert cm to Point, imageSize needs Points
 ??? "array_contains(_array, _value);"
     ``` js linenums="1"
     function array_contains(_array, _value) {
-        for (var c = 0; c < _array.length; c++) {
-            if (_array[c] === _value) {
-                return true;
+        if (_array) {
+            for (var c = 0; c < _array.length; c++) {
+                if (_array[c] === _value) {
+                    return true;
+                }
             }
         }
         return false;
@@ -2312,10 +2340,21 @@ Convert cm to Point, imageSize needs Points
 
 ??? "interpolation_GigaPixel(_horizontalPPI, _minAufloesung,);"
     ``` js linenums="1"
-    function interpolation_GigaPixel(_horizontalPPI, _minAufloesung,) {
-        var scale = (_minAufloesung / _horizontalPPI).toFixed(2).replace('.', ',');
-        text2Clipboard(scale);
-        executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
+    function interpolation_GigaPixel(_horizontalPPI, _scaleFactor, _minAufloesung) {
+        // var scale = (_minAufloesung / _horizontalPPI).toFixed(2).replace('.', ',');
+        // text2Clipboard(scale);
+    
+        var ruleUnit_gigapixel_temp = app.preferences.rulerUnits;
+        app.preferences.rulerUnits = Units.PIXELS;
+    
+        var image_width = parseInt(app.activeDocument.width);
+        var scale2 = Math.ceil(_scaleFactor * image_width);
+        text2Clipboard(scale2);
+    
+        app.preferences.rulerUnits = ruleUnit_gigapixel_temp;
+    
+        // executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
+        executeAction(sTID('1E822513-BC4D-4CF2-B1FE-80505B509928'), undefined, DialogModes.ALL);
         setDpi(_minAufloesung);
     }
     ```
@@ -2334,6 +2373,7 @@ Convert cm to Point, imageSize needs Points
             if (_horizontalPPI < _minAufloesung) {
                 /* alert("hoch rechnen: hPPI: " + _horizontalPPI + "; minAuflösung: " + _minAufloesung); */
                 app.activeDocument.resizeImage(undefined, undefined, _minAufloesung, ResampleMethod.PRESERVEDETAILS);
+                return;
             } else if (_horizontalPPI > _ZielAufloesung) {
                 /* alert("runter rechnen: hPPI: " + _horizontalPPI + "; ZielAufloesung: " + _ZielAufloesung); */
                 app.activeDocument.resizeImage(undefined, undefined, _ZielAufloesung, ResampleMethod.PRESERVEDETAILS);
@@ -2355,10 +2395,14 @@ Convert cm to Point, imageSize needs Points
 
 ??? "interpolation_PhotoAI(_horizontalPPI, _minAufloesung,);"
     ``` js linenums="1"
-    function interpolation_PhotoAI(_horizontalPPI, _minAufloesung,) {
+    function interpolation_PhotoAI(_horizontalPPI, _minAufloesung, _width) {
         var scale = (_minAufloesung / _horizontalPPI).toFixed(2).replace('.', ',');
         text2Clipboard(scale);
+       /*  var width = pt2mm(_width) * 10; */
+        /* text2Clipboard(_width); */
+        
         executeAction(sTID('a40009fc-f5fc-4a09-86ec-5a0ed56c5668'), undefined, DialogModes.ALL);
+        setDpi(_minAufloesung);
     }
     ```
 
@@ -2455,6 +2499,16 @@ Convert cm to Point, imageSize needs Points
             alert("Die JSON-Datei konnte nicht gefunden werden.");
             return null;
         }
+    }
+    
+    // Funktion zum Finden eines Wertes in einem Array von Objekten
+    function jsonValue(key) {
+        for (var i = 0; i < jsonData.length; i++) {
+            if (jsonData[i][key] !== undefined) {
+                return jsonData[i][key];
+            }
+        }
+        return null;
     }
     ```
 

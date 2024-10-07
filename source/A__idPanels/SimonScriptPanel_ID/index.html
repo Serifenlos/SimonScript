@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+</head>
+<style>
+
+
+      body {
+        padding: 1rem;
+      }
+      .group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+
+      .group > * {
+        margin-bottom: 0.5rem;
+      }
+
+</style>
+
+<body>
+
+  <sp-checkbox size="s" id="ck1" class="checks">Opção 1</sp-checkbox>
+  <sp-checkbox size="s" id="ck2" class="checks">Opção 2</sp-checkbox>
+  <sp-checkbox size="s" id="ck3" class="checks">Opção 3</sp-checkbox>
+  <sp-checkbox size="s" id="ck4" class="checks">Opção 4</sp-checkbox>
+  <hr>
+  <sp-action-button size="s" id="salvar">Save value</sp-action-button>
+
+
+  <div class="group">
+    <sp-button id="btnDefine">Define Working Folder</sp-button>
+    <sp-label id="labelWorkingFolder"></sp-label>
+    <hr />
+    <sp-button id="btnSave">Save+</sp-button>
+  </div>
+
+  <script src="index.js"></script>
+
+</body>
+</html>

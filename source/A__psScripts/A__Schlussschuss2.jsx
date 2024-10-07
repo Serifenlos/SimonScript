@@ -28,20 +28,20 @@
 /*//// OPTIONS ////*/
 /*=================================================================================*/
 //@include "./assets/json2.js"
-var jsonFilePath = "~/ss_var.json";
+var jsonFilePath = "~/.ss_settings.json";
 var jsonData = loadJSON(jsonFilePath);
 
+// const ZielAufloesung = jsonValue("ZielAufloesung");
+var saveFolder = jsonValue("RZ_saveFolder");
+var Suffix_RZ = jsonValue("RZ_suffix");
+var saveFormat = jsonValue("RZ_saveFormat");
+var delPath = jsonValue("RZ_delPath");
+var sharp_dialog = jsonValue("RZ_sharpDialog");
+var RZ_qualityJPG = jsonValue("RZ_qualityJPG");
+var RZ_alphaChannels = jsonValue("RZ_alphaChannels");
+var RZ_withLayers = jsonValue("RZ_withLayers");
 
-var saveFolder = jsonData.RZ_saveFolder;
-var Suffix_RZ = jsonData.RZ_suffix;
-var saveFormat = jsonData.RZ_saveFormat;
-var delPath = jsonData.RZ_delPath;
-var sharp_dialog = jsonData.RZ_sharpDialog;
-var RZ_qualityJPG = jsonData.RZ_qualityJPG;
-var RZ_alphaChannels = jsonData.RZ_alphaChannels;
-var RZ_withLayers = jsonData.RZ_withLayers;
-
-var ssDebug = false;
+const debug = Boolean(jsonValue("Debug"));
 
 
 /*=================================================================================*/
@@ -86,7 +86,6 @@ function convertProfile_metaSoftproof() {
             var proof_intent = Intent.ABSOLUTECOLORIMETRIC
         }
 
-        // convertProfile(destinationProfile,intent[, blackPointCompensation][, dither])
         doc.convertProfile(proof_profil, proof_intent, proof_tk, true);
 
     } else { //convert by Hand
@@ -160,29 +159,26 @@ function run(_saveFolder) {
         $.writeln(woodwing_file);
         $.writeln(woodwing_imageID);
         $.writeln(idDocName); */
-    try {
-        BridgeTalkMessage_openDocID(idDocName, woodwing_file, ssDebug);          // v2
-    } catch (e) { if (ssDebug) { alert("bt: " + e) } }
-    try {
-        closeDoc(woodwing_file);                                        // v2
-    } catch (e) { if (ssDebug) { alert("closeDoc+: " + e) } }
 
-    // v3
-    // BridgeTalkMessage_checkOutImage(idDocName, woodwing_imageID);
-    // $.setTimeout = function (func, time) {
-    //     $.sleep(time);
-    //     func();
-    // };
-    // $.setTimeout(function () { $.writeln("Zeitschinden") }, 3000);
 
 
     if (isWoodwing) {
-        // if (woodwing_RGB.exists) {
+        try {
+            BridgeTalkMessage_openDocID(idDocName, woodwing_file, debug);          // v2
+        } catch (e) { if (debug) { alert("bt: " + e) } }
+        try {
+            closeDoc(woodwing_file);                                        // v2
+        } catch (e) { if (debug) { alert("closeDoc+: " + e) } }
+
+        // v3
+        // BridgeTalkMessage_checkOutImage(idDocName, woodwing_imageID);
+        // $.setTimeout = function (func, time) {
+        //     $.sleep(time);
+        //     func();
+        // };
+        // $.setTimeout(function () { $.writeln("Zeitschinden") }, 3000);
         var savePath = woodwing_RGB;
-        // } else {
-        //     alert("Abbruch! Die Woodwing-Zieldatei existiert nicht \n" + woodwing_RGB);
-        //     return;
-        // }
+
     } else {
         var saveFolder = new Folder(_saveFolder);
         if (!saveFolder.exists) saveFolder.create();
@@ -192,14 +188,19 @@ function run(_saveFolder) {
 
     try {
         if (doc.layerSets.getByName("Freisteller")) {
-            gotoLayer("Freisteller");
-            fixMask(getActiveLayerIndex(), 1);
-            duplicateLayerMaskAsAlpha();
-            setMaskVisibility(false);
-            selectLayers("selectAllLayers");
-            mergeLayers();
-            setBackTheLayerMask();
-            setMaskVisibility(false);
+            if (isWoodwing) {
+                app.activeDocument.suspendHistory('Freisteller: 2 Ebenen', 'freisteller_reduce2layers()');
+
+            } else {
+                gotoLayer("Freisteller");
+                fixMask(getActiveLayerIndex(), 1);
+                duplicateLayerMaskAsAlpha();
+                setMaskVisibility(false);
+                selectLayers("selectAllLayers");
+                mergeLayers();
+                setBackTheLayerMask();
+                setMaskVisibility(false);
+            }
         }
     } catch (e) {
         flattenImage();
@@ -219,6 +220,16 @@ function run(_saveFolder) {
     if (delPath) { activeDocument.pathItems.removeAll() }
 
 
+
+    try{
+        if (isWoodwing && doc.artLayers.getByName("frei")){
+            saveMultiformat(new File(savePath), "psd", false, null, RZ_alphaChannels, true);
+            return;
+        }
+    }
+    catch(e) {}
+
+
     try {
         if (doc.artLayers.getByName("Freisteller")) {
             setMaskVisibility(true);
@@ -226,15 +237,15 @@ function run(_saveFolder) {
             savePSD_v2(new File(docNameCopy), t, t, t, f);
             setMaskVisibility(false);
         }
-    } catch (e) { $.writeln("2: " + e) }
+    } catch (e) {}
 
     try {
         flattenImage();
         saveMultiformat(new File(savePath), saveFormat, false, RZ_qualityJPG, RZ_alphaChannels, RZ_withLayers);
 
         // BridgeTalkMessage_checkInImage(idDocName, woodwing_imageID);             // v3
-    } catch (e) { if (ssDebug) { alert("save: " + e) } }
-    closeDoc(woodwing_file);
+    } catch (e) { if (debug) { alert("save: " + e) } }
+    // closeDoc(woodwing_file);
 }
 
 
@@ -244,20 +255,20 @@ function closeDoc(_file) {
     try {
         app.documents.getByName(decodeURI(_file)).close(SaveOptions.DONOTSAVECHANGES);
     }
-    catch (e) { if (ssDebug) { alert("closeDoc: " + _file + " :--: " + e) } }
+    catch (e) { if (debug) { alert("closeDoc: " + _file + " :--: " + e) } }
 }
 
 
 
-function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file, _ssDebug) {
+function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file, _debug) {
     var bt = new BridgeTalk();
     bt.target = 'indesign';
-    bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "','" + _ssDebug + "');";
-    bt.onResult = function (resObj) {}
+    bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "','" + _debug + "');";
+    bt.onResult = function (resObj) { }
     bt.send(10);
 }
 
-function runID(_idDocName, _woodwing_file, _ssDebug) {
+function runID(_idDocName, _woodwing_file, _debug) {
     try {
         if (focusOpenedFile(_idDocName)) {
             var woodwing_file = app.activeDocument.links.itemByName(_woodwing_file);
@@ -266,7 +277,7 @@ function runID(_idDocName, _woodwing_file, _ssDebug) {
             alert("kein Focus auf der Datei?");
         }
     } catch (e) {
-        /* if (_ssDebug) { alert("runID: " + e); } */
+        /* if (_debug) { alert("runID: " + e); } */
     }
 
     return " ";

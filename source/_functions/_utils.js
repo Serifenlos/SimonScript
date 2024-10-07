@@ -17,6 +17,7 @@
 // @codekit-prepend './utils/eliminateDuplicates.js';
 // @codekit-prepend './utils/eliminateTheSame.js';
 // @codekit-prepend './utils/getActiveLayerIndex.js';
+// @codekit-prepend './utils/getClosedSets.js';
 // @codekit-prepend './utils/getColor.js';
 // @codekit-prepend './utils/getFristLayerSetChildVisible.js';
 // @codekit-prepend './utils/getLastChildIdx.js';
@@ -84,6 +85,8 @@
 // @codekit-prepend './utils/showOnlyThis.js';
 // @codekit-prepend './utils/testSelectMultiple.js';
 // @codekit-prepend './utils/toogleOpenCloseSet.js';
+// @codekit-prepend './utils/toogleOpenCloseSet_byIDX.js';
+// @codekit-prepend './utils/toogleOpenCloseSet_byIDX_byArray.js';
 // @codekit-prepend './utils/toogleVisibility.js';
 // @codekit-prepend './utils/ungroup.js';
 // @codekit-prepend './utils/unlock.js';

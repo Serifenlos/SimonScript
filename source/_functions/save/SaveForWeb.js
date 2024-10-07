@@ -38,7 +38,7 @@ function SaveForWeb(_format, _path, _filename, _scale, _interlace, _convert2sRGB
 	}
 	SaveForWeb_helperFilename(_format, _filename)
 
-	d2.putEnumerated(s2t("format"), c2t("IRFm"), s2t(_format)); /* "JPEG" // "PNG8" // "PN24" */
+	d2.putEnumerated( s2t( "format" ), c2t( "IRFm" ), c2t( _format )); /* "JPEG" // "PNG8" // "PN24" */
 	d2.putBoolean(s2t("interfaceIconFrameDimmed"), _interlace); /* true interlace (gefunden bei PNG24, obwohl das Feld auch bei anderen Format existiert // auch bei PNG8) */
 
 	/* just for JPEG */

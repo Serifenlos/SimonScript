@@ -14,5 +14,6 @@
 //@include "functions/layer.jsx";
 //@include "functions/save.jsx";
 //@include "functions/ready.jsx";
+//@include "functions/meta.jsx";
 
 freisteller_button();

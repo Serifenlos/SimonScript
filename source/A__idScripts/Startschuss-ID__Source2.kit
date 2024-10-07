@@ -11,7 +11,7 @@
 
 /** Variablen  **************************************************************/
 //@include "./assets/json2.js"
-var jsonFilePath = "~/ss_var.json";
+var jsonFilePath = "~/.ss_settings.json";
 var jsonData = loadJSON(jsonFilePath);
 
 // Funktion zum Laden und Parsen der JSON-Datei
@@ -37,14 +37,28 @@ function loadJSON(filePath) {
     }
 }
 
-/** Optionen  **************************************************************/
-const ZielAufloesung = jsonData.ZielAufloesung;
-const minAufloesung = jsonData.minAufloesung;
-const suffixRGB = jsonData.suffixRGB;
+// Funktion zum Finden eines Wertes in einem Array von Objekten
+function jsonValue(key) {
+    for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData[i][key] !== undefined) {
+            return jsonData[i][key];
+        }
+    }
+    return null;
+}
 
-var mainFolder = jsonData.mainFolder;
-var subFolder = jsonData.subFolder;
-var woodwing_mainFolder = jsonData.woodwing_mainFolder;
+/** Optionen  **************************************************************/
+const debug = Boolean(jsonValue("Debug"));
+const ZielAufloesung = jsonValue("ZielAufloesung");
+const minAufloesung = jsonValue("minAufloesung");
+const suffixRGB = jsonValue("suffixRGB");
+
+var mainFolder = jsonValue("mainFolder");
+var subFolder = jsonValue("subFolder");
+const woodwing_mainFolder = jsonValue("woodwing_mainFolder");
+const RZ_qualityJPG = jsonValue("RZ_qualityJPG"); //TODO kommt noch nicht in PS an
+const autoAnbau = Boolean(jsonValue("autoAnbau"));
+const finish_jumpBack2id = Boolean(jsonValue("finish_jumpBack2id"));
 
 var check_trailingSlash = /\/$/; // Prüft, ob der String mit "/" endet
 if (!check_trailingSlash.test(mainFolder)) {
@@ -63,42 +77,51 @@ getRubrik_array = [
     //["(\\w{1,3}_\\w{1,3}_11F_\\d{3}_)(.*)(\.indd)", "$2"]       // 30_31_11F_235_Planer_Gruppe_F_FRA_GER.indd
 ];
 
-startschuss();
+// One Step: https://community.adobe.com/t5/indesign-discussions/doscript-method-questions/td-p/10953644
+app.doScript("Startschuss()", ScriptLanguage.JAVASCRIPT, [], UndoModes.ENTIRE_SCRIPT, 'Startschuss');
+// Startschuss();
 
-function startschuss() {
+function Startschuss() {
     if (!app.selection.length > 0) {
         alert("Wähle das zubearbeitende Bild aus");
         return;
     }
+
+    var idDoc, idDocName, studioPublikation, studioAusgabe;
 
     var idDoc = app.activeDocument;
     var idDocName = GetFileNameOnly(decodeURI(idDoc.name));
 
 
     // Erstelle Array von den Woodwing managedImages
-    var managedImages_array = []
+    var managedImages_array = [];
     try {
         var managedImages = app.activeDocument.managedImages;
 
         for (var i = 0; i < managedImages.length; i++) {
-            try {
-                var managedImage = managedImages[i];
+            var managedImage = managedImages[i];
 
-                var metaData_ID = managedImage.entMetaData.get("Core_ID");
-                // $.writeln("ID: " + metaData_ID);
+            var metaData_ID = managedImage.entMetaData.get("Core_ID");
+            // $.writeln("ID: " + metaData_ID);
 
-                var metaData_Name = managedImage.entMetaData.get("Core_Name");
-                // $.writeln("Name: " + metaData_Name);
+            // var metaData_Name = managedImage.entMetaData.get("Core_Name");
+            // $.writeln("Name: " + metaData_Name);
 
-                managedImages_array.push(metaData_ID);
-
-            } catch (e) { alert(e) }
+            managedImages_array.push(metaData_ID);
         }
-    } catch (e) { alert(e) }
+    } catch (e) { if (debug) alert(e) }
+
+    // speichere die Publikation und Ausgabe
+    try {
+        var idMeta = idDoc.entMetaData;
+        var studioPublikation = idMeta.get("Core_Publication");
+        var studioAusgabe = idMeta.get("Core_Issue");
+
+    } catch (e) { }
 
     // Loop für mehrere selektierte Bilder
     for (var i = 0; i < app.selection.length; i++) {
-        var selection, image, imageLink, isWoodwing, woodwing_imageID, hScale, hPPI, imagePath, imageFile, imageName_only, docFolder;
+        var selection, image, imageLink, isWoodwing, woodwing_imageID, assetsID, hScale, hPPI, imagePath, imageFile, imageName_only, docFolder;
 
         // Kann doch raus ??
         // var doc = app.activeDocument;           // TODO wenn noch nie gespeichert dann Abbruch
@@ -113,12 +136,48 @@ function startschuss() {
 
         var image = selection.images[0];
         var imageLink = selection.graphics[0].itemLink;
-        
+
+
+        var layersOptions = [];
+        try {
+            //// Objektebenenoptionen 
+            if (image.hasOwnProperty('graphicLayerOptions')) {
+                if (image.graphicLayerOptions.graphicLayers.length > 0) {
+
+                    //Keine Meldung in InDesign, dass die Ebenensichtbarkeit sich geändert hat
+                    image.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.APPLICATION_SETTINGS;
+
+                    var layers = image.graphicLayerOptions.graphicLayers;
+                    for (var n = 0; n < layers.length; n++) {
+                        var layer = layers[n];
+                        layersOptions.push([
+                            layer.name,
+                            parseFloat(layer.id),
+                            String(layer.originalVisibility).toLowerCase() === 'true',
+                            String(layer.currentVisibility).toLowerCase() === 'true'
+                        ]);
+                        // alert("name: " + layer.name + " id: " + layer.id);
+                    }
+
+
+                } else {
+                    if (debug) alert("INFO image.graphicLayerOptions.graphicLayers.length ist 0");
+                }
+            } else {
+                if (debug) alert("INFO image hat keine Property graphicLayerOptions");
+            }
+        } catch (e) {
+            if (debug) alert("EROR Objektebenenoptionen: \n" + e);
+        }
+
+
+
 
         try {
             if (imageLink.wwoi) {
                 var isWoodwing = true;
                 var woodwing_imageID = imageLink.wwoi;
+                var assetsID = imageLink.elvisId;
                 var idDocName = idDocName.replace(/^(.+)((-|_)\d{3})$/gm, "$1");
             }
         } catch (e) {
@@ -126,9 +185,47 @@ function startschuss() {
         }
 
         var hScale = image.horizontalScale;
-        // var vScale = image.verticalScale;
+        var vScale = image.verticalScale;
         var hPPI = image.effectivePpi[0];
         // var vPPI = image.effectivePpi[1];
+
+
+
+        if (hScale > vScale) {
+            var hScale = image.horizontalScale;
+            var hPPI = image.effectivePpi[0];
+            var hPPI_actual = image.actualPpi[0];
+            var richtung = "horizontal";
+        } else {
+            var hScale = image.verticalScale;
+            var hPPI = image.effectivePpi[1];
+            var hPPI_actual = image.actualPpi[1];
+            var richtung = "vertical";
+        }
+
+
+        var hPPI = (100 / hScale) * hPPI_actual;
+        // if (debug) {
+        //     alert("hPPI-Vergleich" +
+        //         "\nhPPI old: " + image.effectivePpi[0] +
+        //         "\nhPPI new: " + hPPI
+        //     )
+        // };
+
+
+        var scaleFactor = minAufloesung / (hPPI_actual / (hScale / 100))
+        // if (debug) {
+        //     alert("Größen" +
+        //         "\nminAufloesung: " + minAufloesung +
+        //         "\nhScale: " + hScale +
+        //         "\nrichtung: " + richtung +
+        //         "\nhPPI_actual: " + hPPI_actual +
+        //         "\nscaleFactor: " + scaleFactor +
+        //         "\nhScale old: " + image.horizontalScale +
+        //         "\nvScale old: " + image.verticalScale
+        //     )
+        // };
+
 
 
         // var image = imageLink.parent;            // was ist das?
@@ -139,7 +236,7 @@ function startschuss() {
             // var imagePath = imageLink.filePath;
             var imagePath = imageLink.elvisFilePath;
         }
-        
+
         var imageFile = new File(imagePath);
         // var imageName_only = GetFileNameOnly(decodeURI(imageFile.name));
         var imageName_only = GetFileNameOnly(decodeURI(imageLink.name));
@@ -157,21 +254,21 @@ function startschuss() {
         /*TODO ob tif oder psd // hier muss variabl */
         // var new_imagePath = docFolder + "/" + imageName_only + suffixRGB + ".psd";
 
-
+        var imageDimension = getDimension(selection, autoAnbau);
 
         /** run Main-function **************************************************************/
-        run_ID(image, docFolder, idDocName, imageFile, imageName_only, selection, hPPI, hScale, imageLink, isWoodwing, woodwing_imageID, managedImages_array);
+        run_ID(image, docFolder, idDocName, imageFile, imageName_only, selection, hPPI, hScale, scaleFactor, imageLink, isWoodwing, woodwing_imageID, managedImages_array, imageDimension, assetsID, studioPublikation, studioAusgabe, autoAnbau, layersOptions, debug);
 
         // set_img2hq(image);
 
     }
 
-/*     $.writeln("image: " + image)
-    $.writeln("hPPI: " + hPPI);
-    $.writeln("imageName_only: " + imageName_only);
-    $.writeln("imagePath: " + imagePath)
-    $.writeln("imageFile: " + imageFile)
-    $.writeln("woodwing_imageID: " + woodwing_imageID) */
+    /*     $.writeln("image: " + image)
+        $.writeln("hPPI: " + hPPI);
+        $.writeln("imageName_only: " + imageName_only);
+        $.writeln("imagePath: " + imagePath)
+        $.writeln("imageFile: " + imageFile)
+        $.writeln("woodwing_imageID: " + woodwing_imageID) */
 
 }
 
@@ -203,24 +300,324 @@ function getRubrik(_array) {
     } catch (e) { }
 }
 
-function run_ID(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _selection, _hPPI, hScale, _imageLink, _isWoodwing, _woodwing_imageID, _managedImages_array) {
-    if (!checkRGBFile(_imageName_only)) {
-        return;
+function getDimension(_image, _autoAnbau) {
+    var doc = app.activeDocument;
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+    var imageDimension = [];
+
+    // Aktuelle Einheiten speichern
+    var startHorizontalUnits = doc.viewPreferences.horizontalMeasurementUnits;
+    var startVerticalUnits = doc.viewPreferences.verticalMeasurementUnits;
+    // Einheiten auf Millimeter setzen
+    doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
+    doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
+
+    image_inner = _image.allPageItems[0];
+
+    var outer_TL = _image.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+    var outer_TR = _image.resolve(ap.TOP_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var outer_BR = _image.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var outer_BL = _image.resolve(ap.BOTTOM_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+
+    // var inner_TL = image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+    // var inner_TR = image_inner.resolve(ap.TOP_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    // var inner_BR = image_inner.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    // var inner_BL = image_inner.resolve(ap.BOTTOM_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+
+
+    // Get EXIF XMP Orientation
+    // thanks https://indisnip.wordpress.com/2010/08/17/extract-metadata-with-adobe-xmp-part-2/
+
+    var inner_TL_helper = image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+    var inner_TR_helper = image_inner.resolve(ap.TOP_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var inner_BR_helper = image_inner.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
+    var inner_BL_helper = image_inner.resolve(ap.BOTTOM_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
+
+    function getOrientationXML() {
+        try {
+            function loadXMPLibrary() {
+                if (!ExternalObject.AdobeXMPScript) {
+                    try { ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript'); }
+                    catch (e) { alert('Unable to load the AdobeXMPScript library!'); return false; }
+                }
+                return true;
+            }
+
+            function unloadXMPLibrary() {
+                if (ExternalObject.AdobeXMPScript) {
+                    try { ExternalObject.AdobeXMPScript.unload(); ExternalObject.AdobeXMPScript = undefined; }
+                    catch (e) { alert('Unable to unload the AdobeXMPScript library!'); }
+                }
+            }
+
+            if (loadXMPLibrary()) {
+                var imageFile = File(_image.graphics[0].itemLink.filePath);
+                xmpFile = new XMPFile(imageFile.fsName, XMPConst.UNKNOWN, XMPConst.OPEN_FOR_READ);
+                var imageXmp = xmpFile.getXMP();
+                var xmp_orientation = imageXmp.getProperty(XMPConst.NS_TIFF, "Orientation");
+                xmpFile.closeFile(XMPConst.CLOSE_UPDATE_SAFELY);
+                unloadXMPLibrary();
+            } else {
+                var xmp_orientation = { value: 1 };
+            }
+
+            return xmp_orientation;
+        } catch (e) {
+            var xmp_orientation = { value: 1 };
+            return xmp_orientation;
+        }
     }
 
-    if (!checkValidFile(_selection)) {
-        alert("Wähle das zubearbeitende Bild aus");
-        return;
+    var orientationObject = getOrientationXML();
+    var orientation = orientationObject.value;
+
+
+    switch (orientation) {
+        case '1':
+            // alert("1: " + orientation);
+            var inner_TL = inner_TL_helper;
+            var inner_TR = inner_TR_helper;
+            var inner_BR = inner_BR_helper;
+            var inner_BL = inner_BL_helper;
+            break;
+        case '2':
+            // alert("2: " + orientation);
+            var inner_TL = inner_TR_helper;
+            var inner_TR = inner_TL_helper;
+            var inner_BR = inner_BL_helper;
+            var inner_BL = inner_BR_helper;
+            break;
+        case '3':
+            // alert("3: " + orientation);
+            var inner_TL = inner_BR_helper;
+            var inner_TR = inner_BL_helper;
+            var inner_BR = inner_TL_helper;
+            var inner_BL = inner_TR_helper;
+            break;
+        case '4':
+            // alert("4: " + orientation);
+            var inner_TL = inner_BL_helper;
+            var inner_TR = inner_BR_helper;
+            var inner_BR = inner_TR_helper;
+            var inner_BL = inner_TL_helper;
+            break;
+        case '5':
+            // alert("6: " + orientation);
+            var inner_TL = inner_TL_helper;
+            var inner_TR = inner_BL_helper;
+            var inner_BR = inner_BR_helper;
+            var inner_BL = inner_TR_helper;
+            break;
+        case '6':
+            // alert("6: " + orientation);
+            var inner_TL = inner_BL_helper;
+            var inner_TR = inner_TL_helper;
+            var inner_BR = inner_TR_helper;
+            var inner_BL = inner_BR_helper;
+            break;
+        case '7':
+            // alert("7: " + orientation);
+            var inner_TL = inner_BR_helper;
+            var inner_TR = inner_TR_helper;
+            var inner_BR = inner_TL_helper;
+            var inner_BL = inner_BL_helper;
+            break;
+        case '8':
+            // alert("8: " + orientation);
+            // TODO: Irgendwas stimmt doch hier nicht -- wird nicht angebaut
+            var inner_TL = inner_BL_helper;
+            var inner_TR = inner_TL_helper;
+            var inner_BR = inner_TR_helper;
+            var inner_BL = inner_BR_helper;
+            break;
+        default:
+            var inner_TL = inner_TL_helper;
+            var inner_TR = inner_TR_helper;
+            var inner_BR = inner_BR_helper;
+            var inner_BL = inner_BL_helper;
+            break;
     }
 
-    // PS=1 , GigaPixel=1, Photo AI=2, stopp=3
-    var interpolationMethod = chooseInterpolationMethod(_hPPI);
-    if (interpolationMethod == 3) {
-        return;
+
+
+    // $.writeln("outer---");
+    // $.writeln(rund(pt2mm(outer_TL[0])) + ", " + rund(pt2mm(outer_TL[1])));
+    // $.writeln(rund(pt2mm(outer_TR[0])) + ", " + rund(pt2mm(outer_TR[1])));
+    // $.writeln(rund(pt2mm(outer_BR[0])) + ", " + rund(pt2mm(outer_BR[1])));
+    // $.writeln(rund(pt2mm(outer_BL[0])) + ", " + rund(pt2mm(outer_BL[1])));
+    // $.writeln("inner---");
+    // $.writeln(rund(pt2mm(inner_TL[0])) + ", " + rund(pt2mm(inner_TL[1])));
+    // $.writeln(rund(pt2mm(inner_TR[0])) + ", " + rund(pt2mm(inner_TR[1])));
+    // $.writeln(rund(pt2mm(inner_BR[0])) + ", " + rund(pt2mm(inner_BR[1])));
+    // $.writeln(rund(pt2mm(inner_BL[0])) + ", " + rund(pt2mm(inner_BL[1])));
+    // $.writeln("---\n");
+
+    function distanceMath(p1x, p1y, p2x, p2y, p3x, p3y) {
+        var A = p3y - p2y;
+        var B = p2x - p3x;
+        var C = p3x * p2y - p2x * p3y;
+        return (A * p1x + B * p1y + C) / Math.sqrt(A * A + B * B);
+    }
+
+    var distance_topL = distanceMath(outer_TL[0], outer_TL[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
+    var distance_topR = distanceMath(outer_TR[0], outer_TR[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
+    var distance_rightT = distanceMath(outer_TR[0], outer_TR[1], inner_TR[0], inner_TR[1], inner_BR[0], inner_BR[1]);
+    var distance_rightB = distanceMath(outer_BR[0], outer_BR[1], inner_TR[0], inner_TR[1], inner_BR[0], inner_BR[1]);
+    var distance_bottomR = distanceMath(outer_BR[0], outer_BR[1], inner_BR[0], inner_BR[1], inner_BL[0], inner_BL[1]);
+    var distance_bottomL = distanceMath(outer_BL[0], outer_BL[1], inner_BR[0], inner_BR[1], inner_BL[0], inner_BL[1]);
+    var distance_leftB = distanceMath(outer_BL[0], outer_BL[1], inner_BL[0], inner_BL[1], inner_TL[0], inner_TL[1]);
+    var distance_leftT = distanceMath(outer_TL[0], outer_TL[1], inner_BL[0], inner_BL[1], inner_TL[0], inner_TL[1]);
+
+
+    // $.writeln("distance_topL: " + rund(pt2mm(distance_topL)));
+    // $.writeln("distance_topR: " + rund(pt2mm(distance_topR)));
+    // $.writeln("distance_rightT: " + rund(pt2mm(distance_rightT)));
+    // $.writeln("distance_rightB: " + rund(pt2mm(distance_rightB)));
+    // $.writeln("distance_bottomR: " + rund(pt2mm(distance_bottomR)));
+    // $.writeln("distance_bottomL: " + pt2mm(distance_bottomL));
+    // $.writeln("distance_leftB: " + rund(pt2mm(distance_leftB)));
+    // $.writeln("distance_leftT: " + rund(pt2mm(distance_leftT)));
+
+    function getDistance(_zahl1, _zahl2) {
+        // Vergleiche die beiden Zahlen und finde die größere
+        var distance = Math.max(_zahl1, _zahl2);
+        if (distance <= 0) {
+            distance = 0;
+        }
+        return distance;
+    }
+
+    var top_distance = getDistance(distance_topL, distance_topR);
+    var right_distance = getDistance(distance_rightT, distance_rightB);
+    var bottom_distance = getDistance(distance_bottomR, distance_bottomL);
+    var left_distance = getDistance(distance_leftB, distance_leftT);
+
+
+
+    if (_autoAnbau) {
+        imageDimension.push(rund(top_distance));    //0
+        imageDimension.push(rund(right_distance));  //1
+        imageDimension.push(rund(bottom_distance)); //2
+        imageDimension.push(rund(left_distance));   //3
+
+        // alert("distance1" +
+        //     "\ntop_distance: " + rund(top_distance) +
+        //     "\nright_distance: " + rund(right_distance) +
+        //     "\nbottom_distance: " + rund(bottom_distance) +
+        //     "\nleft_distance: " + rund(left_distance)
+        // );
+    } else {
+        imageDimension.push(0);  //0
+        imageDimension.push(0);  //1
+        imageDimension.push(0);  //2
+        imageDimension.push(0);  //3
+
+        // alert("distance2" +
+        //     "\ntop_distance: " + rund(0) +
+        //     "\nright_distance: " + rund(0) +
+        //     "\nbottom_distance: " + rund(0) +
+        //     "\nleft_distance: " + rund(0)
+        // );
+    }
+
+
+
+    var outer_width = hypotenuse2(outer_TL, outer_TR);
+    var outer_height = hypotenuse2(outer_TL, outer_BL);
+    var inner_width = hypotenuse2(inner_TL, inner_TR);
+    var inner_height = hypotenuse2(inner_TL, inner_BL);
+    // $.writeln("outer_width_mm: " + rund(pt2mm(outer_width)));
+    // $.writeln("outer_height_mm: " + rund(pt2mm(outer_height)));
+    // $.writeln("inner_width_mm: " + rund(pt2mm(inner_width)));
+    // $.writeln("inner_height_mm: " + rund(pt2mm(inner_height)));
+    // $.writeln("outer_width_pt: " + outer_width);
+    // $.writeln("outer_height_pt: " + outer_height);
+    // $.writeln("inner_width_pt: " + inner_width);
+    // $.writeln("inner_height_pt: " + inner_height);
+
+    imageDimension.push(rund(outer_width));     //4
+    imageDimension.push(rund(outer_height));    //5
+    imageDimension.push(rund(inner_width));     //6
+    imageDimension.push(rund(inner_height));    //7
+
+    function hypotenuse2(_p1, _p2) {
+        var x = _p1[0] - _p2[0];
+        var y = _p1[1] - _p2[1];
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    }
+
+    function pt2mm(_input) {
+        var myHorizontalUnits = unitsEnumToString(app.documents[0].viewPreferences.horizontalMeasurementUnits);
+        return new UnitValue(_input, "points").as(myHorizontalUnits)
+    }
+
+    function rund(num) {
+        var formatted = num.toFixed(8); // Auf drei Dezimalstellen runden
+        formatted = formatted.replace(/\.?0+$/, ""); // Führende Nullen entfernen
+        return formatted;
+    }
+
+    function unitsEnumToString(myUnitsEnum) {
+        switch (myUnitsEnum) {
+            case 2054188905:
+                return "points";
+            case 2054187363:
+                return "picas";
+            case 2053729891:
+                return "inches";
+            case 2053729892:
+                return "inches decimal";
+            case 2053991795:
+                return "millimeters";
+            case 2053336435:
+                return "centimeters";
+            case 2053335395:
+                return "ciceros";
+            default:
+                alert("Cannot convert to the current ruler units. Sorry.");
+                exit();
+
+        }
+    }
+
+    // Einheiten zurücksetzen
+    doc.viewPreferences.horizontalMeasurementUnits = startHorizontalUnits;
+    doc.viewPreferences.verticalMeasurementUnits = startVerticalUnits;
+
+    return imageDimension;
+}
+
+function run_ID(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _selection, _hPPI, hScale, _scaleFactor, _imageLink, _isWoodwing, _woodwing_imageID, _managedImages_array, _imageDimension, _assetsID, _studioPublikation, _studioAusgabe, _autoAnbau, _layersOptions, _debug) {
+    try {
+        if (!checkRGBFile(_imageName_only)) {
+            return;
+        }
+    } catch (e) {
+        if (debug) alert("ERROR checkRGBFile: \n" + e);
+
+    }
+
+    try {
+        if (!checkValidFile(_selection)) {
+            alert("Wähle das zubearbeitende Bild aus");
+            return;
+        }
+    } catch (e) {
+        if (debug) alert("ERROR checkValidFile: \n" + e)
+    }
+
+    try {
+        // PS=1 , GigaPixel=1, Photo AI=2, stopp=3
+        var interpolationMethod = chooseInterpolationMethod(_hPPI);
+        if (interpolationMethod == 3) {
+            return;
+        }
+    } catch (e) {
+        if (debug) alert("ERROR interpolationMethod: \n" + e)
     }
 
     // openAndRelinkImage(interpolieren, _imageLink, _isWoodwing);
-    OpenImage(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _hPPI, hScale, interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID, _managedImages_array);
+    OpenImage(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _hPPI, hScale, _scaleFactor, interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID, _managedImages_array, _imageDimension, _assetsID, _studioPublikation, _studioAusgabe, _autoAnbau, _layersOptions, _debug);
 }
 
 function checkRGBFile(_imageName_only) {
@@ -237,7 +634,7 @@ function checkValidFile(_selection) {
 
 function chooseInterpolationMethod(_hPPI) {
     if (_hPPI < minAufloesung) {
-        var interpolation_dialog = createDialog("unter " + minAufloesung + "dpi", "Das Bild hat nur " + _hPPI + " dpi", "PS", "GigaPixel", "Photo AI", "stopp");
+        var interpolation_dialog = createDialog("unter " + minAufloesung + "dpi", "Das Bild hat nur " + Math.round(_hPPI) + " dpi", "PS", "GigaPixel", "Photo AI", "stopp");
         return interpolation_dialog.show();
     }
     // return 1;
@@ -265,7 +662,6 @@ function createDialog(_title, _message) {
     return dialog;
 }
 
-
 function set_docDisplaySetting() {
     var docDisplaySetting = app.activeWindow.viewDisplaySetting.toString();
     var docDisplaySetting_allowImgSetting = app.displayPerformancePreferences.ignoreLocalSettings;
@@ -274,7 +670,7 @@ function set_docDisplaySetting() {
         try {
             app.displayPerformancePreferences.ignoreLocalSettings = false;
         } catch (e) {
-            alert("Error: set_docDisplaySetting() \n" + e);
+            if (debug) alert("Error: set_docDisplaySetting() \n" + e);
         }
     }
 }
@@ -290,6 +686,8 @@ function relink(_imageLink, _arbeitsdatei_RGB) {
     var newFile = new File(_arbeitsdatei_RGB);
     if (newFile.exists) {
         _imageLink.relink(newFile);
+        _imageLink.parent.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.KEEP_OVERRIDES;
+
         try {
             if (_imageLink.status == LinkStatus.linkOutOfDate) {
                 _imageLink.update();
@@ -300,11 +698,90 @@ function relink(_imageLink, _arbeitsdatei_RGB) {
     }
 }
 
+function repositionImage(_image, _hScale, _top, _left, _imageLink, _isWoodwing, _outer_width, _outer_height, _inner_width, _inner_height) {
+
+    try {
+        var _hScale = parseFloat(_hScale);
+        var _left = parseFloat(_left);
+        var _top = parseFloat(_top);
+
+        var _outer_width = parseFloat(_outer_width);
+        var _outer_height = parseFloat(_outer_height);
+        var _inner_width = parseFloat(_inner_width);
+        var _inner_height = parseFloat(_inner_height);
+
+        imageRGB = _imageLink.parent.parent;
+        imageRGB_inner = imageRGB.allPageItems[0];
+        var imageRGB_hScale = imageRGB.images[0].horizontalScale
+        var hScaleFactor = 1 / (imageRGB_hScale / 100);
+
+        // alert("repositionImage" + 
+        //     "\n_hScale: " + _hScale +
+        //     "\nimageRGB_hScale: " + imageRGB_hScale +
+        //     "\nppi: " + imageRGB.images[0].effectivePpi[0] + 
+        //     "\nhScaleFactor: " + hScaleFactor + 
+        //     "\ntop: " + _top + 
+        //     "\nleft: " + _left + 
+        //     "\n_isWoodwing: " + _isWoodwing + 
+        //     "\n_outer_width: " + _outer_width + 
+        //     "\n_outer_height: " + _outer_height + 
+        //     "\n_inner_width: " + _inner_width + 
+        //     "\n_inner_height: " + _inner_height
+        // );
+
+    } catch (e) { alert("repositionImage-1: " + e) }
+
+    try {
+        // selection_inner.transform(cs.pageCoordinates, [0, 0], [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-1), mm2pt(-2)]);
+        // imageRGB_inner.transform(CoordinateSpaces.pasteboardCoordinates, AnchorPoint.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, -1 * _left, -1 * _top], undefined, true);
+
+        if (!_isWoodwing) {
+            imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, 0, 0], undefined, true);
+            imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [1, 0, 0, 1, -1 * _left, -1 * _top], undefined, true);
+        } else {
+
+            var zoomScaleFactor = (_left + _inner_width) / _inner_width;
+
+            var _left = _left * hScaleFactor;
+            var _top = _top * hScaleFactor;
+
+            // var _left = parseFloat(_left) * hScaleFactor;
+            // var _top = parseFloat(_top) * hScaleFactor;
+
+            // var _left = parseFloat(_left) * (((parseFloat(_left) * hScaleFactor) + parseFloat(_inner_width)) / parseFloat(_inner_width));
+            // var _top = parseFloat(_top) * (((parseFloat(_left) * hScaleFactor) + parseFloat(_inner_width)) / parseFloat(_inner_width));
+
+
+            // alert("NEW" +
+            //     "\nhScaleFactor: " + hScaleFactor +
+            //     "\nzoomScaleFactor: " + zoomScaleFactor +
+            //     "\n_top: " + _top +
+            //     "\n_left: " + _left
+            // );
+
+            imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [1, 0, 0, 1, -1 * _left, -1 * _top], undefined, true);
+            imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [zoomScaleFactor, 0, 0, zoomScaleFactor, 0, 0], undefined, true);
+            // imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, -1 * _left, -1 * _top], undefined, true);
+
+
+            // imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [1, 0, 0, 1, 0, 0], undefined, true);
+            // imageRGB.images[0].horizontalScale = 100;
+            // imageRGB.images[0].verticalScale = 100;
+            // var _left = _left * hScaleFactor;
+            // var _top = _top * hScaleFactor;
+        }
+
+
+
+
+    } catch (e) { alert("repositionImage-2: " + e) }
+
+}
 
 
 
 /*=================================================================================*/
-function OpenImage(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _hPPI, hScale, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID, _managedImages_array) {
+function OpenImage(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _hPPI, hScale, _scaleFactor, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_imageID, _managedImages_array, _imageDimension, _assetsID, _studioPublikation, _studioAusgabe, _autoAnbau, _layersOptions, _debug) {
     // try {
     //     if (_imageLink.isValid == true && _imageLink.constructor.name == "Rectangle") {
     //     }
@@ -324,17 +801,19 @@ function OpenImage(_image, _docFolder, _idDocName, _imageFile, _imageName_only, 
     //     app.activeDocument.managedImages[managedImages_index].checkOut();
     // } catch(e){alert(e)}
 
+
     try {
         _imageLink.editOriginal();
-        BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageFile, _imageName_only, suffixRGB, _hPPI, hScale, minAufloesung, ZielAufloesung, _interpolationMethod, _imageLink, _isWoodwing, woodwing_mainFolder, _woodwing_imageID);
+        BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageFile, _imageName_only, suffixRGB, _hPPI, hScale, _scaleFactor, minAufloesung, ZielAufloesung, _interpolationMethod, _imageLink, _isWoodwing, woodwing_mainFolder, _woodwing_imageID, _imageDimension, _assetsID, _studioPublikation, _studioAusgabe, _autoAnbau, _layersOptions, _debug);
     } catch (e) {
-        alert(e)
+        if (debug) alert("Error BridgeTalk_processDoc: \n" + e)
     }
 }
 
 
 
-function BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _suffixRGB, _hPPI, hScale, _minAufloesung, _ZielAufloesung, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
+function BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageFile, _imageName_only, _suffixRGB, _hPPI, hScale, _scaleFactor, _minAufloesung, _ZielAufloesung, _interpolationMethod, _imageLink, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID, _imageDimension, _assetsID, _studioPublikation, _studioAusgabe, _autoAnbau, _layersOptions, _debug) {
+
     // $.writeln("__interpolationMethod: " + _interpolationMethod);
     // $.writeln("____imageLink.name2: " + _imageLink.name);
     // alert("ID _suffixRGB: " + _suffixRGB);
@@ -343,19 +822,60 @@ function BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageFile, _imag
     // var imageName_only = GetFileNameOnly(imageName);
     var bt = new BridgeTalk();
     bt.target = 'photoshop';
-    bt.body = runPS.toSource() + "('" + _imageLink + "','" + _docFolder + "','" + _idDocName + "','" + _imageFile + "','" + _imageName_only + "','" + _suffixRGB + "','" + _hPPI + "','" + hScale + "','" + _minAufloesung + "','" + _ZielAufloesung + "','" + _interpolationMethod + "','" + imageName + "','" + _isWoodwing + "','" + _woodwing_mainFolder + "','" + _woodwing_imageID + "');";
-    bt.onResult = function(resObj) {
+    bt.body = runPS.toSource() + "('" + _imageLink + "','" + _docFolder + "','" + _idDocName + "','" + _imageFile + "','" + _imageName_only + "','" + _suffixRGB + "','" + _hPPI + "','" + hScale + "','" + _scaleFactor + "','" + _minAufloesung + "','" + _ZielAufloesung + "','" + _interpolationMethod + "','" + imageName + "','" + _isWoodwing + "','" + _woodwing_mainFolder + "','" + _woodwing_imageID + "','" + _imageDimension + "','" + _assetsID + "','" + _studioPublikation + "','" + _studioAusgabe + "','" + _autoAnbau + "','" + _layersOptions + "','" + _debug + "');";
+    bt.onResult = function (resObj) {
         set_img2hq(_image);
-        if(!_isWoodwing) {
+
+        if (!_isWoodwing) {
             var imageFolder_RGB = new Folder(_docFolder + "/" + _idDocName);
-            var arbeitsdatei_RGB =  decodeURI(imageFolder_RGB + "/" + _imageName_only + _suffixRGB + ".psd");
+            var arbeitsdatei_RGB = decodeURI(imageFolder_RGB + "/" + _imageName_only + _suffixRGB + ".psd");
             relink(_imageLink, arbeitsdatei_RGB);
+        } else {
+            try {
+                if (_image.hasOwnProperty('graphicLayerOptions')) {
+                    // myImage.graphicLayerOptions.updateLinkOption =  UpdateLinkOptions.KEEP_OVERRIDES;
+                    // _image.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.APPLICATION_SETTINGS;
+                    // alert(_image.graphicLayerOptions.updateLinkOption);
+                }
+            } catch (e) {
+                if (debug) alert("Error UpdateLinkOptions woodwing: \n" + e);
+            }
+
         }
+        // alert("Dimension" + 
+        //     "\ntop: " + _imageDimension[0] + 
+        //     "\nright: " + _imageDimension[1] +
+        //     "\nbottom: " + _imageDimension[2] +
+        //     "\nleft: " + _imageDimension[3]
+        // );
+
+        try {
+            if (_autoAnbau) {
+                repositionImage(_image, hScale, _imageDimension[0], _imageDimension[3], _imageLink, _isWoodwing, _imageDimension[4], _imageDimension[5], _imageDimension[6], _imageDimension[7]);
+            }
+        } catch (e) {
+            if (debug) alert("Error autoAnbau: " + e)
+        }
+
+
+        if (finish_jumpBack2id) {
+            try {
+                var fakeDialog = new Window("palette", "fake", [200, 200, 680, 325], { resizeable: false });
+                fakeDialog.show();
+                fakeDialog.close();
+
+                app.activate()
+            } catch (e) {
+                if (debug) alert("Error finish_jumpBack2id: " + e)
+            }
+        }
+
+
     };
     bt.send(30);
 }
 
-function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, _suffixRGB, _hPPI, hScale, _minAufloesung, _ZielAufloesung, _interpolationMethod, _imageName, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID) {
+function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, _suffixRGB, _hPPI, hScale, _scaleFactor, _minAufloesung, _ZielAufloesung, _interpolationMethod, _imageName, _isWoodwing, _woodwing_mainFolder, _woodwing_imageID, _imageDimension, _assetsID, _studioPublikation, _studioAusgabe, _autoAnbau, _layersOptions, _debug) {
     <!-- @import "../../build/A__psScripts/functions/basic.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/utils.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/view.jsx"; -->
@@ -365,22 +885,101 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
     <!-- @import "../../build/A__psScripts/functions/dialog.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/meta.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/save.jsx"; -->
-    
+    <!-- @import "../../build/A__psScripts/functions/layer.jsx"; -->
 
-    prefSave();
+
+        prefSave();
     prefSet(DialogModes.NO, Units.MM);
 
+    const debug = (String(_debug).toLowerCase() === 'true');
     /* app.open(new File(_imageFile)); */
 
     var isWoodwing = false;
-    if (getMeta_3("isWoodwing")) {var isWoodwing = Boolean(getMeta_3("isWoodwing"))};
-    if(isWoodwing) {
-        if (!dialog_alreayWoodwing()) {
-            var docName = doc.name;
-            app.documents.getByName(docName).close(SaveOptions.DONOTSAVECHANGES);
-            return;
+    try {
+        if (getMeta_3("isWoodwing")) { var isWoodwing = Boolean(getMeta_3("isWoodwing")) };
+        if (isWoodwing) {
+            if (!dialog_alreayWoodwing()) {
+                var docName = doc.name;
+                app.documents.getByName(docName).close(SaveOptions.DONOTSAVECHANGES);
+                return;
+            }
         }
-    };
+    } catch (e) {
+        if (debug) alert("Error isWoodwing: " + e)
+    }
+
+    try {
+        var _imageDimension = arrayCorrect(_imageDimension);
+        for (var i = 0; i < _imageDimension.length; i++) {
+            _imageDimension[i] = parseFloat(_imageDimension[i]);
+        }
+    } catch (e) {
+        if (debug) alert("Error _imageDimension: " + e)
+    }
+
+    /* Überprüfen, ob ein Wert eine Zeichenkette ist */
+    function isString(value) {
+        return typeof value === 'string';
+    }
+
+    /* Überprüfen, ob ein Wert eine Zahl ist */
+    function isNumber(value) {
+        return typeof value === 'number' && !isNaN(value);
+    }
+
+    /* Überprüfen, ob ein Wert ein Boolean ist */
+    function isBoolean(value) {
+        return typeof value === 'boolean';
+    }
+
+    function isArray(value) {
+        return Object.prototype.toString.call(value) === '[object Array]';
+    }
+
+
+
+    try {
+        var _layersOptions = arrayCorrect(_layersOptions);
+        /* _imageDimension[i] = parseFloat(_imageDimension[i]); */
+        /* alert("_layersOptions.length: " + _layersOptions.length); */
+
+        function convertTo2DArray(array, groupSize) {
+            var result = [];
+            for (var i = 0; i < array.length; i += groupSize) {
+                result.push(array.slice(i, i + groupSize));
+            }
+            return result;
+        }
+
+        var groupSize = 4;
+        var layersOptions_grouped = [];
+        var layersOptions_grouped = convertTo2DArray(_layersOptions, groupSize);
+
+        for (var i = 0; i < layersOptions_grouped.length; i++) {
+
+            layersOptions_grouped[i][1] = parseFloat(layersOptions_grouped[i][1]);
+            /* alert("HIER layersOptions_grouped[i][2]-1: " + layersOptions_grouped[i][2]); */
+            /* layersOptions_grouped[i][2] = Boolean(layersOptions_grouped[i][2]); */
+            /* layersOptions_grouped[i][2] = ayersOptions_grouped[i][2] === "true"; */
+            layersOptions_grouped[i][2] = (String(layersOptions_grouped[i][2]).toLowerCase() === 'true');
+            /* alert("HIER layersOptions_grouped[i][2]-2: " + layersOptions_grouped[i][2]); */
+            /* layersOptions_grouped[i][3] = Boolean(layersOptions_grouped[i][3]); */
+            layersOptions_grouped[i][3] = (String(layersOptions_grouped[i][3]).toLowerCase() === 'true');
+
+        }
+
+        /*         alert("convertTo2DArray__layersOptions_grouped: " + layersOptions_grouped);
+                alert("convertTo2DArray__length: " + layersOptions_grouped.length);
+                alert("convertTo2DArray__0: " + layersOptions_grouped[0]);
+                alert("convertTo2DArray__00_istString: " + isString(layersOptions_grouped[0][0]));
+                alert("convertTo2DArray__01:isNumber: " + isNumber(layersOptions_grouped[0][1]));
+                alert("convertTo2DArray__02:isBoolean: " + isBoolean(layersOptions_grouped[0][2]));
+                alert("convertTo2DArray__0:isArray: " + isArray(layersOptions_grouped[0])); */
+
+    } catch (e) {
+        if (debug) alert("Error _layersOptions: " + e)
+    }
+
 
 
 
@@ -389,7 +988,8 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
     var _minAufloesung = parseFloat(_minAufloesung);
     var _ZielAufloesung = parseFloat(_ZielAufloesung);
     var hScale = parseFloat(hScale);
-    /* var idDocName_only = GetFileNameOnly(decodeURI(_idDocName)); */                /* cut the extension */
+    var _scaleFactor = parseFloat(_scaleFactor);
+    /* var idDocName_only = GetFileNameOnly(decodeURI(_idDocName)); */                /* cut the extension * /
 
 
     
@@ -405,14 +1005,14 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
     alert("_imageName_only: " + _imageName_only);
     alert("_woodwing_mainFolder: " + _woodwing_mainFolder);
     alert("_woodwing_imageID: " + _woodwing_imageID); */
-    
+
 
     var imageFolder_RGB = new Folder(_docFolder + "/" + _idDocName);
     /* var docFolder = new Folder(mainFolder + subFolder); */
     if (!imageFolder_RGB.exists) imageFolder_RGB.create();
 
-    var arbeitsdatei_RGB =  decodeURI(imageFolder_RGB + "/" + _imageName_only + _suffixRGB + ".psd");
-    var woodwing_RGB =  decodeURI(_woodwing_mainFolder + _woodwing_imageID + "/" + _imageName_only + ".jpg");
+    var arbeitsdatei_RGB = decodeURI(imageFolder_RGB + "/" + _imageName_only + _suffixRGB + ".psd");
+    var woodwing_RGB = decodeURI(_woodwing_mainFolder + _woodwing_imageID + "/" + _imageName_only + ".jpg");
 
     /* alert("_isWoodwing: " + _isWoodwing);
     alert("arbeitsdatei_RGB: " + arbeitsdatei_RGB);
@@ -420,7 +1020,7 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
     alert("_imageName: " + _imageName); */
     /* alert("_interpolationMethod: " + _interpolationMethod);
     alert(typeof _interpolationMethod); */
-    
+
 
     var myPsDoc = app.documents.getByName(_imageName);
     if (myPsDoc) {
@@ -429,67 +1029,83 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
         alert("Kann das Bild nicht öffnen - Abbruch!");
         return;
     }
-   
 
 
-    function chooseMethod(_interpolationMethod) {
+
+    function chooseMethod(_interpolationMethod, _layersOptions, _scaleFactor) {
+
+        /* alert(hScale); */
         switch (_interpolationMethod) {
             case "0":
             case "keineInterpolation":
-                myPsDoc.suspendHistory("Startschuss", "startschuss()");
+                try {
+                    myPsDoc.suspendHistory("Startschuss", "startschuss(_imageDimension, layersOptions_grouped)");
+                    /* startschuss(_imageDimension, layersOptions_grouped); */
+                } catch (e) { if (debug) alert("Error chooseMethod case0 Startschuss: " + e) }
                 try {
                     myPsDoc.suspendHistory("Bildgröße Photoshop", "interpolation_PS(" + _hPPI + "," + _minAufloesung + "," + _ZielAufloesung + ")");
-                } catch (e) {alert(e)}
-                
+                } catch (e) { if (debug) alert("Error chooseMethod case0 interpolation_PS: " + e) }
                 break;
             case "1":
-                myPsDoc.suspendHistory("Bildgröße GigaPixel", "interpolation_GigaPixel(" + _hPPI + "," + _minAufloesung + ")");
-                myPsDoc.suspendHistory("Startschuss", "startschuss()");
+                try {
+                    myPsDoc.suspendHistory("Bildgröße GigaPixel", "interpolation_GigaPixel(" + _hPPI + "," + _scaleFactor + "," + _minAufloesung + ")");
+                } catch (e) { if (debug) alert("Error chooseMethod case1 interpolation_GigaPixel: " + e) }
+                try {
+                    myPsDoc.suspendHistory("Startschuss", "startschuss(_imageDimension, layersOptions_grouped)");
+                } catch (e) { if (debug) alert("Error chooseMethod case1 Startschuss: " + e) }
                 break;
             case "2":
-                myPsDoc.suspendHistory("Bildgröße PhotoAI", "interpolation_PhotoAI(" + _hPPI + "," + _minAufloesung + ")");
-                myPsDoc.suspendHistory("Startschuss", "startschuss()");
+                try {
+                    /* alert(_imageDimension[6]); */
+                    myPsDoc.suspendHistory("Bildgröße PhotoAI", "interpolation_PhotoAI(" + _hPPI + "," + _minAufloesung + ")");
+                } catch (e) { if (debug) alert("Error chooseMethod case2 interpolation_PhotoAI: " + e) }
+                try {
+                    myPsDoc.suspendHistory("Startschuss", "startschuss(_imageDimension, layersOptions_grouped)");
+                } catch (e) { if (debug) alert("Error chooseMethod case2 Startschuss: " + e) }
                 break;
             case "3":
                 /* alert("Methode 3 ausgewählt"); */
                 break;
             default:
-                alert("Ungültiger Wert für _interpolationMethod");
+                if (debug) alert("Ungültiger Wert für _interpolationMethod");
         }
     }
-    
 
-    chooseMethod(_interpolationMethod);
+
+    chooseMethod(_interpolationMethod, _layersOptions, _scaleFactor);
 
     /* myPsDoc.suspendHistory("Startschuss", "startschuss()"); */
 
 
 
-    if(!_isWoodwing) {
-        alert("wird konventionell gespeichert");
+    if (!_isWoodwing) {
         try {
             saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
-        } catch(e){alert(e)};
+        } catch (e) { if (debug) alert(e) };
     } else {
         setMeta_3("isWoodwing", "true");
         setMeta_3("arbeitsdatei_RGB", arbeitsdatei_RGB);
         setMeta_3("woodwing_RGB", woodwing_RGB);
-        /* setMeta_3("woodwing_file", _imageName); */
         setMeta_3("woodwing_file", _imageName_only + ".jpg");
         setMeta_3("woodwing_imageID", _woodwing_imageID);
         setMeta_3("idDocName", _idDocName);
+        setMeta_3("assetsID", _assetsID);
+        setMeta_3("studioPublikation", _studioPublikation);
+        setMeta_3("studioAusgabe", _studioAusgabe);
 
         /* alert("wird Woodwing gespeichert"); */
 
         try {
             doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
-        } catch (e) {alert(e)}
-        
+        } catch (e) {
+            if (debug) alert("Error save_ArbeitWood_RGB: " + e)
+        }
+
     }
 
     startschuss_end();
 
-    function save_ArbeitWood_RGB () {
+    function save_ArbeitWood_RGB() {
         saveMultiformat(new File(woodwing_RGB), "jpg", t, 10, f, f);
         saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
     }
