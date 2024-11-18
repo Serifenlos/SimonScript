@@ -1036,6 +1036,40 @@ TODO mit unterer Funktion ersetzt
     ??? b
         * _input `number` `string` *idx oder LayerName*
 
+### gotoLayer_bySelector
+
+<button class="btn" data-clipboard-text="gotoLayer_bySelector(_input);"></button>
+{: .btn_p }
+
+??? "gotoLayer_bySelector(_input);"
+    ``` js linenums="1"
+    function gotoLayer_bySelector(_input) {
+        var d = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        try {
+    
+            if (typeof _input == "number") {
+                r.putIndex(s2t("layer"), _input);
+            } else if (typeof _input == "string") {
+                if (layer_checkExistence(_input)) {
+                    r.putName(s2t('layer'), _input);
+                } else {
+                    r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+                }
+            }
+    
+            d.putReference(sTID('null'), r);
+            d.putBoolean(sTID('makeVisible'), false);
+            executeAction(sTID('select'), d, DialogModes.NO);
+        } catch (e) {
+            if (debug) alert("ERROR - gotoLayer_bySelector: \n" + e)
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/gotoLayer_bySelector.js)
+
 ## Adjustment Layer
 
 ### adjustLayer_levels_autoLevels
@@ -2514,4 +2548,58 @@ Convert cm to Point, imageSize needs Points
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/loadJSON.js)
 
-!!! warning hide "not documented functions"
+### crop_bySelection
+
+<button class="btn" data-clipboard-text="crop_bySelection();"></button>
+{: .btn_p }
+
+??? "crop_bySelection();"
+    ``` js linenums="1"
+    function crop_bySelection() {
+    	var descriptor = new ActionDescriptor();
+    
+    	descriptor.putBoolean( s2t( "delete" ), true );
+    	executeAction( s2t( "crop" ), descriptor, DialogModes.NO );
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/crop_bySelection.js)
+
+### historyState_deleteSteps
+
+<button class="btn" data-clipboard-text="historyState_deleteSteps(_steps);"></button>
+{: .btn_p }
+
+??? "historyState_deleteSteps(_steps);"
+    ``` js linenums="1"
+    function historyState_deleteSteps(_steps) {
+        try {
+            for (var i = 0; i < _steps; i++) {
+                var d = new ActionDescriptor();
+                var r = new ActionReference();
+    
+                r.putEnumerated(s2t("historyState"), s2t("ordinal"), s2t("last"));
+                d.putReference(s2t("null"), r);
+                executeAction(s2t("delete"), d, DialogModes.NO); 
+            };
+        } catch (e) { "Error undoSteps: " + e }
+    };
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/historyState_deleteSteps.js)
+
+### pt2mm
+
+<button class="btn" data-clipboard-text="pt2cm(pt);"></button>
+{: .btn_p }
+
+??? "pt2cm(pt);"
+    ``` js linenums="1"
+    function pt2cm(pt) {
+        return pt / 2.83464566929;
+    }
+    
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/basic/pt2mm.js)
+

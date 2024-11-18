@@ -35,6 +35,47 @@ function info() {
     )
 }
 
+/** Variablen  **************************************************************/
+//@include "./assets/json2.js"
+var jsonFilePath = "~/.ss_settings.json";
+var jsonData = loadJSON(jsonFilePath);
+
+// Funktion zum Laden und Parsen der JSON-Datei
+function loadJSON(filePath) {
+    var file = new File(filePath);
+    var content;
+
+    if (file.exists) {
+        file.open("r");
+        content = file.read();
+        file.close();
+
+        // Parse JSON-Inhalt
+        try {
+            return JSON.parse(content);
+        } catch (e) {
+            alert("Fehler beim Parsen der JSON-Datei:\n" + e);
+            return null;
+        }
+    } else {
+        alert("Die JSON-Datei konnte nicht gefunden werden.");
+        return null;
+    }
+}
+
+// Funktion zum Finden eines Wertes in einem Array von Objekten
+function jsonValue(key) {
+    for (var i = 0; i < jsonData.length; i++) {
+        if (jsonData[i][key] !== undefined) {
+            return jsonData[i][key];
+        }
+    }
+    return null;
+}
+
+/** Optionen  **************************************************************/
+const debug = Boolean(jsonValue("Debug"));
+
 
 // thanks for prozess all subfolders
 // https://community.adobe.com/t5/photoshop/copy-several-jpg-in-several-psd/m-p/10992549#M315938
@@ -202,10 +243,18 @@ function run() {
             } catch (e) { }
 
 
+            try {
+                // if (doc.layers.getByName("Layout")) {
+                    hide("Layout");
+                // }
+            } catch (e) { }
+
+
             // try {
             //     SaveForWeb("JPEG", saveFolder_WEB, setSaveName(saveFolder_WEB, prefix, "jpg", suffix_WEB), helperScale(maximalMegaPixel), f, t, t, t, 255, 255, 255, "Meta_all", 66, t, f, 0);
             // } catch (e) { };
 
+            
 
 
 
@@ -228,15 +277,15 @@ function run() {
                     // hide(0);
                     // SaveForWeb("PN24", saveFolder, setSaveName(saveFolder, prefix, "png", suffix_FERTIG), false, f, f, t, t, 255, 255, 255, "Meta_all", 66, t, f, 0);
 
-                    // if (visibility_frei) {
-                    //     makeVisible("frei");
-                    //     hide(0);
-                    // } else {
-                    //     hide("frei");
-                    //     makeVisible(0);
-                    // }
-                    // var savePath_FERTIG = saveFolder + "/" + setSaveName(saveFolder, prefix, "psd", suffix_FERTIG);
-                    // saveMultiformat(new File(savePath_FERTIG), "psd", false, 10, false, true);
+                    if (visibility_frei) {
+                        makeVisible("frei");
+                        hide(0);
+                    } else {
+                        hide("frei");
+                        makeVisible(0);
+                    }
+                    var savePath_FERTIG = saveFolder + "/" + setSaveName(saveFolder, prefix, "psd", suffix_FERTIG);
+                    saveMultiformat(new File(savePath_FERTIG), "psd", false, 10, false, true);
 
                 }
             } catch (e) {

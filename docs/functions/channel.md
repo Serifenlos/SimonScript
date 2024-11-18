@@ -947,4 +947,27 @@
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/removeAlphaChannels.js)
 
-!!! warning hide "not documented functions"
+
+### channel_checkExistenceByName
+
+<button class="btn" data-clipboard-text="channel_checkExistenceByName(_name);"></button>
+{: .btn_p }
+
+??? "channel_checkExistenceByName(_name);"
+    ``` js linenums="1"
+    function channel_checkExistenceByName(_name) {
+        var channels = app.activeDocument.channels;
+        var check = false;
+        for (var i = 0; i < channels.length; i++) {
+            var channel = channels[i];
+            if (channel.name == _name && channel.kind == ChannelType.MASKEDAREA) {
+                var check = true;
+                break;
+            }
+        }
+        return check;
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/channel_checkExistenceByName.js)
+

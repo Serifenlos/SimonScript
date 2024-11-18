@@ -2002,26 +2002,36 @@
     ``` js linenums="1"
     function isSetOpened2( grIDX ){
     
-        makeActiveByIndex(grIDX,false);
-        mb_Locked = isLocked();
-        mb_visible = isVisible();
-        if(mb_Locked == true){unlock()};
+        // makeActiveByIndex(grIDX,false);
+        // mb_Locked = isLocked();
+        // mb_visible = isVisible();
+        // if(mb_Locked == true){unlock()};
       
-        xx = true;
-        currSetIDX = getActiveLayerIndex();
-        currSetIDX1 = getActiveLayerIndex();
-        if(!hasBackground()){currSetIDX1 = currSetIDX1-1};
-        addTempLayerSetIn(currSetIDX1);
-        var fIdx = getActiveLayerIndex();
-        makeActiveByIndex(currSetIDX+2, false);
-        if(fIdx == getActiveLayerIndex())
-        {
-          xx = false;
-        }
-        deleteTempLayerSetbyIdx(currSetIDX+1);
-        if(mb_Locked == true){lock()};
-        if(mb_visible == false){hide()};
-        return xx;
+        // xx = true;
+        // currSetIDX = getActiveLayerIndex();
+        // currSetIDX1 = getActiveLayerIndex();
+        // if(!hasBackground()){currSetIDX1 = currSetIDX1-1};
+        // addTempLayerSetIn(currSetIDX1);
+        // var fIdx = getActiveLayerIndex();
+        // makeActiveByIndex(currSetIDX+2, false);
+        // if(fIdx == getActiveLayerIndex())
+        // {
+        //   xx = false;
+        // }
+        // deleteTempLayerSetbyIdx(currSetIDX+1);
+        // if(mb_Locked == true){lock()};
+        // if(mb_visible == false){hide()};
+        // return xx;
+    
+    
+        // neue Methode
+        var r = new ActionReference();
+        r.putIndex(app.stringIDToTypeID("layer"), grIDX);
+        var desc = executeActionGet(r);
+      
+        // ist die Gruppe ausgeklappt? true or false
+        var isGroupExpanded = desc.getBoolean(app.stringIDToTypeID("layerSectionExpanded"));
+        return isGroupExpanded;
       }
     ```
 
@@ -3028,5 +3038,139 @@
     testSelectMultiple([1,3,5,7]);
     ```
 
-    !!! warning show "not documented functions"
-    - isSetOpened1
+
+
+### getClosedSets
+
+<button class="btn" data-clipboard-text="getClosedSets();"></button>
+{: .btn_p }
+
+??? "getClosedSets();"
+    ``` js linenums="1"
+    function getClosedSets() {
+        var closedSets_array = [];
+        var i = 1;
+        while (layer_checkExistence(i)) {
+            if (isLayerSet(i)) {
+                if (!isSetOpened2(i)) {
+                    closedSets_array.push(i);
+                }
+            }
+            i++;
+        }
+        return closedSets_array;
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getClosedSets.js)
+
+
+### isSetOpened1
+
+<button class="btn" data-clipboard-text="isSetOpened1( group );"></button>
+{: .btn_p }
+
+??? "isSetOpened1( group );"
+    ``` js linenums="1"
+    function isSetOpened1( group ){
+    
+        app.activeDocument.activeLayer = group;
+        mb_Locked = isLocked();
+        mb_visible = isVisible();
+        if(mb_Locked == true){unlock()};
+      
+        xx = true;
+        currSetIDX = getActiveLayerIndex();
+        currSetIDX1 = getActiveLayerIndex();
+        if(!hasBackground()){currSetIDX1 = currSetIDX1-1};
+        addTempLayerSetIn(currSetIDX1);
+        var fIdx = getActiveLayerIndex();
+        makeActiveByIndex(currSetIDX+2, false);
+        if(fIdx == getActiveLayerIndex())
+        {
+          xx = false;
+        }
+        deleteTempLayerSetbyIdx(currSetIDX+1);
+        if(mb_Locked == true){lock()};
+        if(mb_visible == false){hide()};
+        return xx;
+      }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isSetOpened1.js)
+
+
+### toogleOpenCloseSet_byIDX
+
+<button class="btn" data-clipboard-text="toogleOpenCloseSet_byIDX(_idx);"></button>
+{: .btn_p }
+
+??? "toogleOpenCloseSet_byIDX(_idx);"
+    ``` js linenums="1"
+    function toogleOpenCloseSet_byIDX(_idx) {
+        try {
+            toogleOpenCloseSet_byIDX_inner(_idx);
+            // if (isSetOpened2(_idx)){
+            //     alert("ist noch offen")
+            //     toogleOpenCloseSet_byIDX_inner(_idx);
+            // } else {
+            //     alert(_idx + " geschlossen?")
+            // }
+            // app.activeDocument.suspendHistory("toogleOpenCloseSet", "toogleOpenCloseSet_byIDX_inner(_idx)");
+        } catch (e) { alert("toogleOpenCloseSet_byIDX: " + e) }
+    }
+    
+    function toogleOpenCloseSet_byIDX_inner(_idx) {
+        try {
+            gotoLayer(_idx);
+            myALayerIDX = getActiveLayerIndex();
+            myGroupP = app.activeDocument.activeLayer;
+            if (!isLayerSet(myALayerIDX)) {
+                myGroupP = app.activeDocument.activeLayer.parent;
+                try {
+                    app.activeDocument.activeLayer = myGroupP
+                } catch (err) {
+                    return
+                };
+                if (getNbOfChilds() > 1) {
+                    if (myGroupP.typename != "Document") {
+                        if (isSetOpened1(myGroupP)) {
+                            closeGroup(myGroupP)
+                        } else {
+                            openGroup1(myGroupP)
+                        };
+                    }
+                }
+            } else {
+                if (getNbOfChilds() > 1) {
+                    if (isSetOpened1(myGroupP)) {
+                        closeGroup(myGroupP)
+                    } else {
+                        openGroup1(myGroupP)
+                    };
+                }
+            }
+        } catch (e) { alert("toogleOpenCloseSet_byIDX_inner: " + e) }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet_byIDX.js)
+
+
+### toogleOpenCloseSet_byIDX_byArray
+
+<button class="btn" data-clipboard-text="toogleOpenCloseSet_byIDX_byArray(_array);"></button>
+{: .btn_p }
+
+??? "toogleOpenCloseSet_byIDX_byArray(_array);"
+    ``` js linenums="1"
+    function toogleOpenCloseSet_byIDX_byArray(_array) {
+        for (var i = 0; i < _array.length; i++) {
+            toogleOpenCloseSet_byIDX(_array[i]);
+            // app.activeDocument.suspendHistory("toogleOpenCloseSet_byIDX", "toogleOpenCloseSet_byIDX(_array[i])");
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet_byIDX_byArray.js)
+

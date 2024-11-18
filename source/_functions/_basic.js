@@ -31,6 +31,7 @@
 // @codekit-prepend './basic/createGroup.js';
 // @codekit-prepend './basic/createLayer.js';
 // @codekit-prepend './basic/createMask.js';
+// @codekit-prepend './basic/crop_bySelection.js';
 // @codekit-prepend './basic/deleteHistory.js';
 // @codekit-prepend './basic/deleteMask.js';
 // @codekit-prepend './basic/dublicate.js';
@@ -42,6 +43,7 @@
 // @codekit-prepend './basic/gotoFill.js';
 // @codekit-prepend './basic/gotoLayer.js';
 // @codekit-prepend './basic/gotoLayer_byID.js';
+// @codekit-prepend './basic/gotoLayer_bySelector.js';
 // @codekit-prepend './basic/gotoMask.js';
 // @codekit-prepend './basic/gray2rgb.js';
 // @codekit-prepend './basic/hasBackground.js';

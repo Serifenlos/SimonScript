@@ -36,11 +36,11 @@ function getDimension_1(){if(app.selection[0]instanceof Image&&app.selection[0].
 n.viewPreferences.horizontalMeasurementUnits=MeasurementUnits.millimeters,n.viewPreferences.verticalMeasurementUnits=MeasurementUnits.millimeters,
 // // Werte auslesen...
 // var bounds = doc.selection[0].geometricBounds;
-$.writeln("geometricBounds: "+e.geometricBounds),$.writeln("rotationAngle: "+e.rotationAngle),$.writeln("absoluteRotationAngle: "+e.absoluteRotationAngle),$.writeln("---"),$.writeln("geometricBounds_child: "+e.allPageItems[0].geometricBounds),$.writeln("rotationAngle_child: "+e.allPageItems[0].rotationAngle),$.writeln("absoluteRotationAngle_child: "+e.allPageItems[0].absoluteRotationAngle),$.writeln("---");for(var i=e.geometricBounds,a=[],s=0;s<i.length;s++)a.push(i[s].toFixed(3));
+$.writeln("geometricBounds: "+e.geometricBounds),$.writeln("rotationAngle: "+e.rotationAngle),$.writeln("absoluteRotationAngle: "+e.absoluteRotationAngle),$.writeln("---"),$.writeln("geometricBounds_child: "+e.allPageItems[0].geometricBounds),$.writeln("rotationAngle_child: "+e.allPageItems[0].rotationAngle),$.writeln("absoluteRotationAngle_child: "+e.allPageItems[0].absoluteRotationAngle),$.writeln("---");for(var i=e.geometricBounds,a=[],o=0;o<i.length;o++)a.push(i[o].toFixed(3));
 // mmBounds_outer.push(bounds_outer[i])
-$.writeln(a);var o=e.allPageItems[0].geometricBounds,l=[];for(s=0;s<o.length;s++)l.push(o[s].toFixed(3));
+$.writeln(a);var s=e.allPageItems[0].geometricBounds,c=[];for(o=0;o<s.length;o++)c.push(s[o].toFixed(3));
 // mmBounds_inner.push(bounds_inner[i])
-$.writeln(l);var c=a[3]-a[1],p=a[2]-a[0];$.writeln("outer: "+c+"x"+p);var u=l[3]-l[1],v=l[2]-l[0];$.writeln("inner: "+u+"x"+v),c>u&&$.writeln("breite anbauen: "+(c-u)),p>v&&$.writeln("höhe anbauen: "+(p-v)),
+$.writeln(c);var l=a[3]-a[1],p=a[2]-a[0];$.writeln("outer: "+l+"x"+p);var u=c[3]-c[1],v=c[2]-c[0];$.writeln("inner: "+u+"x"+v),l>u&&$.writeln("breite anbauen: "+(l-u)),p>v&&$.writeln("höhe anbauen: "+(p-v)),
 // Einheiten zurücksetzen
 n.viewPreferences.horizontalMeasurementUnits=t,n.viewPreferences.verticalMeasurementUnits=r}
 //////////////////////////////////////////////////////////////////////////////
@@ -108,9 +108,9 @@ e.viewPreferences.horizontalMeasurementUnits=n,e.viewPreferences.verticalMeasure
 //////////////////////////////////////////////////////////////////////////////
 // $.writeln(WidthAndHeight(myObj));
 function WidthAndHeight(e){// Returns an array [width,height]
-var n=e.resolve(AnchorPoint.TOP_LEFT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0),t=e.resolve(AnchorPoint.TOP_RIGHT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0),r=e.resolve(AnchorPoint.BOTTOM_RIGHT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0),i=e.resolve(AnchorPoint.BOTTOM_LEFT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0);$.writeln("---\n"),$.writeln(n),$.writeln(t),$.writeln(r),$.writeln(i),$.writeln("---\n");var a=c(t[0][0]-n[0][0],t[0][1]-n[0][1]),s=c(n[0][0]-i[0][0],n[0][1]-i[0][1]),o=p(app.documents[0].viewPreferences.horizontalMeasurementUnits),l=p(app.documents[0].viewPreferences.verticalMeasurementUnits);return a=new UnitValue(a,"points"),s=new UnitValue(s,"points"),[a=a.as(o),s=s.as(l)];function c(e,n){return Math.sqrt(Math.pow(e,2)+Math.pow(n,2))}function p(e){switch(e){case 2054188905:return"points";case 2054187363:return"picas";case 2053729891:return"inches";case 2053729892:return"inches decimal";case 2053991795:return"millimeters";case 2053336435:return"centimeters";case 2053335395:return"ciceros";default:alert("Cannot convert to the current ruler units. Sorry."),exit()}}}
+var n=e.resolve(AnchorPoint.TOP_LEFT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0),t=e.resolve(AnchorPoint.TOP_RIGHT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0),r=e.resolve(AnchorPoint.BOTTOM_RIGHT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0),i=e.resolve(AnchorPoint.BOTTOM_LEFT_ANCHOR,CoordinateSpaces.pasteboardCoordinates,!0);$.writeln("---\n"),$.writeln(n),$.writeln(t),$.writeln(r),$.writeln(i),$.writeln("---\n");var a=l(t[0][0]-n[0][0],t[0][1]-n[0][1]),o=l(n[0][0]-i[0][0],n[0][1]-i[0][1]),s=p(app.documents[0].viewPreferences.horizontalMeasurementUnits),c=p(app.documents[0].viewPreferences.verticalMeasurementUnits);return a=new UnitValue(a,"points"),o=new UnitValue(o,"points"),[a=a.as(s),o=o.as(c)];function l(e,n){return Math.sqrt(Math.pow(e,2)+Math.pow(n,2))}function p(e){switch(e){case 2054188905:return"points";case 2054187363:return"picas";case 2053729891:return"inches";case 2053729892:return"inches decimal";case 2053991795:return"millimeters";case 2053336435:return"centimeters";case 2053335395:return"ciceros";default:alert("Cannot convert to the current ruler units. Sorry."),exit()}}}
 //////////////////////////////////////////////////////////////////////////////
-function shortestDistance_2(e,n,t,r,i,a){var s=t-e,o=r-n,l=((i-e)*s+(a-n)*o)/(s*s+o*o);l>1?l=1:l<0&&(l=0);var c=e+l*s-i,p=n+l*o-a;return Math.sqrt(c*c+p*p)}
+function shortestDistance_2(e,n,t,r,i,a){var o=t-e,s=r-n,c=((i-e)*o+(a-n)*s)/(o*o+s*s);c>1?c=1:c<0&&(c=0);var l=e+c*o-i,p=n+c*s-a;return Math.sqrt(l*l+p*p)}
 // var x1 = 1, y1 = 2; // P1
 // var x2 = 3, y2 = 4; // P2
 // var x3 = 5, y3 = 6; // P3
@@ -129,9 +129,9 @@ function getDimension(){var e=app.activeDocument;const n=CoordinateSpaces,t=Anch
 // Aktuelle Einheiten speichern
 var r=e.viewPreferences.horizontalMeasurementUnits,i=e.viewPreferences.verticalMeasurementUnits;if(
 // Einheiten auf Millimeter setzen
-e.viewPreferences.horizontalMeasurementUnits=MeasurementUnits.millimeters,e.viewPreferences.verticalMeasurementUnits=MeasurementUnits.millimeters,app.selection[0]instanceof Image&&app.selection[0].parent.graphics.length>0)var a=app.selection[0].parent;else a=app.selection[0];selection_inner=a.allPageItems[0];var s=a.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],o=a.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],l=a.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],c=a.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0],p=selection_inner.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],u=selection_inner.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],v=selection_inner.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],m=selection_inner.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0];function h(e){var n=e.toFixed(3);// Auf drei Dezimalstellen runden
+e.viewPreferences.horizontalMeasurementUnits=MeasurementUnits.millimeters,e.viewPreferences.verticalMeasurementUnits=MeasurementUnits.millimeters,app.selection[0]instanceof Image&&app.selection[0].parent.graphics.length>0)var a=app.selection[0].parent;else a=app.selection[0];selection_inner=a.allPageItems[0];var o=a.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],s=a.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],c=a.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],l=a.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0],p=selection_inner.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],u=selection_inner.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],v=selection_inner.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],d=selection_inner.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0];function m(e){var n=e.toFixed(3);// Auf drei Dezimalstellen runden
 // Führende Nullen entfernen
-return n=n.replace(/\.?0+$/,"")}$.writeln("outer---"),$.writeln(h(B(s[0]))+", "+h(B(s[1]))),$.writeln(h(B(o[0]))+", "+h(B(o[1]))),$.writeln(h(B(l[0]))+", "+h(B(l[1]))),$.writeln(h(B(c[0]))+", "+h(B(c[1]))),$.writeln("inner---"),$.writeln(h(B(p[0]))+", "+h(B(p[1]))),$.writeln(h(B(u[0]))+", "+h(B(u[1]))),$.writeln(h(B(v[0]))+", "+h(B(v[1]))),$.writeln(h(B(m[0]))+", "+h(B(m[1]))),$.writeln("---\n");var g=H(s[0],s[1],p[0],p[1],u[0],u[1]),d=H(o[0],o[1],p[0],p[1],u[0],u[1]),w=H(o[0],o[1],u[0],u[1],v[0],v[1]),_=H(l[0],l[1],u[0],u[1],v[0],v[1]),O=H(l[0],l[1],v[0],v[1],m[0],m[1]),f=H(c[0],c[1],v[0],v[1],m[0],m[1]),C=H(c[0],c[1],m[0],m[1],p[0],p[1]),T=H(s[0],s[1],m[0],m[1],p[0],p[1]);
+return n=n.replace(/\.?0+$/,"")}$.writeln("outer---"),$.writeln(m(F(o[0]))+", "+m(F(o[1]))),$.writeln(m(F(s[0]))+", "+m(F(s[1]))),$.writeln(m(F(c[0]))+", "+m(F(c[1]))),$.writeln(m(F(l[0]))+", "+m(F(l[1]))),$.writeln("inner---"),$.writeln(m(F(p[0]))+", "+m(F(p[1]))),$.writeln(m(F(u[0]))+", "+m(F(u[1]))),$.writeln(m(F(v[0]))+", "+m(F(v[1]))),$.writeln(m(F(d[0]))+", "+m(F(d[1]))),$.writeln("---\n");var g=I(o[0],o[1],p[0],p[1],u[0],u[1]),h=I(s[0],s[1],p[0],p[1],u[0],u[1]),_=I(s[0],s[1],u[0],u[1],v[0],v[1]),w=I(c[0],c[1],u[0],u[1],v[0],v[1]),O=I(c[0],c[1],v[0],v[1],d[0],d[1]),f=I(l[0],l[1],v[0],v[1],d[0],d[1]),C=I(l[0],l[1],d[0],d[1],p[0],p[1]),T=I(o[0],o[1],d[0],d[1],p[0],p[1]);
 // $.writeln("distance_topL: " + rund(pt2mm(distance_topL)));
 // $.writeln("distance_topR: " + rund(pt2mm(distance_topR)));
 // $.writeln("distance_rightT: " + rund(pt2mm(distance_rightT)));
@@ -142,23 +142,23 @@ return n=n.replace(/\.?0+$/,"")}$.writeln("outer---"),$.writeln(h(B(s[0]))+", "+
 // $.writeln("distance_leftT: " + rund(pt2mm(distance_leftT)));
 function P(e,n){
 // Vergleiche die beiden Zahlen und finde die größere
-var t=Math.max(e,n);return t<=0&&(t=0),t}var A=P(g,d),R=P(w,_),N=P(O,f),M=P(C,T),I=[];I.push(h(B(A))),I.push(h(B(R))),I.push(h(B(N))),I.push(h(B(M)));var U=[];
+var t=Math.max(e,n);return t<=0&&(t=0),t}var R=P(g,h),A=P(_,w),M=P(O,f),N=P(C,T),D=[];D.push(m(F(R))),D.push(m(F(A))),D.push(m(F(M))),D.push(m(F(N)));var H=[];
 // enlargeCanvas: 14.14, 0, 0, 3.426
-function H(e,n,t,r,i,a){var s=a-r,o=t-i;return(s*e+o*n+(i*r-t*a))/Math.sqrt(s*s+o*o)}
+function I(e,n,t,r,i,a){var o=a-r,s=t-i;return(o*e+s*n+(i*r-t*a))/Math.sqrt(o*o+s*s)}
 // var d1x = (outer_TL[0] - outer_TR[0]);
 // var d1y = (outer_TL[1] - outer_TR[1]);
 // var d2x = (myRectangleTopLeft[0][0] - myRectangleBottomLeft[0][0]);
 // var d2y = (myRectangleTopLeft[0][1] - myRectangleBottomLeft[0][1]);
 // var myWidth = hypotenuse(d1x, d1y);
 // var outer_width = hypotenuse2((outer_TL[0] - outer_TR[0]), (outer_TL[1] - outer_TR[1]));
-U.push(A),U.push(R),U.push(N),U.push(M),$.writeln("enlargeCanvas_mm: "+I),$.writeln("enlargeCanvas_pt: "+U);var S=F(s,o),D=F(s,c),E=F(p,u),L=F(p,m);function F(e,n){var t=e[0]-n[0],r=e[1]-n[1];return Math.sqrt(Math.pow(t,2)+Math.pow(r,2))}function B(e){var n=function(e){switch(e){case 2054188905:return"points";case 2054187363:return"picas";case 2053729891:return"inches";case 2053729892:return"inches decimal";case 2053991795:return"millimeters";case 2053336435:return"centimeters";case 2053335395:return"ciceros";default:alert("Cannot convert to the current ruler units. Sorry."),exit()}}
+H.push(R),H.push(A),H.push(M),H.push(N),$.writeln("enlargeCanvas_mm: "+D),$.writeln("enlargeCanvas_pt: "+H);var U=L(o,s),b=L(o,l),E=L(p,u),S=L(p,d);function L(e,n){var t=e[0]-n[0],r=e[1]-n[1];return Math.sqrt(Math.pow(t,2)+Math.pow(r,2))}function F(e){var n=function(e){switch(e){case 2054188905:return"points";case 2054187363:return"picas";case 2053729891:return"inches";case 2053729892:return"inches decimal";case 2053991795:return"millimeters";case 2053336435:return"centimeters";case 2053335395:return"ciceros";default:alert("Cannot convert to the current ruler units. Sorry."),exit()}}
 // Einheiten zurücksetzen
 (app.documents[0].viewPreferences.horizontalMeasurementUnits);return new UnitValue(e,"points").as(n)}
 // $.writeln("outer_width_mm: " + rund(pt2mm(outer_width)));
 // $.writeln("outer_height_mm: " + rund(pt2mm(outer_height)));
 // $.writeln("inner_width_mm: " + rund(pt2mm(inner_width)));
 // $.writeln("inner_height_mm: " + rund(pt2mm(inner_height)));
-$.writeln("outer_width_pt: "+S),$.writeln("outer_height_pt: "+D),$.writeln("inner_width_pt: "+E),$.writeln("inner_height_pt: "+L),e.viewPreferences.horizontalMeasurementUnits=r,e.viewPreferences.verticalMeasurementUnits=i}function shortestDistanceToLine(e,n,t,r){var i=r[1]-t[1],a=t[0]-r[0],s=r[0]*t[1]-t[0]*r[1];return Math.abs(i*e+a*n+s)/Math.sqrt(i*i+a*a)}function distanceToLine_old(e,n,t,r){var i=r[1]-t[1],a=t[0]-r[0];return(i*e+a*n+(r[0]*t[1]-t[0]*r[1]))/Math.sqrt(i*i+a*a)}
+$.writeln("outer_width_pt: "+U),$.writeln("outer_height_pt: "+b),$.writeln("inner_width_pt: "+E),$.writeln("inner_height_pt: "+S),e.viewPreferences.horizontalMeasurementUnits=r,e.viewPreferences.verticalMeasurementUnits=i}function shortestDistanceToLine(e,n,t,r){var i=r[1]-t[1],a=t[0]-r[0],o=r[0]*t[1]-t[0]*r[1];return Math.abs(i*e+a*n+o)/Math.sqrt(i*i+a*a)}function distanceToLine_old(e,n,t,r){var i=r[1]-t[1],a=t[0]-r[0];return(i*e+a*n+(r[0]*t[1]-t[0]*r[1]))/Math.sqrt(i*i+a*a)}
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
@@ -169,13 +169,13 @@ function setBounds(){var e=app.activeDocument;const n=CoordinateSpaces,t=AnchorP
 // Aktuelle Einheiten speichern
 var r=e.viewPreferences.horizontalMeasurementUnits,i=e.viewPreferences.verticalMeasurementUnits;if(
 // Einheiten auf Millimeter setzen
-e.viewPreferences.horizontalMeasurementUnits=MeasurementUnits.millimeters,e.viewPreferences.verticalMeasurementUnits=MeasurementUnits.millimeters,app.selection[0]instanceof Image&&app.selection[0].parent.graphics.length>0)var a=app.selection[0].parent;else a=app.selection[0];function s(e){return 2.83464566929*e}selection_inner=a.allPageItems[0];var o=a.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],l=a.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],c=a.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],p=a.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0],u=selection_inner.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],v=selection_inner.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],m=selection_inner.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],h=selection_inner.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0],g=1/(a.images[0].horizontalScale/100);$.writeln("hScaleFactor: "+g),
+e.viewPreferences.horizontalMeasurementUnits=MeasurementUnits.millimeters,e.viewPreferences.verticalMeasurementUnits=MeasurementUnits.millimeters,app.selection[0]instanceof Image&&app.selection[0].parent.graphics.length>0)var a=app.selection[0].parent;else a=app.selection[0];function o(e){return 2.83464566929*e}selection_inner=a.allPageItems[0];var s=a.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],c=a.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],l=a.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],p=a.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0],u=selection_inner.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!0)[0],v=selection_inner.resolve(t.TOP_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],d=selection_inner.resolve(t.BOTTOM_RIGHT_ANCHOR,n.pageCoordinates,!0)[0],m=selection_inner.resolve(t.BOTTOM_LEFT_ANCHOR,n.pageCoordinates,!0)[0],g=1/(a.images[0].horizontalScale/100);$.writeln("hScaleFactor: "+g),
 // selection_inner.transform(cs.pageCoordinates, [0, 0], [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-1), mm2pt(-2)]);
-selection_inner.transform(n.pasteboardCoordinates,t.TOP_LEFT_ANCHOR,[g,0,0,g,s(-50),s(-10)],void 0,!0);var d=selection_inner.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!1)[0];function w(e){var n=e.toFixed(3);// Auf drei Dezimalstellen runden
+selection_inner.transform(n.pasteboardCoordinates,t.TOP_LEFT_ANCHOR,[g,0,0,g,o(-50),o(-10)],void 0,!0);var h=selection_inner.resolve(t.TOP_LEFT_ANCHOR,n.pageCoordinates,!1)[0];function _(e){var n=e.toFixed(3);// Auf drei Dezimalstellen runden
 // Führende Nullen entfernen
-return n=n.replace(/\.?0+$/,"")}function _(e){var n=function(e){switch(e){case 2054188905:return"points";case 2054187363:return"picas";case 2053729891:return"inches";case 2053729892:return"inches decimal";case 2053991795:return"millimeters";case 2053336435:return"centimeters";case 2053335395:return"ciceros";default:alert("Cannot convert to the current ruler units. Sorry."),exit()}}
+return n=n.replace(/\.?0+$/,"")}function w(e){var n=function(e){switch(e){case 2054188905:return"points";case 2054187363:return"picas";case 2053729891:return"inches";case 2053729892:return"inches decimal";case 2053991795:return"millimeters";case 2053336435:return"centimeters";case 2053335395:return"ciceros";default:alert("Cannot convert to the current ruler units. Sorry."),exit()}}
 // Einheiten zurücksetzen
-(app.documents[0].viewPreferences.horizontalMeasurementUnits);return new UnitValue(e,"points").as(n)}$.writeln("outer---"),$.writeln(w(_(o[0]))+", "+w(_(o[1]))),$.writeln(w(_(l[0]))+", "+w(_(l[1]))),$.writeln(w(_(c[0]))+", "+w(_(c[1]))),$.writeln(w(_(p[0]))+", "+w(_(p[1]))),$.writeln("inner---"),$.writeln(w(_(u[0]))+", "+w(_(u[1]))),$.writeln(w(_(d[0]))+", "+w(_(d[1]))),$.writeln(w(_(v[0]))+", "+w(_(v[1]))),$.writeln(w(_(m[0]))+", "+w(_(m[1]))),$.writeln(w(_(h[0]))+", "+w(_(h[1]))),$.writeln("---\n"),e.viewPreferences.horizontalMeasurementUnits=r,e.viewPreferences.verticalMeasurementUnits=i}
+(app.documents[0].viewPreferences.horizontalMeasurementUnits);return new UnitValue(e,"points").as(n)}$.writeln("outer---"),$.writeln(_(w(s[0]))+", "+_(w(s[1]))),$.writeln(_(w(c[0]))+", "+_(w(c[1]))),$.writeln(_(w(l[0]))+", "+_(w(l[1]))),$.writeln(_(w(p[0]))+", "+_(w(p[1]))),$.writeln("inner---"),$.writeln(_(w(u[0]))+", "+_(w(u[1]))),$.writeln(_(w(h[0]))+", "+_(w(h[1]))),$.writeln(_(w(v[0]))+", "+_(w(v[1]))),$.writeln(_(w(d[0]))+", "+_(w(d[1]))),$.writeln(_(w(m[0]))+", "+_(w(m[1]))),$.writeln("---\n"),e.viewPreferences.horizontalMeasurementUnits=r,e.viewPreferences.verticalMeasurementUnits=i}
 // repositionImage(28.34645669, 141.73228346);
 function repositionImage(e,n){const t=CoordinateSpaces,r=AnchorPoint;if(app.selection[0]instanceof Image&&app.selection[0].parent.graphics.length>0)var i=app.selection[0].parent;else i=app.selection[0];selection_inner=i.allPageItems[0];var a=1/(i.images[0].horizontalScale/100);$.writeln("hScaleFactor: "+a),
 // selection_inner.transform(cs.pageCoordinates, [0, 0], [hScaleFactor, 0, 0, hScaleFactor, mm2pt(-1), mm2pt(-2)]);
@@ -240,7 +240,29 @@ selection_inner.transform(CoordinateSpaces.INNER_COORDINATES,AnchorPoint.CENTER_
 // $.writeln("graphicLayerOptions: " + ding)
 // $.writeln("graphicLayerOptions: " + dong)
 // $.writeln(app.selection[0].graphics[0].graphicLayerOptions.graphicLayers[0].id);
-$.writeln(app.selection[0].graphics[0].profile);var myDoc=app.activeDocument,myLink=app.selection[0].graphics[0],avaiLangs=new Array("DE","GB"),newLang=(avaiLangs.join(", "),"FR");function checkLayers(e,n){for(var t=0;t<avaiLangs.length;t++){var r=e.parent.graphicLayerOptions.graphicLayers;r.itemByName(avaiLangs[t]).isValid&&(r.itemByName(avaiLangs[t]).currentVisibility=!1)}r.itemByName(n).isValid&&(r.itemByName(n).currentVisibility=!0)}
+// // $.writeln(app.selection[0].graphics[0].profile)
+// var myDoc = app.activeDocument;
+// var myLink = app.selection[0].graphics[0];
+// var avaiLangs = new Array("DE", "GB");
+// //var avaiLangs = app.activeDocument.layers.everyItem().name;  
+// var newLang = (avaiLangs.join(', '), "FR");
+// if (myLink.getElements()[0].constructor.name == "Image") {
+// }
+// if (myLink.parent.hasOwnProperty('graphicLayerOptions')) {
+//     // myLink.parent.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.KEEP_OVERRIDES;
+//     // checkLayers(myLink, newLang);
+// }
+// function checkLayers(oneLink, newLang) {
+//     for (var n = 0; n < avaiLangs.length; n++) {
+//         var myObjectLayers = oneLink.parent.graphicLayerOptions.graphicLayers;
+//         if (myObjectLayers.itemByName(avaiLangs[n]).isValid) {
+//             myObjectLayers.itemByName(avaiLangs[n]).currentVisibility = false;
+//         }
+//     }
+//     if (myObjectLayers.itemByName(newLang).isValid) {
+//         myObjectLayers.itemByName(newLang).currentVisibility = true;
+//     }
+// }
 ////////////////////////////////////////////////////////////
 ///////////// get Exif-orientation
 ////////////////////////////////////////////////////////////
@@ -340,4 +362,82 @@ $.writeln(app.selection[0].graphics[0].profile);var myDoc=app.activeDocument,myL
 function automatisch(){var e=1.0991264408356;try{if(app.selection[0]instanceof Image&&app.selection[0].parent.graphics.length>0)var n=app.selection[0].parent;else n=app.selection[0]}catch(e){alert(e)}n.images[0];var t=n.graphics[0].itemLink.parent.parent.allPageItems[0];
 // imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.TOP_LEFT_ANCHOR, [hScaleFactor, 0, 0, hScaleFactor, 0, 0], undefined, true);
 // imageRGB_inner.transform(CoordinateSpaces.INNER_COORDINATES, AnchorPoint.CENTER_ANCHOR, [1, 0, 0, 1, -1 * _left, -1 * _top], undefined, true);
-t.transform(CoordinateSpaces.INNER_COORDINATES,AnchorPoint.CENTER_ANCHOR,[1,0,0,1,-57.23627136509138,-329.24094172075684],void 0,!0),t.transform(CoordinateSpaces.INNER_COORDINATES,AnchorPoint.TOP_LEFT_ANCHOR,[e,0,0,e,0,0],void 0,!0)}myLink.getElements()[0].constructor.name,myLink.parent.hasOwnProperty("graphicLayerOptions");
+t.transform(CoordinateSpaces.INNER_COORDINATES,AnchorPoint.CENTER_ANCHOR,[1,0,0,1,-57.23627136509138,-329.24094172075684],void 0,!0),t.transform(CoordinateSpaces.INNER_COORDINATES,AnchorPoint.TOP_LEFT_ANCHOR,[e,0,0,e,0,0],void 0,!0)}
+// $.writeln("Dimension \n" + 
+//     "width: " + main()[0]  + "\n" +
+//     "height: " + main()[1]
+// );
+function main(){var e=app.activeDocument.pages[0].bounds;$.writeln("Bounds \n0: "+e[0]+"\n1: "+e[1]+"\n2: "+e[2]+"\n3: "+e[3]+"\n");var n=RoundWithDecimal(e[3]-e[1],3),t=RoundWithDecimal(e[2]-e[0],3),r=[];return r.push(n),r.push(t),(e=[]).push(e[0]),e.push(e[1]),e.push(e[2]),e.push(e[3]),r}function RoundWithDecimal(e,n){var t=Math.pow(10,n);return Math.round(e*t)/t}
+// Aktuelle Einheiten speichern
+var startHorizontalUnits=app.activeDocument.viewPreferences.horizontalMeasurementUnits,startVerticalUnits=app.activeDocument.viewPreferences.verticalMeasurementUnits;
+// Einheiten auf Millimeter setzen
+// app.activeDocument.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
+// app.activeDocument.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
+app.activeDocument.viewPreferences.horizontalMeasurementUnits=MeasurementUnits.points,app.activeDocument.viewPreferences.verticalMeasurementUnits=MeasurementUnits.points,
+// set the ruler to "page", again so our math works out.
+oldOrigin=app.activeDocument.viewPreferences.rulerOrigin,// save old ruler origin
+// Spread Origin is necessary for some reason, otherwise I can't figure out how to refer to dimensions on both pages
+// app.activeDocument.viewPreferences.rulerOrigin = RulerOrigin.SPREAD_ORIGIN;
+app.activeDocument.viewPreferences.rulerOrigin=RulerOrigin.SPINE_ORIGIN;
+// app.activeDocument.layoutWindows[0].activePage.parent.pages
+const cs=CoordinateSpaces,ap=AnchorPoint;var selection=app.selection[0],image_inner=selection.allPageItems[0];
+/**
+ * Example of getting bounds of a spread.
+ * @author m1b
+ * @discussion https://community.adobe.com/t5/indesign-discussions/how-do-you-call-the-actively-selected-spread-length-width-in-a-document-or-page-bounds/m-p/13940663
+ */
+!function(){var e=getExpandedBounds(app.activeDocument.layoutWindows[0].activePage.parent.pages.everyItem().bounds);
+// spreadBounds = spread.pages.everyItem().bounds;
+$.writeln("Bounds of active spread:\n"+e)}();
+// const cs = CoordinateSpaces, ap = AnchorPoint;
+var activePage=app.activeDocument.layoutWindows[0].activePage,topLeft=activePage.resolve(ap.TOP_LEFT_ANCHOR,cs.spreadCoordinates,!1)[0],bottomRight=activePage.resolve(ap.BOTTOM_RIGHT_ANCHOR,cs.spreadCoordinates,!1)[0];
+// Koordinaten der aktiven Seite relativ zum Druckbogen (spreadCoordinates) ermitteln
+// Ausgabe der Koordinaten
+$.writeln("Aktive Seite: "+activePage.name),$.writeln("Oben links (spreadCoordinates): ["+topLeft[0]+", "+topLeft[1]+"]"),$.writeln("Unten rechts (spreadCoordinates): ["+bottomRight[0]+", "+bottomRight[1]+"]"),$.writeln("spreadMoveX page: "+image_inner.resolve(ap.TOP_LEFT_ANCHOR,cs.pageCoordinates,!0)[0][0]),$.writeln("spreadMoveY page: "+image_inner.resolve(ap.TOP_LEFT_ANCHOR,cs.pageCoordinates,!0)[0][1]),$.writeln("spreadMoveX spread: "+image_inner.resolve(ap.TOP_LEFT_ANCHOR,cs.spreadCoordinates,!0)[0][0]),$.writeln("spreadMoveY spread: "+image_inner.resolve(ap.TOP_LEFT_ANCHOR,cs.spreadCoordinates,!0)[0][1]);
+// Get the active spread
+var activeSpread=app.activeDocument.layoutWindows[0].activeSpread;
+// $.writeln("spreadMoveX page: " + app.activeDocument.layoutWindows[0].activePage.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0][0]);
+// $.writeln("spreadMoveX page: " + app.activeDocument.layoutWindows[0].activePage.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0][0]);
+// $.writeln("spreadMoveX page: " + app.activeDocument.layoutWindows[0].activePage.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0][1]);
+// app.activeDocument.layoutWindows[0].activePage.parent.pages.anyItem().resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.pageCoordinates, true)[0]
+// $.writeln(image_inner.transformValuesOf(cs.SPREAD_COORDINATES)[0])
+// $.writeln(image_inner.transformValuesOf(CoordinateSpaces.SPREAD_COORDINATES)[0].matrixValues)
+// 8.43175874726769,0,-3.20592491380523e-16,8.43175874726769,-7.04867079534995,9.80128334049368e-9
+// Einheiten zurücksetzen
+// save old ruler origin
+function berechneDruckbogenGroesse(){const e=CoordinateSpaces,n=AnchorPoint;
+// Koordinaten der Seiten innerhalb des Spread-Koordinatensystems sammeln
+for(var t=app.activeDocument.layoutWindows[0].activeSpread,r=t.pages.length,i=[],a=0;a<r;a++){var o=t.pages[a],s=o.resolve(n.TOP_LEFT_ANCHOR,e.spreadCoordinates,!1)[0][0],c=o.resolve(n.TOP_LEFT_ANCHOR,e.spreadCoordinates,!1)[0][1],l=o.resolve(n.BOTTOM_RIGHT_ANCHOR,e.spreadCoordinates,!1)[0][0],p=o.resolve(n.BOTTOM_RIGHT_ANCHOR,e.spreadCoordinates,!1)[0][1];i.push({topLeft:[s,c],bottomRight:[l,p]})}
+// Initialisierung für Min/Max Berechnung
+var u=1/0,v=-1/0,d=1/0,m=-1/0;
+// Berechnung der minimalen und maximalen Koordinaten
+for(a=0;a<i.length;a++){var g=i[a];g.topLeft[0]<u&&(u=g.topLeft[0]),g.bottomRight[0]>v&&(v=g.bottomRight[0]),g.topLeft[1]<d&&(d=g.topLeft[1]),g.bottomRight[1]>m&&(m=g.bottomRight[1])}
+// Höhe und Breite berechnen
+return[v-u,m-d]}
+// Funktion aufrufen und Ergebnis ausgeben
+// var druckbogenGroesse = berechneDruckbogenGroesse();
+// $.writeln("Höhe des Druckbogens: " + druckbogenGroesse[0]);
+// $.writeln("Breite des Druckbogens: " + druckbogenGroesse[1]);
+function berechneDruckbogenGroesse(e){const n=CoordinateSpaces,t=AnchorPoint;var r=e.parentPage;if(null==r)return $.writeln("Das Bild befindet sich nicht auf einer Seite."),null;
+// Koordinaten der Seiten innerhalb des Spread-Koordinatensystems sammeln
+for(var i=r.parent,a=i.pages.length,o=[],s=0;s<a;s++){var c=i.pages[s],l=c.resolve(t.TOP_LEFT_ANCHOR,n.spreadCoordinates,!1)[0][0],p=c.resolve(t.TOP_LEFT_ANCHOR,n.spreadCoordinates,!1)[0][1],u=c.resolve(t.BOTTOM_RIGHT_ANCHOR,n.spreadCoordinates,!1)[0][0],v=c.resolve(t.BOTTOM_RIGHT_ANCHOR,n.spreadCoordinates,!1)[0][1];o.push({topLeft:[l,p],bottomRight:[u,v]})}
+// Initialisierung für Min/Max Berechnung
+var d=1/0,m=-1/0,g=1/0,h=-1/0;
+// Berechnung der minimalen und maximalen Koordinaten
+for(s=0;s<o.length;s++){var _=o[s];_.topLeft[0]<d&&(d=_.topLeft[0]),_.bottomRight[0]>m&&(m=_.bottomRight[0]),_.topLeft[1]<g&&(g=_.topLeft[1]),_.bottomRight[1]>h&&(h=_.bottomRight[1])}
+// Höhe und Breite des Druckbogens berechnen
+return[m-d,h-g,d,g]}
+// Funktion aufrufen und Ergebnisse ausgeben
+app.activeDocument.viewPreferences.horizontalMeasurementUnits=startHorizontalUnits,app.activeDocument.viewPreferences.verticalMeasurementUnits=startVerticalUnits,oldOrigin=app.activeDocument.viewPreferences.rulerOrigin;var druckbogenDaten=berechneDruckbogenGroesse(selection);
+/**
+ * Returns the overall bounds, when
+ * given an array of bounds ordered
+ * as Indesign bounds [TLBR].
+ * @author m1b
+ * @version 2023-07-17
+ * @param {Array<Array<Number>>} arr - an array of bounds arrays.
+ * @returns {Array<Number>} - the expanded bounds [TLBR].
+ */
+function getExpandedBounds(e){for(
+// https://community.adobe.com/t5/indesign-discussions/how-do-you-call-the-actively-selected-spread-length-width-in-a-document-or-page-bounds/m-p/13940663
+var n=[1/0,1/0,-1/0,-1/0],t=0;t<e.length;t++)for(var r=0;r<e[0].length;r++)n[r]=r<2?Math.min(n[r],e[t][r]):Math.max(n[r],e[t][r]);return n}null!=druckbogenDaten&&($.writeln("xx: "+druckbogenDaten),$.writeln("Breite des Druckbogens: "+druckbogenDaten[0]),$.writeln("Höhe des Druckbogens: "+druckbogenDaten[1]),$.writeln("Verschiebung X-Achse: "+druckbogenDaten[2]),$.writeln("Verschiebung Y-Achse: "+druckbogenDaten[3]));

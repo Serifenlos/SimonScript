@@ -80,4 +80,35 @@ part of Startschuss
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_bitDepth.js)
 
-!!! warning hide "not documented functions"
+
+### dialog_createDialog
+
+<button class="btn" data-clipboard-text="dialog_createDialog(_title, _message);"></button>
+{: .btn_p }
+
+??? "dialog_createDialog(_title, _message);"
+    ``` js linenums="1"
+    function dialog_createDialog(_title, _message) {
+        var dialog = new Window("dialog", _title);
+        var stxt = dialog.add("group");
+        stxt.add("statictext", undefined, _message);
+        var buttonGroup = dialog.add("group");
+    
+        // Hole die restlichen Argumente als Array von Schaltflächen
+        var buttons = Array.prototype.slice.call(arguments, 2);
+    
+        for (var index = 0; index < buttons.length; index++) {
+            var button = buttons[index];
+            var btn = buttonGroup.add("button", undefined, button);
+            btn.onClick = (function (index) {
+                return function () {
+                    dialog.close(index);
+                }
+            })(index);
+        }
+        return dialog;
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/dialog/dialog_createDialog.js)
+

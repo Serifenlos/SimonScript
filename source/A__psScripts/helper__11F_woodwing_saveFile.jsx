@@ -35,7 +35,7 @@ var startLayer = layer_selectedIDX_get();
 var start_closedSets = [];
 
 if (isWoodwing) {
-
+    
     /* v2 */
     // BridgeTalkMessage_openDocID(idDocName, woodwing_file);
     // closeDoc(woodwing_file);
@@ -44,13 +44,14 @@ if (isWoodwing) {
     /* v3 */
     BridgeTalkMessage_checkOutImage(idDocName, woodwing_imageID);
     // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
-
+    
     try {
         if (app.activeDocument.layerSets.getByName("Freisteller")) {
             if (hasLayerMask("Freisteller")) {
-                app.activeDocument.suspendHistory("getClosedSets", "var start_closedSets = getClosedSets()");
-                undoSteps(1);
-                historyState_deleteSteps(1);
+                // app.activeDocument.suspendHistory("getClosedSets", "var start_closedSets = getClosedSets()");
+                // undoSteps(1);
+                // historyState_deleteSteps(1);
+                var start_closedSets = getClosedSets();
                 var startMaskVisibility = getMaskVisibility_bySelector("Freisteller");
                 // var startMaskVisibility_helper = getMaskVisibility_bySelector("Freisteller helper")
 
@@ -79,37 +80,38 @@ if (isWoodwing) {
             }
         }
     } catch (e) {
-        // doc.suspendHistory("save Arbeitsdatei + Woodwing", "save_ArbeitWood_RGB()");
-        saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);
-        // saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
-        // app.activeDocument.save();
+        try {
+            saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);    
+        } catch (error) {
+            alert("ERROR beim Speichern der Woodwingdatei: \n" + error);
+        }
     }
 
 
-    BridgeTalkMessage_checkInImage(idDocName, woodwing_imageID);
+    
 
-
+    
     for (var i = 0; i < start_closedSets.length; i++) {
         // if (isSetOpened2(start_closedSets[i])) {
             app.activeDocument.suspendHistory("toogleOpenCloseSet_byIDX", "toogleOpenCloseSet_byIDX_inner(start_closedSets[i])");
         // }
     }
 
-
+    
     layer_selectedIDX_set(startLayer);
     saveMultiformat(new File(arbeitsdatei_RGB), "psd", f, null, t, t);
 
 
-
-
+    BridgeTalkMessage_checkInImage(idDocName, woodwing_imageID);
+    
     /* v2 */
-    function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
-        var bt = new BridgeTalk();
-        bt.target = 'indesign';
-        bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "');";
-        bt.onResult = function (resObj) { }
-        bt.send(10);
-    }
+    // function BridgeTalkMessage_openDocID(_idDocName, _woodwing_file) {
+    //     var bt = new BridgeTalk();
+    //     bt.target = 'indesign';
+    //     bt.body = runID.toSource() + "('" + _idDocName + "','" + _woodwing_file + "');";
+    //     bt.onResult = function (resObj) { }
+    //     bt.send(10);
+    // }
 
     /* v3 */
     function BridgeTalkMessage_checkOutImage(_idDocName, _woodwing_imageID) {

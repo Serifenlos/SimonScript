@@ -104,64 +104,71 @@
 
 ??? "layer_transform(_point, _moveX, _moveY, _transformX, _transformY, _unit, _linked);"
     ``` js linenums="1"
-    function layer_transform(_point, _moveX, _moveY, _transformX, _transformY, _unit, _linked) {
-    	var d = new ActionDescriptor();
-    	var d2 = new ActionDescriptor();
-    	var r = new ActionReference();
+    function layer_transform(_point, _moveX, _moveY, _transformX, _transformY, _unit, _linked, _moveUnit, _angle) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
     
-        // alert("point " + _point + "\nmoveX " + _moveX + "\nmoveY " + _moveY + "\ntransformX " + _transformX + "\ntransformY " + _transformY + "\nunit " + _unit + "\nlinked " + _linked)
+        //_moveUnit = "pixelsUnit" || "distanceUnit"
     
     
         // die Positionierung ist leider buggy, oder??
-        if(_point == "topleft") {var _pointX = "QCSCorner0"}
-    	else if(_point == "topcenter") {var _pointX = "QCSSide0"}
-    	else if(_point == "topright") {var _pointX = "QCSCorner1"}
-    	else if(_point == "midleft") {var _pointX = "QCSSide3"}
-    	else if(_point == "midcenter") {var _pointX = "QCSAverage"}
-    	else if(_point == "midright") {var _pointX = "QCSSide1"}
-    	else if(_point == "bottomleft") {var _pointX = "QCSCorner3"}
-    	else if(_point == "bottomcenter") {var _pointX = "QCSSide2"}
-    	else if(_point == "bottomright") {var _pointX = "QCSCorner2"}
-        else {var _pointX = "QCSCorner0"}
+        if (_point == "topleft") { var _pointX = "QCSCorner0" }
+        else if (_point == "topcenter") { var _pointX = "QCSSide0" }
+        else if (_point == "topright") { var _pointX = "QCSCorner1" }
+        else if (_point == "midleft") { var _pointX = "QCSSide3" }
+        else if (_point == "midcenter") { var _pointX = "QCSAverage" }
+        else if (_point == "midright") { var _pointX = "QCSSide1" }
+        else if (_point == "bottomleft") { var _pointX = "QCSCorner3" }
+        else if (_point == "bottomcenter") { var _pointX = "QCSSide2" }
+        else if (_point == "bottomright") { var _pointX = "QCSCorner2" }
+        else { var _pointX = "QCSCorner0" }
     
-    	r.putEnumerated( s2t( "layer" ), s2t( "ordinal" ), s2t( "targetEnum" ));
-    	d.putReference( s2t( "null" ), r );
-    	d.putEnumerated( s2t( "freeTransformCenterState" ), s2t( "quadCenterState" ), s2t(_pointX));
-    	d2.putUnitDouble( s2t( "horizontal" ), s2t( "pixelsUnit" ), _moveX );
-    	d2.putUnitDouble( s2t( "vertical" ), s2t( "pixelsUnit" ), _moveY );
-    	d.putObject( s2t( "offset" ), s2t( "offset" ), d2 );
+        _moveUnit = _moveUnit ? _moveUnit : "pixelsUnit";
+        _angle = _angle ? _angle : 0;
     
-        if(_unit == "%_canvas") {
-            var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
-            var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
-            var doc_layer_width = parseFloat(app.activeDocument.width / layer_width * _transformX);
-            var doc_layer_height = parseFloat(app.activeDocument.height / layer_height * _transformY);
-            // alert(doc_layer_width + " " + doc_layer_height)
-            if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
-    	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
+        r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+        d.putEnumerated(s2t("freeTransformCenterState"), s2t("quadCenterState"), s2t(_pointX));
+        d2.putUnitDouble(s2t("horizontal"), s2t(_moveUnit), _moveX);
+        d2.putUnitDouble(s2t("vertical"), s2t(_moveUnit), _moveY);
+        d.putObject(s2t("offset"), s2t("offset"), d2);
+        d.putUnitDouble(s2t("angle"), s2t("angleUnit"), _angle);
     
-        } else if(_unit == "%_layer") {
-            var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
-            var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
-            var doc_layer_width = parseFloat(layer_width / app.activeDocument.width * _transformX * 10);
-            var doc_layer_height = parseFloat(layer_height / app.activeDocument.height * _transformY * 10);
-            // alert(doc_layer_width + " " + doc_layer_height);
-            if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
-    	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
+        if (_unit != undefined) {
+            if (_unit == "%_canvas") {
+                var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
+                var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
+                var doc_layer_width = parseFloat(app.activeDocument.width / layer_width * _transformX);
+                var doc_layer_height = parseFloat(app.activeDocument.height / layer_height * _transformY);
+                // alert(doc_layer_width + " " + doc_layer_height)
+                if (_transformX) { d.putUnitDouble(s2t("width"), s2t("percentUnit"), doc_layer_width) }
+                if (_transformY) { d.putUnitDouble(s2t("height"), s2t("percentUnit"), doc_layer_height) }
     
-        } else if(_unit == "px") {
-            var doc_layer_width =  parseFloat(_transformX / app.activeDocument.width * 100);
-            var doc_layer_height = parseFloat(_transformY / app.activeDocument.height * 100);
-            // alert(doc_layer_width + " " + doc_layer_height)
-            if(_transformX) {d.putUnitDouble(s2t("width"),s2t("percentUnit"), doc_layer_width)}
-    	    if(_transformY) {d.putUnitDouble(s2t("height"),s2t("percentUnit"), doc_layer_height)}
+            } else if (_unit == "%_layer") {
+                var layer_width = app.activeDocument.activeLayer.bounds[2] - app.activeDocument.activeLayer.bounds[0];
+                var layer_height = app.activeDocument.activeLayer.bounds[3] - app.activeDocument.activeLayer.bounds[1];
+                var doc_layer_width = parseFloat(layer_width / app.activeDocument.width * _transformX * 10);
+                var doc_layer_height = parseFloat(layer_height / app.activeDocument.height * _transformY * 10);
+                // alert(doc_layer_width + " " + doc_layer_height);
+                if (_transformX) { d.putUnitDouble(s2t("width"), s2t("percentUnit"), doc_layer_width) }
+                if (_transformY) { d.putUnitDouble(s2t("height"), s2t("percentUnit"), doc_layer_height) }
+    
+            } else if (_unit == "px") {
+                var doc_layer_width = parseFloat(_transformX / app.activeDocument.width * 100);
+                var doc_layer_height = parseFloat(_transformY / app.activeDocument.height * 100);
+                // alert(doc_layer_width + " " + doc_layer_height)
+                if (_transformX) { d.putUnitDouble(s2t("width"), s2t("percentUnit"), doc_layer_width) }
+                if (_transformY) { d.putUnitDouble(s2t("height"), s2t("percentUnit"), doc_layer_height) }
+            }
+    
+            if ((_transformX || _transformY) && (_linked)) { d.putBoolean(s2t("linked"), _linked); }
         }
     
-    	if((_transformX || _transformY) && (_linked)) {d.putBoolean( s2t( "linked" ), _linked );}
-    
-    	d.putEnumerated( s2t( "interfaceIconFrameDimmed" ), s2t( "interpolationType" ), s2t( "bicubic" ));
-    	executeAction( s2t( "transform" ), d, DialogModes.NO );
+        d.putEnumerated(s2t("interfaceIconFrameDimmed"), s2t("interpolationType"), s2t("bicubic"));
+        executeAction(s2t("transform"), d, DialogModes.NO);
     }
+    
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_transform.js)
@@ -1361,4 +1368,320 @@ select Layers by Array of ID
         * _fillWhite `boolean`
         * _blendMode `normal` `…`
 
-!!! warning hide "not documented functions"
+
+
+### getMaskVisibility_bySelector
+
+<button class="btn" data-clipboard-text="getMaskVisibility_bySelector(_input);"></button>
+{: .btn_p }
+
+??? "getMaskVisibility_bySelector(_input);"
+    ``` js linenums="1"
+    function getMaskVisibility_bySelector(_input) {
+        var r = new ActionReference();
+    
+        if (typeof _input == "number") {
+            // by Index
+            r.putIndex(s2t("layer"), _input);
+        }
+    
+        if (typeof _input == "string") {
+            //     // by Layername
+            //     r.putName(s2t('layer'), _input);
+            // } else {
+            //     // by Layername via Regex // first hit
+            //     r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+            
+            if (layer_checkExistence(_input)) {
+                // by Layername
+                r.putName(s2t('layer'), _input);
+            } else {
+                // by Layername via Regex // first hit
+                r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+            }
+        }
+    
+        if (typeof _input === "undefined") {
+            // by activeLayer
+            r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        }
+    
+        return executeActionGet(r).getBoolean(s2t("userMaskEnabled"));
+    }
+    
+    
+    
+    
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/getMaskVisibility_bySelector.js)
+
+
+### layer_getLayerType
+
+<button class="btn" data-clipboard-text="layer_getLayerType(_input);"></button>
+{: .btn_p }
+
+??? "layer_getLayerType(_input);"
+    ``` js linenums="1"
+    function layer_getLayerType(_input) {
+        // const kAnySheet = 0;
+        // const kPixelSheet = 1;
+        // const kAdjustmentSheet = 2;
+        // const kTextSheet = 3;
+        // const kVectorSheet = 4;
+        // const kSmartObjectSheet = 5;
+        // const kVideoSheet = 6;
+        // const kLayerGroupSheet = 7;
+        // const k3DSheet = 8;
+        // const kGradientSheet = 9;
+        // const kPatternSheet = 10;
+        // const kSolidColorSheet = 11;
+        // const kBackgroundSheet = 12;
+        // const kHiddenSectionBounder = 13;
+    
+        var activeLayerType;
+        var r = new ActionReference();
+        r.putProperty(s2t("property"), s2t("layerKind"));
+    
+        // Prüfe, ob der Input eine Zahl ist
+        if (typeof _input === "number") {
+            r.putIndex(s2t("layer"), _input);
+        }
+        // Prüfe, ob der Input ein String ist
+        else if (typeof _input === "string") {
+            // Existiert der Layer?
+            $.writeln(""); //unnütz aber nötig sonst Terser-Fehler
+            if (layer_checkExistence(_input)) {
+                r.putName(s2t("layer"), _input);
+            } else {
+                r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+            }
+        }
+        // Prüfe, ob der Input nicht definiert ist
+        else if (typeof _input === "undefined") {
+            r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        }
+        // Hole den Layer-Typ
+        activeLayerType = executeActionGet(r).getInteger(s2t("layerKind"));
+    
+        return activeLayerType;
+    }
+    
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_getLayerType.js)
+
+
+### layer_makeBackground
+
+<button class="btn" data-clipboard-text="layer_makeBackground();"></button>
+{: .btn_p }
+
+??? "layer_makeBackground();"
+    ``` js linenums="1"
+    function layer_makeBackground() {
+        var d = new ActionDescriptor();
+        var r = new ActionReference();
+        var r2 = new ActionReference();
+    
+        r.putClass(s2t("backgroundLayer"));
+        d.putReference(s2t("null"), r);
+        r2.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("using"), r2);
+        executeAction(s2t("make"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_makeBackground.js)
+
+
+### layer_shape_create
+
+<button class="btn" data-clipboard-text="layer_shape_create(_form, _top, _left, _bottom, _right, _fillEnabled, _fillRGB, _strokeEnabled, _strokeRGB, _strokeWidth, _strokeAlignment);"></button>
+{: .btn_p }
+
+??? "layer_shape_create(_form, _top, _left, _bottom, _right, _fillEnabled, _fillRGB, _strokeEnabled, _strokeRGB, _strokeWidth, _strokeAlignment);"
+    ``` js linenums="1"
+    function layer_shape_create(_form, _top, _left, _bottom, _right, _fillEnabled, _fillRGB, _strokeEnabled, _strokeRGB, _strokeWidth, _strokeAlignment) {
+    
+        //_form = "rectangle", "ellipse"
+        //_strokeAlignment = "strokeStyleAlignCenter",", "strokeStyleAlignOutside" 
+    
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var d4 = new ActionDescriptor();
+        var d5 = new ActionDescriptor();
+        var d6 = new ActionDescriptor();
+        var d7 = new ActionDescriptor();
+        var d8 = new ActionDescriptor();
+        var l = new ActionList();
+        var r = new ActionReference();
+    
+        r.putClass(s2t("contentLayer"));
+        d.putReference(s2t("null"), r);
+        d4.putDouble(s2t("red"), _fillRGB[0]);
+        d4.putDouble(s2t("grain"), _fillRGB[1]);
+        d4.putDouble(s2t("blue"), _fillRGB[2]);
+        d3.putObject(s2t("color"), s2t("RGBColor"), d4);
+        d2.putObject(s2t("type"), s2t("solidColorLayer"), d3);
+        d5.putInteger(s2t("unitValueQuadVersion"), 1);
+        d5.putUnitDouble(s2t("top"), s2t("percentUnit"), _top);
+        d5.putUnitDouble(s2t("left"), s2t("percentUnit"), _left);
+        d5.putUnitDouble(s2t("bottom"), s2t("percentUnit"), _bottom);
+        d5.putUnitDouble(s2t("right"), s2t("percentUnit"), _right);
+        d2.putObject(s2t("shape"), s2t(_form), d5);
+        d6.putInteger(s2t("strokeStyleVersion"), 2);
+        d6.putBoolean(s2t("strokeEnabled"), _strokeEnabled);
+        d6.putBoolean(s2t("fillEnabled"), _fillEnabled);
+        d6.putUnitDouble(s2t("strokeStyleLineWidth"), s2t("pixelsUnit"), _strokeWidth);
+        d6.putUnitDouble(s2t("strokeStyleLineDashOffset"), s2t("pointsUnit"), 0);
+        d6.putDouble(s2t("strokeStyleMiterLimit"), 100);
+        d6.putEnumerated(s2t("strokeStyleLineCapType"), s2t("strokeStyleLineCapType"), s2t("strokeStyleButtCap"));
+        d6.putEnumerated(s2t("strokeStyleLineJoinType"), s2t("strokeStyleLineJoinType"), s2t("strokeStyleMiterJoin"));
+        d6.putEnumerated(s2t("strokeStyleLineAlignment"), s2t("strokeStyleLineAlignment"), s2t(_strokeAlignment));
+        d6.putBoolean(s2t("strokeStyleScaleLock"), false);
+        d6.putBoolean(s2t("strokeStyleStrokeAdjust"), false);
+        d6.putList(s2t("strokeStyleLineDashSet"), l);
+        d6.putEnumerated(s2t("strokeStyleBlendMode"), s2t("blendMode"), s2t("normal"));
+        d6.putUnitDouble(s2t("strokeStyleOpacity"), s2t("percentUnit"), 100);
+        d8.putDouble(s2t("red"), _strokeRGB[0]);
+        d8.putDouble(s2t("grain"), _strokeRGB[1]);
+        d8.putDouble(s2t("blue"), _strokeRGB[2]);
+        d7.putObject(s2t("color"), s2t("RGBColor"), d8);
+        d6.putObject(s2t("strokeStyleContent"), s2t("solidColorLayer"), d7);
+        d2.putObject(s2t("strokeStyle"), s2t("strokeStyle"), d6);
+        d.putObject(s2t("using"), s2t("contentLayer"), d2);
+        executeAction(s2t("make"), d, DialogModes.NO);
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_shape_create.js)
+
+
+### layer_shape_getAngle
+
+<button class="btn" data-clipboard-text="layer_shape_getAngle(_input);"></button>
+{: .btn_p }
+
+??? "layer_shape_getAngle(_input);"
+    ``` js linenums="1"
+    function layer_shape_getAngle(_input) {
+    //TODO ich würde gerne hier einen Weg finden diekte mit der input-Ebene zu sprechen, ohne sie vorerst zu aktivieren
+    
+     	if (layer_getLayerType(_input) == 4) {
+    		var selectedLayers = layer_selectedIDX_get();
+    		gotoLayer_bySelector(_input);
+    
+    		var r = new ActionReference();
+    		r.putEnumerated(s2t("path"), s2t("ordinal"), s2t("targetEnum"));
+    		var d = executeActionGet(r);
+    
+    		// Pfaddaten erhalten
+    		var pathContents = d.getObjectValue(s2t("pathContents"));
+    		var pathComponents = pathContents.getList(s2t("pathComponents"));
+    
+    		var anchorPoints = [];
+    
+    		// Iteriere über die Pfad-Komponenten, um die Punkte zu extrahieren
+    		for (var i = 0; i < pathComponents.count; i++) {
+    			var component = pathComponents.getObjectValue(i);
+    			var subpathList = component.getList(s2t("subpathListKey"));
+    
+    			for (var j = 0; j < subpathList.count; j++) {
+    				var subpath = subpathList.getObjectValue(j);
+    				var points = subpath.getList(s2t("points"));
+    
+    				// Extrahiere die Ankerpunkte
+    				for (var k = 0; k < points.count; k++) {
+    					var point = points.getObjectValue(k);
+    					var anchor = point.getObjectValue(s2t("anchor"));
+    
+    					// X- und Y-Koordinaten der Ankerpunkte
+    					var x = anchor.getUnitDoubleValue(s2t("horizontal"));
+    					var y = anchor.getUnitDoubleValue(s2t("vertical"));
+    
+    					anchorPoints.push({ x: x, y: y });
+    				}
+    			}
+    		}
+    
+    		// Ankerpunkte extrahieren und anzeigen
+    		// for (var i = 0; i < anchorPoints.length; i++) {
+    		// 	$.writeln("Anchor Point " + (i + 1) + ": X = " + anchorPoints[i].x + ", Y = " + anchorPoints[i].y);
+    		// }
+    		// return anchorPoints;
+    
+    		// Bestimmung über zwei Punkte (obenlinks + obenrechts)
+    		var deltaX = anchorPoints[1].x - anchorPoints[0].x;
+    		var deltaY = anchorPoints[1].y - anchorPoints[0].y;
+    
+    		var steigung = deltaY / deltaX;
+    
+    		// Berechnung des Winkels in Radiant
+    		var angleRadians = Math.atan(steigung);
+    
+    		// Umwandlung in Grad
+    		var angleDegrees = angleRadians * (180 / Math.PI);
+    
+    		layer_selectedIDX_set(selectedLayers);
+    		// Ausgabe des Wertes
+    		return angleDegrees;
+    	} else {
+    		return false;
+    	}
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/layer_shape_getAngle.js)
+
+
+### setMaskVisibility_bySelector
+
+<button class="btn" data-clipboard-text="setMaskVisibility_bySelector(_set, _input);"></button>
+{: .btn_p }
+
+??? "setMaskVisibility_bySelector(_set, _input);"
+    ``` js linenums="1"
+    function setMaskVisibility_bySelector(_set, _input) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var r = new ActionReference();
+    
+        if (_set == false || _set == "hide") {
+            var _setX = false
+        } else if (_set == true || _set == "show") {
+            var _setX = true
+        } else if (_set == "toggle" || _set == "X") {
+            if (getMaskVisibility()) {
+                var _setX = false
+            } else {
+                var _setX = true
+            }
+        }
+    
+        try {
+            if (typeof _input == "number") {
+                r.putIndex(s2t("layer"), _input);                  // by Index
+            }
+            if (typeof _input == "string") {
+                if (layer_checkExistence(_input)) {
+                    r.putName(s2t('layer'), _input);            // by Layername
+                } else {
+                    r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);  // by Layername via Regex - first hits
+                }
+            }
+            if (typeof _input === "undefined") {
+                r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));  // by activeLayer
+            }
+            d.putReference(s2t("null"), r);
+            d2.putBoolean(s2t("userMaskEnabled"), _setX);
+            d.putObject(s2t("to"), s2t("layer"), d2);
+            executeAction(s2t("set"), d, DialogModes.NO);
+        } catch (e) { alert(e) }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/layer/setMaskVisibility_bySelector.js)
+
