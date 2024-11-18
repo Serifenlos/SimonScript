@@ -1,0 +1,1 @@
+function vectorMask2seletion(){var e=new ActionDescriptor,t=new ActionReference,n=new ActionReference;t.putProperty(s2t("channel"),s2t("selection")),e.putReference(s2t("null"),t),n.putEnumerated(s2t("path"),s2t("path"),s2t("vectorMask")),n.putEnumerated(s2t("layer"),s2t("ordinal"),s2t("targetEnum")),e.putReference(s2t("to"),n),executeAction(s2t("set"),e,DialogModes.NO)}

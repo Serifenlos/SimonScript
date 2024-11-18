@@ -1,0 +1,1 @@
+function crop_bySelection(){var e=new ActionDescriptor;e.putBoolean(s2t("delete"),!0),executeAction(s2t("crop"),e,DialogModes.NO)}

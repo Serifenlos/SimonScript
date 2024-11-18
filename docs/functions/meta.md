@@ -311,9 +311,18 @@ universal
         if (ExternalObject.AdobeXMPScript == undefined) {
             ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript');
         }
-        xmpMeta = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
+    
+        try {
+            if (app.documents.length != 0) {
+                xmpMeta = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
+            }
+        } catch (error) {
+            if (debug) alert("ERROR - editXMP_3 - xmpMeta: " + error);
+        }
+    
         nsURI = _namespace ? nsURI : "http://ns.simonadrian.de/simonscript/1.0/";
         nsPrefix = _prefix ? nsPrefix : "ss:";
+    
         if (XMPMeta.getNamespacePrefix(nsURI) === "" || typeof XMPMeta.getNamespacePrefix(nsURI) === 'undefined') {
             XMPMeta.registerNamespace(nsURI, nsPrefix);
         }
@@ -331,9 +340,15 @@ universal
     ``` js linenums="1"
     function getMeta_3(_key) {
         editXMP_3();
-    
-        if (xmpMeta.doesPropertyExist(nsURI, _key)) {
-            var value = xmpMeta.getProperty(nsURI, _key);
+        
+        try {
+            if (app.documents.length != 0) {
+                if (xmpMeta.doesPropertyExist(nsURI, _key)) {
+                    var value = xmpMeta.getProperty(nsURI, _key);
+                }
+            }
+        } catch (error) {
+            if (debug) alert("ERROR - getMeta_3 - doesPropertyExist: " + error)
         }
     
         if (typeof value !== 'undefined') {
@@ -369,4 +384,25 @@ universal
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/setMeta_3.js)
 
-!!! warning hide "not documented functions"
+
+### replaceMeta_3_suffix
+
+<button class="btn" data-clipboard-text="replaceMeta_3_suffix(_key, _suffix_old, _suffix_new);"></button>
+{: .btn_p }
+
+??? "replaceMeta_3_suffix(_key, _suffix_old, _suffix_new);"
+    ``` js linenums="1"
+    function replaceMeta_3_suffix(_key, _suffix_old, _suffix_new) {
+        var value = getMeta_3(_key);
+        if (value) {
+            value = value.toString();
+            if (value.substring(value.length - 4) === "." + _suffix_old) {
+                value = value.replace("." + _suffix_old, "." + _suffix_new);
+                setMeta_3(_key, value);
+            }
+        }
+    }
+    ```
+
+[](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/meta/replaceMeta_3_suffix.js)
+

@@ -30,5 +30,5 @@ function saveMultiformat(_file, _saveFormat, _asCopy, _qualityJPG, _alphaChannel
         saveOptions.interlaced = false;
     }
     try { saveFile_v2(_file, saveOptions, _asCopy); }
-    catch (e) { alert("Error saveMultiformat: " + e)}
+    catch (e) { alert("Error saveMultiformat: \n" + e)}
 }

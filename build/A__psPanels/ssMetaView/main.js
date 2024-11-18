@@ -18,9 +18,6 @@ entrypoints.setup({
 
 
 
-
-
-
 // const {XMPMeta, XMPConst} = require("uxp").xmp;
 // let xmp = new XMPMeta();
 // xmp.setProperty(XMPConst.NS_XMP, "CreatorTool", "My Script" );
@@ -250,46 +247,74 @@ async function getXML_2() {
   getMeta_woodwing(nsURI, xml, "softproofIntent");
   getMeta_woodwing(nsURI, xml, "softproofTK");
   getMeta_woodwing(nsURI, xml, "softproofGroup");
-
-  // var isWoodwing = xml.getProperty(NS, "isWoodwing").value;
-  // document.getElementById('isWoodwing').value = isWoodwing;
-
-
-  // var arbeitsdatei_RGB = xml.getProperty(NS, "arbeitsdatei_RGB").value;
-  // document.getElementById('arbeitsdatei_RGB').value = arbeitsdatei_RGB;
-
-  // var woodwing_RGB = xml.getProperty(NS, "woodwing_RGB").value;
-  // document.getElementById('woodwing_RGB').value = woodwing_RGB;
-
-  // var woodwing_file = xml.getProperty(NS, "woodwing_file").value;
-  // document.getElementById('woodwing_file').value = woodwing_file;
-
-  // var idDocName = xml.getProperty(NS, "idDocName").value;
-  // document.getElementById('idDocName').value = idDocName;
-
-
-
-  // check_NS(XMPMeta);
-
-  //  let meta = new XMPMeta(xmpData);
-  //  meta = modifyXMP(meta);
-  //  setDocumentXMP(meta.serialize());
 }
 
 
-// function getMeta_woodwing(_ns, _xml, _property) {
-//   if (_xml.doesPropertyExist(_ns, _property)) {
-//     var isWoodwing = _xml.getProperty(_ns, _property).value;
-//     document.getElementById(_property).value = isWoodwing;
-//   } else {
-//     document.getElementById(_property).value = "";
-//   }
-// }
+
 
 function getMeta_woodwing(_ns, _xml, _property) {
   var value = _xml.doesPropertyExist(_ns, _property) ? _xml.getProperty(_ns, _property).value : "";
   document.getElementById(_property).value = value;
 }
+
+document.getElementById("save").addEventListener("click", setXML_2);
+
+
+
+
+
+function setXML_2() {
+  var xmpData = getDocumentXMP();
+  //  console.log(xmpData);
+  let meta = new XMPMeta(xmpData);
+  var nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
+
+  //  console.log(XMPConst);
+  //  console.log(meta);
+  //  console.log(XMPMeta.dumpNamespaces());
+  // console.log(getMeta_woodwing(nsURI, meta, "woodwing_imageID"));
+
+  meta = modifyXMP_2(meta, XMPMeta);
+  setDocumentXMP(meta.serialize());
+}
+
+
+
+function modifyXMP_2(xmp, meta) {
+  const nsURI = "http://ns.simonadrian.de/simonscript/1.0/";
+  var ns_ssPrefix = "ss";
+
+
+  if (meta.getNamespacePrefix(nsURI) === "" || typeof meta.getNamespacePrefix(nsURI) === 'undefined') {
+    var ns_ssPrefix = meta.registerNamespace(nsURI, ns_ssPrefix);
+    console.log("1");
+  } else {
+    var ns_ssPrefix = meta.getNamespacePrefix(nsURI);
+    console.log("2");
+  }
+
+  console.log("ns_ssPrefix: " + ns_ssPrefix);
+  console.log("meta.getNamespacePrefix(nsURI): " + meta.getNamespacePrefix(nsURI));
+  // console.log(meta.dumpNamespaces());
+
+  // xmp.setProperty(nsURI, "ding2", "dong2");
+
+  // xmp.setProperty(nsURI, "isWoodwing", document.getElementById("isWoodwing").value);
+  xmp.setProperty(nsURI, "arbeitsdatei_RGB", document.getElementById("arbeitsdatei_RGB").value);
+  xmp.setProperty(nsURI, "woodwing_RGB", document.getElementById("woodwing_RGB").value);
+  xmp.setProperty(nsURI, "woodwing_file", document.getElementById("woodwing_file").value);
+  xmp.setProperty(nsURI, "woodwing_imageID", document.getElementById("woodwing_imageID").value);
+
+  xmp.setProperty(nsURI, "idDocName", document.getElementById("idDocName").value);
+  xmp.setProperty(nsURI, "assetsID", document.getElementById("assetsID").value);
+
+  xmp.setProperty(nsURI, "studioPublikation", document.getElementById("studioPublikation").value);
+  xmp.setProperty(nsURI, "studioAusgabe", document.getElementById("studioAusgabe").value);
+
+  return xmp;
+}
+
+
 
 
 function check_NS(_input) {
@@ -315,6 +340,7 @@ function check_NS(_input) {
 var listener = async function () {
   await getXML_2();
 }
+
 require('photoshop').action.addNotificationListener([
   { event: "open" },
   { event: "select" },

@@ -78,8 +78,8 @@ getRubrik_array = [
 ];
 
 // One Step: https://community.adobe.com/t5/indesign-discussions/doscript-method-questions/td-p/10953644
-app.doScript("Startschuss()", ScriptLanguage.JAVASCRIPT, [], UndoModes.ENTIRE_SCRIPT, 'Startschuss');
-// Startschuss();
+// app.doScript("Startschuss()", ScriptLanguage.JAVASCRIPT, [], UndoModes.ENTIRE_SCRIPT, 'Startschuss');
+Startschuss();
 
 function Startschuss() {
     if (!app.selection.length > 0) {
@@ -145,7 +145,7 @@ function Startschuss() {
                 if (image.graphicLayerOptions.graphicLayers.length > 0) {
 
                     //Keine Meldung in InDesign, dass die Ebenensichtbarkeit sich geändert hat
-                    image.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.APPLICATION_SETTINGS;
+                    // image.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.APPLICATION_SETTINGS;
 
                     var layers = image.graphicLayerOptions.graphicLayers;
                     for (var n = 0; n < layers.length; n++) {
@@ -161,7 +161,7 @@ function Startschuss() {
 
 
                 } else {
-                    if (debug) alert("INFO image.graphicLayerOptions.graphicLayers.length ist 0");
+                    // if (debug) alert("INFO image.graphicLayerOptions.graphicLayers.length ist 0");
                 }
             } else {
                 if (debug) alert("INFO image hat keine Property graphicLayerOptions");
@@ -304,16 +304,19 @@ function getDimension(_image, _autoAnbau) {
     var doc = app.activeDocument;
     const cs = CoordinateSpaces, ap = AnchorPoint;
     var imageDimension = [];
-
+    
     // Aktuelle Einheiten speichern
     var startHorizontalUnits = doc.viewPreferences.horizontalMeasurementUnits;
     var startVerticalUnits = doc.viewPreferences.verticalMeasurementUnits;
     // Einheiten auf Millimeter setzen
-    doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
-    doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
+    // doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
+    // doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
+    doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.points;
+    doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.points;
 
     image_inner = _image.allPageItems[0];
 
+    // spreadCoordinates
     var outer_TL = _image.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0];
     var outer_TR = _image.resolve(ap.TOP_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
     var outer_BR = _image.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0];
@@ -361,6 +364,10 @@ function getDimension(_image, _autoAnbau) {
                 var xmp_orientation = { value: 1 };
             }
 
+            if (!xmp_orientation) {
+                var xmp_orientation = { value: 1 };
+            }
+            
             return xmp_orientation;
         } catch (e) {
             var xmp_orientation = { value: 1 };
@@ -425,10 +432,14 @@ function getDimension(_image, _autoAnbau) {
         case '8':
             // alert("8: " + orientation);
             // TODO: Irgendwas stimmt doch hier nicht -- wird nicht angebaut
-            var inner_TL = inner_BL_helper;
-            var inner_TR = inner_TL_helper;
-            var inner_BR = inner_TR_helper;
-            var inner_BL = inner_BR_helper;
+            // var inner_TL = inner_BL_helper;
+            // var inner_TR = inner_TL_helper;
+            // var inner_BR = inner_TR_helper;
+            // var inner_BL = inner_BR_helper;
+            var inner_TL = inner_TR_helper;
+            var inner_TR = inner_BR_helper;
+            var inner_BR = inner_BL_helper;
+            var inner_BL = inner_TL_helper;
             break;
         default:
             var inner_TL = inner_TL_helper;
@@ -459,6 +470,7 @@ function getDimension(_image, _autoAnbau) {
         return (A * p1x + B * p1y + C) / Math.sqrt(A * A + B * B);
     }
 
+    //Das Ergebnis distance_topL ist also der senkrechte Abstand zwischen dem oberen linken Punkt des äußeren Rahmens und der oberen Kante des inneren Rahmens.
     var distance_topL = distanceMath(outer_TL[0], outer_TL[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
     var distance_topR = distanceMath(outer_TR[0], outer_TR[1], inner_TL[0], inner_TL[1], inner_TR[0], inner_TR[1]);
     var distance_rightT = distanceMath(outer_TR[0], outer_TR[1], inner_TR[0], inner_TR[1], inner_BR[0], inner_BR[1]);
@@ -469,14 +481,14 @@ function getDimension(_image, _autoAnbau) {
     var distance_leftT = distanceMath(outer_TL[0], outer_TL[1], inner_BL[0], inner_BL[1], inner_TL[0], inner_TL[1]);
 
 
-    // $.writeln("distance_topL: " + rund(pt2mm(distance_topL)));
-    // $.writeln("distance_topR: " + rund(pt2mm(distance_topR)));
-    // $.writeln("distance_rightT: " + rund(pt2mm(distance_rightT)));
-    // $.writeln("distance_rightB: " + rund(pt2mm(distance_rightB)));
-    // $.writeln("distance_bottomR: " + rund(pt2mm(distance_bottomR)));
-    // $.writeln("distance_bottomL: " + pt2mm(distance_bottomL));
-    // $.writeln("distance_leftB: " + rund(pt2mm(distance_leftB)));
-    // $.writeln("distance_leftT: " + rund(pt2mm(distance_leftT)));
+    $.writeln("distance_topL: " + rund(distance_topL));
+    $.writeln("distance_topR: " + rund(distance_topR));
+    $.writeln("distance_rightT: " + rund(distance_rightT));
+    $.writeln("distance_rightB: " + rund(distance_rightB));
+    $.writeln("distance_bottomR: " + rund(distance_bottomR));
+    $.writeln("distance_bottomL: " + rund(distance_bottomL));
+    $.writeln("distance_leftB: " + rund(distance_leftB));
+    $.writeln("distance_leftT: " + rund(distance_leftT));
 
     function getDistance(_zahl1, _zahl2) {
         // Vergleiche die beiden Zahlen und finde die größere
@@ -526,19 +538,80 @@ function getDimension(_image, _autoAnbau) {
     var outer_height = hypotenuse2(outer_TL, outer_BL);
     var inner_width = hypotenuse2(inner_TL, inner_TR);
     var inner_height = hypotenuse2(inner_TL, inner_BL);
-    // $.writeln("outer_width_mm: " + rund(pt2mm(outer_width)));
-    // $.writeln("outer_height_mm: " + rund(pt2mm(outer_height)));
-    // $.writeln("inner_width_mm: " + rund(pt2mm(inner_width)));
-    // $.writeln("inner_height_mm: " + rund(pt2mm(inner_height)));
-    // $.writeln("outer_width_pt: " + outer_width);
-    // $.writeln("outer_height_pt: " + outer_height);
-    // $.writeln("inner_width_pt: " + inner_width);
-    // $.writeln("inner_height_pt: " + inner_height);
+    $.writeln("outer_width_mm: " + rund(pt2mm(outer_width)));
+    $.writeln("outer_height_mm: " + rund(pt2mm(outer_height)));
+    $.writeln("inner_width_mm: " + rund(pt2mm(inner_width)));
+    $.writeln("inner_height_mm: " + rund(pt2mm(inner_height)));
+    $.writeln("outer_width_pt: " + outer_width);
+    $.writeln("outer_height_pt: " + outer_height);
+    $.writeln("inner_width_pt: " + inner_width);
+    $.writeln("inner_height_pt: " + inner_height);
 
     imageDimension.push(rund(outer_width));     //4
     imageDimension.push(rund(outer_height));    //5
     imageDimension.push(rund(inner_width));     //6
     imageDimension.push(rund(inner_height));    //7
+
+    imageDimension.push(outer_TL[0]);   //8
+    imageDimension.push(outer_TR[0]);   //9
+    imageDimension.push(outer_BR[0]);   //10
+    imageDimension.push(outer_BL[0]);   //11
+
+    imageDimension.push(outer_TL[1]);   //12
+    imageDimension.push(outer_TR[1]);   //13
+    imageDimension.push(outer_BR[1]);   //14
+    imageDimension.push(outer_BL[1]);   //15
+
+
+    imageDimension.push(inner_TL_helper[0]);    //16
+    imageDimension.push(inner_TR_helper[0]);    //17
+    imageDimension.push(inner_BR_helper[0]);    //18
+    imageDimension.push(inner_BL_helper[0]);    //19
+
+    imageDimension.push(inner_TL_helper[1]);    //20
+    imageDimension.push(inner_TR_helper[1]);    //21
+    imageDimension.push(inner_BR_helper[1]);    //22
+    imageDimension.push(inner_BL_helper[1]);    //23
+
+
+    imageDimension.push(orientation);    //24
+
+    imageDimension.push(distance_topL); //25
+    imageDimension.push(distance_topR); //26
+    imageDimension.push(distance_rightT); //27
+    imageDimension.push(distance_rightB); //28
+    imageDimension.push(distance_bottomR); //29
+    imageDimension.push(distance_bottomL); //30
+    imageDimension.push(distance_leftB); //31
+    imageDimension.push(distance_leftT); //32
+
+    imageDimension.push(_image.rotationAngle) //33
+
+    // Einheiten auf Punkt setzen
+    // doc.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.points;
+    // doc.viewPreferences.verticalMeasurementUnits = MeasurementUnits.points;
+
+    var page = doc.layoutWindows[0].activePage,
+        spread = page.parent,
+        spreadBounds = getExpandedBounds(spread.pages.everyItem().bounds);
+
+    imageDimension.push(spreadBounds[0]) //34  -- Druckbogen TL x-Achse
+    imageDimension.push(spreadBounds[1]) //35  -- Druckbogen TL y-Achse
+    imageDimension.push(spreadBounds[2]) //36  -- Druckbogen BR x-Achse - Höhe
+    imageDimension.push(spreadBounds[3]) //37  -- Druckbogen BR y-Achse - Breite
+
+    var spreadMoveX = image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, true)[0][1];
+    var spreadMoveY = image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, true)[0][0];
+    // alert(image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, true)[0]);
+    imageDimension.push(spreadMoveX) //38
+    imageDimension.push(spreadMoveY) //39
+
+    var druckbogenDaten = berechneDruckbogenGroesse(_image);
+    imageDimension.push(druckbogenDaten[0]) //40
+    imageDimension.push(druckbogenDaten[1]) //41
+    imageDimension.push(druckbogenDaten[2]) //41
+    imageDimension.push(druckbogenDaten[3]) //41
+
 
     function hypotenuse2(_p1, _p2) {
         var x = _p1[0] - _p2[0];
@@ -578,6 +651,72 @@ function getDimension(_image, _autoAnbau) {
                 exit();
 
         }
+    }
+
+    function getExpandedBounds(arr) {
+        // https://community.adobe.com/t5/indesign-discussions/how-do-you-call-the-actively-selected-spread-length-width-in-a-document-or-page-bounds/m-p/13940663
+        var bounds = [Infinity, Infinity, -Infinity, -Infinity];
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < arr[0].length; j++) {
+                if (j < 2)
+                    bounds[j] = Math.min(bounds[j], arr[i][j])
+                else
+                    bounds[j] = Math.max(bounds[j], arr[i][j])
+            }
+        }
+        return bounds;
+    };
+
+    function berechneDruckbogenGroesse(_image) {
+        const cs = CoordinateSpaces, ap = AnchorPoint;
+        var containingPage = _image.parentPage;
+    
+        if (containingPage == null) {
+            $.writeln("Das Bild befindet sich nicht auf einer Seite.");
+            return null;
+        }
+    
+        var activeSpread = containingPage.parent;
+        var pageCount = activeSpread.pages.length;
+        var pageCoordinates = [];
+    
+        // Koordinaten der Seiten innerhalb des Spread-Koordinatensystems sammeln
+        for (var i = 0; i < pageCount; i++) {
+            var page = activeSpread.pages[i];
+            var topLeftX = page.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0][0];
+            var topLeftY = page.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0][1];
+            var bottomRightX = page.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0][0];
+            var bottomRightY = page.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0][1];
+    
+            pageCoordinates.push({
+                topLeft: [topLeftX, topLeftY],
+                bottomRight: [bottomRightX, bottomRightY]
+            });
+        }
+    
+        // Initialisierung für Min/Max Berechnung
+        var minX = Infinity, maxX = -Infinity;
+        var minY = Infinity, maxY = -Infinity;
+    
+        // Berechnung der minimalen und maximalen Koordinaten
+        for (var i = 0; i < pageCoordinates.length; i++) {
+            var coord = pageCoordinates[i];
+            if (coord.topLeft[0] < minX) minX = coord.topLeft[0];
+            if (coord.bottomRight[0] > maxX) maxX = coord.bottomRight[0];
+            if (coord.topLeft[1] < minY) minY = coord.topLeft[1];
+            if (coord.bottomRight[1] > maxY) maxY = coord.bottomRight[1];
+        }
+    
+        // Höhe und Breite des Druckbogens berechnen
+        var druckbogenBreite = maxX - minX;
+        var druckbogenHoehe = maxY - minY;
+    
+        // Verschiebung des Druckbogens relativ zum Ursprung des spreadCoordinates-Systems
+        var pageMoveX = minX;
+        var pageMoveY = minY;
+    
+    
+        return [druckbogenBreite, druckbogenHoehe, pageMoveX, pageMoveY]
     }
 
     // Einheiten zurücksetzen
@@ -833,7 +972,6 @@ function BridgeTalk_processDoc(_image, _docFolder, _idDocName, _imageFile, _imag
         } else {
             try {
                 if (_image.hasOwnProperty('graphicLayerOptions')) {
-                    // myImage.graphicLayerOptions.updateLinkOption =  UpdateLinkOptions.KEEP_OVERRIDES;
                     // _image.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.APPLICATION_SETTINGS;
                     // alert(_image.graphicLayerOptions.updateLinkOption);
                 }
@@ -935,6 +1073,15 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
     function isArray(value) {
         return Object.prototype.toString.call(value) === '[object Array]';
     }
+    
+/*     if (debug) {
+        alert("typeof" +
+            "isString: " + isString(_imageDimension[8]) +
+            "isNumber: " + isNumber(_imageDimension[8]) +
+            "isBoolean: " + isBoolean(_imageDimension[8]) +
+            "isArray: " + isArray(_imageDimension[8])
+        )
+    } */
 
 
 
@@ -1039,8 +1186,11 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
             case "0":
             case "keineInterpolation":
                 try {
-                    myPsDoc.suspendHistory("Startschuss", "startschuss(_imageDimension, layersOptions_grouped)");
-                    /* startschuss(_imageDimension, layersOptions_grouped); */
+                    if(!debug) {
+                        myPsDoc.suspendHistory("Startschuss", "startschuss(_imageDimension, layersOptions_grouped)");
+                    } else {
+                        startschuss(_imageDimension, layersOptions_grouped);
+                    }
                 } catch (e) { if (debug) alert("Error chooseMethod case0 Startschuss: " + e) }
                 try {
                     myPsDoc.suspendHistory("Bildgröße Photoshop", "interpolation_PS(" + _hPPI + "," + _minAufloesung + "," + _ZielAufloesung + ")");

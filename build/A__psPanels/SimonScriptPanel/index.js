@@ -1173,6 +1173,18 @@ document.getElementById("bunt").addEventListener("click", function (event) {
     }
 });
 
+document.getElementById("hautmaske").addEventListener("click", function (event) {
+    if (!event.altKey && event.shiftKey) {
+        loadScript("[panel] Select Haut merged haut selection");
+    } else if (event.altKey && !event.shiftKey) {
+        loadScript("[panel] Select Haut merged nicht-haut folder");
+    } else if (event.altKey && event.shiftKey) {
+        loadScript("[panel] Select Haut merged nicht-haut selection");
+    } else {
+        loadScript("[panel] Select Haut merged haut folder");
+    }
+});
+
 
 document.getElementById("farbmaske").addEventListener("click", function (event) {
     if (event.shiftKey) {

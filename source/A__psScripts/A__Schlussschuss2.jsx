@@ -153,6 +153,14 @@ function run(_saveFolder) {
     if (getMeta_3("woodwing_imageID")) var woodwing_imageID = getMeta_3("woodwing_imageID");
     if (getMeta_3("idDocName")) var idDocName = getMeta_3("idDocName");
 
+    try {
+        hide("Layout");
+        if(debug) alert("Layout versteckt");
+    } catch (error) {
+        if(debug) alert("Layout nicht gefunden: " + e);
+    }
+    
+
     /*     $.writeln(isWoodwing);
         $.writeln(arbeitsdatei_RGB);
         $.writeln(woodwing_RGB);

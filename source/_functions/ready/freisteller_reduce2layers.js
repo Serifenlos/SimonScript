@@ -11,6 +11,7 @@ function freisteller_reduce2layers() {
         layer_makeBackground();
         dublicate("frei");
         gotoLayer("Freisteller");
+        fixMask(getActiveLayerIndex(), 1);
         var startMaskVisibility = getMaskVisibility();
         loadSelectionOfMask();
         gotoLayer("frei");
@@ -31,6 +32,6 @@ function freisteller_reduce2layers() {
             gotoLayer(0);
         }
     } catch (e) {
-        alert("Error freisteller_reduce2layers: " + e);
+        alert("Error freisteller_reduce2layers: \n" + e);
     }
 };

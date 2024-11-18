@@ -430,7 +430,7 @@ thanks to c.pfaffenbichler https://forums.adobe.com/message/3380255#3380255
             saveOptions.interlaced = false;
         }
         try { saveFile_v2(_file, saveOptions, _asCopy); }
-        catch (e) { alert("Error saveMultiformat: " + e)}
+        catch (e) { alert("Error saveMultiformat: \n" + e)}
     }
     ```
 

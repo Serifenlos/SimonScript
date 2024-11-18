@@ -877,34 +877,34 @@ function repositionImage_3(_top, _left) {
 // $.writeln(app.selection[0].graphics[0].graphicLayerOptions.graphicLayers[0].id);
 
 
-$.writeln(app.selection[0].graphics[0].profile)
+// // $.writeln(app.selection[0].graphics[0].profile)
 
 
-var myDoc = app.activeDocument;
-var myLink = app.selection[0].graphics[0];
+// var myDoc = app.activeDocument;
+// var myLink = app.selection[0].graphics[0];
 
-var avaiLangs = new Array("DE", "GB");
-//var avaiLangs = app.activeDocument.layers.everyItem().name;  
-var newLang = (avaiLangs.join(', '), "FR");
+// var avaiLangs = new Array("DE", "GB");
+// //var avaiLangs = app.activeDocument.layers.everyItem().name;  
+// var newLang = (avaiLangs.join(', '), "FR");
 
-if (myLink.getElements()[0].constructor.name == "Image") {
-}
-if (myLink.parent.hasOwnProperty('graphicLayerOptions')) {
-    // myLink.parent.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.KEEP_OVERRIDES;
-    // checkLayers(myLink, newLang);
-}
+// if (myLink.getElements()[0].constructor.name == "Image") {
+// }
+// if (myLink.parent.hasOwnProperty('graphicLayerOptions')) {
+//     // myLink.parent.graphicLayerOptions.updateLinkOption = UpdateLinkOptions.KEEP_OVERRIDES;
+//     // checkLayers(myLink, newLang);
+// }
 
-function checkLayers(oneLink, newLang) {
-    for (var n = 0; n < avaiLangs.length; n++) {
-        var myObjectLayers = oneLink.parent.graphicLayerOptions.graphicLayers;
-        if (myObjectLayers.itemByName(avaiLangs[n]).isValid) {
-            myObjectLayers.itemByName(avaiLangs[n]).currentVisibility = false;
-        }
-    }
-    if (myObjectLayers.itemByName(newLang).isValid) {
-        myObjectLayers.itemByName(newLang).currentVisibility = true;
-    }
-}
+// function checkLayers(oneLink, newLang) {
+//     for (var n = 0; n < avaiLangs.length; n++) {
+//         var myObjectLayers = oneLink.parent.graphicLayerOptions.graphicLayers;
+//         if (myObjectLayers.itemByName(avaiLangs[n]).isValid) {
+//             myObjectLayers.itemByName(avaiLangs[n]).currentVisibility = false;
+//         }
+//     }
+//     if (myObjectLayers.itemByName(newLang).isValid) {
+//         myObjectLayers.itemByName(newLang).currentVisibility = true;
+//     }
+// }
 
 
 
@@ -1080,3 +1080,259 @@ function automatisch() {
     // alert("ding")
 
 }
+
+
+
+
+// $.writeln("Dimension \n" + 
+//     "width: " + main()[0]  + "\n" +
+//     "height: " + main()[1]
+// );
+
+function main() {
+    var doc = app.activeDocument;
+    var page = doc.pages[0];
+    var bounds = page.bounds;
+    $.writeln("Bounds \n" +
+        "0: " + bounds[0] + "\n" +
+        "1: " + bounds[1] + "\n" +
+        "2: " + bounds[2] + "\n" +
+        "3: " + bounds[3] + "\n"
+    )
+    var width = RoundWithDecimal(bounds[3] - bounds[1], 3);
+    var height = RoundWithDecimal(bounds[2] - bounds[0], 3);
+    var dimension = [];
+    dimension.push(width);
+    dimension.push(height);
+
+    var bounds = [];
+
+    bounds.push(bounds[0]);
+    bounds.push(bounds[1]);
+    bounds.push(bounds[2]);
+    bounds.push(bounds[3]);
+
+
+    return dimension;
+}
+
+function RoundWithDecimal(number, decimals) {
+    var multiplier = Math.pow(10, decimals);
+    return Math.round(number * multiplier) / multiplier;
+}
+
+
+// Aktuelle Einheiten speichern
+var startHorizontalUnits = app.activeDocument.viewPreferences.horizontalMeasurementUnits;
+var startVerticalUnits = app.activeDocument.viewPreferences.verticalMeasurementUnits;
+// Einheiten auf Millimeter setzen
+// app.activeDocument.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.millimeters;
+// app.activeDocument.viewPreferences.verticalMeasurementUnits = MeasurementUnits.millimeters;
+app.activeDocument.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.points;
+app.activeDocument.viewPreferences.verticalMeasurementUnits = MeasurementUnits.points;
+
+// set the ruler to "page", again so our math works out.
+oldOrigin = app.activeDocument.viewPreferences.rulerOrigin // save old ruler origin
+
+// Spread Origin is necessary for some reason, otherwise I can't figure out how to refer to dimensions on both pages
+// app.activeDocument.viewPreferences.rulerOrigin = RulerOrigin.SPREAD_ORIGIN;
+app.activeDocument.viewPreferences.rulerOrigin = RulerOrigin.SPINE_ORIGIN;
+
+
+// app.activeDocument.layoutWindows[0].activePage.parent.pages
+const cs = CoordinateSpaces, ap = AnchorPoint;
+var selection = app.selection[0];
+var image_inner = selection.allPageItems[0];
+
+
+/**
+ * Example of getting bounds of a spread.
+ * @author m1b
+ * @discussion https://community.adobe.com/t5/indesign-discussions/how-do-you-call-the-actively-selected-spread-length-width-in-a-document-or-page-bounds/m-p/13940663
+ */
+(function () {
+
+    var doc = app.activeDocument,
+        page = doc.layoutWindows[0].activePage,
+        spread = page.parent,
+        spreadBounds = getExpandedBounds(spread.pages.everyItem().bounds);
+    // spreadBounds = spread.pages.everyItem().bounds;
+
+    $.writeln('Bounds of active spread:\n' + spreadBounds);
+
+})();
+
+// const cs = CoordinateSpaces, ap = AnchorPoint;
+var activePage = app.activeDocument.layoutWindows[0].activePage;
+
+// Koordinaten der aktiven Seite relativ zum Druckbogen (spreadCoordinates) ermitteln
+var topLeft = activePage.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0];
+var bottomRight = activePage.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0];
+
+// Ausgabe der Koordinaten
+$.writeln("Aktive Seite: " + activePage.name);
+$.writeln("Oben links (spreadCoordinates): [" + topLeft[0] + ", " + topLeft[1] + "]");
+$.writeln("Unten rechts (spreadCoordinates): [" + bottomRight[0] + ", " + bottomRight[1] + "]");
+
+
+
+$.writeln("spreadMoveX page: " + image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0][0]);
+$.writeln("spreadMoveY page: " + image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0][1]);
+
+$.writeln("spreadMoveX spread: " + image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, true)[0][0]);
+$.writeln("spreadMoveY spread: " + image_inner.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, true)[0][1]);
+
+
+
+// Get the active spread
+var activeSpread = app.activeDocument.layoutWindows[0].activeSpread;
+
+
+
+
+// $.writeln("spreadMoveX page: " + app.activeDocument.layoutWindows[0].activePage.resolve(ap.TOP_LEFT_ANCHOR, cs.pageCoordinates, true)[0][0]);
+// $.writeln("spreadMoveX page: " + app.activeDocument.layoutWindows[0].activePage.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0][0]);
+// $.writeln("spreadMoveX page: " + app.activeDocument.layoutWindows[0].activePage.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.pageCoordinates, true)[0][1]);
+
+// app.activeDocument.layoutWindows[0].activePage.parent.pages.anyItem().resolve(AnchorPoint.TOP_LEFT_ANCHOR, CoordinateSpaces.pageCoordinates, true)[0]
+// $.writeln(image_inner.transformValuesOf(cs.SPREAD_COORDINATES)[0])
+// $.writeln(image_inner.transformValuesOf(CoordinateSpaces.SPREAD_COORDINATES)[0].matrixValues)
+// 8.43175874726769,0,-3.20592491380523e-16,8.43175874726769,-7.04867079534995,9.80128334049368e-9
+// Einheiten zurücksetzen
+app.activeDocument.viewPreferences.horizontalMeasurementUnits = startHorizontalUnits;
+app.activeDocument.viewPreferences.verticalMeasurementUnits = startVerticalUnits;
+oldOrigin = app.activeDocument.viewPreferences.rulerOrigin // save old ruler origin
+
+
+function berechneDruckbogenGroesse() {
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+    var activeSpread = app.activeDocument.layoutWindows[0].activeSpread;
+    var pageCount = activeSpread.pages.length;
+    var pageCoordinates = [];
+
+    // Koordinaten der Seiten innerhalb des Spread-Koordinatensystems sammeln
+    for (var i = 0; i < pageCount; i++) {
+        var page = activeSpread.pages[i];
+        var topLeftX = page.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0][0];
+        var topLeftY = page.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0][1];
+        var bottomRightX = page.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0][0];
+        var bottomRightY = page.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0][1];
+
+        pageCoordinates.push({
+            topLeft: [topLeftX, topLeftY],
+            bottomRight: [bottomRightX, bottomRightY]
+        });
+    }
+
+    // Initialisierung für Min/Max Berechnung
+    var minX = Infinity, maxX = -Infinity;
+    var minY = Infinity, maxY = -Infinity;
+
+    // Berechnung der minimalen und maximalen Koordinaten
+    for (var i = 0; i < pageCoordinates.length; i++) {
+        var coord = pageCoordinates[i];
+        if (coord.topLeft[0] < minX) minX = coord.topLeft[0];
+        if (coord.bottomRight[0] > maxX) maxX = coord.bottomRight[0];
+        if (coord.topLeft[1] < minY) minY = coord.topLeft[1];
+        if (coord.bottomRight[1] > maxY) maxY = coord.bottomRight[1];
+    }
+
+    // Höhe und Breite berechnen
+    var druckbogenHoehe = maxX - minX;
+    var druckbogenBreite = maxY - minY;
+
+    return [druckbogenHoehe, druckbogenBreite];
+}
+
+// Funktion aufrufen und Ergebnis ausgeben
+// var druckbogenGroesse = berechneDruckbogenGroesse();
+// $.writeln("Höhe des Druckbogens: " + druckbogenGroesse[0]);
+// $.writeln("Breite des Druckbogens: " + druckbogenGroesse[1]);
+
+
+function berechneDruckbogenGroesse(_image) {
+    const cs = CoordinateSpaces, ap = AnchorPoint;
+    var containingPage = _image.parentPage;
+
+    if (containingPage == null) {
+        $.writeln("Das Bild befindet sich nicht auf einer Seite.");
+        return null;
+    }
+
+    var activeSpread = containingPage.parent;
+    var pageCount = activeSpread.pages.length;
+    var pageCoordinates = [];
+
+    // Koordinaten der Seiten innerhalb des Spread-Koordinatensystems sammeln
+    for (var i = 0; i < pageCount; i++) {
+        var page = activeSpread.pages[i];
+        var topLeftX = page.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0][0];
+        var topLeftY = page.resolve(ap.TOP_LEFT_ANCHOR, cs.spreadCoordinates, false)[0][1];
+        var bottomRightX = page.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0][0];
+        var bottomRightY = page.resolve(ap.BOTTOM_RIGHT_ANCHOR, cs.spreadCoordinates, false)[0][1];
+
+        pageCoordinates.push({
+            topLeft: [topLeftX, topLeftY],
+            bottomRight: [bottomRightX, bottomRightY]
+        });
+    }
+
+    // Initialisierung für Min/Max Berechnung
+    var minX = Infinity, maxX = -Infinity;
+    var minY = Infinity, maxY = -Infinity;
+
+    // Berechnung der minimalen und maximalen Koordinaten
+    for (var i = 0; i < pageCoordinates.length; i++) {
+        var coord = pageCoordinates[i];
+        if (coord.topLeft[0] < minX) minX = coord.topLeft[0];
+        if (coord.bottomRight[0] > maxX) maxX = coord.bottomRight[0];
+        if (coord.topLeft[1] < minY) minY = coord.topLeft[1];
+        if (coord.bottomRight[1] > maxY) maxY = coord.bottomRight[1];
+    }
+
+    // Höhe und Breite des Druckbogens berechnen
+    var druckbogenBreite = maxX - minX;
+    var druckbogenHoehe = maxY - minY;
+
+    // Verschiebung des Druckbogens relativ zum Ursprung des spreadCoordinates-Systems
+    var pageMoveX = minX;
+    var pageMoveY = minY;
+
+
+    return [druckbogenBreite, druckbogenHoehe, pageMoveX, pageMoveY]
+}
+
+// Funktion aufrufen und Ergebnisse ausgeben
+var druckbogenDaten = berechneDruckbogenGroesse(selection);
+if (druckbogenDaten != null) {
+    $.writeln("xx: " + druckbogenDaten)
+    $.writeln("Breite des Druckbogens: " + druckbogenDaten[0]);
+    $.writeln("Höhe des Druckbogens: " + druckbogenDaten[1]);
+    $.writeln("Verschiebung X-Achse: " + druckbogenDaten[2]);
+    $.writeln("Verschiebung Y-Achse: " + druckbogenDaten[3]);
+}
+
+
+
+/**
+ * Returns the overall bounds, when
+ * given an array of bounds ordered
+ * as Indesign bounds [TLBR].
+ * @author m1b
+ * @version 2023-07-17
+ * @param {Array<Array<Number>>} arr - an array of bounds arrays.
+ * @returns {Array<Number>} - the expanded bounds [TLBR].
+ */
+function getExpandedBounds(arr) {
+    // https://community.adobe.com/t5/indesign-discussions/how-do-you-call-the-actively-selected-spread-length-width-in-a-document-or-page-bounds/m-p/13940663
+    var bounds = [Infinity, Infinity, -Infinity, -Infinity];
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < arr[0].length; j++) {
+            if (j < 2)
+                bounds[j] = Math.min(bounds[j], arr[i][j])
+            else
+                bounds[j] = Math.max(bounds[j], arr[i][j])
+        }
+    }
+    return bounds;
+};

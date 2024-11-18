@@ -1,7 +1,9 @@
 // @codekit-prepend './selection/mask2image.js';
 // @codekit-prepend './selection/select_Farbbereich.js';
 // @codekit-prepend './selection/select_all.js';
+// @codekit-prepend './selection/select_haut.js';
 // @codekit-prepend './selection/select_invert.js';
+// @codekit-prepend './selection/select_layer.js';
 // @codekit-prepend './selection/select_luminance.js';
 // @codekit-prepend './selection/select_motiv.js';
 // @codekit-prepend './selection/select_outOfGamut.js';
@@ -11,3 +13,4 @@
 // @codekit-prepend './selection/selection_check.js';
 // @codekit-prepend './selection/selection_deselect.js';
 // @codekit-prepend './selection/selection_loop.js';
+// @codekit-prepend './selection/vectorMask2seletion.js';

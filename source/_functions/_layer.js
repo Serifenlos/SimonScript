@@ -17,6 +17,7 @@
 // @codekit-prepend './layer/layer_delete.js';
 // @codekit-prepend './layer/layer_getIDXbyName.js';
 // @codekit-prepend './layer/layer_getIDXbyString.js';
+// @codekit-prepend './layer/layer_getLayerType.js';
 // @codekit-prepend './layer/layer_getName.js';
 // @codekit-prepend './layer/layer_getSolidFillColor.js';
 // @codekit-prepend './layer/layer_makeBackground.js';
@@ -27,6 +28,8 @@
 // @codekit-prepend './layer/layer_selectedIDX_set.js';
 // @codekit-prepend './layer/layer_selectedID_get.js';
 // @codekit-prepend './layer/layer_selectedID_set.js';
+// @codekit-prepend './layer/layer_shape_create.js';
+// @codekit-prepend './layer/layer_shape_getAngle.js';
 // @codekit-prepend './layer/layer_solidColorHSB_change.js';
 // @codekit-prepend './layer/layer_transform.js';
 // @codekit-prepend './layer/selectLayerByID.js';
