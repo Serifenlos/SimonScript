@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "ES6"
+    },
+    "exclude": [
+        "node_modules", // Standard: Schließt node_modules aus
+        "**/*.kit"       // Schließt alle .kit-Dateien aus
+    ]
+}

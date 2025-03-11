@@ -8,6 +8,7 @@
 // END__HARVEST_EXCEPTION_ZSTRING
 */
 
+/*{{TIMESTAMP}}*/
 
 //@include "functions/basic.jsx";
 //@include "functions/utils.jsx";
@@ -22,8 +23,8 @@
 saveFolder = "~/Desktop/Bilder FERTIG";
 saveFolder_WEB = "~/Desktop/Bilder WEB";
 
-suffix_FERTIG = "__FERTIG";
-suffix_WEB = "__WEB";
+suffix_FERTIG = "";
+suffix_WEB = "";
 maximalMegaPixel = 8;
 /****************************************************/
 
@@ -170,7 +171,7 @@ function run() {
                 var saveFolder = new Folder(_saveFolder);
                 if (!saveFolder.exists) saveFolder.create();
 
-                var saveName = replace__RGB_RZ(_suffix);
+                var saveName = string_to_slug(replace__RGB_RZ(_suffix));
                 var savePath = saveFolder + "/" + _prefix + saveName + "." + _saveFormat;
                 var saveFile = File(savePath);
 
@@ -180,6 +181,26 @@ function run() {
                     var saveFile = File(savePath);
                 }
                 return decodeURIComponent(_prefix) + saveName;
+            }
+
+            function string_to_slug(str) {
+                str = str.replace(/^\s+|\s+$/g, ''); // trim
+                // str = str.toLowerCase();
+              
+                // remove accents, swap ñ for n, etc
+                var from = "ÄäĀāĂăĄąÀàÁáÂâÇçËëÈèÉéÊêĒēĜĝĠġÏïÎîĨĩÍíÑñŃńÑñÖöÒòÓóÔôõßŠšŜŝŚśÜüÛûŮůŸÿŶŷ·/_,:;'";
+                var to   = "AaAaAaAaAaAaAaCcEeEeEeEeEeGgGgIiIiIiIiNnNnNnOoOoOoOoosSsSsSsUuUuUuYyYy-------";
+                for (var i=0, l=from.length ; i<l ; i++) {
+                    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+                }
+            
+                str = str.replace(/[^a-z0-9 -]/ig, '') // remove invalid chars
+                    .replace(/[^\w\-]+/ig, '') // Remove all non-word chars
+                    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                    .replace(/-+/g, '-') // collapse dashes
+                    ;
+            
+                return str;
             }
 
             function helperScale(_setMegaPixel) {
@@ -271,10 +292,10 @@ function run() {
                     SaveForWeb("JPEG", saveFolder, setSaveName(saveFolder, prefix, "jpg", suffix_FERTIG), false, f, f, t, t, 255, 255, 255, "Meta_all", 66, t, t, 0);
 
 
-                    /*** Export der Freisteller ausgeschaltet ***/
+                    /*** Export der Freisteller ***/
 
-                    // makeVisible("frei");
-                    // hide(0);
+                    makeVisible("frei");
+                    hide(0);
                     // SaveForWeb("PN24", saveFolder, setSaveName(saveFolder, prefix, "png", suffix_FERTIG), false, f, f, t, t, 255, 255, 255, "Meta_all", 66, t, f, 0);
 
                     if (visibility_frei) {

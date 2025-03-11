@@ -826,12 +826,42 @@
 
 ??? "isLayerFXVisible();"
     ``` js linenums="1"
-    function isLayerFXVisible() {
+    /* function isLayerFXVisible() {
         var m_Ref01 = new ActionReference();
         m_Ref01.putEnumerated( sTID( "layer" ), cTID( "Ordn" ), cTID( "Trgt" ));
         var m_Dsc01= executeActionGet( m_Ref01 );
         return m_Dsc01.getBoolean(cTID('lfxv'));
      }
+     */
+    
+    
+    
+    function isLayerFXVisible(_input) {
+        var r = new ActionReference();
+    
+        if (typeof _input == "number") {                // by Index
+            r.putIndex(s2t("layer"), _input);
+        }
+    
+        if (typeof _input == "string") {
+            if (layer_checkExistence(_input)) {         // by Layername
+                r.putName(s2t('layer'), _input);
+            } else {                                    // by Layername via Regex // first hit
+                r.putIndex(s2t("layer"), layer_getIDXbyString(_input)[0]);
+            }
+        }
+    
+        if (typeof _input === "undefined") {            // by activeLayer
+            r.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"));
+        }
+    
+        try {
+            return executeActionGet(r).getBoolean(s2t("layerFXVisible"));    
+        } catch (e) {
+            if (debug) alert("ERROR - gotoLayer_bySelector: \n" + e)
+        }
+       
+    }
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isLayerFXVisible.js)
@@ -845,8 +875,10 @@
 ??? "copyLayerStyle();"
     ``` js linenums="1"
     function copyLayerStyle(){
-        var idCpFX = charIDToTypeID( "CpFX" );
-        executeAction( idCpFX, undefined, DialogModes.NO );
+        // var idCpFX = charIDToTypeID( "CpFX" );
+        // executeAction( idCpFX, undefined, DialogModes.NO );
+    
+        executeAction(s2t("copyEffects"), undefined, DialogModes.NO );
       }
     ```
 
@@ -3038,8 +3070,6 @@
     testSelectMultiple([1,3,5,7]);
     ```
 
-
-
 ### getClosedSets
 
 <button class="btn" data-clipboard-text="getClosedSets();"></button>
@@ -3063,7 +3093,6 @@
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/getClosedSets.js)
-
 
 ### isSetOpened1
 
@@ -3098,7 +3127,6 @@
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/isSetOpened1.js)
-
 
 ### toogleOpenCloseSet_byIDX
 
@@ -3155,7 +3183,6 @@
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/utils/toogleOpenCloseSet_byIDX.js)
-
 
 ### toogleOpenCloseSet_byIDX_byArray
 

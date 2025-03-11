@@ -517,26 +517,88 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
     function saveFile_v2(_file, _saveOptions, _asCopy) {
         app.activeDocument.saveAs(_file, _saveOptions, _asCopy, Extension.LOWERCASE);
     }
+    function makeVisible(_input) {
+        try {
+            var d = new ActionDescriptor();
+            var l = new ActionList();
+            var r = new ActionReference();
+            if (typeof _input == "number") {
+                r.putIndex(stringIDToTypeID("layer"), _input);
+            } else if (typeof _input == "string") {
+                if (layer_checkExistence(_input)) {
+                    r.putName(stringIDToTypeID('layer'), _input);
+                } else {
+                    r.putIndex(stringIDToTypeID("layer"), layer_getIDXbyString(_input)[0]);
+                }
+            } else if (typeof _input === "undefined") {
+                r.putEnumerated(stringIDToTypeID("layer"), stringIDToTypeID("ordinal"), stringIDToTypeID("targetEnum"));
+            }
+            l.putReference(r);
+            d.putList(charIDToTypeID("null"), l);
+            executeAction(stringIDToTypeID("show"), d, DialogModes.NO);
+        } catch (e) {
+            alert("error makeVisible: " + e);
+        }
+    }
+    function flattenImage() {
+        executeAction(charIDToTypeID("FltI"), undefined, DialogModes.NO);
+    }
+    function layer_checkExistence(_input) {
+        try {
+            var r = new ActionReference();
+            r.putProperty(stringIDToTypeID("property"), stringIDToTypeID("itemIndex"));
+            if (typeof _input == "number") {
+                r.putIndex(stringIDToTypeID("layer"), _input);
+            } else if (typeof _input == "string") {
+                r.putName(stringIDToTypeID('layer'), _input);
+            }
+            var getLayerIDX = executeActionGet(r).getInteger(stringIDToTypeID("itemIndex"));
+            return true;
+        } catch (e) {
+            alert("error layer_checkExistence: " + e);
+            return false;
+        }
+    }
+    function layer_getIDXbyString(_string) {
+        var i = 1;
+        var layerIDX_array = [];
+        while (layer_checkExistence(i)) {
+            try {
+                var regex = new RegExp(_string, 'g');
+                if (layer_getName(i).match(regex)) {
+                    layerIDX_array.push(i)
+                }
+            } catch (e) {
+                alert("error layer_getIDXbyString: " + e);
+            }
+            i++;
+        };
+        return layerIDX_array;
+    }
 
 
     prefSave();
     prefSet();
-    app.bringToFront();
+    /* app.bringToFront(); */
     app.open(master);
 
     if (thisSite == "links") {
-        placeItem("links", thisFile)
+        placeItem("links", thisFile);
     } else {
         placeItem("rechts", thisFile);
         try{
-            /* gotoLayer(0);
-            nameLayer("Schatten"); */
+            
             selectLayers("selectAllLayers");
             selectLayerBySelector("Schatten", "remove");
             mergeLayers();
             nameLayer("frei");
-            /* saveMultiformat(new File(Folder_3D + "/" + thisFileName), "psd", true, null, false, false); */
+            /* makeVisible("Schatten"); */
             saveMultiformat(new File(Folder_3D + "/" + thisFileName), "psd", true, null, false, true);
+
+            /* makeVisible("Schatten");
+            flattenImage();
+            saveMultiformat(new File(Folder_3D + "/" + thisFileName), "jpg", true, 11, false, false); */
+
             resetImage();
         }
         catch(e){alert(e)}

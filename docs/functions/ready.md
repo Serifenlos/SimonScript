@@ -1017,8 +1017,6 @@
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/tiefenmaske_part2.js)
 
-
-
 ### freisteller_deFrei
 
 <button class="btn" data-clipboard-text="freisteller_deFrei();"></button>
@@ -1119,7 +1117,6 @@
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/ready/freisteller_deFrei.js)
 
-
 ### freisteller_reduce2layers
 
 <button class="btn" data-clipboard-text="freisteller_reduce2layers();"></button>
@@ -1137,8 +1134,28 @@
             selectLayers("selectAllLayers");
             selectLayerBySelector("Freisteller", "remove");
             layer_mergeLayers();
-            layer_makeBackground();
+    
+            var checkTransparency_layer = checkTransparency_inner(); 
+            if(checkTransparency_layer) {
+                moveLayer3("down", 1);
+                var id_layer = layer_selectedID_get();
+            } else {
+                layer_makeBackground();
+            }
+            
             dublicate("frei");
+            copypaste_LayerFX("Freisteller", "frei");
+    
+            if(checkTransparency_layer) {
+                createColorLayer("Weiss", "normal", "none", 100, "none", 255, 255, 255);
+                moveLayer3("back", 1);
+                for (var j = 0; j < id_layer.length; j++) {
+                    selectLayerByID(id_layer[j], "add");
+                }
+                layer_mergeLayers();
+                layer_makeBackground();
+            }
+    
             gotoLayer("Freisteller");
             fixMask(getActiveLayerIndex(), 1);
             var startMaskVisibility = getMaskVisibility();

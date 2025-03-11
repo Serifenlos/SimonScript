@@ -1,0 +1,1 @@
+function copypaste_LayerFX(e,y){var t=layer_selectedIDX_get();isLayerFXVisible(e)&&(gotoLayer_bySelector(e),copyLayerStyle(),gotoLayer_bySelector(y),pasteLayerStyle()),layer_selectedIDX_set(t)}
