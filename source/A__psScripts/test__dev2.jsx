@@ -1232,12 +1232,14 @@ function channel_checkExistenceByName(_name) {
     return check;
 }
 
-$.writeln("1: " + channel_checkExistenceByName("rg"))
-$.writeln("2: " + channel_checkExistenceByName("rgdff"))
+// $.writeln("1: " + channel_checkExistenceByName("rg"))
+// $.writeln("2: " + channel_checkExistenceByName("rgdff"))
 
 function channel_deleteX(_name) {
     while (channel_checkExistenceByName(_name)) {
         channel_delete(_name);
     }
 }
-channel_deleteX("rg")
+// channel_deleteX("rg")
+
+alert("ding");

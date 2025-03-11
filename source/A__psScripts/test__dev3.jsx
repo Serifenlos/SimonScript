@@ -1,3 +1,5 @@
+/* //@charset "UTF-8"; */
+
 //@include "./assets/json2.js";
 
 //@include "/Users/adrians/Arbeit/GitHub/SimonScript/build/A__psScripts/functions/basic.jsx";
@@ -653,7 +655,7 @@ function setBeschnitt() {
 // Retouch4me SkinMask
 // executeAction(sTID('a6e0kl2a-95ce-32d3-bd6b-93ma23632k91'), undefined, DialogModes.ALL);
 
-select_haut(true, 'nicht Haut', 'Folder')
+// select_haut(true, 'nicht Haut', 'Folder')
 
 // function select_haut(_merge, _kind, _get) {
 // 	// _merge = true || false
@@ -720,3 +722,70 @@ select_haut(true, 'nicht Haut', 'Folder')
 // 		}
 // 	}
 // }
+
+
+// alert(isLayerFXVisible("Freisteller"));
+// gotoLayer_bySelector("Freisteller");
+// copyLayerStyle();
+// gotoLayer_bySelector("frei")
+// pasteLayerStyle();
+
+
+// copypaste_LayerFX("Freisteller", "frei");
+
+// function copypaste_LayerFX(_sourceLayer, _aimLayer) {
+// 	var startLayer_copypaste_LayerFX = layer_selectedIDX_get();
+// 	if (isLayerFXVisible(_sourceLayer)) {
+// 		gotoLayer_bySelector(_sourceLayer);
+// 		copyLayerStyle();
+// 		gotoLayer_bySelector(_aimLayer)
+// 		pasteLayerStyle();
+// 	}
+// 	layer_selectedIDX_set(startLayer_copypaste_LayerFX); 
+// }
+
+// $.writeln(checkTransparency_inner())
+// $.writeln(checkTransparency())
+
+// freisteller_reduce2layers();
+
+// layer_delete("Freisteller");
+
+// moveLayer3("down", 1); 
+
+String.prototype.cleanUmlaut = function ()  
+{ 
+	var s = this; 
+	s = s.replace( /a\u0308/g, 'ä'); 
+	s = s.replace( /o\u0308/g, 'ö'); 
+	s = s.replace( /u\u0308/g, 'ü'); 
+	s = s.replace( /A\u0308/g, 'Ä'); 
+	s = s.replace( /O\u0308/g, 'Ö'); 
+	s = s.replace( /U\u0308/g, 'Ü');	 
+	return s; 
+}
+
+function decodeUmlaute(str) {
+    return str.replace(/Ã¼/g, "ü")
+              .replace(/Ã¶/g, "ö")
+              .replace(/Ã¤/g, "ä")
+              .replace(/ÃŸ/g, "ß");
+}
+
+try {
+	var _imageName = "046-047__11F_197_Museum_Köln.psd";
+	// var _imageName = "046-047__11F_197_Museum_Koln.psd";
+	// var _imageName = "IMG_0553.jpg";
+	// var _imageName = "11Freunde-Club-0157-grün__RZ__RGB";
+	$.writeln(_imageName);
+	// var _imageName = _imageName.cleanUmlaut();
+	// var _imageName = decodeUmlaute(_imageName);
+	// // var _imageName = encodeURI(_imageName);
+	// $.writeln(_imageName);
+	// var _imageName = decodeURI(_imageName);
+	// $.writeln(_imageName);
+	// var myPsDoc = app.documents.getByName("046-047__11F_197_Museum_Köln.psd");
+	app.activeDocument = app.documents.getByName(_imageName);
+} catch (error) {
+	alert("error: " + error)
+}

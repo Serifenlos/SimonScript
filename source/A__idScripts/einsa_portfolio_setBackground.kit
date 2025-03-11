@@ -1,0 +1,204 @@
+/*
+// BEGIN__HARVEST_EXCEPTION_ZSTRING
+<javascriptresource>
+<name>[ss] einsa Portfoilo Workflow</name>
+<about>um die Portfoilo-Bilder umzufärben | By Simon Adrian | https://www.SimonAdrian.de</about>
+<category>SimonScript</category>
+</javascriptresource>
+// END__HARVEST_EXCEPTION_ZSTRING
+*/
+
+run();
+
+function run() {
+    if (!app.documents.length > 0) {
+        alert("Abbruch!\nkein Dokument geöffnet");
+        return;
+    }
+    if (!app.selection.length > 0) {
+        alert("Abbruch!\nWähle das zubearbeitende Bild aus");
+        return;
+    }
+
+    var doc_ID = app.activeDocument;
+    var doc_IDPath = doc_ID.filePath;
+
+    var subFolder = "RGB";
+    var saveFolder = new Folder(doc_IDPath + "/" + subFolder);
+    if (!saveFolder.exists) saveFolder.create();
+
+
+    for (var i = 0; i < app.selection.length; i++) {
+        if (app.selection[i] instanceof Image && app.selection[i].parent.graphics.length > 0) {
+            var selection = app.selection[i].parent;
+        } else {
+            var selection = app.selection[i];
+        }
+
+        var imageLink = selection.graphics[0].itemLink;
+        var imagePath = imageLink.filePath;
+        var imageName_only = GetFileNameOnly(decodeURI(imageLink.name));
+
+        if (imageName_only.match("__RGB")) {
+            var alreadyRGB = "yes";
+        } else {
+            var alreadyRGB = "no";
+        }
+
+        var file_RGB = saveFolder + "/" + imageName_only + "__RGB.psd";
+
+        var color_array = [];
+        if (selection.hasOwnProperty('fillColor')) {
+            swatch = selection.fillColor;
+            if (swatch instanceof Color && swatch.space == ColorSpace.RGB) {
+                var color = swatch.colorValue.join(',');
+                var color_array = color.split(',');
+            }
+            else {
+                var color_array = [127, 127, 127];
+            }
+        }
+
+
+        // selection.fillColor = "None";
+
+
+        runID(imagePath, imageLink, file_RGB, saveFolder, color_array, alreadyRGB)
+
+
+    }
+
+
+
+}
+
+function GetFileNameOnly(_fileName) {
+    var myString = "";
+    var myResult = _fileName.lastIndexOf(".");
+    if (myResult == -1) {
+        myString = _fileName;
+    } else {
+        myString = _fileName.substr(0, myResult);
+    }
+    return myString
+}
+
+
+function runID(_imagePath, _imageLink, _file_RGB, _saveFolder, _color_array, _alreadyRGB) {
+    // alert("check" +
+    //     "\n_imagePath: " + _imagePath +
+    //     "\n_file_RGB: " + _file_RGB +
+    //     "\n_alreadyRGB: " + _alreadyRGB
+    // )
+    // $.writeln("_saveFolder: " + _saveFolder);
+
+    BridgeTalk_runPS(_imagePath, _file_RGB, _saveFolder, _color_array, _alreadyRGB);
+    Relink(_imageLink, _file_RGB);
+
+}
+
+function BridgeTalk_runPS(_imagePath, _file_RGB, _saveFolder, _color_array, _alreadyRGB) {
+    var bt = new BridgeTalk();
+    bt.target = 'photoshop';
+    bt.body = runPS.toSource() + "('" + _imagePath + "','" + _file_RGB + "','" + _saveFolder + "','" + _color_array + "','" + _alreadyRGB + "');";
+    bt.onResult = function (resObj) { };
+    bt.send(30);
+}
+
+function Relink(_imageLink, _file_RGB) {
+    var newFile = new File(_file_RGB);
+    if (newFile.exists) {
+        var originalLinkFile = new File(_imageLink.filePath);
+        _imageLink.relink(newFile);
+        try {
+            if (_imageLink.status == LinkStatus.linkOutOfDate) {
+                _imageLink.update();
+            }
+        } catch (err) {
+            alert("Error relink \n" + err)
+        }
+    } else {
+        try {
+            if (_imageLink.status == LinkStatus.linkOutOfDate) {
+                _imageLink.update();
+            }
+        } catch (err) {
+            alert("Error relink \n" + err)
+        }
+    }
+}
+
+function runPS(_imagePath, _file_RGB, _saveFolder, _color_array, _alreadyRGB) {
+    <!-- @import "../../build/A__psScripts/functions/basic.jsx"; -->
+    <!-- @import "../../build/A__psScripts/functions/utils.jsx"; -->
+    <!-- @import "../../build/A__psScripts/functions/ready.jsx"; -->
+    <!-- @import "../../build/A__psScripts/functions/save.jsx"; -->
+    <!-- @import "../../build/A__psScripts/functions/layer.jsx"; -->
+    <!-- @import "../../build/A__psScripts/functions/selection.jsx"; -->
+
+
+
+    try {
+        var _color_array = arrayCorrect(_color_array);
+    } catch (error) {
+        alert("Error arrayCorrect: \n" + e)
+    }
+
+    app.open(new File(_imagePath));
+    var startLayerSelection = layer_selectedID_get();
+    var doc = app.activeDocument;
+
+    try {
+        var getProfile = doc.colorProfileName;
+        var find = new RegExp("Display P3");
+        if (!getProfile.match(find)) {
+            doc.convertProfile("Display P3", Intent.RELATIVECOLORIMETRIC, true, false);
+        }
+    } catch (e) {}
+
+
+    if (_alreadyRGB == "no") {
+        motivmaske('Motiv', 'Folder');
+        motivmaske('nicht Motiv', 'Folder');
+        nameLayer("Hintergrund");
+
+        createColorLayer("farbe", "overlay", "none", 100, "none", _color_array[0], _color_array[1], _color_array[2]);
+
+
+        layer_selectedID_set(startLayerSelection);
+        saveMultiformat(new File(_file_RGB), "psd", f, null, f, t);
+
+    } else {
+        gotoLayer("farbe");
+        layer_solidColorRGB_change(_color_array[0], _color_array[1], _color_array[2]);
+        layer_selectedID_set(startLayerSelection);
+        doc.save();
+
+    }
+
+    doc.close(SaveOptions.SAVECHANGES);
+
+    function layer_solidColorRGB_change(_r, _g, _b) {
+        var d = new ActionDescriptor();
+        var d2 = new ActionDescriptor();
+        var d3 = new ActionDescriptor();
+        var r = new ActionReference();
+
+        r.putEnumerated(s2t("contentLayer"), s2t("ordinal"), s2t("targetEnum"));
+        d.putReference(s2t("null"), r);
+
+        d3.putDouble(s2t("red"), _r);
+        d3.putDouble(s2t("grain"), _g);
+        d3.putDouble(s2t("blue"), _b);
+        d2.putObject(s2t("color"), s2t("RGBColor"), d3);
+
+        d.putObject(s2t("to"), s2t("solidColorLayer"), d2);
+        executeAction(s2t("set"), d, DialogModes.NO);
+    }
+
+
+}
+
+
+
+

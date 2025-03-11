@@ -8,6 +8,7 @@
 // @codekit-prepend './utils/addToSelection.js';
 // @codekit-prepend './utils/closeGroup.js';
 // @codekit-prepend './utils/copyLayerStyle.js';
+// @codekit-prepend './utils/copypaste_LayerFX.js';
 // @codekit-prepend './utils/deleteActiveLayer.js';
 // @codekit-prepend './utils/deleteMask.js';
 // @codekit-prepend './utils/deleteTempLayerSetbyIdx.js';

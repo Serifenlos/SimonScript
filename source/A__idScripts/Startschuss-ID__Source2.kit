@@ -78,8 +78,8 @@ getRubrik_array = [
 ];
 
 // One Step: https://community.adobe.com/t5/indesign-discussions/doscript-method-questions/td-p/10953644
-// app.doScript("Startschuss()", ScriptLanguage.JAVASCRIPT, [], UndoModes.ENTIRE_SCRIPT, 'Startschuss');
-Startschuss();
+app.doScript("Startschuss()", ScriptLanguage.JAVASCRIPT, [], UndoModes.ENTIRE_SCRIPT, 'Startschuss');
+// Startschuss();
 
 function Startschuss() {
     if (!app.selection.length > 0) {
@@ -127,6 +127,9 @@ function Startschuss() {
         // var doc = app.activeDocument;           // TODO wenn noch nie gespeichert dann Abbruch
         // var docPath = doc.filePath;             // noch relevant ?
         // var docFolder = new Folder(docPath);    // noch relevant ?
+
+        // DEBUG inDesign
+        // app.selection[0].parent.graphics[0].itemLink
 
         if (app.selection[i] instanceof Image && app.selection[i].parent.graphics.length > 0) {
             var selection = app.selection[i].parent;
@@ -1025,9 +1028,9 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
     <!-- @import "../../build/A__psScripts/functions/save.jsx"; -->
     <!-- @import "../../build/A__psScripts/functions/layer.jsx"; -->
 
-
         prefSave();
     prefSet(DialogModes.NO, Units.MM);
+
 
     const debug = (String(_debug).toLowerCase() === 'true');
     /* app.open(new File(_imageFile)); */
