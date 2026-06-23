@@ -2388,7 +2388,12 @@ Convert cm to Point, imageSize needs Points
         app.preferences.rulerUnits = ruleUnit_gigapixel_temp;
     
         // executeAction(sTID('913d412a-534a-5224-a25d-213434343434'), undefined, DialogModes.ALL);
-        executeAction(sTID('1E822513-BC4D-4CF2-B1FE-80505B509928'), undefined, DialogModes.ALL);
+    
+        // GigaPixelAI 
+        // executeAction(sTID('1E822513-BC4D-4CF2-B1FE-80505B509928'), undefined, DialogModes.ALL);
+    
+        // GigaPixel
+        executeAction(sTID('09802e65-9ea9-467d-a4d5-363457bb7c93'), undefined, DialogModes.ALL);
         setDpi(_minAufloesung);
     }
     ```

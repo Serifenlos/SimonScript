@@ -2,6 +2,7 @@
 // Macintosh Finder or the Windows Explorer
 // #target indesign
 
+/*{{TIMESTAMP}}*/
 
 /* VARIBALES*/
 //~ var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__11F-innen__MASTER.tif");
@@ -20,20 +21,24 @@ var heft3 = "Chronik";
 var heft4 = "Buch-innen_17x24";
 var heft5 = "Buch-innen_21x28";
 var heft6 = "Beileger_19x26";
+var heft7 = "Rückstichheftung_21x28";
+var heft8 = "Rückstichheftung_19x26";
 
-with(a_dialog) {
-    with(dialogColumns.add()) {
+var nestedSmartObject;
 
-        with(borderPanels.add()) {
-            with(dialogColumns.add()) {
+with (a_dialog) {
+    with (dialogColumns.add()) {
+
+        with (borderPanels.add()) {
+            with (dialogColumns.add()) {
                 staticTexts.add({
                     staticLabel: "Heft:",
                     minWidth: min_width_left
                 });
             }
-            with(dialogColumns.add()) {
+            with (dialogColumns.add()) {
                 var heft = radiobuttonGroups.add();
-                with(heft) {
+                with (heft) {
                     radiobuttonControls.add({
                         staticLabel: heft1,
                         checkedState: true,
@@ -64,6 +69,16 @@ with(a_dialog) {
                         checkedState: false,
                         minWidth: min_width_right
                     });
+                    radiobuttonControls.add({
+                        staticLabel: heft7,
+                        checkedState: false,
+                        minWidth: min_width_right
+                    });
+                    radiobuttonControls.add({
+                        staticLabel: heft8,
+                        checkedState: false,
+                        minWidth: min_width_right
+                    });
                 }
             }
         }
@@ -75,156 +90,51 @@ if (a_dialog.show() == false) {
 } else {
     if (heft.selectedButton == 0) {
         var heft = heft1;
-        //~             var master = new File("/Volumes/grafik/Fach_Grafik/11F_3D-Heft/Master/3D__11F-innen__MASTER.tif");
+        var nestedSmartObject = true;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__11F-innen__MASTER_v5_flach.tif");
 
     } else if (heft.selectedButton == 1) {
         var heft = heft2;
+        var nestedSmartObject = true;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__noSports-innen__MASTER.tif");
     } else if (heft.selectedButton == 2) {
         var heft = heft3;
+        var nestedSmartObject = true;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Chronik-innen__MASTER_flach.tif");
     } else if (heft.selectedButton == 3) {
         var heft = heft4;
+        var nestedSmartObject = true;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_17x24__MASTER.psd");
     } else if (heft.selectedButton == 4) {
         var heft = heft5;
+        var nestedSmartObject = true;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__Buch-innen_21x28__MASTER.psd");
     } else if (heft.selectedButton == 5) {
         var heft = heft6;
+        var nestedSmartObject = true;
         var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__190x260-innen__MASTER.psd");
+    } else if (heft.selectedButton == 6) {
+        var heft = heft7;
+        var nestedSmartObject = false;
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__210x280_innen_Rückstickheftung__MAIN.psd");
+    } else if (heft.selectedButton == 7) {
+        var heft = heft8;
+        var nestedSmartObject = false;
+        var master = new File("~/Arbeit/11Freunde/3D/11F_3D-Heft/Master/3D__190x260_innen_Rückstickheftung__MAIN.psd");
     }
 }
 
 
-
-
-
-//~ if ( app.books.length < 1 ) {
-//~     errorExit( 'Fehler\rMindestens ein InDesign-Buch muß geöffnet sein.' );
-//~     };
-
-//~ if ( app.documents.length > 0 ) {
-//~     errorExit( 'Fehler\rBitte vorher alle InDesign-Dokumente schließen.' );
-//~     };
-
-
-
-
-//~ outputFolder = Folder.selectDialog("Bitte wähle den Ordner der Rücklaufdaten aus");
-
-//~ var Folder_single = new Folder(outputFolder + "/einzelSeiten");
-//~ var Folder_3D = new Folder(outputFolder + "/3D");
-
-//~ if (!Folder_single.exists) {
-//~ 	Folder_single.create()
-//~ };
-//~ if (!Folder_3D.exists) {
-//~ 	Folder_3D.create()
-//~ };
-
-
-//~ for ( var b = 0; b < app.books.length; b++ ) {
-//~     doBook( app.books[b]);
-//~     };
-
-
-//~ function doBook( aBook )   {  
-//~     for ( var i = 0; i < aBook.bookContents.length; i++ )   
-//~         doDoc ( aBook.bookContents[i] );
-//~ };
-
-//~ function doDoc ( aDoc )  {   
-//~     app.scriptPreferences.userInteractionLevel = UserInteractionLevels.neverInteract;  
-//~     try {  
-//~         var myDoc = app.open( File( aDoc.fullName ) );   
-//~         
-//~ ////////////
-//~ if (app.documents.length != 0) {  
-//~          var myDoc = app.activeDocument;  
-//~          var myBaseName = GetFileNameOnly(myDoc.name);
-//~          if (myBaseName != null) MakeJPEGfile();  
-//~     }  
-//~     else {    
-//~          alert("Please open a document and try again.");    
-//~     }   
-//~       
-//~     function MakeJPEGfile() {   
-//~          for(var myCounter = 0; myCounter < myDoc.pages.length; myCounter++) {  
-//~               if (myDoc.pages.item(myCounter).appliedSection.name != "") {  
-//~                    myDoc.pages.item(myCounter).appliedSection.name = "";  
-//~               }  
-//~               var myPageNumber = myDoc.pages.item(myCounter).name;
-//~               app.jpegExportPreferences.jpegColorSpace = JpegColorSpaceEnum.RGB;
-//~               app.jpegExportPreferences.jpegRenderingStyle = JPEGOptionsFormat.BASELINE_ENCODING
-//~               app.jpegExportPreferences.jpegQuality = JPEGOptionsQuality.maximum; // low medium high maximum  
-//~               app.jpegExportPreferences.exportResolution = 300;
-//~               app.jpegExportPreferences.jpegExportRange = ExportRangeOrAllPages.exportRange;  
-//~               app.jpegExportPreferences.pageString = myPageNumber;
-//~               app.jpegExportPreferences.exportingSpread = false;
-//~               app.jpegExportPreferences.antiAlias = true;
-//~               app.jpegExportPreferences.useDocumentBleeds = false;
-//~               app.jpegExportPreferences.embedColorProfile = true;
-//~               app.jpegExportPreferences.simulateOverprint = true;
-//~               
-
-//~             var myPageNumber = ("000" + myPageNumber).slice(-3);    // min 3 digits
-//~                 
-//~               var myFilePath = Folder_single + "/" + myPageNumber + "__" + myBaseName + ".jpg";  
-//~               var myFile = new File(myFilePath);  
-//~               myDoc.exportFile(ExportFormat.jpg, myFile, false);  
-//~          }  
-//~     }
-//~       
-//~     function GetFileNameOnly(myFileName) {  
-//~          var myString = "";  
-//~          var myResult = myFileName.lastIndexOf(".");  
-//~          if (myResult == -1) {  
-//~               myString = myFileName;  
-//~          }  
-//~          else {  
-//~               myString = myFileName.substr(0, myResult);  
-//~          }
-//~         //
-//~         var myString = myString.replace(/^(\d{2,3})(-|_)(\d{2,3})(-|_)(.*)/g, "$5");        // cut the leading page-numbers and hyphens // get the blank title
-//~          return myString;  
-//~     }
-
-
-//~     function FormatNumberLength(num, length) {
-//~         var r = "" + num;
-//~         while (r.length < length) {
-//~             r = "0" + r;
-//~         }
-//~         return r;
-//~     }
-
-
-//~     ///////////
-//~     myDoc.close();  
-
-//~     }  
-//~     catch (e)  {  
-//~         alert( aDoc.fullName + '\r' + e );  
-//~     }
-//~     app.scriptPreferences.userInteractionLevel = UserInteractionLevels.interactWithAll;  
-//~ }  
-
 function errorExit(aMessage) {
     alert(aMessage);
     exit();
-}
-
-
+};
 
 function closeAll() {
     while (app.documents.length > 0) {
         app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
     }
-}
-
-/*/// ENDE  Einzelseiten JPG-Export ///*/
-
+};
 
 //// FUNCTIONS ////
 /* sort files alphabetically */
@@ -309,12 +219,12 @@ id2ps_schatten();
 function id2ps_placeItem() {
     var bt = new BridgeTalk();
     bt.target = "photoshop";
-    bt.body = runPS.toSource() + "(" + Folder_3D.toSource() + "," + master.toSource() + "," + thisFile.toSource() + "," + thisSite.toSource() + "," + thisFileName.toSource() + "," + thisPageNumber.toSource() + ");";
+    bt.body = runPS.toSource() + "(" + Folder_3D.toSource() + "," + master.toSource() + "," + thisFile.toSource() + "," + thisSite.toSource() + "," + thisFileName.toSource() + "," + thisPageNumber.toSource() + "," + nestedSmartObject.toSource() + ");";
 
-    bt.onError = function(e) {
+    bt.onError = function (e) {
         alert("Error: " + e.body);
     }
-    bt.onResult = function(resObj) {};
+    bt.onResult = function (resObj) { };
     bt.send(100);
 }
 
@@ -323,10 +233,10 @@ function id2ps_schatten() {
     bt.target = "photoshop";
     bt.body = runPS_schatten.toSource() + "(" + Folder_3D.toSource() + "," + master.toSource() + ");";
 
-    bt.onError = function(e) {
+    bt.onError = function (e) {
         alert("Error: " + e.body);
     }
-    bt.onResult = function(resObj) {};
+    bt.onResult = function (resObj) { };
     bt.send(100);
 }
 
@@ -336,8 +246,8 @@ function id2ps_schatten() {
 
 
 
-function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumber) {
-        function cTID(s) {
+function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumber, nestedSmartObject) {
+    function cTID(s) {
         return app.charIDToTypeID(s);
     };
 
@@ -381,6 +291,18 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
         desc20.putReference(charIDToTypeID('null'), ref23);
         executeAction(charIDToTypeID('Dlt '), desc20, DialogModes.NO);
     };
+
+    function objectToBoolean(obj) {
+        if (typeof obj === 'object' && obj !== null) {
+            if (obj instanceof Boolean) {
+                return obj.valueOf();
+            } else if ('value' in obj) {
+                return Boolean(obj.value);
+            }
+        }
+        return Boolean(obj);
+    }
+    var nestedSmartObject = objectToBoolean(nestedSmartObject);
 
     function gotoLayer(_input) {
         var d = new ActionDescriptor();
@@ -437,39 +359,55 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
     };
 
 
-    function placeItem(thisSite, thisFile) {
+    function placeItem(thisSite, thisFile, nestedSmartObject) {
 
-        /*choose Layer*/
-        var desc3 = new ActionDescriptor();
-        var ref2 = new ActionReference();
-        ref2.putName(cTID('Lyr '), thisSite);
-        desc3.putReference(cTID('null'), ref2);
-        desc3.putBoolean(cTID('MkVs'), false);
-        executeAction(cTID('slct'), desc3, DialogModes.NO);
+        if (nestedSmartObject) {
 
-        /* ======================================================= */
-        var idplacedLayerEditContents = stringIDToTypeID("placedLayerEditContents");
-        var desc25511 = new ActionDescriptor();
-        executeAction(idplacedLayerEditContents, desc25511, DialogModes.NO);
+            /*choose Layer*/
+            var desc3 = new ActionDescriptor();
+            var ref2 = new ActionReference();
+            ref2.putName(cTID('Lyr '), thisSite);
+            desc3.putReference(cTID('null'), ref2);
+            desc3.putBoolean(cTID('MkVs'), false);
+            executeAction(cTID('slct'), desc3, DialogModes.NO);
 
-        /* ======================================================= */
-        var idplacedLayerReplaceContents = stringIDToTypeID("placedLayerReplaceContents");
-        var desc25512 = new ActionDescriptor();
-        var idnull = charIDToTypeID("null");
-        desc25512.putPath(idnull, new File(thisFile));
-        executeAction(idplacedLayerReplaceContents, desc25512, DialogModes.NO);
+            /* ======================================================= */
+            var idplacedLayerEditContents = stringIDToTypeID("placedLayerEditContents");
+            var desc25511 = new ActionDescriptor();
+            executeAction(idplacedLayerEditContents, desc25511, DialogModes.NO);
 
-        /* ======================================================= */
-        var idsave = charIDToTypeID("save");
-        executeAction(idsave, undefined, DialogModes.NO);
+            /* ======================================================= */
+            var idplacedLayerReplaceContents = stringIDToTypeID("placedLayerReplaceContents");
+            var desc25512 = new ActionDescriptor();
+            var idnull = charIDToTypeID("null");
+            desc25512.putPath(idnull, new File(thisFile));
+            executeAction(idplacedLayerReplaceContents, desc25512, DialogModes.NO);
 
-        /* ======================================================= */
-        var idupdatePlacedLayer = stringIDToTypeID("updatePlacedLayer");
-        executeAction(idupdatePlacedLayer, undefined, DialogModes.NO);
+            /* ======================================================= */
+            var idsave = charIDToTypeID("save");
+            executeAction(idsave, undefined, DialogModes.NO);
 
-        /* ======================================================= */
-        var idCls = charIDToTypeID("Cls ");
-        executeAction(idCls, undefined, DialogModes.NO);
+            /* ======================================================= */
+            var idupdatePlacedLayer = stringIDToTypeID("updatePlacedLayer");
+            executeAction(idupdatePlacedLayer, undefined, DialogModes.NO);
+
+            /* ======================================================= */
+            var idCls = charIDToTypeID("Cls ");
+            executeAction(idCls, undefined, DialogModes.NO);
+
+        } else {
+            gotoLayer(thisSite);
+            SmartOject_placeItem(thisFile);
+            function SmartOject_placeItem(_item) {
+                var d = new ActionDescriptor();
+                d.putPath(cTID('null'), new File(_item));
+                executeAction(sTID('placedLayerReplaceContents'), d, DialogModes.NO);
+            };
+        }
+
+
+
+
     }
 
     function saveCopy(thisFileName) {
@@ -583,11 +521,11 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
     app.open(master);
 
     if (thisSite == "links") {
-        placeItem("links", thisFile);
+        placeItem("links", thisFile, nestedSmartObject);
     } else {
-        placeItem("rechts", thisFile);
-        try{
-            
+        placeItem("rechts", thisFile, nestedSmartObject);
+        try {
+
             selectLayers("selectAllLayers");
             selectLayerBySelector("Schatten", "remove");
             mergeLayers();
@@ -601,8 +539,8 @@ function runPS(Folder_3D, master, thisFile, thisSite, thisFileName, thisPageNumb
 
             resetImage();
         }
-        catch(e){alert(e)}
-        
+        catch (e) { alert(e) }
+
     };
 
     emptyProtocoll();

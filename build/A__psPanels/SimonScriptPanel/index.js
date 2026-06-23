@@ -865,30 +865,130 @@ document.getElementById("dimmen").addEventListener("click", async function () {
 
 
 
+/*************************** */
+/*** ALTER CODE um nik 6 SilverFX aufzurufen */
+/*************************** */
+// document.getElementById("SilverFX").addEventListener("click", async function () {    
+//     async function actionCommands() {
+//        const result = await batchPlay([
+//              {
+//                 // _obj: "com.dxo.nik6.sep.ps",
+//                 _obj: "com.dxo.Nik8.sep.ps",
+//                 _options: {
+//                     dialogOptions: "display" // Das Plugin soll angezeigt werden
+//                 }
+//              }
+//           ],
+//           {
+//              synchronousExecution: false,
+//              modalBehavior: "execute" // Ermöglicht Interaktion
+//           }
+//        );
+//     }
+    
+//     async function runModalFunction() {
+//        await executeAsModal(actionCommands, {"commandName": "Action Commands"});
+//     }
+    
+//     await runModalFunction();
+// });
 
+
+/*************************** */
+/* Test, soll Nik6 öffnen wenn Nik8 nicht klappt
+ * der Fehler tritt wohl im executesAsModal auf, wo ich aber nicht ran komme - oder?
+*/
+/*************************** */
+// document.getElementById("SilverFX").addEventListener("click", async function () {
+//     async function runNik(objName) {
+//         return await batchPlay(
+//             [
+//                 {
+//                     _obj: objName,
+//                     _options: { dialogOptions: "display" }
+//                 }
+//             ],
+//             {
+//                 synchronousExecution: false,
+//                 modalBehavior: "execute"
+//             }
+//         );
+//     }
+
+//     // Modal-Wrapper: Immer ZUERST das Plugin wechseln
+//     async function tryNik(objName) {
+//         return await executeAsModal(async () => {
+//             return await runNik(objName);
+//         }, { commandName: objName });
+//     }
+
+//     // Jetzt: erst V8 probieren, bei Fehler automatisch V6
+//     try {
+//         await tryNik("com.dxo.Nik800.sep.ps");
+//     } catch (e) {
+//         console.warn("Nik8 fehlgeschlagen – versuche Nik6…", e);
+
+//         try {
+//             await tryNik("com.dxo.nik6.sep.ps");
+//         } catch (e2) {
+//             console.error("Nik6 ebenfalls fehlgeschlagen.", e2);
+//             alert("SilverFX konnte weder in Version 8 noch 6 gestartet werden.");
+//         }
+//     }
+
+// });
+
+
+/*************************** */
+/*** Ruf zumindest Nik8 mit der Null-Stellung auf */
+/*************************** */
 document.getElementById("SilverFX").addEventListener("click", async function () {    
-    async function actionCommands() {
-       const result = await batchPlay([
-             {
-                _obj: "com.dxo.nik6.sep.ps",
+
+async function run_Nik8() {
+    const result = await batchPlay(
+        [
+            { 
+                _obj: "com.dxo.Nik8.sep.ps",
+                $pRAW: "L3Zhci9mb2xkZXJzLzd4L3Y4ajA2NTNqMjhzMWhkbGpxOGN6cmhsaDAwMDBnbi9UL1Rlc3RGaWxlLWNiNDNmLTJiMjcudG1wAA==",
+                $conf: "ewogICAgIkxvY2FsUGFyYW1ldGVyc0FjdGl2ZSI6IHRydWUsCiAgICAiTG9jYWxQYXJhbWV0ZXJzVjIiOiBbCiAgICBdLAogICAgIkxvY2FsUGFyYW1zQVBJVmVyc2lvbiI6ICJWMiIsCiAgICAiU2lsdmVyRWZleEFjdGl2ZSI6IHRydWUsCiAgICAiU2lsdmVyRWZleFBhcmFtcyI6IFsKICAgICAgICB7CiAgICAgICAgICAgICJCYXNpY0FkanVzdG1lbnRzIjogewogICAgICAgICAgICAgICAgIkRpc2FibGVGaWx0ZXIiOiBmYWxzZSwKICAgICAgICAgICAgICAgICJEaXNhYmxlR2xvYmFsRmlsdGVyIjogZmFsc2UsCiAgICAgICAgICAgICAgICAiYWRhcHRpdmVCUCI6IDAsCiAgICAgICAgICAgICAgICAiYWRhcHRpdmVCcmlnaHRuZXNzIjogMCwKICAgICAgICAgICAgICAgICJhZGFwdGl2ZVdQIjogMCwKICAgICAgICAgICAgICAgICJmaW5lU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJnbG9iYWxCcmlnaHRuZXNzIjogMCwKICAgICAgICAgICAgICAgICJnbG9iYWxDb250cmFzdCI6IDAsCiAgICAgICAgICAgICAgICAiZ2xvYmFsU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJoaUJyaWdodG5lc3MiOiAwLAogICAgICAgICAgICAgICAgImhpU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJsb0JyaWdodG5lc3MiOiAwLAogICAgICAgICAgICAgICAgImxvU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJtZWRCcmlnaHRuZXNzIjogMCwKICAgICAgICAgICAgICAgICJtZWRTdHJ1Y3R1cmUiOiAwLAogICAgICAgICAgICAgICAgInByb3RlY3RIaWdobGlnaHRzIjogMCwKICAgICAgICAgICAgICAgICJwcm90ZWN0U2hhZG93cyI6IDAsCiAgICAgICAgICAgICAgICAic29mdENvbnRyYXN0IjogMAogICAgICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJGaWxtVHlwZXNGaWx0ZXIiOiB7CiAgICAgICAgICAgICAgICAiRGlzYWJsZUZpbHRlciI6IGZhbHNlLAogICAgICAgICAgICAgICAgImZpbG1UeXBlc1ByZXNldHMiOiAiTmV1dHJhbCIKICAgICAgICAgICAgfQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAiR3JhaW5GaWx0ZXIiOiB7CiAgICAgICAgICAgICAgICAiRGlzYWJsZUZpbHRlciI6IGZhbHNlLAogICAgICAgICAgICAgICAgImdyYWluU2xpZGVyU29mdG5lc3MiOiAwLAogICAgICAgICAgICAgICAgImdyYWluU2xpZGVyU3RyZW5ndGgiOiA1MDAKICAgICAgICAgICAgfQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAiTGV2ZWxBbmRDdXJ2ZXNGaWx0ZXIiOiB7CiAgICAgICAgICAgICAgICAiRGlzYWJsZUZpbHRlciI6IGZhbHNlLAogICAgICAgICAgICAgICAgImxhY2RhdGEiOiB7CiAgICAgICAgICAgICAgICAgICAgImdhbW1hIjogMCwKICAgICAgICAgICAgICAgICAgICAiaGlnaE5vZGVYIjogMSwKICAgICAgICAgICAgICAgICAgICAiaGlnaE5vZGVZIjogMSwKICAgICAgICAgICAgICAgICAgICAibG93Tm9kZVgiOiAwLAogICAgICAgICAgICAgICAgICAgICJsb3dOb2RlWSI6IDAsCiAgICAgICAgICAgICAgICAgICAgInBvaW50cyI6IFsKICAgICAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIlNlbnNpdGl2aXR5RmlsdGVyIjogewogICAgICAgICAgICAgICAgIkRpc2FibGVGaWx0ZXIiOiBmYWxzZSwKICAgICAgICAgICAgICAgICJzZW5zQiI6IDAsCiAgICAgICAgICAgICAgICAic2Vuc0N5IjogMCwKICAgICAgICAgICAgICAgICJzZW5zRyI6IDAsCiAgICAgICAgICAgICAgICAic2Vuc01nIjogMCwKICAgICAgICAgICAgICAgICJzZW5zUiI6IDAsCiAgICAgICAgICAgICAgICAic2Vuc1llIjogMAogICAgICAgICAgICB9CiAgICAgICAgfQogICAgXSwKICAgICJVSVBhcmFtcyI6IHsKICAgICAgICAiRHluYW1pY0ZpbHRlckFjdGl2ZUluZGV4IjogMCwKICAgICAgICAiTEF2MSI6IHsKICAgICAgICAgICAgIkF4aWFsTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJDUHNJbmZvIjogWwogICAgICAgICAgICBdLAogICAgICAgICAgICAiQ29udHJvbExpbmVOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkNvbnRyb2xQb2ludE5leHRJbmQiOiAxLAogICAgICAgICAgICAiRWxpcHNlTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJHcm91cE5leHRJbmQiOiAxLAogICAgICAgICAgICAiR3JvdXBSZWFsTmFtZXMiOiB7CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJHcm91cHMiOiBbCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJIdWVNYXNrTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJMdW1pbWFza05leHRJbmQiOiAxLAogICAgICAgICAgICAiUGl4ZWxNYXNrTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJQb2x5Z29uTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJTZWxlY3RlZENwSWRzIjogWwogICAgICAgICAgICBdLAogICAgICAgICAgICAibG9jYWxBZGp1c3RtZW50Rm9yY2VkSW52aXNpYmxlIjogZmFsc2UKICAgICAgICB9LAogICAgICAgICJMQXYyIjogewogICAgICAgICAgICAiQXhpYWxOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkNQc0luZm8iOiBbCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJDb250cm9sTGluZU5leHRJbmQiOiAxLAogICAgICAgICAgICAiQ29udHJvbFBvaW50TmV4dEluZCI6IDEsCiAgICAgICAgICAgICJFbGlwc2VOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkdyb3VwTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJHcm91cFJlYWxOYW1lcyI6IHsKICAgICAgICAgICAgfSwKICAgICAgICAgICAgIkdyb3VwcyI6IFsKICAgICAgICAgICAgXSwKICAgICAgICAgICAgIkh1ZU1hc2tOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkx1bWltYXNrTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJQaXhlbE1hc2tOZXh0SW5kIjogMSwKICAgICAgICAgICAgIlBvbHlnb25OZXh0SW5kIjogMSwKICAgICAgICAgICAgIlNlbGVjdGVkQ3BJZHMiOiBbCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJsb2NhbEFkanVzdG1lbnRGb3JjZWRJbnZpc2libGUiOiBmYWxzZQogICAgICAgIH0KICAgIH0KfQoA",
+                $expC: 0,
+                $pars: "ewogICAgIkxvY2FsUGFyYW1ldGVyc0FjdGl2ZSI6IHRydWUsCiAgICAiTG9jYWxQYXJhbWV0ZXJzVjIiOiBbCiAgICBdLAogICAgIkxvY2FsUGFyYW1zQVBJVmVyc2lvbiI6ICJWMiIsCiAgICAiU2lsdmVyRWZleEFjdGl2ZSI6IHRydWUsCiAgICAiU2lsdmVyRWZleFBhcmFtcyI6IFsKICAgICAgICB7CiAgICAgICAgICAgICJCYXNpY0FkanVzdG1lbnRzIjogewogICAgICAgICAgICAgICAgIkRpc2FibGVGaWx0ZXIiOiBmYWxzZSwKICAgICAgICAgICAgICAgICJEaXNhYmxlR2xvYmFsRmlsdGVyIjogZmFsc2UsCiAgICAgICAgICAgICAgICAiYWRhcHRpdmVCUCI6IDAsCiAgICAgICAgICAgICAgICAiYWRhcHRpdmVCcmlnaHRuZXNzIjogMCwKICAgICAgICAgICAgICAgICJhZGFwdGl2ZVdQIjogMCwKICAgICAgICAgICAgICAgICJmaW5lU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJnbG9iYWxCcmlnaHRuZXNzIjogMCwKICAgICAgICAgICAgICAgICJnbG9iYWxDb250cmFzdCI6IDAsCiAgICAgICAgICAgICAgICAiZ2xvYmFsU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJoaUJyaWdodG5lc3MiOiAwLAogICAgICAgICAgICAgICAgImhpU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJsb0JyaWdodG5lc3MiOiAwLAogICAgICAgICAgICAgICAgImxvU3RydWN0dXJlIjogMCwKICAgICAgICAgICAgICAgICJtZWRCcmlnaHRuZXNzIjogMCwKICAgICAgICAgICAgICAgICJtZWRTdHJ1Y3R1cmUiOiAwLAogICAgICAgICAgICAgICAgInByb3RlY3RIaWdobGlnaHRzIjogMCwKICAgICAgICAgICAgICAgICJwcm90ZWN0U2hhZG93cyI6IDAsCiAgICAgICAgICAgICAgICAic29mdENvbnRyYXN0IjogMAogICAgICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJGaWxtVHlwZXNGaWx0ZXIiOiB7CiAgICAgICAgICAgICAgICAiRGlzYWJsZUZpbHRlciI6IGZhbHNlLAogICAgICAgICAgICAgICAgImZpbG1UeXBlc1ByZXNldHMiOiAiTmV1dHJhbCIKICAgICAgICAgICAgfQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAiR3JhaW5GaWx0ZXIiOiB7CiAgICAgICAgICAgICAgICAiRGlzYWJsZUZpbHRlciI6IGZhbHNlLAogICAgICAgICAgICAgICAgImdyYWluU2xpZGVyU29mdG5lc3MiOiAwLAogICAgICAgICAgICAgICAgImdyYWluU2xpZGVyU3RyZW5ndGgiOiA1MDAKICAgICAgICAgICAgfQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAiTGV2ZWxBbmRDdXJ2ZXNGaWx0ZXIiOiB7CiAgICAgICAgICAgICAgICAiRGlzYWJsZUZpbHRlciI6IGZhbHNlLAogICAgICAgICAgICAgICAgImxhY2RhdGEiOiB7CiAgICAgICAgICAgICAgICAgICAgImdhbW1hIjogMCwKICAgICAgICAgICAgICAgICAgICAiaGlnaE5vZGVYIjogMSwKICAgICAgICAgICAgICAgICAgICAiaGlnaE5vZGVZIjogMSwKICAgICAgICAgICAgICAgICAgICAibG93Tm9kZVgiOiAwLAogICAgICAgICAgICAgICAgICAgICJsb3dOb2RlWSI6IDAsCiAgICAgICAgICAgICAgICAgICAgInBvaW50cyI6IFsKICAgICAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIlNlbnNpdGl2aXR5RmlsdGVyIjogewogICAgICAgICAgICAgICAgIkRpc2FibGVGaWx0ZXIiOiBmYWxzZSwKICAgICAgICAgICAgICAgICJzZW5zQiI6IDAsCiAgICAgICAgICAgICAgICAic2Vuc0N5IjogMCwKICAgICAgICAgICAgICAgICJzZW5zRyI6IDAsCiAgICAgICAgICAgICAgICAic2Vuc01nIjogMCwKICAgICAgICAgICAgICAgICJzZW5zUiI6IDAsCiAgICAgICAgICAgICAgICAic2Vuc1llIjogMAogICAgICAgICAgICB9CiAgICAgICAgfQogICAgXSwKICAgICJVSVBhcmFtcyI6IHsKICAgICAgICAiRHluYW1pY0ZpbHRlckFjdGl2ZUluZGV4IjogMCwKICAgICAgICAiTEF2MSI6IHsKICAgICAgICAgICAgIkF4aWFsTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJDUHNJbmZvIjogWwogICAgICAgICAgICBdLAogICAgICAgICAgICAiQ29udHJvbExpbmVOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkNvbnRyb2xQb2ludE5leHRJbmQiOiAxLAogICAgICAgICAgICAiRWxpcHNlTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJHcm91cE5leHRJbmQiOiAxLAogICAgICAgICAgICAiR3JvdXBSZWFsTmFtZXMiOiB7CiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJHcm91cHMiOiBbCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJIdWVNYXNrTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJMdW1pbWFza05leHRJbmQiOiAxLAogICAgICAgICAgICAiUGl4ZWxNYXNrTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJQb2x5Z29uTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJTZWxlY3RlZENwSWRzIjogWwogICAgICAgICAgICBdLAogICAgICAgICAgICAibG9jYWxBZGp1c3RtZW50Rm9yY2VkSW52aXNpYmxlIjogZmFsc2UKICAgICAgICB9LAogICAgICAgICJMQXYyIjogewogICAgICAgICAgICAiQXhpYWxOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkNQc0luZm8iOiBbCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJDb250cm9sTGluZU5leHRJbmQiOiAxLAogICAgICAgICAgICAiQ29udHJvbFBvaW50TmV4dEluZCI6IDEsCiAgICAgICAgICAgICJFbGlwc2VOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkdyb3VwTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJHcm91cFJlYWxOYW1lcyI6IHsKICAgICAgICAgICAgfSwKICAgICAgICAgICAgIkdyb3VwcyI6IFsKICAgICAgICAgICAgXSwKICAgICAgICAgICAgIkh1ZU1hc2tOZXh0SW5kIjogMSwKICAgICAgICAgICAgIkx1bWltYXNrTmV4dEluZCI6IDEsCiAgICAgICAgICAgICJQaXhlbE1hc2tOZXh0SW5kIjogMSwKICAgICAgICAgICAgIlBvbHlnb25OZXh0SW5kIjogMSwKICAgICAgICAgICAgIlNlbGVjdGVkQ3BJZHMiOiBbCiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJsb2NhbEFkanVzdG1lbnRGb3JjZWRJbnZpc2libGUiOiBmYWxzZQogICAgICAgIH0KICAgIH0KfQoA",
+                $name: "Nik 8 Silver Efex",
+                $exxp: "eyJtYXNrcyI6W119AA==",
+                $STcm: -1,
+                $dRes: 5104,
                 _options: {
-                    dialogOptions: "display" // Das Plugin soll angezeigt werden
+                dialogOptions: "display"
                 }
-             }
-          ],
-          {
-             synchronousExecution: false,
-             modalBehavior: "execute" // Ermöglicht Interaktion
-          }
-       );
-    }
-    
-    async function runModalFunction() {
-       await executeAsModal(actionCommands, {"commandName": "Action Commands"});
-    }
-    
-    await runModalFunction();
+            }
+        ],
+        {}
+    );
+};
+
+
+
+// async function runModalFunction() {
+//         await executeAsModal(run_Nik8, {"commandName": "Action Commands"});
+//     }
+
+async function runModalFunction() {
+  try {
+    await executeAsModal(run_Nik8, {"commandName": "Action Commands"});
+  } catch (error) {
+    console.error("Error running modal function:", error);
+  }
+}
+
+
+
+await runModalFunction();    
+
 });
+
+
+
+
 
 
 document.getElementById("ColorFX").addEventListener("click", async function () {    

@@ -81,14 +81,16 @@ if (isWoodwing) {
         }
     } catch (e) {
         try {
-            saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);    
+            saveMultiformat(new File(woodwing_RGB), "jpg", t, RZ_qualityJPG, f, f);
+            var date = new Date();
+            var time = ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
+            makeSnapshot("Woodwing Save " + time);
         } catch (error) {
             alert("ERROR beim Speichern der Woodwingdatei: \n" + error);
         }
     }
 
 
-    
 
     
     for (var i = 0; i < start_closedSets.length; i++) {

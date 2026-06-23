@@ -123,16 +123,21 @@ if (!app.selection.length > 0) {
 
             var docFolder = new Folder(mainFolder + subFolder);
 
-            // var frei = "-frei";
-            // var checkName = new RegExp(frei);
-            // if (checkName.test(imageFile)) {
-            //     var string_imageFile_frei = imageFile.toString().replace(frei, "");
-            //     var imageFile_frei = new File(string_imageFile_frei);
 
-            //     if (imageFile_frei.exists) {
-            //         var imageFile = string_imageFile_frei;
-            //     }
-            // }
+            // open Freisteller RGB
+            if(!isWoodwing) {
+                var frei = "-frei";
+                var checkName = new RegExp(frei);
+                if (checkName.test(imageFile)) {
+                    var string_imageFile_frei = imageFile.toString().replace(frei, "");
+                    var imageFile_frei = new File(string_imageFile_frei);
+
+                    if (imageFile_frei.exists) {
+                        var imageFile = string_imageFile_frei;
+                    }
+                }
+            }
+            
 
             try {
                 if(isWoodwing) {
@@ -141,7 +146,7 @@ if (!app.selection.length > 0) {
                 BridgeTalkMessage_openDoc(image, docFolder, idDocName, imageFile, imageName, imageName_init, suffixRGB, isWoodwing, woodwing_mainFolder, woodwing_imageID);
 
             } catch (e) {
-                alert(e)
+                alert(e);
             }
 
 
@@ -222,9 +227,9 @@ function runPS(_docFolder, _idDocName, _imageFile, _imageName, _imageName_init, 
 
     /* var imageFile_RGB = new File(imageFile_RGB); */
     if (!imageFile_RGB.exists) {
-        return;
+        /* return; */
     }
-    
+
     /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
     /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
     /* HIER BIN ICH STEHEN GEBLIEBEN: WENN RGB NICHT EXISTIERT: ABBRUCH */

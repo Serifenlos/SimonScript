@@ -187,8 +187,9 @@ function startschuss(_imageDimension, layersOptions_grouped) {
     selectLayer("up", 1);
     createLayer("Selektive Farbe", "selectiveColor", "normal", "violet", 100, "", f, f);
     createLayer("Sättigung Farbe", "hueSaturation", "normal", "blue", 100, "", f, f);
-    createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f);
-    createLayer("Farbe in Balance", "colorBalance", "normal", "yellowColor", 100, "", f, f);
+    // createLayer("Sättigung Luminanz", "hueSaturation", "luminosity", "green", 100, "", f, f);
+    createLayer("Farbe in Balance", "colorBalance", "normal", "green", 100, "", f, f);
+    createLayer("Helligkeit/Kontrast", "brightnessEvent", "normal", "yellowColor", 100, "", f, f);
     createLayer("Gradation Kontrast", "curves", "normal", "orange", 100, "", f, f);
     createLayer("Dynamik", "vibrance", "normal", "red", 100, "", f, f);
 
@@ -252,6 +253,7 @@ function startschuss(_imageDimension, layersOptions_grouped) {
 
             toogleOpenCloseSet();
             moveLayer("Layout", "Einstellungen", "up");
+            hide("Layout");
             app.preferences.rulerUnits = startRulerUnits;
         }
 

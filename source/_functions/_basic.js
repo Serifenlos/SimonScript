@@ -16,6 +16,9 @@
 // @codekit-prepend './basic/adjustLayer_sat_set.js';
 // @codekit-prepend './basic/app_getColor.js';
 // @codekit-prepend './basic/app_getForegroundColor.js';
+// @codekit-prepend './basic/app_getTool.js';
+// @codekit-prepend './basic/app_setColor.js';
+// @codekit-prepend './basic/app_setTool.js';
 // @codekit-prepend './basic/app_simulateKeyPress_alt3.js';
 // @codekit-prepend './basic/arrayCorrect.js';
 // @codekit-prepend './basic/array_contains.js';
@@ -57,6 +60,7 @@
 // @codekit-prepend './basic/isSelectionActive.js';
 // @codekit-prepend './basic/loadJSON.js';
 // @codekit-prepend './basic/logger.js';
+// @codekit-prepend './basic/makeSnapshot.js';
 // @codekit-prepend './basic/mergeLayers.js';
 // @codekit-prepend './basic/mm2pt.js';
 // @codekit-prepend './basic/moveLayer.js';

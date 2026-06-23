@@ -1,0 +1,1 @@
+function getTool(){var e=new ActionReference;return e.putEnumerated(charIDToTypeID("capp"),charIDToTypeID("Ordn"),charIDToTypeID("Trgt")),typeIDToStringID(executeActionGet(e).getEnumerationType(stringIDToTypeID("tool")))}
