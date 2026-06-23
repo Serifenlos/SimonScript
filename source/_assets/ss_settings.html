@@ -19,8 +19,9 @@
 
       <sp-textfield id="mainFolder" class="input" size="s" data-default="~/Arbeit"></sp-textfield>
       <sp-textfield id="subFolder" class="input" size="s" data-default="_RGB"></sp-textfield>
-      <sp-textfield id="woodwing_mainFolder" class="input no_border" size="s" data-default="~/WoodWingStudio.noindex/InDesign/" quiet></sp-textfield>
-
+      <!-- <sp-textfield id="woodwing_mainFolder" class="input no_border" size="s" data-default="~/WoodWingStudio.noindex/InDesign/" quiet></sp-textfield> -->
+      <sp-textfield id="woodwing_mainFolder" class="input no_border" size="s" data-default="~/Library/Application Support/WoodWingStudio.noindex/InDesign/" quiet></sp-textfield>
+      
 
       <sp-textfield id="RZ_saveFolder" class="input" size="s" data-default="~/Arbeit/_RZ"></sp-textfield>
 
@@ -50,9 +51,17 @@
         <sp-checkbox type="checkbox" size="s"></sp-checkbox>
       </sp-field-group>
 
-      <sp-field-group id="finish_jumpBack2id" class="input" data-default="false" data-init="true">
+      <sp-field-group id="finish_jumpBack2id" class="input no_border" data-default="false" data-init="true">
         <sp-checkbox type="checkbox" size="s"></sp-checkbox>
       </sp-field-group>
+
+      <sp-field-group id="output_Dialog" class="input" data-default="true" data-init="true">
+        <sp-checkbox type="checkbox" size="s"></sp-checkbox>
+      </sp-field-group>
+
+      <sp-textfield id="output_minKurzeSeite" class="input"  type="number" size="s" data-default="2200"></sp-textfield>
+
+      
 
       
 

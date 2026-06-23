@@ -1242,4 +1242,5 @@ function channel_deleteX(_name) {
 }
 // channel_deleteX("rg")
 
-alert("ding");
+// =======================================================
+makeSnapshot("hurra2");

@@ -112,8 +112,9 @@ function dialog_missingSoftproof() {
 }
 
 function dialog_saveWorkingfile() {
-    var dialog_saveWorkingfile = dialog_createDialog("Schlussschuss", "vorher speichern?", "Ja", "Nein");
-    return dialog_saveWorkingfile.show() ? 0 : 1;
+    // var dialog_saveWorkingfile = dialog_createDialog("Schlussschuss", "vorher speichern?", "Ja", "Nein");
+    // return dialog_saveWorkingfile.show() ? 0 : 1;
+    return confirm("vorher speichern?");
 }
 
 /*=================================================================================*/

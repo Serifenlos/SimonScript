@@ -1,0 +1,1 @@
+function setTool(e){var o=new ActionDescriptor,p=new ActionReference;p.putClass(app.stringIDToTypeID(e)),o.putReference(app.charIDToTypeID("null"),p),executeAction(app.charIDToTypeID("slct"),o,DialogModes.NO)}

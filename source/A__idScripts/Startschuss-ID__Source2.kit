@@ -117,7 +117,7 @@ function Startschuss() {
         var studioPublikation = idMeta.get("Core_Publication");
         var studioAusgabe = idMeta.get("Core_Issue");
 
-    } catch (e) { }
+    } catch (e) { if (debug) alert(e) }
 
     // Loop für mehrere selektierte Bilder
     for (var i = 0; i < app.selection.length; i++) {
@@ -1030,7 +1030,6 @@ function runPS(_imageLink, _docFolder, _idDocName, _imageFile, _imageName_only, 
 
         prefSave();
     prefSet(DialogModes.NO, Units.MM);
-
 
     const debug = (String(_debug).toLowerCase() === 'true');
     /* app.open(new File(_imageFile)); */

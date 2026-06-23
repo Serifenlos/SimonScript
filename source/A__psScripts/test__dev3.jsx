@@ -269,7 +269,7 @@ function changePathDetails2(keyOriginType, keyActionMode) {
 s2t = stringIDToTypeID;
 (ref = new ActionReference()).putProperty(s2t("property"), s2t("layerKind"))
 ref.putEnumerated(s2t("layer"), s2t("ordinal"), s2t("targetEnum"))
-var activeLayerType = executeActionGet(ref).getInteger(s2t("layerKind"))
+// var activeLayerType = executeActionGet(ref).getInteger(s2t("layerKind"))
 
 // alert (activeLayerType)
 
@@ -753,39 +753,36 @@ function setBeschnitt() {
 
 // moveLayer3("down", 1); 
 
-String.prototype.cleanUmlaut = function ()  
-{ 
-	var s = this; 
-	s = s.replace( /a\u0308/g, 'ä'); 
-	s = s.replace( /o\u0308/g, 'ö'); 
-	s = s.replace( /u\u0308/g, 'ü'); 
-	s = s.replace( /A\u0308/g, 'Ä'); 
-	s = s.replace( /O\u0308/g, 'Ö'); 
-	s = s.replace( /U\u0308/g, 'Ü');	 
-	return s; 
-}
+// confirm(message[noAsDflt=false, title="Script Alert"]);
 
-function decodeUmlaute(str) {
-    return str.replace(/Ã¼/g, "ü")
-              .replace(/Ã¶/g, "ö")
-              .replace(/Ã¤/g, "ä")
-              .replace(/ÃŸ/g, "ß");
-}
+// Ein confirm-Dialog anzeigen
+// var userResponse = confirm("Möchtest du fortfahren?");
 
-try {
-	var _imageName = "046-047__11F_197_Museum_Köln.psd";
-	// var _imageName = "046-047__11F_197_Museum_Koln.psd";
-	// var _imageName = "IMG_0553.jpg";
-	// var _imageName = "11Freunde-Club-0157-grün__RZ__RGB";
-	$.writeln(_imageName);
-	// var _imageName = _imageName.cleanUmlaut();
-	// var _imageName = decodeUmlaute(_imageName);
-	// // var _imageName = encodeURI(_imageName);
-	// $.writeln(_imageName);
-	// var _imageName = decodeURI(_imageName);
-	// $.writeln(_imageName);
-	// var myPsDoc = app.documents.getByName("046-047__11F_197_Museum_Köln.psd");
-	app.activeDocument = app.documents.getByName(_imageName);
-} catch (error) {
-	alert("error: " + error)
-}
+
+
+
+
+
+
+// // Überprüfen, welche Schaltfläche der Nutzer geklickt hat
+// if (confirm("Möchtest du fortfahren1?")) {
+//     // Der Nutzer hat "OK" geklickt
+//     alert("ding1");
+// } else {
+//     // Der Nutzer hat "Abbrechen" geklickt
+//     // Hier kannst du Code einfügen, der ausgeführt werden soll, wenn der Nutzer abbrechen möchte
+// }
+
+
+// // Überprüfen, welche Schaltfläche der Nutzer geklickt hat
+// if (confirm("Möchtest du fortfahren2?")) {
+//     // Der Nutzer hat "OK" geklickt
+//     alert("ding2");
+// } else {
+//     // Der Nutzer hat "Abbrechen" geklickt
+//     // Hier kannst du Code einfügen, der ausgeführt werden soll, wenn der Nutzer abbrechen möchte
+// }
+
+
+
+alert("ding")

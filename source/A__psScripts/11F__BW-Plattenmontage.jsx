@@ -18,7 +18,7 @@ var run_4x3hoch = false;
 var run_1x1 = false;
 var run_DinAquer = false;
 var run_DinAhoch = false;
-var run_pano = true;
+var run_pano = false;
 
 var outputFileFormat = "JPG";  // "JPG" oder "TIF"
 var outputResize = 2400;
@@ -38,10 +38,10 @@ prefSet();
 inputFolder = Folder.selectDialog("Bitte wähle den Input-Ordner aus\n Unterordner werden nicht ausgewertet");
 var fileList = inputFolder.getFiles(/.+\.(jpg|tif|psd|bmp|gif|png|)$/i);
 
-// var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER");
-// var masterFolder = new Folder("~/Arbeit/11Freunde/_Cloud/Shop/2019-09/RGB/MASTER_maximal");
-// var masterFolder = new Folder("/Users/adrians/Arbeit/11Freunde/Bilderwelt/Moods_MAIN/MASTER");
+
 var masterFolder = new Folder("/Volumes/Archiv LOTUS/11Freunde_Auslagerung/Bilderwelt_Plattenmontage/MAIN");
+// var masterFolder = new Folder("/Users/adrians/Arbeit/11Freunde/_temp/BW_platten_temp/MAIN");
+
 
 if (!masterFolder.exists) { errorExit("kein Master-Folder!") };
 

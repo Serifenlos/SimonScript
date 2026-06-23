@@ -30,7 +30,7 @@ maximalMegaPixel = 8;
 
 
 function info() {
-    alert("Web-Output für 11Freunde\n - Auswahl des Überordner (alle Unterordner werden auch verarbeitet)\n - auf dem Schreibtisch werden ein Ordner erstellt 'Bilder FERTIG'\n - dot werden die fertig bearbeiteten Bilder in der ursprünglichen Größe abgelegt\n\n Bedingungen\n - die originale Bildquelle liegt im Smart-Objekt mit dem Namen 'Original'\n - dem Dateinamen wird zur besseren Sortierbarkeit der Name des urspünglichen InDesign-Dokumentes vorangestellt"
+    alert("Web-Output für 11Freunde\n - Auswahl des Überordner (alle Unterordner werden auch verarbeitet)\n - auf dem Schreibtisch werden ein Ordner erstellt 'Bilder FERTIG'\n - dort werden die fertig bearbeiteten Bilder in der ursprünglichen Größe abgelegt\n\n Bedingungen\n - die originale Bildquelle liegt im Smart-Objekt mit dem Namen 'Original'\n - dem Dateinamen wird zur besseren Sortierbarkeit der Name des urspünglichen InDesign-Dokumentes vorangestellt\n - ist die kurze Kante unterhalb der Setting-Einstellung, wird gefragt ob interpoliert werden soll\n - steht die Einstellung auf '0' wird das Interolieren übersprungen"
         // - wenn die Original-Bilder in Original-Größe im SmartObject liegen, wird das Script die Größe zurück rechnen\n
         // - wenn kein SmartObject mit dem Namen Original
     )
@@ -76,6 +76,8 @@ function jsonValue(key) {
 
 /** Optionen  **************************************************************/
 const debug = Boolean(jsonValue("Debug"));
+const output_minKurzeSeite = parseInt(jsonValue("output_minKurzeSeite"), 10);
+const output_Dialog = Boolean(jsonValue("output_Dialog"));
 
 
 // thanks for prozess all subfolders
@@ -186,20 +188,20 @@ function run() {
             function string_to_slug(str) {
                 str = str.replace(/^\s+|\s+$/g, ''); // trim
                 // str = str.toLowerCase();
-              
+
                 // remove accents, swap ñ for n, etc
                 var from = "ÄäĀāĂăĄąÀàÁáÂâÇçËëÈèÉéÊêĒēĜĝĠġÏïÎîĨĩÍíÑñŃńÑñÖöÒòÓóÔôõßŠšŜŝŚśÜüÛûŮůŸÿŶŷ·/_,:;'";
-                var to   = "AaAaAaAaAaAaAaCcEeEeEeEeEeGgGgIiIiIiIiNnNnNnOoOoOoOoosSsSsSsUuUuUuYyYy-------";
-                for (var i=0, l=from.length ; i<l ; i++) {
+                var to = "AaAaAaAaAaAaAaCcEeEeEeEeEeGgGgIiIiIiIiNnNnNnOoOoOoOoosSsSsSsUuUuUuYyYy-------";
+                for (var i = 0, l = from.length; i < l; i++) {
                     str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
                 }
-            
+
                 str = str.replace(/[^a-z0-9 -]/ig, '') // remove invalid chars
                     .replace(/[^\w\-]+/ig, '') // Remove all non-word chars
                     .replace(/\s+/g, '-') // collapse whitespace and replace by -
                     .replace(/-+/g, '-') // collapse dashes
                     ;
-            
+
                 return str;
             }
 
@@ -235,6 +237,60 @@ function run() {
 
 
 
+
+            if (output_minKurzeSeite != 0) {
+                setMinPixel(app.activeDocument.width, app.activeDocument.height, output_minKurzeSeite);
+            }
+
+            function setMinPixel(_w, _h, _minPixel) {
+                startRulerUnits_setMinPixel = app.preferences.rulerUnits;
+                app.preferences.rulerUnits = Units.PIXELS;
+
+
+                if (_w < _h) {
+                    var kurzeKante = _w;
+                } else {
+                    var kurzeKante = _h;
+                }
+
+                var faktor = output_minKurzeSeite / parseInt(kurzeKante, 10);
+                var faktor = parseFloat(faktor.toFixed(2));
+
+                var interpolieren = false;
+
+                if (kurzeKante < _minPixel) {
+                    var interpolieren = true;
+                }
+
+
+
+                if (output_Dialog) {
+                    var userResponse = false;
+                    if (interpolieren) {
+                        var userResponse = confirm("Interpolieren? auf " + output_minKurzeSeite + "px \nBreite: " + _w + "\nHöhe: " + _h + "\nFaktor: " + faktor);
+                    }
+                } else {
+                    var userResponse = true;
+                }
+
+
+
+
+                if (userResponse && _w >= _h) {
+                    doc.resizeImage(undefined, _minPixel, undefined, ResampleMethod.PRESERVEDETAILS, 0);
+                    // alert("interpoliert H");
+                }
+                if (userResponse && _w < _h) {
+                    doc.resizeImage(_minPixel, undefined, undefined, ResampleMethod.PRESERVEDETAILS, 0);
+                    // alert("interpoliert W");
+                }
+
+                app.preferences.rulerUnits = startRulerUnits_setMinPixel;
+            }
+
+
+
+
             try { clearAllGuides() } catch (e) { }
             try {
                 delMeta_3(["softproofProfil", "softproofIntent", "softproofTK", "softproofGroup"]);
@@ -266,7 +322,7 @@ function run() {
 
             try {
                 // if (doc.layers.getByName("Layout")) {
-                    hide("Layout");
+                hide("Layout");
                 // }
             } catch (e) { }
 
@@ -275,7 +331,7 @@ function run() {
             //     SaveForWeb("JPEG", saveFolder_WEB, setSaveName(saveFolder_WEB, prefix, "jpg", suffix_WEB), helperScale(maximalMegaPixel), f, t, t, t, 255, 255, 255, "Meta_all", 66, t, f, 0);
             // } catch (e) { };
 
-            
+
 
 
 

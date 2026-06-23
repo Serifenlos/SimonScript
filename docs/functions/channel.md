@@ -364,7 +364,8 @@
         // move to TOP
         with (activeDocument) activeLayer.move(layers[0], ElementPlacement.PLACEBEFORE)
     
-        createLayer("Sattigung", "hueSaturation", "normal", "none", 100, "none", f, f);
+        createLayer("Sattigung", "hueSaturation", "normal", "none", 100, "none", f, f); //_mode:saturation ?
+        createLayer("luminanz", "curves", "normal", "none", 100, "none", f, f);
         createLayer("Farbe maskieren", "hueSaturation", "difference", "none", 100, "none", f, f);
         createLayer("invert + gradation", "curves", "normal", "none", 100, "none", f, f);
         adjustLayer_curves_set(0, 255, 255, 0);
@@ -946,7 +947,6 @@
     ```
 
 [](file:///Users/adrians/Arbeit/GitHub/SimonScript/source/_functions/channel/removeAlphaChannels.js)
-
 
 ### channel_checkExistenceByName
 
